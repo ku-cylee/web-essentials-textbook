@@ -1,0 +1,162 @@
+\section{Responsive Web} \label{sect:responsive-web}
+
+지금까지 CSS를 이용하여 문서를 디자인하는 방법을 다루었습니다. 코드 편집기에서 HTML과 CSS 문서를 작성하고, HTML 문서를 웹 브라우저에서 열어 결과를 확인하는 등, 주로 가로 폭이 넓은 웹 브라우저를 기준으로 작업해왔습니다. 그러나 사용자가 웹 페이지를 항상 가로 폭이 넓은, PC와 같은 디바이스에서 열람하는 것은 아닙니다. 핸드폰과 같은 모바일 디바이스는 웹 페이지의 가로 폭이 좁아, PC를 기준으로 설계한 웹페이지는 모바일에서 열람했을 때 문제가 발생할 수 있습니다. HTML 요소들이 의도와는 다르게 배치되고, 이를 방지하고자 요소의 너비 등을 정해진 값으로 딱딱하게 정하면 모바일 디바이스에서는 상하, 좌우로 스크롤하면서 웹 페이지를 읽어야 합니다. 웹 페이지는 가급적 좌우 방향으로는 움직이지 않고, 상하 방향으로 움직여 정보를 전달하게끔 설계하는 것이 가독성에 좋은데, 위와 같이 작성하면 웹 페이지의 가독성이 매우 떨어집니다. 따라서, 웹 페이지가 렌더링되는 화면의 크기에 따라 디자인이 바뀌는, 반응형 웹 페이지(Responsive Web)를 디자인할 필요성이 있습니다.
+
+\figcmd{fig:w3schools-responsive}
+    {Webpage view of W3Schools Homepage (https://www.w3schools.com/) on (a) PC browser and (b) mobile browser.}
+    {images/css-designing-html/w3schools-responsive.png}{0.5}
+
+\subsection*{Viewport}
+앞의 \sectref{sect:layouts} Position 부분에서 뷰포트(viewport)를 언급한 바 있습니다. 뷰포트는 웹 페이지가 화면에 보여지는 영역을 뜻합니다. 반응형 웹 페이지는 웹 페이지가 렌더링되는 화면에 따라 디자인이 바뀌므로, 뷰포트에 따라 디자인이 바뀐다고 할 수 있습니다. 먼저 뷰포트의 크기는 \coderef{code:viewport-setting}과 같이 HTML 문서의 \verb|meta| 태그에서 설정해줍니다. 
+
+\begin{codeenv}{code:viewport-setting}{Viewport Setting}\begin{verbatim}
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1" >
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:viewport-setting}의 코드는 페이지의 너비를 디바이스 화면의 너비로 설정(\verb|width=device-width|)하고, 원래 페이지의 크기를 그대로 사용(\verb|initial-scale=1|)하는 코드입니다. 이외에도 다른 설정이 가능하지만, 가장 기본적으로는 위와 같이 설정합니다. 참고로, \sectref{sect:basic-structure-of-html}에서 HTML의 기본적인 구조를 소개할 때, \coderef{code:html-ex}에서 \coderef{code:viewport-setting}과 같은 요소를 확인할 수 있습니다.
+
+개발자 도구를 이용하여 뷰포트를 조절할 수 있습니다. Chrome의 경우 개발자 탭에서 Elements 탭 왼쪽에, Firefox의 경우 오른쪽 상단에 모바일 디바이스와 유사한 아이콘(Toggle device toolbar)을 누르면 뷰포트를 조절할 수 있습니다. 
+
+\subsection*{Media Query}
+이제 CSS를 이용하여 웹페이지를 반응형으로 디자인해봅시다. 반응형 웹페이지를 디자인하기 위해서 \verb|@media query|라는 구문을 사용합니다. 
+
+\begin{codeenv}{code:media-query-stmt}{Media Query Statement}\begin{verbatim}
+
+
+@media only screen and (min-width: 800px) {
+    /* CSS code goes here */   
+}
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:media-query-stmt}은 \verb|@media query| 구문의 예시입니다. 중괄호 내부에는 일반적인 CSS 코드를 작성하고, \verb|@media query| 구문은 중괄호 내부의 디자인을 적용할 조건을 제시합니다. 코드에서 \verb|min-width: 800px|은 화면의 ``너비가 800px 이상''이라는 조건이며, 이 외에도 다양한 조건을 제시할 수 있으나 \coderef{code:media-query-stmt}이 가장 기본적인 형태입니다. 
+
+\verb|@media query| 구문을 이용하여 반응형 웹페이지를 디자인할 때 너비가 작은 화면에서 큰 화면의 순서로 작성하는 것이 원칙입니다. 예를 들어, 화면의 너비가 (1) 400px 미만일 때, (2) 400px 이상 800px 미만일 때, (3) 800px 이상 1200px 미만일 때, (4) 1200px 이상일 때의 디자인이 각각 다르다고 하면, (1)의 디자인을 먼저 작성합니다. 그 후 (2)의 디자인 중 (1)과 다른 부분을 \verb|@media query| 구문을 이용하여 작성합니다. 이때 구문의 조건은 400px 이상으로 제시합니다. 이렇게 작성하면, (1)에서 작성한 디자인 중 (2)에 의해 덮어씌워 지지 않는 디자인은 변경되지 않고 그대로 유지됩니다. (3), (4)도 마찬가지의 방법으로 작성하여 완성합니다. 
+
+\subsection*{Responsive Web Exercise}
+간단한 형태의 반응형 웹 페이지를 제작해봅시다. 웹 페이지의 \verb|body| 태그의 배경색을 800px 미만일 때는 \verb|skyblue|, 800px 이상 1200px 미만일 때는 \verb|blue|, 1200px 이상일 때는 \verb|darkblue|가 되도록 합니다. 또한, \verb|body| 태그 내부에 텍스트가 있는 \verb|h1| 태그 요소를 넣고, 이 요소의 색이 \verb|white|로 고정되게 설계해봅시다. 
+
+\begin{codeenv}{code:responsive-web-1}{Exercise of Responsive Web (1)}\begin{verbatim}
+
+
+<!doctype html>
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <style>
+        body {
+            background-color: skyblue;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        @media only screen and (min-width: 800px) {
+            body {
+                background-color: blue;
+            }           
+        }
+
+        @media only screen and (min-width: 1200px) {
+            body {
+                background-color: darkblue;
+            }           
+        }
+    </style>
+</head>
+<body>
+    <h1>Responsive Web</h1>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}
+
+당연하게도, HTML 요소의 배치를 뷰포트에 따라 변경할 수 있습니다. 
+
+\begin{codeenv}{code:responsive-web-2-html}{Exercise of Responsive Web (2) - HTML}\begin{verbatim}
+
+
+<!doctype html>
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    <link rel="stylesheet" text="type/css" href="./style.css">
+</head>
+<body>
+    <div class="header"></div>
+    <div class="body">
+        <div class="navbar"></div>
+        <div class="content"></div>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:responsive-web-2-html}의 HTML 코드를 참고하여, style.css 파일을 수정하여 반응형으로 디자인합니다. 웹 페이지의 너비가 800px 이상이면 \figref{fig:responsive-layout}a와 같이 렌더링 되도록 하고, 800px 미만이면 \figref{fig:responsive-layout}b와 같이 렌더링 되도록 합니다. 
+
+\figcmd{fig:responsive-layout}
+    {Webpage view of Code 2.20 when the screen width is (a) wider than 800px and (b) narrower than 800px.}
+    {images/css-designing-html/responsive-layout.png}{.6}
+
+\begin{codeenv}{code:responsive-web-2-css}{Exercise of Responsive Web (2) - CSS}\begin{verbatim}
+
+
+div {
+    margin: 20px 0;
+}
+
+.header {
+    height: 100px;
+    background-color: pink;
+    border: 2px solid red;
+}
+
+.navbar {
+    height: 200px;
+    background-color: gold;
+    border: 2px solid brown;
+}
+
+.content {
+    height: 300px;
+    background-color: skyblue;
+    border: 2px solid blue;
+}
+
+.footer {
+    height: 200px;
+    background-color: lightgreen;
+    border: 2px solid green;
+}
+
+@media only screen and (min-width: 800px) {
+    .body > div {
+        margin: 0;
+    }
+
+    .navbar {
+        width: 19%;
+        height: 500px;
+        display: inline-block;
+    }
+
+    .content {
+        width: 79%;
+        height: 500px;
+        display: inline-block;
+    }
+}
+\end{verbatim}
+\end{codeenv}

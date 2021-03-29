@@ -1,0 +1,22 @@
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{makecell}
+
+\newlength{\thickarrayrulewidth}
+\setlength{\thickarrayrulewidth}{2.5\arrayrulewidth}
+\renewcommand{\arraystretch}{1.6}
+
+\makeatletter
+\def\thickhline{%
+    \noalign{\ifnum0=`}\fi\hrule \@height \thickarrayrulewidth \futurelet
+        \reserved@a\@xthickhline}
+\def\@xthickhline{\ifx\reserved@a\thickhline
+                \vskip\doublerulesep
+                \vskip-\thickarrayrulewidth
+                \fi
+                \ifnum0=`{\fi}}
+\makeatother
+
+\newenvironment{tblenv}[3]
+    {\begin{table}[htb]\caption{#2 \label{#1}}\small\begin{tabular}{#3}\thickhline}
+    {\thickhline\end{tabular}\end{table}}

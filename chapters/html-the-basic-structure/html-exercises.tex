@@ -1,0 +1,52 @@
+\section{HTML Exercises} \label{sect:html-exercises}
+
+\subsection*{Structurizing HTML Code}
+\sectref{sect:basic-structure-of-html}에서 학습한 HTML의 기본 구조, \sectref{sect:commonly-used-html-tags}에서 학습한 <div>, <span> 태그와 \sectref{sect:class-and-id-attributes}에서 학습한 class, id를 이용하여, 앞의 \coderef{code:input-tags}을 HTML 표준에 맞게 수정하고, 자유롭게 구조화해봅시다. (정해진 정답은 없습니다!) \coderef{code:html-exercise-ex}는 앞의 코드를 구조화한 하나의 예시입니다.
+
+\begin{codeenv}{code:html-exercise-ex}{Example of the Exercise}\begin{verbatim}
+
+<!doctype html>
+<html>
+<head>
+    <title>KWEB Registration Form</title>
+</head>
+<body>
+    <div id="register-form">
+        <div class="register-row">
+            <h3>Input username: </h3>
+            <input class="text-input" type="text" name="username">
+        </div>
+
+        <div class="register-row">
+            <h3>Input password: </h3>
+            <input class="text-input" type="password" name="password">
+        </div>
+
+        <div class="register-row">
+            <h3>Gender: </h3>
+            <label><input type="radio" name="gender" value="male">Male</label>
+            <label><input type="radio" name="gender" value="female">Female</label>
+        </div>
+
+        <div class="register-row">
+            <h3>Your Major: </h3>
+            <select>
+                <option value="cs">Computer Science</option>
+                <option value="phy">Physics</option>
+                <option value="chm">Chemistry</option>
+                <option value="math">Mathematics</option>
+            </select>
+        </div>
+
+        <div class="register-row">
+            <h3>Introduce yourself: </h3>
+            <textarea cols="40" rows="5"
+                      placeholder="Introduce yourself"
+                      name="introduction">
+            </textarea>
+        </div>
+    </div>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}

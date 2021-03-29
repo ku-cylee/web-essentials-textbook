@@ -1,0 +1,269 @@
+\section{Layouts} \label{sect:layouts}
+
+앞의 \sectref{sect:introducing-css}에서 CSS는 스타일과 레이아웃을 표현하는 데에 목적이 있는 문서라고 소개하였습니다. 지금까지는 CSS를 이용하여 텍스트의 크기나 색상, 배경의 색상이나 이미지를 디자인하는 방법을 다뤘습니다. 이번 절에서는 CSS를 이용하여 레이아웃을 잡는 방법을 다룰 것입니다. 
+
+\subsection*{레이아웃이란}
+레이아웃(layout)은 직역하면 ``배치''라는 뜻을 갖는 단어입니다. CSS에서 레이아웃을 잡는 것은 사용자가 웹 페이지에서, 정보를 원활하게 주고받을 수 있게끔 HTML 요소들을 적절하게 배치하고 정돈하는 작업입니다. HTML 요소들을 웹 페이지 상에 원하는 대로 배치하는 것은 문서가 복잡해질수록 어려운 일입니다. 따라서 레이아웃을 잡는 작업을 정확히 하기 위해서는 각 CSS 속성들과 속성값의 성질을 정확히 알아야 하며, 많은 경험이 필요합니다. 
+
+\figcmd{fig:devtools-layout}{Checking layout of HTML element in (a) Chrome and (b) Firefox}
+    {images/css-designing-html/devtools-layout.png}{.8}
+
+다행히도, 특정한 HTML 요소가 웹 페이지 내에서 영역을 어떻게 차지하고 어떻게 배치되는지 볼 수 있습니다. Chrome과 Firefox에서 F12를 눌러 개발자 도구를 열고, Chrome은 Elements 탭을, Firefox는 검사기 탭을 눌러 열려있는 HTML 문서의 코드를 띄웁니다. 그리고 레이아웃을 확인하고자 하는 요소 위에 마우스를 hover하면 해당 요소의 레이아웃이 \figref{fig:devtools-layout}와 같이 나타납니다. 반대로, 웹페이지에서 HTML 코드를 확인하고 싶은 부분을 우클릭한 후 [검사]를 누르면 해당 요소의 코드를 찾아줍니다. 이렇게 개발자 도구를 이용하여 HTML 문서를 디자인할 때 특정 요소가 어떠한 레이아웃을 갖는지, 어떻게 수정해야 할지 등의 정보를 보다 쉽게 얻을 수 있습니다. 
+
+\subsection*{Box Model}
+HTML의 각 요소는 사각형 형태의 레이아웃을 가지며, 이러한 레이아웃을 box model이라고 합니다. {fig:box-model}은 box model이 어떻게 구성되는지 직접적으로 보여줍니다. HTML 요소의 내용, 즉 content에 해당하는 부분은 content edge 내부에 들어갑니다. 예를 들어, \verb|img| 태그의 경우 이미지가 내용에 해당하고, 제목 태그의 경우 태그 내부의 텍스트가 내용에 해당이 됩니다. Border 영역은 요소의 테두리가 차지하는 영역이며, padding 영역은 테두리로 둘러싸인 영역 중 내용 영역을 제외한 빈 공간입니다. 앞에서 학습한 배경과 관련된 속성들은 테두리의 내부, 즉 padding 영역과 content 영역에 적용됩니다. Margin 영역은 테두리 바깥쪽에서 요소가 차지하는 영역으로, 원칙상 다른 요소와는 겹쳐지지 않는 영역입니다.
+
+\figcmd{fig:box-model}{Box Model}{images/css-designing-html/box-model.png}{.5}
+
+레이아웃을 구성할 때 이 box model을 제대로 이해하는 것이 중요합니다. 앞으로 나오는 예제 코드를 직접 작성해보고, 브라우저의 개발자 도구를 이용하여 padding과 border, margin이 어떻게 나타나는지 각각 살펴봅시다. 
+
+먼저 content area에 관여하는 속성으로는 \verb|width|와 \verb|height|가 있습니다. 각각의 속성은 content area의 너비와 높이를 지정하는 속성이고, px, em 등의 단위나 \%를 이용하여 명시할 수 있습니다. \%로 지정하는 경우는 상위 요소의 너비나 높이를 기준으로 합니다. 
+
+\begin{codeenv}{code:box-content-area}{Content Area}\begin{verbatim}
+
+
+<style>
+    #small-box {
+        width: 400px;
+        height: 200px;
+        background-color: red;
+    }
+
+    #large-box {
+        width: 800px;
+        height: 400px;
+        background-color: blue;
+    }
+</style>
+
+<div id="small-box"></div>
+<div id="large-box"></div>
+\end{verbatim}
+\end{codeenv}
+
+Border에 관여하는 속성으로는 \verb|border-width|, \verb|border-style|, \verb|border-color|, \verb|border-radius| 등이 있습니다. \verb|border-height|는 테두리의 굵기, \verb|border-style|은 테두리의 모양, \verb|border-color|는 테두리의 색상이며, \verb|border-style|에는 \verb|solid|, \verb|dashed|, \verb|dotted| 등의 값을 지정하여 테두리의 모양을 결정할 수 있습니다. 테두리를 한쪽 면에만 적용하고 싶은 경우에는 \verb|border|를 \verb|border-top|, \verb|border-left|, \verb|border-right|, \verb|border-bottom| 등으로 대체하면 됩니다. 또한, \verb|border-width|, \verb|border-style|, \verb|border-color|의 세 속성을 \verb|border| 속성에 일괄적으로 기술할 수 있습니다. 이때 굵기, 모양, 색상을 차례대로 나열하여 작성해주면 됩니다. 
+
+\verb|border-radius|는 테두리의 모서리를 둥글게 만듭니다. \verb|border|와 마찬가지로 네 모서리에 모두 적용되며, 한쪽 모서리에만 적용하고 싶으면 \verb|border|와 유사하게 \verb|top-left|, \verb|top-right|, \verb|bottom-left|, \verb|bottom-right| 등의 방향을 기술해주면 됩니다. 
+
+\begin{codeenv}{code:box-border-area}{Border Area}\begin{verbatim}
+
+
+<style>
+    #box {
+        width: 300px;
+        height: 300px;
+        border: 3px solid black;
+        border-radius: 20px;
+    }
+</style>
+
+<div id="box"></div>
+\end{verbatim}
+\end{codeenv}
+
+Padding과 margin에 관한 속성은 그 영역의 크기를 명시해주고, 한 방향에만 padding/margin 값을 적용하고자 하면 방향을 써주면 됩니다. (예: \verb|padding-left|, \verb|margin-bottom|) 또한, 각 방향의 \verb|padding|, \verb|margin| 값이 다를 때, 번거롭게 방향마다 \verb|property: value;|의 형태로 작성할 필요 없이, \tblref{tab:padding-margin-shortened}을 참고하여 \verb|padding|, \verb|margin| 속성의 값에 차례대로 각 방향의 값을 나열할 수도 있습니다. 
+
+\begin{tblenv}
+    {tab:padding-margin-shortened}
+    {Shortened \texttt{padding} and \texttt{margin}}
+    {
+        >{\raggedright}m{0.3\textwidth}
+        >{\centering}m{0.1\textwidth}
+        >{\centering}m{0.1\textwidth}
+        >{\centering}m{0.1\textwidth}
+        >{\centering}m{0.1\textwidth}
+    }
+    \thickhline
+    Shortened & top & right & bottom & left \tabularnewline
+    \hline
+    \texttt{padding/margin: A;} & A & A & A & A \tabularnewline
+    \texttt{padding/margin: A B;} & A & B & A & B \tabularnewline
+    \texttt{padding/margin: A B C;} & A & B & C & B \tabularnewline
+    \texttt{padding/margin: A B C D;} & A & B & C & D \tabularnewline
+    \thickhline
+\end{tblenv}
+
+\coderef{code:box-model-exam}를 참고하여 \verb|padding|과 \verb|margin|을 정하는 방법을 이해하고, 개발자 도구를 이용하여 box model의 각 부분이 웹 브라우저상에 어떻게 표시되는지 확인해봅시다. 
+
+\begin{codeenv}{code:box-model-exam}{Examining Box Model}\begin{verbatim}
+
+
+<style>
+    .box {
+        width: 100px;
+        height: 200px;
+        border: 2px dashed green;
+        padding: 10px 20px;
+        margin: 20px;
+        background-color: orange;
+        display: inline-block;         /* We will learn this later */
+    }
+</style>
+
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:box-model-exam}에서 \verb|display: inline-block;|을 지우고 웹 페이지를 열어봅시다. 이번에는 각 \verb|div.box| 요소가 세로로 나열되어 있는데, \figref{fig:margin-collapsing}와 같이 두 요소의 margin이 겹친 것을 볼 수 있습니다. 이렇게 HTML 요소 간에 margin이 겹치는 현상을 마진 상쇄 또는 마진 겹침(margin collapsing)이라고 합니다. Margin 겹침 현상은 인접한 형제 요소 간의 상하 margin이 겹칠 때, 빈 요소의 상하 margin이 겹칠 때, 부모 요소의 top(bottom) margin과 첫 번째(마지막) 자식 요소의 top(bottom) margin이 겹칠 때 발생합니다. \coderef{code:box-model-exam}의 경우는 형제 요소 간의 상하 margin이 겹친 경우로, margin 겹침 현상이 발생할 수 있다는 것을 모르면 코드를 작성할 때 곤란한 상황이 올 수 있으므로 유의하여야 합니다. 
+
+\figcmd{fig:margin-collapsing}{Margin Collapsing}
+    {images/css-designing-html/margin-collapsing.png}{.5}
+
+\subsection*{Inline-level and Block-level Elements}
+앞에서 HTML 요소는 Box Model에 따라 영역이 결정되고, 다른 요소들과 맞물려 배치된다는 것을 학습하였습니다. 앞의 \coderef{code:box-model-exam}에서 확인하였듯 HTML 요소는 배치될 때 이전 형제 요소의 오른쪽에 충분히 빈 공간이 있다면 오른쪽에, 그렇지 않으면 아래쪽에 배치됩니다. 그런데 앞서 HTML을 학습해오는 과정에서, 이전 형제 요소에 따로 margin이나 padding을 지정해주지 않았음에도 불구하고 이전 형제 요소와 같은 줄에 배치되지 않는 현상을 보았습니다. 
+
+\begin{codeenv}{code:inline-and-block-example}{Example of Inline-level, Block-level Elements}\begin{verbatim}
+
+
+<h1>HTML Element Layout</h1>
+<h2>This paragraph is about <span style="color: red">HTML element layout</span>.</h2>
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:inline-and-block-example}의 HTML 문서를 웹 브라우저상에서 확인해보면, \verb|h1| 태그와 \verb|h2| 태그에 padding이나 margin을 전혀 부여하지 않았음에도 불구하고 서로 다른 줄에 배치된 것을 확인할 수 있습니다. 반대로, \verb|h2| 태그 내부의 텍스트와 \verb|span| 태그 내부의 텍스트는 서로 같은 줄에 배치되어 있습니다. 이처럼 같은 줄에 다른 요소가 배치되는 것을 허용하는지에 따라 inline-level 요소와 block-level 요소로 구분할 수 있고, 이 성질은 \verb|display| 속성을 이용하여 변경할 수 있습니다. 
+
+먼저, block-level 요소는 다른 요소와 같은 줄을 공유하지 않으며, 웹 페이지 화면의 가로 폭을 모두 차지합니다. 따라서 여러 block-level 요소들을 배치하면 수직 방향으로 배치됩니다. Block-level 요소는 \verb|width|, \verb|height|, \verb|margin|, \verb|padding| 등의 속성을 적용할 수 있으며, 그 내부에 inline-level 요소를 포함할 수 있습니다. \verb|display| 속성의 값을 \verb|block|으로 명시하면 block-level 요소의 성질을 갖게 되며, \verb|div|, \verb|h1|~\verb|h6|, \verb|p|, \verb|ol|, \verb|ul|, \verb|li|, \verb|hr|, \verb|table|, \verb|form| 등의 태그는 기본적으로 block-level 요소에 해당됩니다. 
+
+반대로 inline-level 요소는 다른 요소와 같은 줄을 공유하고, content의 너비만큼만 가로 폭을 차지합니다. 이 요소에는 \verb|width|, \verb|height|, \verb|margin-top|, \verb|margin-bottom|, \verb|padding| 등의 속성을 적용할 수 없으며, 그 내부에 inline-level 요소를 포함할 수 없습니다. \verb|display| 속성의 값을 \verb|inline|으로 명시하면 inline-level 요소의 성질을 갖게 되며, \verb|span|, \verb|a|, \verb|strong|, \verb|img|, \verb|br|, \verb|input|, \verb|select|, \verb|textarea|, \verb|button| 등의 태그는 기본적으로 inline-level 요소에 해당됩니다. 
+
+그런데, 레이아웃을 구성하다 보면 요소들을 같은 줄에 배치하고 싶은데 \verb|width|, \verb|height|, \verb|margin|, \verb|padding| 등의 속성을 사용해야 하는 경우가 있습니다. 이럴 때는 해당 요소의 \verb|display| 값을 \verb|inline-block|으로 지정해주면 됩니다. \verb|inline-block|은 inline-level 요소의 성질과 block-level 요소의 성질을 모두 갖습니다. 또한, \verb|display| 값을 \verb|none|으로 지정하면 해당 요소가 보이지 않습니다.\footnote{유사한 속성으로는 \texttt{visibility: hidden}이 있습니다. 다만, 이 속성은 요소가 공간을 차지하되 보이지만 않게끔 합니다.}
+ 
+\coderef{code:box-model-exam}에서 \verb|display| 속성의 값을 바꿔보며 이해해봅시다. 
+
+\subsection*{Position}
+지금까지 학습한 레이아웃 배치 방식은, 이전의 형제 요소가 배치되고 난 다음 공간에 다음 요소가 차례대로 배치되는 방식입니다. 이렇게 배치하는 방식이 일반적이나, 간혹 웹페이지에서 다른 요소들과의 위치와는 관계없이 고정된 위치에 배치되는 요소들이 있고, 다른 요소와 겹치게끔 배치되는 요소들이 있습니다. 대표적으로는 뉴스 기사에서 스크롤을 내려도 계속 화면상에 표시되는 광고들이 있습니다. 이처럼 \verb|position| 속성을 이용하면 위치를 특정하는 배치를 할 수 있습니다. 
+
+\verb|position| 속성에는 \verb|static|, \verb|relative|, \verb|absolute|, \verb|fixed|의 네 가지 값이 존재하며, 기본값은 \verb|static|입니다. 즉, 지금까지 배치해왔던 것처럼 빈 공간에 왼쪽에서 오른쪽으로, 위에서 아래로 차례대로 배치됩니다. 나머지 세 값은 \verb|top|, \verb|left|, \verb|right|, \verb|bottom| 속성과 함께 사용하여, 요소의 위치를 정할 수 있습니다. 이 네 속성은 기준점이 요소로부터 얼마나, 어떤 방향으로 떨어져 있는지 나타내는 속성입니다.
+
+먼저 \verb|relative|는 \verb|top|, \verb|left|, \verb|right|, \verb|bottom| 속성이 특정되어 있지 않으면 \verb|static|과 동일하게 작동하고, 특정되어 있다면 \verb|static|으로 지정된 경우를 기준으로 요소가 이동하게 됩니다. 이렇게 지정한 요소의 위치가 변한다고 하더라도 다른 요소들의 위치는 영향을 받지 않습니다. 
+
+\verb|absolute|는 원래 요소가 배치되었어야 할 공간과 관계없이, 부모나 조상 요소를 기준으로 배치됩니다. 이때 기준이 되는 부모나 조상 요소는 반드시 그 \verb|position| 값이 \verb|static| 이외의 다른 값이어야 하고, 기준으로 삼을만한 요소를 찾지 못하면 \verb|body| 태그가 기준이 됩니다. \verb|position|이 \verb|absolute|인 요소가 원래 배치되었어야 하는 공간은 빈 공간 취급을 받아 다른 요소가 들어올 수 있으며, \verb|display: block|인 요소인 경우 너비가 content에 맞게 바뀌기 때문에 적절한 너비를 지정해주어야 합니다. 
+
+\verb|fixed|는 \verb|absolute|와 유사한 성질을 갖지만, 위치를 지정하는 기준이 웹페이지가 사용자, 즉 화면에 보여지는 영역(viewport)입니다. 따라서 스크롤을 내렸을 때 화면에서 사라지지 않고 고정된 위치에 요소를 배치하고자 할 때 사용합니다. 
+
+\verb|position|에 관해 정확히 이해하기 위해, \coderef{code:position-property}에서 \verb|#pos-element|에 \verb|position|에 관련된 속성과 그 값을 바꿔가며 확인해봅시다. 
+
+\begin{codeenv}{code:position-property}{Example of \texttt{position} Property}\begin{verbatim}
+
+
+<style>
+    .box {
+        width: 100px;
+        height: 3000px;
+        border: 1px solid;
+        display: inline-block;
+        background-color: skyblue;
+        border-color: blue;
+    }
+
+    .red-box {
+        height: 100px;
+        background-color: pink;
+        border-color: red;
+    }
+
+    #pos-element {
+        /* Your CSS code here */
+    }
+</style>
+
+<div class="box">1</div>
+<div class="box red-box" id="pos-element">2</div>
+<div class="box">3</div>
+<div class="box">4</div>
+\end{verbatim}
+\end{codeenv}
+
+여담으로, \verb|position| 속성을 다루다 보면 요소 간에 겹침이 발생하여, 특정 요소를 다른 요소 위에 오게 하고 싶을 때가 있습니다. 이때 \verb|z-index| 속성을 이용하여 요소 간의 쌓임 순서를 조절할 수 있습니다. \verb|z-index|의 값은 정수(integer)가 가능하며, \verb|0|을 기본값으로 갖습니다. 이 값이 높은 요소는 위에 쌓이고, 낮은 요소는 아래에 쌓입니다. 
+
+\subsection*{Float}
+레이아웃의 배치와 관련하여 마지막으로 다룰 부분은 \verb|float|입니다. \verb|float|는 단어 그대로 요소를 띄우는, 혹은 부유()시키는 속성입니다. 여기서 ``부유된다''는 표현은 요소가 기본적인 배치 흐름에서 벗어나서 왼쪽이나 오른쪽으로 이동하는 것입니다. \verb|float| 값은 \verb|left|, \verb|right|, \verb|none|의 세 가지가 가능한데, \verb|none|이 기본값이고, \verb|left|와 \verb|right|는 요소를 각각 왼쪽과 오른쪽으로 정렬시킵니다. \coderef{code:float-example}를 참고하여 이해해봅시다. 
+
+\begin{codeenv}{code:float-example}{Float Example}\begin{verbatim}
+
+
+<style>
+    #container {
+        width: 900px;
+    }
+
+    .main {
+        height: 200px;
+        margin: 20px;
+        background-color: pink;
+        border: 1px solid red;
+    }
+
+    .updates > div {
+        width: 200px;
+        height: 50px;
+        margin: 20px;
+    }
+
+    .left {
+        background-color: gold;
+        border: 1px solid brown;
+        float: left;
+    }
+
+    .right {
+        background-color: skyblue;
+        border: 1px solid blue;
+        float: right;
+    }
+
+    .footer {
+        display: none;
+        height: 80px;
+        margin: 20px;
+        background-color: lightgreen;
+        border: 1px solid green;
+    }
+</style>
+
+<div id="container">
+    <div class="main"></div>
+    <div class="updates">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="right"></div>
+    </div>
+    <div class="footer"></div>
+</div>
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:float-example}를 웹 브라우저에서 열어보면 \verb|.left| 요소와 \verb|.right| 요소가 각각 문서의 흐름에서 벗어나 왼쪽, 오른쪽으로 정렬된 것을 볼 수 있습니다. 또한, \verb|.right| 요소 중 앞쪽에 있는 요소가 뒤쪽에 있는 요소보다 오른쪽으로 배치되었습니다. 이렇게 \verb|float| 속성을 이용하면 문서의 배치 흐름을 무시하고 요소들을 배치할 수 있습니다.
+
+다만, \verb|float| 속성은 배치 흐름을 무시하는 속성이기 때문에 다양한 문제점을 야기합니다. \coderef{code:float-example}에서 \verb|.footer| 선택자에 \verb|display: none|을 제거해봅시다.
+
+\figcmd{fig:float-without-clear}{Float without clear}
+    {images/css-designing-html/float-without-clear.png}{.5}
+
+\figref{fig:float-without-clear}에서 보듯, \verb|.footer| 요소가 원하는 대로 배치되지 않고 \verb|.updates| 요소와 중첩됩니다. 이는 HTML 요소의 배치 흐름을 무시했기 때문에 발생하는 현상으로, 부유된 상태를 제거해야만 원하는 배치를 할 수 있습니다. 이를 위해 \verb|clear| 속성이 사용됩니다. \verb|clear| 속성은 \verb|left|, \verb|right|, \verb|both|의 세 가지가 가능하고, 각각 왼쪽, 오른쪽, 양쪽으로 부유된 상태를 제거합니다. \verb|.footer| 선택자에 \verb|clear: both|를 적용해봅시다.
+
+\figcmd{fig:float-with-clear}{Float with clear}
+    {images/css-designing-html/float-with-clear.png}{.5}
+
+\figref{fig:float-with-clear}과 같이 \verb|.footer| 요소가 의도한 대로 배치되는 것을 볼 수 있습니다. 다만, 이렇게 부유된 요소의 다음 요소에 \verb|clear| 속성을 넣어 해결하는 것은 바람직하지 않습니다. 예를 들어 \verb|.updates|와 \verb|.footer| 사이에 다른 요소를 넣을 때, 삽입된 요소에는 \verb|clear|를 추가해주어야 하고, \verb|.footer|에서는 코드의 경량화를 위해 \verb|clear|를 제거해주어야 합니다. 이와 같은 과정은 번거롭기도 하고, 일관성이 없어 비효율적인 코드로 이어질 수 있습니다. 따라서, \coderef{code:clearfix-pseudo-element}과 같이 부유된 요소들을 담고 있는 부모 요소의 가상 요소 \verb|::after|에 \verb|clear|를 작성해주는 방법이 있습니다. \verb|::after| 가상 요소는 원래 요소의 뒤에 가상의, 렌더링되지 않는 요소를 만드는 요소이며, 부유된 요소들의 뒤에 가상 요소를 만들어 부유된 상태를 제거하고, 그 후에 배치되는 요소들이 정상적인 흐름에 따라 배치될 수 있도록 해줍니다. 
+
+\begin{codeenv}{code:clearfix-pseudo-element}{Clearfix with pseudo-element}\begin{verbatim}
+
+
+.updates::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+\end{verbatim}
+\end{codeenv}
+
+\verb|float|을 이용하여 요소를 배치하는 것은 배치 흐름을 무시하는 방법이기 때문에 정확히 인지하고 사용하지 않으면 많은 문제가 발생할 수 있습니다. \verb|float|의 이해를 돕기 위해 다음 링크를 첨부합니다. 
+
+\begin{itemize}
+    \item https://css-tricks.com/all-about-floats/
+\end{itemize}
