@@ -1,1 +1,188 @@
-\section{Data Types}
+\section{Data Types} \label{sect:data-types}
+
+JS에는 다음과 같은 7개의 자료형이 존재합니다. 
+
+\begin{itemize}
+    \item Primitive Types: number, string, boolean, undefined, null, symbol
+    \item Compound Type: object
+\end{itemize}
+
+변수나 상수의 자료형은 \verb|typeof| 함수로 확인할 수 있습니다. 이번 절에서는 symbol형을 제외한 6가지 자료형에 대해 다루고, 배열에 관해 다룹니다. 
+
+\subsection*{Number}
+
+number형은 수()를 저장하는 자료형입니다. number형에는 정수, 유리수 등을 구별 없이 저장할 수 있으며, 상호 연산이 가능합니다.
+
+\begin{codeenv}{code:number-type}{Number Type}\begin{verbatim}
+
+
+> let num1 = 2;
+> let num2 = 7.5;
+> let num3 = 2 / 5;
+> typeof(num1);
+'number'
+> typeof(num2);
+'number'
+> num1 * num2;
+15
+> num3;
+0.4
+\end{verbatim}
+\end{codeenv}
+
+number 자료형에는 일반적인 수 이외에도 \verb|Infinity|와 \verb|NaN|(not a number)도 있습니다. \verb|Infinity|와 \verb|NaN|은 0으로 나누는 연산이 작용하면 발생합니다. 
+
+\begin{codeenv}{code:infinity-nan}{Infinity and NaN}\begin{verbatim}
+
+
+> 3/0;
+Infinity
+> typeof(3/0);
+'number'
+> 3/(-0);
+-Infinity
+> 0/0;
+NaN
+> typeof(0/0);
+'number'
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{String}
+
+string형은 문자열을 저장하는 자료형입니다. string형 문자열 간에는 상호 계산이 가능합니다.
+
+\begin{codeenv}{code:string-type}{String Type}\begin{verbatim}
+
+
+> let hello = 'Hello';
+> let world = 'World';
+> let helloWorld = hello + ' ' + world;
+> helloWorld;
+'Hello World'
+> helloWorld.length;
+11
+> helloWorld[3];
+'l'
+> typeof(helloWorld);
+'string'
+\end{verbatim}
+\end{codeenv}
+
+string형의 변수에 값을 할당할 때 큰따옴표(\verb|"|)나 작은따옴표(\verb|'|)를 사용하여 문자열을 감쌉니다. 다만, 문자열을 서로 다른 문자로 감싸는 것은 불가능합니다. 또한, 문자열 내에 감싸는 문자가 포함되어 있다면 역슬래시(\verb|\|)를 이용하여 escape 시켜야 합니다. 
+
+\begin{codeenv}{code:string-type-assign}{Assigning Value on String Type Variable}\begin{verbatim}
+
+
+> "String";
+'String'
+> 'String';
+'String'
+> "String';
+Uncaught SyntaxError: Invalid or unexpected token
+> "McDonald's";
+'McDonald\'s'
+> console.log("McDonald's");
+McDonald's
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Boolean}
+
+boolean형은 논리적인 요소를 나타내며, \verb|true|와 \verb|false| 두 가지의 값이 가능합니다. 
+
+\begin{codeenv}{code:boolean-type}{Boolean Type}\begin{verbatim}
+
+
+> 1 == 1;
+true
+> 1 > 3;
+false
+> true == false;
+false
+> true != false;
+true
+> let isNumberEven = (5 % 2 == 0);
+> isNumberEven;
+false
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Object}
+
+object형, 즉 객체형이란 속성(property)과 그에 대한 값(value)을 가질 수 있는 자료형입니다. 예를 들어, 어떠한 학생에 대한 정보를 다룰 때, 그 학생의 학번, 이름, 학과, 재학 여부 등을 별도의 변수에 저장하지 않고, \verb|student|라는 객체형 변수에 저장하여, 일괄적으로 다룰 수 있습니다. 
+
+객체에서는 속성을 key, 그에 대응하는 속성값을 value라고 합니다. Key는 문자열이어야 하고, 같은 계층에 있는 다른 key와 겹치는 key가 있을 수 없습니다. value에는 숫자, 문자열뿐만 아니라 객체 등 모든 종류의 데이터형이 가능합니다. 즉, 객체 내부에 또 다른 객체가 포함될 수 있어, 복잡한 데이터 구조를 형성하는 것이 가능합니다. 
+
+\begin{codeenv}{code:object-type}{Object Type}\begin{verbatim}
+
+
+> let person = {
+    age: 21,
+    name: 'Frank',
+    height: 170,
+    isMale: true,
+};
+> person;
+{ age: 21, name: 'Frank', height: 170, isMale: true }
+> person.age;
+21
+> person['age'];
+21
+> !person.isMale;
+false
+> person.weight = 60;
+60
+> person;
+{ age: 21, name: 'Frank', height: 171, isMale: true, weight: 60 }
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Undefined and Null}
+
+undefined 자료형은 값이 할당되지 않은 변수의 값이며, null 자료형은 값을 모르는, \verb|null| 값을 갖습니다. 
+
+\begin{codeenv}{code:undefined-type}{Undefined Type}\begin{verbatim}
+
+
+> let variable;
+> variable;
+undefined
+> typeof(variable);
+'undefined'
+\end{verbatim}
+\end{codeenv}
+
+null 자료형은 \verb|typeof| 함수를 이용하면 잘못된 자료형을 반환받습니다. 이는 JS의 매우 오래된 버그이기 때문에 고치는 것이 불가능합니다. 따라서 변수가 \verb|null|임을 확인하기 위해서는 값을 직접 비교해야 합니다. 
+
+\begin{codeenv}{code:null-type}{Null Type}\begin{verbatim}
+
+
+> let nullvar = null;
+> typeof(null);
+'object'
+> nullvar == null;
+true
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Array}
+
+배열은 index를 가지는, 복수의 자료를 저장할 수 있는 자료구조입니다. 배열의 각 원소의 자료형에는 제한이 없으며, 배열의 크기가 정해져 있지 않기 때문에 메서드(method)를 이용하여 원소를 자유롭게 넣고 뺄 수 있습니다. 
+
+\begin{codeenv}{code:js-array}{Array}\begin{verbatim}
+
+
+> let arr = [0, 1, 1.5, true, 'hungry'];
+> arr.length;
+5
+> arr[3];
+true
+> arr[4];
+'hungry'
+> arr.push('new element');
+6
+> arr;
+[ 0, 1, 1.5, true, 'hungry', 'new element' ]
+\end{verbatim}
+\end{codeenv}

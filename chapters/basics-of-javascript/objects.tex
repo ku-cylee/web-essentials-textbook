@@ -1,1 +1,54 @@
-\section{Objects}
+\section{Objects} \label{sect:objects}
+
+\sectref{sect:data-types}에서 JS의 자료형 중 하나인 객체에 대해 다루었습니다. 이번 절에서는 객체에 대해 조금 더 자세히 알아보기로 합니다. 객체라는 개념을 정확히 이해하기 위해서는 객체 지향형 프로그래밍(Object-Oriented Programming)에 대해 공부해야 합니다. 아쉽게도, 준회원 스터디에서는 객체 지향형 프로그래밍을 공부할 충분한 여력이 되지 않습니다. 다만, 현재의 단계에서는 크게 중요한 부분은 아니므로 객체에 대한 개념만 대강 잡는다면 이후의 내용을 이해하는 데 문제가 없을 것입니다. 
+
+\subsection*{Property와 Method}
+
+앞의 \sectref{sect:data-types}에서 객체에 관해 설명하면서, 객체는 그 객체와 관련된 속성을 key-value pair의 형태로 가질 수 있다고 설명하였습니다. 그리고 예시로 주어진 \coderef{code:object-type}(\pageref{code:object-type}쪽)에서는 \verb|person|이라는 객체에 \verb|age|, \verb|name|, \verb|height|, \verb|isMale|의 네 속성(property)을 부여하였습니다. 이 \verb|person| 객체의 속성 중 하나인 \verb|age|의 값을 증가시켜주는 작업을 가정해봅시다. 현재로써는 단순히 \verb|age|의 값을 \verb|1|만큼 증가시키면 되지만, 굉장히 복잡하고 긴 로직을 요하는 작업일 수도 있으므로 \verb|increaseAge|라는 함수를 만들어두고 사용하는 것이 훨씬 효율적일 것입니다. 
+
+그런데, JS 파일에 함수를 만들어두고 사용하면 어떤 부작용이 있을까요? 객체가 많은 프로그램의 경우는 메서드의 수가 급격하게 많아져 개발자가 헷갈리기도 쉽고, 코드를 분석하는 사람도 쉽게 코드를 분석하지 못합니다. 다른 객체와 유사한 역할을 하는 함수가 있는 경우에는 \verb|increaseHumanAge|, \verb|increaseDogAge| 등 함수 이름조차도 비효율적으로 작성하게 될 것입니다. 따라서 객체의 속성값을 읽거나, 바꾸는 등의 작업을 하는 함수는 객체 내부에 정의하고, 메서드(method)라고 부릅니다. 
+
+메서드는 \coderef{code:object-method}과 같이, key에 메서드의 이름을 작성하고 value에 메서드가 수행할 작업을 함수의 형태로 할당합니다. \verb|increaseAge| 메서드는 자신이 속한 객체의 \verb|age| 값을 \verb|1|만큼 증가시키는 작업을 해야 하는데, 함수 내에 \verb|age|가 선언되어 있지 않으므로 그 값에 직접 접근할 수 없는 것은 당연합니다. 이러한 경우에 사용하는 키워드가 \verb|this|입니다. \verb|this|는 JS 코드상에서 여러 종류의 객체를 가리킬 수 있는데, 대표적으로 자신이 속한 객체를 가리킵니다. \verb|increaseAge| 메서드 내부의 \verb|this|는 \verb|person|을 가리키고, 결국 \verb|increaseAge|는 자신이 속한 객체인 \verb|person| 객체의 속성 중 하나인 \verb|age|의 값을 \verb|1|만큼 증가시키는 역할을 합니다. 
+
+\begin{codeenv}{code:object-method}{Method of Object}\begin{verbatim}
+
+
+> let person = {
+    age: 21,
+    name: 'Frank',
+    height: 170,
+    isMale: true,
+    increaseAge: function () { this.age++ },
+};
+> person.increaseAge();
+> person.age;
+22
+\end{verbatim}
+\end{codeenv}
+
+ES6의 축약 메서드 표현법에 따라 \coderef{code:object-method-simple}과 같이 축약하여 표현할 수 있습니다. 
+
+\begin{codeenv}{code:object-method-simple}{Simply Expressing Method}\begin{verbatim}
+
+
+> let person = {
+    age: 21,
+    increaseAge() { this.age++ },
+};
+> person.increaseAge();
+> person.age;
+22
+\end{verbatim}
+\end{codeenv}
+
+메서드를 표현할 때 주의할 점은, 화살표 함수를 이용하여 작성하면 오류가 발생할 여지가 매우 큽니다. 화살표 함수는 \verb|this|가 가리키는 객체를 정하는 방식이 일반적인 함수와 다릅니다. 그러므로 메서드를 표현할 때는 화살표 함수보다는 일반적인 함수 표현 방식을 사용하는 것이 좋습니다.\footnote{https://poiemaweb.com/es6-arrow-function}
+
+\subsection*{Class and Instance}
+
+앞에서 Frank라는 이름을 가진 사람에 대한 정보를 다루기 위해 \verb|person|이라는 객체를 생성하고, 그에 대한 속성과 메서드를 정의하였습니다. 그런데, Frank라는 사람 한 명만 다루지 않고, 수많은 사람들에 대한 정보를 다루고자 할 때도 \coderef{code:object-method}과 같이 일일이 객체를 생성한다면 굉장히 비효율적인 코드가 될 것입니다. 
+
+이렇게 동일한 형태의 객체들을 생성하기 위해 그 객체들의 구조를 표현한 설계도와 같은 역할을 하는 것이 클래스(class)입니다. 클래스는 각 객체가 어떤 속성을 가져야 하는지, 객체에 필요한 상수는 무엇인지, 메서드는 무엇인지 등에 대한 정보의 집합입니다. 그리고 이 클래스, 즉 설계도에 따라 생성된 각 객체를 인스턴스(instance)라고 합니다. 예를 들어, \verb|Person|이라는 클래스가 있고, 이 클래스의 설계에 따라 생성된 객체 \verb|frank|, \verb|david|, \verb|jennie| 등은 인스턴스입니다. 
+
+클래스라는 설계도를 이용하여 인스턴스를 생성하는 매개체가 필요합니다. 이 매개체를 생성자(constructor)라고 부릅니다. 생성자는 인스턴스를 생성할 때 필요한 정보를 받고, 이 정보를 설계도에 따라 객체의 속성이나 메서드를 정합니다. 예를 들어, 앞에서 다룬 \verb|Person| 클래스의 생성자는 그 사람의 나이, 이름, 키, 성별 등의 정보를 받아 그 정보를 \verb|age|, \verb|name|, \verb|height|, \verb|isMale|의 속성에 저장할 것입니다. 생성자는 여러 정보가 응집되어있는 정보를 분석하여 여러 개의 유의미한 정보로 나누어 속성에 저장할 수 있습니다. 예를 들어, 학생의 학번이 주어진 상태에서 학생의 입학 연도, 소속 학과, 개인 일련번호 등의 정보를 저장하는 \verb|Student|라는 클래스를 만든다면, 생성자에서 학생의 학번을 받아 분석한 후 \verb|admissionYear|, \verb|department|, \verb|serialNumber| 속성에 분석한 값들을 저장하게끔 구현합니다. 
+
+메서드가 하는 작업이 클래스와 연관성이 크지만, 인스턴스가 생성되어야만 값이 할당되는 속성들에 접근하지 않는다면 인스턴스를 필요로 하지 않는 메서드가 있을 수 있습니다. 이러한 메서드를 정적(static) 메서드라고 합니다. 

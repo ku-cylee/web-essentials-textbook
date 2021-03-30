@@ -1,1 +1,107 @@
-\section{Declaration of Variables}
+\section{Declaration of Variables} \label{sect:declaration-of-variables}
+
+\subsection*{ECMAScript}
+
+ECMAScript란 자바스크립트를 이루는 코어 스크립트 언어로, 줄여서 ES라고 부릅니다. ES는 스크립트 언어에 관한 규약으로, JS는 ES 표준을 따르는 언어입니다. ES5가 2009년에 출시된 후 ES6가 2015년에 출시되어 현재까지 사용되고 있고, 현재는 ES8이 개발되고 있습니다. 준회원 스터디에서는 ES6를 따르는 JS에 관해 다룰 것입니다.
+
+\subsection*{변수의 선언}
+
+JS는 다른 언어들과 마찬가지로 변수나 상수를 정의하고 사용할 수 있습니다. 다만 C, Java와 달리 JS에서는 변수나 상수를 선언할 때 자료형을 명시해주지 않습니다. 그러나 자료형을 명시해주지 않는다고 해서 자료형이 없는 것은 아니고, 변수나 상수에 할당되는 값을 분석하여 자료형을 스스로 지정합니다. 변수 및 상수는 \verb|var|, \verb|let|, \verb|const| 등의 구문을 이용하여 선언합니다. 
+
+먼저, 가장 널리 사용되는 \verb|var\verb|로 선언한 변수는 재선언할 수 있고, 값을 재할당할 수도 있습니다.
+
+\begin{codeenv}{code:var-keyword}{Declaring Variable using \texttt{var}}\begin{verbatim}
+
+
+> var num1 = 3;
+undefined
+> num1;
+3
+> num1 + 5;
+8
+> num1 = 5;
+5
+> var num1 = 20;
+undefined
+\end{verbatim}
+\end{codeenv}
+
+반면 \verb|let|으로 선언한 변수는 값을 재할당할 수는 있으나, 변수를 재선언하는 것은 불가능합니다.\footnote{현재 Chrome의 개발자 도구를 이용하였을 때 재선언이 가능한 버그가 보고됨}
+
+\begin{codeenv}{code:let-keyword}{Declaring Variable using \texttt{let}}\begin{verbatim}
+
+
+> let num2 = 3;
+undefined
+> num2 + 5;
+8
+> num2 = 5;
+5
+> let num2 = 20;
+SyntaxError: redeclaration of let num2
+\end{verbatim}
+\end{codeenv}
+
+\verb|const|는 constant, 즉 상수()의 약자로, \verb|const|로 선언한 상수는 재선언과 재할당이 모두 불가능합니다.
+
+\begin{codeenv}{code:const-keyword}{Declaring Constant}\begin{verbatim}
+
+
+> const constNum = 3;
+undefined
+> constNum + 5;
+8
+> constNum = 5;
+TypeError: invalid assignment to const `constNum'
+> const constNum = 20;
+Thrown:
+SyntaxError: redeclaration of const constNum
+\end{verbatim}
+\end{codeenv}
+
+과거에는 \verb|var|을 이용하여 변수를 선언하였으나, 최근에는 \verb|let|으로 선언하는 추세이며, 권장되는 방법입니다. 그 이유는 \verb|var|과 \verb|let|으로 변수를 선언했을 때 각 변수에 접근 가능한 범위(scope)가 다르기 때문입니다. \verb|var|로 선언된 변수는 선언된 함수 내 어디서든 접근할 수 있지만, \verb|let|과 \verb|const|로 선언된 변수 및 상수의 경우 같은 블록 내에서만 접근이 가능합니다. 
+
+\begin{codeenv}{code:var-let-scope}{Scope of var and let}\begin{verbatim}
+
+
+let num = 10;
+
+if (num % 2 == 0) {
+    var isOdd = 0;
+} else {
+    var isOdd = 1;
+}
+
+console.log(isOdd);
+
+if (num % 2 === 0) {
+    let isEven = 1;
+} else {
+    let isEven = 0;
+}
+
+console.log(isEven);
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:var-let-scope}를 개발자 도구를 이용하여 실행하면, \verb|var|로 선언된 \verb|isOdd|의 값은 정상적으로 출력되지만, \verb|let|으로 선언된 \verb|isEven|은 출력되지 않고, 정의되지 않았다는 에러가 나옵니다. 따라서 \verb|var|로 선언된 변수는 선언된 블록 바깥에서도 접근할 수 있는 function-scope이며, \verb|let|으로 선언된 변수는 선언된 블록 바깥에서 접근할 수 없는 block-scope입니다.
+
+\begin{tblenv}
+    {tab:var-let-const-table}
+    {Differences between \texttt{var}, \texttt{let} and \texttt{const}}
+    {
+        >{\raggedright}m{0.08\textwidth}
+        >{\raggedright}m{0.27\textwidth}
+        >{\raggedright}m{0.27\textwidth}
+        >{\raggedright}m{0.22\textwidth}
+    }
+    \thickhline
+    키워드 & 재할당 (Reassignment) & 재선언 (Redeclaration) & 스코프 (Scope) \tabularnewline
+    \hline
+    \texttt{var} & 가능 & 가능 & function-scope \tabularnewline
+    \texttt{let} & 가능 & 불가능 & block-scope \tabularnewline
+    \texttt{const} & 불가능 & 불가능 & block-scope \tabularnewline
+    \thickhline
+\end{tblenv}
+
+JS에서 \verb|let|을 사용해야 하는 이유는 바로 \verb|let|으로 선언된 변수가 block-scope이기 때문입니다. function-scope인 \verb|var|의 특성상 \verb|var|로 선언된 변수는 코드의 네임스페이스를 오염\footnote{https://stackoverflow.com/questions/22903542/what-is-namespace-pollution}시키며, 프로그램을 실행했을 때 의도치 않은 논리적 오류를 유발할 수 있습니다. 반면 \verb|let|과 \verb|const|로 선언된 변수 및 상수는 block-scope로, 변수 선언에 따른 네임스페이스 오염을 최소화할 수 있으며, \verb|const|로 선언된 상수의 경우 선언 이후의 변경이 불가능하므로 프로그램 동작하면서 의도치 않게 상수값을 변형하여 발생하는 논리적 오류를 방지할 수 있습니다. 
