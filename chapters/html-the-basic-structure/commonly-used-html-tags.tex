@@ -110,7 +110,9 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
     \item \verb|height|: 이미지를 띄우고자 하는 높이 (px)
 \end{itemize}
 
-\begin{codeenv}{code:img-tag}{\texttt{img} Tag}\begin{verbatim}
+\begin{codeenv}{code:img-tag}
+    {\texttt{img} Tag\footnote{이 코드에서는 HTML의 속성-속성값 쌍을 분리하기 위해 1칸의 공백 대신 개행 문자와 5칸의 공백을 사용하였다. HTML에서는 연속된 whitespace 문자들을 하나의 공백으로 취급하기 때문에 이렇게 표시할 수 있으며, 속성이 많거나, 속성값이 길거나, 내용이 길거나 등의 이유로 HTML 요소가 지나치게 길어지면 이와 같이 개행하여 작성하는 것이 좋다.}}
+    \begin{verbatim}
 
 
 <img src="https://s.pstatic.net/static/www/img/uit/2019/sp_search.svg"
@@ -140,7 +142,7 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \end{codeenv}
 
 \subsection*{Input Tags}
-입력 태그들은 사용자로부터 정보를 입력받을 수 있는 태그들로, \verb|input|, \verb|textarea|, \verb|select| 등의 태그가 있다. \verb|input| 태그는 \verb|type| 속성에 따라 다양한 형태의 입력을 받을 수 있다. 다음은 \verb|input| 태그의 \verb|type| 속성의 값에 따라 입력받을 수 있는 정보의 형태를 나타낸 것이다.
+입력 태그들은 사용자로부터 정보를 입력받을 수 있는 태그들로, \verb|input|, \verb|textarea|, \verb|select| 등의 태그가 있다. \verb|input| 태그는 \verb|type| 속성에 따라 다양한 형태의 입력을 받을 수 있다. 다음은 \verb|input| 태그의 \verb|type| 속성의 값에 따라 입력받을 수 있는 정보의 형태 중 일부를 나타낸 것이다.
 
 \begin{itemize}
     \item \verb|text|: 일반 텍스트 (plain text)
@@ -180,11 +182,11 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:input-tags}을 살펴보면, 모든 입력 태그에는 \verb|name| 값이 지정되어 있고, 선택지가 있는 입력 태그에는 \verb|value| 값이 지정되어 있는 것을 확인할 수 있습니다. \verb|name| 속성은 입력받은 항목의 이름을 나타내는 속성이고, \verb|value| 속성은 각 항목에 대해 입력받은 값이다. 텍스트를 입력받는 태그들의 경우 \verb|value| 값이 필요하지 않는데, 입력란에 입력한 값이 \verb|value| 값이며, 이 값을 직접 지정해줄 경우 기본값이 된다. 이러한 \verb|name|과 \verb|value|는 입력받은 값을 전송할 때 사용되므로, 매우 중요하다.
+\coderef{code:input-tags}을 살펴보면, 모든 입력 태그에는 \verb|name| 값이 지정되어 있고, 선택지가 있는 입력 태그에는 \verb|value| 값이 지정되어 있는 것을 확인할 수 있다. \verb|name| 속성의 값과 \verb|value| 속성의 값은 key-value pair를 이루어, \verb|name|의 값과 \verb|value|의 값은 각각 입력받은 항목의 이름과 값을 뜻한다. 다만 텍스트를 입력받는 태그들의 경우 입력란에 입력한 값이 \verb|value| 값이므로 \verb|value| 값이 필요하지 않는데, 이 값을 직접 지정해줄 경우 기본값이 된다. \verb|name|과 \verb|value|의 값은 입력받은 데이터를 key-value pair의 형태로 전송할 때 사용되기 때문에 매우 중요한 속성이다.
 
 \subsection*{HTML Entities}
 
-HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 때문에, 이러한 문자들을 실제로 웹 페이지 상에 표시하려고 할 때 문제가 발생할 수 있다. \coderef{code:ineq-without-entity}와 같이 HTML을 작성하면 어떤 문제가 발생할지 예상해보자. 
+HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 때문에, 이러한 문자들을 실제로 웹 페이지 상에 표시하고자 할 때 문제가 발생할 수 있다. \coderef{code:ineq-without-entity}와 같이 HTML을 작성하면 어떤 문제가 발생할지 예상해보자. 
 
 \begin{codeenv}{code:ineq-without-entity}{Improper Way of Displaying \texttt{<} and \texttt{>}}\begin{verbatim}
 
