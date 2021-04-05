@@ -195,7 +195,7 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:ineq-without-entity}에서는 \verb|<signs>|라는 텍스트가 태그로 취급되어, ``This is how inequality <signs> look like.''이라는 텍스트를 표시하려고 했던 의도와는 달리, ``This is how inequality look like.''이라는 텍스트가 표시되었다. 이는 \verb|<|, \verb|>| 두 문자열이 태그를 나타내기 위한 문자이기 때문에 발생하는 현상이다. 그렇다면 이러한 문자들은 표시하기 위해서는 어떻게 HTML을 작성해야 하는가? 또한, ※과 $\rightarrow$와 같은 키보드 상에는 존재하지 않는 문자는 어떻게 작성하는가?
+\coderef{code:ineq-without-entity}에서는 \verb|<signs>|라는 텍스트가 태그로 취급되어, ``This is how inequality {\textless} signs {\textgreater} look like.''이라는 텍스트를 표시하려고 했던 의도와는 달리, ``This is how inequality look like.''이라는 텍스트가 표시되었다. 이는 \verb|<|, \verb|>| 두 문자열이 태그를 나타내기 위한 문자이기 때문에 발생하는 현상이다. 그렇다면 이러한 문자들은 표시하기 위해서는 어떻게 작성해야 하는가? 또한, ※과 $\rightarrow$와 같은 키보드 상에는 존재하지 않는 문자는 어떻게 작성하는가?
 
 이러한 특수문자는 위해 HTML 개체(entity)를 사용하여 나타낸다. HTML 개체는 개체의 이름을 사용하여 \verb|&<entity-name>;|의 형태로 나타내거나, 개체의 번호를 사용하여 \verb|&#<entity-number>;|의 형태로 나타낸다. 예를 들어, \verb|<|, \verb|>|의 개체 이름은 각각 lt, gt이므로 \coderef{code:ineq-without-entity}은 \coderef{code:ineq-with-entity}와 같이 나타내어질 수 있다.
 
@@ -206,7 +206,7 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 \end{verbatim}
 \end{codeenv}
 
-이외에도 \verb|&quot;|("), \verb|&amp;|(\&) 등의 개체도 존재한다. 특히 \verb|&nbsp;|는 non-breaking space의 약자로, 공백을 뜻한다. 앞에서 \verb|br| 태그의 필요성을 설명하면서 whitespace 문자는 여러 번 연속되어 나열되어도 하나의 공백으로 취급된다고 하였다. 그러므로 여러 칸을 띄워 표시할 때 단순히 space를 여러 번 입력하여 나타내면 안되고, \verb|&nbsp;|라는 HTML 개체를 이용하여 연속된 공백을 나타내야 한다. \coderef{code:nbsp-usage}을 확인해보자.
+이외에도 \verb|&quot;|(``), \verb|&amp;|(\&) 등의 개체도 존재한다. 특히 \verb|&nbsp;|는 non-breaking space의 약자로, 공백을 뜻한다. 앞에서 \verb|br| 태그의 필요성을 설명하면서 whitespace 문자는 여러 번 연속되어 나열되어도 하나의 공백으로 취급된다고 하였다. 그러므로 여러 칸을 띄워 표시할 때 단순히 space를 여러 번 입력하여 나타내면 안되고, \verb|&nbsp;|라는 HTML 개체를 이용하여 연속된 공백을 나타내야 한다. \coderef{code:nbsp-usage}을 확인해보자.
 
 \begin{codeenv}{code:nbsp-usage}{Usage of \texttt{\&nbsp;}}\begin{verbatim}
 
@@ -221,14 +221,14 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 \begin{codeenv}{code:html-entity-refmark}{Proper Way of Displaying \texttt{<} and \texttt{>}}\begin{verbatim}
 
 
-<h3>&#8051; This is how inequality &lt;signs&gt; look like.</h3>
+<h3>&#8251; This is how inequality &lt;signs&gt; look like.</h3>
 \end{verbatim}
 \end{codeenv}
 
 \subsection*{\texttt{div} and \texttt{span} Tag}
 HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이지를 디자인하고 추가 기능을 부여하기 위해서는 HTML을 구조화할 필요가 있다. 지금까지 살펴본 태그들은 모두 특정한 기능을 가진 태그들인데, 구조화할 때 사용되는 태그가 앞의 태그들처럼 특정한 기능을 갖는다면, HTML 코드의 구조가 엉망진창이 될 수 밖에 없다. 이러한 이유로 존재하는, 특정한 기능이 없고, HTML 요소들을 묶어서 레이아웃(layout)을 구성하기 위해 존재하는 태그를 non-semantic 태그라고 하며, \verb|div|와 \verb|span| 태그가 있다. 
 
-두 태그의 차이점은 인접한 다른 요소들과 같은 줄에 있으려고 하는 지 여부이다. \verb|div| 태그는 인접한 요소와 같은 줄에 있으려고 하지 않고, \verb|span| 태그는 인접한 요소와 같은 줄에 있으려고 한다. \coderef{code:div-and-span-tags}를 통해 이러한 성질을 확인해보자.
+두 태그는 특징상 약간의 차이가 있는데, \verb|div| 태그는 인접한 요소와 같은 줄에 있으려고 하지 않고, \verb|span| 태그는 인접한 요소와 같은 줄에 있으려고 한다. \coderef{code:div-and-span-tags}를 통해 이러한 특징을 확인해보자.
 
 \begin{codeenv}{code:div-and-span-tags}{\texttt{div} and \texttt{span} Tags}\begin{verbatim}
 
@@ -255,4 +255,6 @@ HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이�
 \end{verbatim}
 \end{codeenv}
 
-두 태그를 비교하기 위해 작성된 \coderef{code:div-and-span-tags}을 조금만 관찰하면, 비슷한 기능이나 역할을 하는 요소들이 묶여있어, 전체적인 구조를 파악하기 용이하다. 이렇게 \texttt{<div>}와 \texttt{<span>} 태그를 사용하는 것만으로도 그렇지 않았을 때보다 코드가 훨씬 구조화되고, 가독성이 대폭 좋아진 것을 확인할 수 있다. 
+두 태그를 비교하기 위해 작성된 \coderef{code:div-and-span-tags}를 조금만 관찰하면, 비슷한 기능이나 역할을 하는 요소들이 묶여있어, 전체적인 구조를 파악하기 용이하다. 이렇게 \texttt{div}와 \texttt{span} 태그를 사용하는 것만으로도 그렇지 않았을 때보다 코드가 훨씬 구조화되고, 가독성이 대폭 좋아진 것을 확인할 수 있다. 
+
+\texttt{div}와 \texttt{span}은 대표적인 non-semantic 태그이지만, 개발자의 편의에 따라 예약되지 않은 태그 이름 사용하여 HTML 문서를 작성할 수 있다. 유사하게, 태그 속성 역시 예약되지 않은 속성의 이름과 속성값을 사용하여 HTML 문서를 작성하고, 이를 CSS와 JS 문서에서 사용할 수 있다.

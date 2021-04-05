@@ -2,18 +2,16 @@
 
 \subsection*{CSS의 기본적인 구조}
 
-HTML과 유사하게, CSS 역시 스타일이나 레이아웃을 체계적으로 서술하는 컴퓨터 언어이기 때문에 작성할 때 지켜야 하는 특정한 규칙이 있습니다.
+CSS는 문서의 구조를 체계적으로 서술하는 언어인 HTML과 유사하게 스타일이나 레이아웃을 체계적으로 서술하는 컴퓨터 언어이므로 지켜서 작성해야 하는 특정한 규칙이 있다.
 
 \figcmd{fig:css-basic-struct}{Basic Structure of CSS}
-    {images/css-designing-html/css-basic-struct.png}{.6}
+    {images/css-designing-html/css-basic-struct.png}{.7}
 
-CSS의 구조는 \figref{fig:css-basic-struct}과 같이 표현될 수 있습니다. 선택자(selector)는 HTML 요소를 태그 이름, 클래스 이름, 아이디, 상태, 속성 등을 기준으로 선택하는 방법을 서술하는 문자열로, 작성 방법은 \sectref{sect:selectors}에서 구체적으로 다룰 것입니다. 선택자에 의해 선택된 요소들에 일괄적으로 적용할 스타일을 중괄호(\verb|{}|) 내부에 서술합니다.
+CSS의 구조는 \figref{fig:css-basic-struct}과 같이 표현될 수 있다. 선택자(selector)는 HTML 요소를 태그 이름, 클래스 이름, 아이디, 상태, 속성 등을 기준으로 HTML 요소를 선택하는 방법을 서술하는 문자열로, 작성 방법은 \sectref{sect:selectors}에서 구체적으로 다룬다. 선택자에 의해 선택된 요소들에 일괄적으로 적용할 스타일을 중괄호(\verb|{}|) 내부에 작성한다.
 
-스타일은 속성과 속성값의 집합으로 표현합니다. 속성(property)은 HTML 요소에 적용하고자 하는 디자인 요소로, 너비, 높이, 글자의 색, 폰트의 크기 및 굵기, 테두리 등 250가지가 넘는 매우 다양한 속성들이 존재합니다. 각 속성에는 그에 대응하는 속성값(value)을 지정할 수 있습니다. 예를 들어, 글자의 색상(\verb|color|) 속성에 사용될 수 있는 속성값으로는 \verb|red|, \verb|blue|, \verb|white| 등의 색상 이름이나, \verb|#1ADB9E|와 같이 색상을 hex code로 표현한 값들이 가능합니다. 각 속성과 그에 대응하는 속성값을 \verb|property: value|의 형태로 쓰고, 각 property-value pair를 세미콜론(\verb|;|)으로 구분하여 나열합니다.
+스타일은 key-value pair의 형태인 속성과 속성값의 집합으로 표현한다. \textbf{속성(property)}은 HTML 요소에 적용하고자 하는 디자인 요소로, 너비, 높이, 글자의 색, 폰트의 크기 및 굵기 등 250가지가 넘는 다양한 속성들이 존재하며, 각 속성에는 그에 대응하는 \textbf{속성값(value)}을 지정할 수 있다. 예를 들어, 글자의 색상과 관련된 속성은 \verb|color|이며, 속성값으로는 \verb|red|나 \verb|blue|와 같은 색상 이름이나, \verb|#1ADB9E|와 같은 hex code 형태 등이 가능하다. 속성과 속성값 pair를 \verb|property: value|의 형태로 쓰고, 각 pair를 세미콜론(\verb|;|)으로 구분하여 나열한다.
 
-당연하게도, 하나의 선택자에만 스타일을 적용할 수 있는 것은 아닙니다. 각 선택자에 대해 \figref{fig:css-basic-struct}과 같이 CSS를 작성한 후 나열하면 해당하는 요소에 CSS 스타일이 적용됩니다. 이렇게 스타일과 레이아웃을 서술했을 때, 하나의 요소에 적용되는 CSS 속성 중 한 속성에 둘 이상의 값이 적용되는 경우가 발생하면, CSS 문서 내에서 뒤쪽 순서에 있는 스타일이 적용됩니다. 
-
-\begin{codeenv}{fig:css-simple-example}{Simple Example of CSS}\begin{verbatim}
+\begin{codeenv}{code:css-simple-example}{Simple Example of CSS}\begin{verbatim}
 
 
 .main-panel {
@@ -32,12 +30,23 @@ CSS의 구조는 \figref{fig:css-basic-struct}과 같이 표현될 수 있습니
 \end{verbatim}
 \end{codeenv}
 
+하나의 요소는 여러 선택자에 의해 선택될 수 있으며, 이러한 선택자들에 의해 속성값의 충돌(conflict)이 일어날 수 있다. 이때 실제로 적용되는 속성값은 우선순위 규칙에 따라 우선순위가 가장 높은 선택자에 의해 적용되는 속성값이 적용된다. 우선순위 규칙은 다음과 같다.
+
+\begin{enumerate}
+    \item 속성값의 뒤에 \verb|!important|가 붙은 속성
+    \item HTML에서 \verb|style| 속성을 사용하여 정의한 속성
+    \item Id {\textgreater} 클래스나 추상클래스의 이름 {\textgreater} 태그 이름 선택자의 속성
+    \item 상위 요소에 의해 상속된 속성
+\end{enumerate}
+
+우선순위가 같은 경우, 부모-자식의 관계가 많을수록 우선순위가 높고, 그 다음으로는 나중에 작성된 속성이 적용된다.
+
 \subsection*{Application of CSS on HTML}
-CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 코드를 적용해봅시다. CSS 코드를 적용하는 방법은 세 가지가 있습니다. 
+CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 문서를 적용하는 세 가지 방법을 알아보자.
 
-첫 번째 방법은 inline style입니다. HTML 요소에 \verb|style| 속성의 값으로 property-value pair를 직접 열거하는 방법입니다. HTML 요소에 개별적으로 스타일을 적용하는 방식이기 때문에 선택자를 쓰지 않습니다. 이 방법은 각 요소가 어떠한 디자인을 가지는지 쉽게 알 수는 있으나, 웹 페이지의 구조를 표현한다는 HTML의 목적에 위배될뿐더러, 각 요소에 스타일을 작성해주어야 하므로 유사한 스타일을 적용하고자 하는 HTML 요소가 많아지면 효율이 매우 떨어지고, 디자인을 수정할 때 수정하고자 하는 요소를 일일이 수정해주어야 하므로 매우 번거롭습니다. 따라서 inline style은 지양되는 스타일이지만, 서식이 있는 텍스트(rich text)를 표현할 때에는 자주 사용됩니다. 
+첫 번째 방법은 inline style으로, HTML 요소에 \verb|style| 속성의 값으로 property-value pair를 직접 열거하는 방법이며, HTML 요소에 개별적으로 스타일을 적용하는 방식이기 때문에 선택자를 쓰지 않는다. 이 방법은 각 요소가 어떠한 디자인을 가지는지 쉽게 알 수는 있으나, 웹 페이지의 구조를 표현한다는 HTML의 목적에 위배되며, 요소마다 스타일을 작성해주어야 하므로 동일한 스타일을 적용하고자 하는 HTML 요소가 많아질 경우 문서의 불필요하게 길어지며 유지 및 보수 역시 번거로워진다. 따라서 inline style은 지양되는 스타일이지만, 예외적으로 서식이 있는 텍스트(rich text)를 표현할 때에는 자주 사용된다.
 
-\begin{codeenv}{code:css-app-inline}{Applying CSS with inline style}\begin{verbatim}
+\begin{codeenv}{code:css-app-inline}{Applying CSS with Inline Style}\begin{verbatim}
 
 
 <div>
@@ -49,9 +58,9 @@ CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 코드를 적�
 \end{verbatim}
 \end{codeenv}
 
-두 번째 방법은 internal style sheet입니다. \verb|head| 태그 내부에 \verb|<style type="text/css">| 요소를 삽입하고, 그 내부에 CSS 코드를 작성합니다. 선택자를 사용할 수 있으므로 inline style보다는 더 효율적으로 작성할 수 있으나, HTML 본연의 목적에는 여전히 위배되며, 여러 HTML 문서에 동일한 CSS를 적용하는 경우 디자인을 수정하기가 여전히 번거롭습니다. 
+두 번째 방법은 internal style sheet으로, \verb|head| 태그 내부에 \verb|<style type="text/css">| 요소를 삽입하고, 그 내부에 CSS 코드를 작성한다. 선택자를 사용할 수 있으므로 inline style보다는 효율적으로 작성할 수 있으나, HTML 본연의 목적에는 여전히 위배되며, 여러 HTML 문서에 동일한 CSS 문서를 적용할 때에는 여전히 비효율적이며 번거롭다.
 
-\begin{codeenv}{code:css-app-internal}{Applying CSS with internal style sheet}\begin{verbatim}
+\begin{codeenv}{code:css-app-internal}{Applying CSS with Internal Style Sheet}\begin{verbatim}
 
 
 <style type="text/css">
@@ -64,27 +73,28 @@ CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 코드를 적�
         font-size: 12px;
     }
 </style>
-
-<div class="title">KWEB Study So Far: </div>
+<div class="title">KWEB Front-end Study: </div>
 <ul id="article-list">
     <li>Ch 1. Introduction to Front-end</li>
     <li>Ch 2. HTML: The Basic Structure</li>
     <li>Ch 3. CSS: Designing HTML</li>
+    <li>Ch 4. Basics of Javascript</li>
+    <li>Ch 5. Javascript: Dynamic Frontend</li>
 </ul>
 \end{verbatim}
 \end{codeenv}
 
-마지막 방법은 external style sheet이며, 가장 권장되는 방법입니다. HTML 문서와 CSS 문서를 서로 다른 파일에 작성하고, HTML 문서에서 \verb|head| 태그 내부에 \verb|link| 태그를 이용하여 CSS 파일을 연동합니다. 이때 \verb|link| 태그의 각 속성에 명시해야 하는 값은 다음과 같습니다. 
+마지막 방법은 가장 권장되는 방법인 external style sheet으로, HTML 문서와 CSS 문서를 서로 다른 파일에 작성하고, HTML 문서의 \verb|head| 태그 내부에 \verb|link| 태그를 이용하여 CSS 파일을 연동한다. \verb|link| 태그에는 다음과 같은 속성을 지정해주어야 한다.
 
 \begin{itemize}
-    \item \verb|type: text/css| - CSS 타입의 문서를 연결합니다
-    \item \verb|rel: stylesheet| – 연결하고자 하는 문서가 HTML 문서의 stylesheet라는 것을 명시합니다.
-    \item \verb|href| – 연결하고자 하는 CSS 문서의 주소입니다. 
+    \item \verb|type: text/css| - 연결하고자 하는 문서가 CSS 형태임을 명시한다.
+    \item \verb|rel: stylesheet| - 연결하고자 하는 문서가 HTML 문서의 stylesheet임을 명시한다.
+    \item \verb|href| - 연결하고자 하는 CSS 문서의 주소를 명시한다.
 \end{itemize}
 
-먼저 index.html과 style.css를 같은 폴더 내에 생성하고, \coderef{code:css-app-ext-css}와 같이 style.css를 작성합니다. 
+먼저 index.html과 style.css를 같은 폴더 내에 생성하고, \coderef{code:css-app-ext-css}와 같이 style.css를 작성한다.
 
-\begin{codeenv}{code:css-app-ext-css}{Applying CSS with external style sheet - style.css}\begin{verbatim}
+\begin{codeenv}{code:css-app-ext-css}{Applying CSS with External Style Sheet - style.css}\begin{verbatim}
 
 
 .title {
@@ -103,9 +113,9 @@ CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 코드를 적�
 \end{verbatim}
 \end{codeenv}
 
-이후, index.html을 \coderef{code:css-app-ext-html}과 같이 작성합니다. \verb|link| 태그의 구조를 확인하면서 작성해봅시다. 
+이후, index.html을 \coderef{code:css-app-ext-html}과 같이 작성한다. \verb|link| 태그의 구조를 확인해보자.
 
-\begin{codeenv}{code:css-app-ext-html}{Applying CSS with external style sheet - index.html}\begin{verbatim}
+\begin{codeenv}{code:css-app-ext-html}{Applying CSS with External Style Sheet - index.html}\begin{verbatim}
 
 
 <head>
@@ -122,4 +132,4 @@ CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 코드를 적�
 \end{verbatim}
 \end{codeenv}
 
-이제 index.html 파일을 웹 브라우저에 열어서 확인해봅시다. CSS 파일에 작성된 디자인이 적용된 것을 확인할 수 있습니다. 이처럼 external style sheet 방식은 웹 페이지의 구조를 표현하고, 스타일을 표현한다는 HTML과 CSS 각각의 목적을 모두 달성하면서도 유지 및 보수가 용이하다는 장점이 있습니다. 
+이제 index.html 파일을 웹 브라우저에 열어서 확인해보면, CSS 파일에 작성된 디자인이 적용되었음을 확인할 수 있다. 이처럼 external style sheet 방식은 웹 페이지의 구조를 표현하고, 스타일을 표현한다는 HTML과 CSS 각각의 목적을 모두 달성하면서도 유지 및 보수가 용이하다는 장점이 있다. 
