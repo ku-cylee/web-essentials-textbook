@@ -1,1 +1,177 @@
-\section{JS Exercise Answers}
+\section{JS Exercise Answers} \label{sect:js-exercise-answers}
+
+\subsection*{\sectref{sect:dom-exercises}: DOM Exercises}
+
+\begin{codeenv}{code:dom-exercise-1-ans}{DOM Exercise 1 Answer}\begin{verbatim}
+
+
+const work = () => {
+    const red = Math.floor(Math.random() * 256);
+    const blue = Math.floor(Math.random() * 256);
+    const green = Math.floor(Math.random() * 256);
+    const newColor = 'rgb(' + red + ', ' + blue + ', ' + green + ')';
+    document.getElementById('color-box').style.backgroundColor = newColor;
+}
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:dom-exercise-2-ans}{DOM Exercise 2 Answer}\begin{verbatim}
+
+
+const work = () => {
+    const number = document.getElementById('number').value;
+    const parsedNumber = parseInt(number);
+    const timesResult = document.getElementById('times-result');
+
+    if (isNaN(parsedNumber)) {
+        return timesResult.innerText = 'Input Error!';
+    }
+    
+    if (parsedNumber != number) {
+        return timesResult.innerText = 'Input Error!';
+    }
+
+    if (parsedNumber < 1 || parsedNumber > 9) {
+        return timesResult.innerText = 'Input Error!';
+    }
+
+    const result = [];
+    for (let i = 1; i <= 9; i++) {
+        result.push(parsedNumber + ' X ' + i + ' = ' + parsedNumber * i);
+    }
+
+    timesResult.innerText = result.join('\n');
+}
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:dom-exercise-3-ans}{DOM Exercise 3 Answer}\begin{verbatim}
+
+
+const work = () => {
+    const box = document.getElementsByClassName('box')[2];
+    box.style.backgroundColor = 'blue';
+}
+\end{verbatim}
+\end{codeenv}
+\pagebreak
+
+\subsection*{\sectref{sect:bom-exercises}: BOM Exercise}
+
+\begin{codeenv}{code:bom-exercise-ans}{BOM Exercise Answer}\begin{verbatim}
+
+
+const gaugeBarEl = document.getElementById('gauge-bar');
+const currentLevelEl = document.getElementById('current-level');
+const attemptsEl = document.getElementById('attempts');
+const probs = [ 100, 60, 36, 22, 13, 8, 5, 3, 2, 1 ];
+
+let count = 0;
+let level = 0;
+
+const chooseWithProb = ratio => {
+    const randomNumber = Math.floor(Math.random() * 100);
+    return (randomNumber < ratio);
+};
+
+const work = () => {
+    const loopId = setInterval(() => {
+        count++;
+        const successed = chooseWithProb(probs[level]);
+        if (successed) {
+            level++;
+            gaugeBarEl.style.width = level * 10 + '%';
+            currentLevelEl.innerText = level;
+        }
+        attemptsEl.innerText = count;
+
+        if (level >= 10) clearInterval(loopId);
+    }, 50);
+};
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{\sectref{sect:event-and-event-listener-exercises}: Event and Event Listener Exercise}
+
+\begin{codeenv}{code:event-exercise-1-ans}{Event and Event Listener Exercise 1}\begin{verbatim}
+
+
+const itemPrice = {
+    apple: 700, 
+    orange: 800, 
+    lemon: 900, 
+};
+const costEl = document.getElementById('cost');
+let price = 0;
+
+for (let buttonEl of document.getElementsByClassName('add-to-cart')) {
+    buttonEl.addEventListener('click', function () {
+        const itemName = this.parentNode.parentNode.getAttribute('id');
+        price += itemPrice[itemName];
+        costEl.innerText = price;
+    });
+}
+\end{verbatim}
+\end{codeenv}
+\pagebreak
+
+\begin{codeenv}{code:event-exercise-2-ans}{Event and Event Listener Exercise 2}\begin{verbatim}
+
+
+const gamePanelEl = document.getElementById('game-panel');
+const circlePos = { x: 740, y: 40 };
+const squarePos = { x: 40, y: 440 };
+const KEY_CODE = { UP: 38, DOWN: 40, LEFT: 37, RIGHT: 39 };
+
+const setGameObjectPosition = (gameObject, position) => {
+    gameObject.style.left = position.x + 'px';
+    gameObject.style.top = position.y + 'px';
+};
+
+const moveGameObjectByKey = (pos, keyCode) => {
+    const newPos = { x: pos.x, y: pos.y };
+    switch (keyCode) {
+        case KEY_CODE.UP:
+            newPos.y -= 100; break;
+        case KEY_CODE.DOWN:
+            newPos.y += 100; break;
+        case KEY_CODE.LEFT:
+            newPos.x -= 100; break;
+        case KEY_CODE.RIGHT:
+            newPos.x += 100; break;
+    }
+    return newPos;
+}
+
+const isGameObjectOutOfRange = (pos) => {
+    return (pos.x < 0) || (pos.x > 800) || (pos.y < 0) || (pos.y > 500);
+};
+
+document.addEventListener('keydown', (event) => {
+    const newPos = moveGameObjectByKey(squarePos, event.keyCode);
+
+    if (isGameObjectOutOfRange(newPos)) {
+        return alert('Square gets out of range!');
+    } else {
+        squarePos.x = newPos.x;
+        squarePos.y = newPos.y;
+        setGameObjectPosition(squareEl, newPos);
+    }
+
+    if (squarePos.x === circlePos.x && squarePos.y === circlePos.y) {
+        gamePanelEl.removeChild(circleEl);
+        document.getElementById('success-message').innerText = 'You won the game!';
+    }
+});
+
+const circleEl = document.createElement('div');
+circleEl.classList.add('circle');
+setGameObjectPosition(circleEl, circlePos);
+gamePanelEl.appendChild(circleEl);
+
+const squareEl = document.createElement('div');
+squareEl.classList.add('square');
+setGameObjectPosition(squareEl, squarePos);
+gamePanelEl.appendChild(squareEl);
+\end{verbatim}
+\end{codeenv}
