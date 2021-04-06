@@ -4,7 +4,7 @@
 
 \subsection*{Universal Selector}
 
-전체 선택자(universal selector)는 HTML 문서의 모든 요소를 선택하며, \verb|*|로 표현된다.
+전체 선택자(universal selector)는 HTML 문서의 모든 요소를 선택하며, \texttt{*}로 표현된다.
 
 \begin{codeenv}{code:universal-selector}{Universal Selector}\begin{verbatim}
 
@@ -14,7 +14,7 @@
 \end{codeenv}
 
 \subsection*{Tag, Class, Id Selector}
-태그 이름, 클래스 이름, 아이디를 기준으로 요소를 선택하는 선택자이다. 태그 이름은 \verb|tag-name|, 클래스 이름은 \verb|.class-name|, 아이디는 \verb|#id|의 형태로 작성한다. 또한, 태그 이름, 클래스 이름, 아이디 등으로 표현된 선택자 \verb|element|로 선택되는 요소 중 클래스 이름이 \verb|class-name|인 요소를 선택하는 선택자는 \verb|element.class-name|의 형태로 작성한다.
+태그 이름, 클래스 이름, 아이디를 기준으로 요소를 선택하는 선택자이다. 태그 이름은 \texttt{tag-name}, 클래스 이름은 \texttt{.class-name}, 아이디는 \texttt{\#id}의 형태로 작성한다. 또한, 태그 이름, 클래스 이름, 아이디 등으로 표현된 선택자 \texttt{element}로 선택되는 요소 중 클래스 이름이 \texttt{class-name}인 요소를 선택하는 선택자는 \texttt{element.class-name}의 형태로 작성한다.
 
 \begin{codeenv}{code:tag-class-id-selector}{Examples of Tag, Class, Id Selector}\begin{verbatim}
 
@@ -27,7 +27,7 @@ ul { list-style: none }
 \end{codeenv}
 
 \subsection*{Child Selector and Descendants Selector}
-자식 선택자(child selector)와 자손 선택자(descendants selector)는 두 개 이상의 선택자를 이용하여 요소를 선택하는 선택자입니다. 자식 선택자는 \verb|parent > child|의 형태로 쓰며, \verb|parent| 선택자로 선택된 각 요소의 바로 밑에 있는 자식 요소 중 \verb|child| 선택자를 기준으로 선택한다. 반면, 자손 선택자는 \verb|parent child|의 형태로 쓰며, \verb|parent| 선택자로 선택된 요소들의 밑에 있는 모든 자식 요소 중 \verb|child| 선택자를 기준으로 선택한다.
+자식 선택자(child selector)와 자손 선택자(descendants selector)는 두 개 이상의 선택자를 이용하여 요소를 선택하는 선택자입니다. 자식 선택자는 \texttt{parent > child}의 형태로 쓰며, \texttt{parent} 선택자로 선택된 각 요소의 바로 밑에 있는 자식 요소 중 \texttt{child} 선택자를 기준으로 선택한다. 반면, 자손 선택자는 \texttt{parent child}의 형태로 쓰며, \texttt{parent} 선택자로 선택된 요소들의 밑에 있는 모든 자식 요소 중 \texttt{child} 선택자를 기준으로 선택한다.
 
 \begin{codeenv}{code:child-desc-selector}{Understanding Child Selector and Descendants Selector}\begin{verbatim}
 
@@ -40,10 +40,10 @@ ul { list-style: none }
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:child-desc-selector}를 통해 이해해보자. 자식 선택자인 \verb|.class1 > span|은 \verb|#span1|만 선택하나, 자손 선택자인 \texttt{.class1 span}은 \verb|#span1과 #span3|를 선택한다.
+\coderef{code:child-desc-selector}를 통해 이해해보자. 자식 선택자인 \texttt{.class1 > span}은 \texttt{\#span1}만 선택하나, 자손 선택자인 \texttt{.class1 span}은 \texttt{\#span1}과 \texttt{\#span3}를 선택한다.
 
 \subsection*{Pseudo-class Selector}
-가상 클래스 선택자(pseudo-class selector)는 특정한 상태에 놓여있는 요소들을 선택하는 선택자이다. 예를 들어 \verb|button| 태그로 구현한 버튼에 일반적인 상태, 호버된 상태, 비활성화된 상태 등의 상태를 클래스의 형태로 나타낸 것을 가상 클래스(pseudo-class)라고 하며, 각각 다른 스타일을 적용할 수 있다. 이러한 가상 클래스 선택자는 \verb|:pseudo-class|의 형태로 쓰고, \verb|element:pseudo-class|로 표현된 선택자는 \verb|element| 선택자로 선택된 요소 중 \verb|pseudo-class|에 해당하는 요소들을 선택한다. \verb|a| 태그는 \verb|:link|, \verb|:visited|, \verb|:hover|, \verb|:active| 등의 가상 클래스를 가질 수 있다.
+가상 클래스 선택자(pseudo-class selector)는 특정한 상태에 놓여있는 요소들을 선택하는 선택자이다. 예를 들어 \texttt{button} 태그로 구현한 버튼에 일반적인 상태, 호버된 상태, 비활성화된 상태 등의 상태를 클래스의 형태로 나타낸 것을 가상 클래스(pseudo-class)라고 하며, 각각 다른 스타일을 적용할 수 있다. 이러한 가상 클래스 선택자는 \texttt{:pseudo-class}의 형태로 쓰고, \texttt{element:pseudo-class}로 표현된 선택자는 \texttt{element} 선택자로 선택된 요소 중 \texttt{pseudo-class}에 해당하는 요소들을 선택한다. \texttt{a} 태그는 \texttt{:link}, \texttt{:visited}, \texttt{:hover}, \texttt{:active} 등의 가상 클래스를 가질 수 있다.
 
 \begin{codeenv}{code:pseudo-class-selector-1}{Example of Pseudo-class Selector (1)}\begin{verbatim}
 
@@ -61,13 +61,13 @@ ul { list-style: none }
 가상 클래스에는 HTML 요소의 상태뿐만 아니라 구조와 관련된 가상 클래스도 있다.
 
 \begin{itemize}
-    \item \verb|:first-child| – 선택된 요소 중 가장 첫 번째 요소를 선택한다.
-    \item \verb|:last-child| – 선택된 요소 중 가장 마지막 요소를 선택한다.
-    \item \verb|:nth-child(e(n))| – $n$으로 표현된 식 $e(n)$에 대해, 선택된 요소 중 $e(0)$, $e(1)$, $e(2)$, $\cdots$번째 요소를 모두 선택한다. \verb|e(n)|은 $an+b$의 꼴만 가능하며, \verb|e(n)| 대신 \verb|odd|나 \verb|even|을 사용할 수 있다.
-    \item \verb|:nth-last-child(e(n))| – \verb|nth-child|와 유사하게 동작하나, 뒤에서부터 선택한다.
+    \item \texttt{:first-child} – 선택된 요소 중 가장 첫 번째 요소를 선택한다.
+    \item \texttt{:last-child} – 선택된 요소 중 가장 마지막 요소를 선택한다.
+    \item \texttt{:nth-child(e(n))} – $n$으로 표현된 식 $e(n)$에 대해, 선택된 요소 중 $e(0)$, $e(1)$, $e(2)$, $\cdots$번째 요소를 모두 선택한다. \texttt{e(n)}은 $an+b$의 꼴만 가능하며, \texttt{e(n)} 대신 \texttt{odd}나 \texttt{even}을 사용할 수 있다.
+    \item \texttt{:nth-last-child(e(n))} – \texttt{nth-child}와 유사하게 동작하나, 뒤에서부터 선택한다.
 \end{itemize}
 
-이 외에도, \verb|:not(selector)|은 \verb|selector|에 의해 선택되지 않는 요소들만 선택한다.
+이 외에도, \texttt{:not(selector)}은 \texttt{selector}에 의해 선택되지 않는 요소들만 선택한다.
 
 \begin{codeenv}{code:pseudo-class-selector-2}{Example of Pseudo-class Selector (2)}\begin{verbatim}
 
@@ -94,7 +94,7 @@ ul { list-style: none }
 \end{verbatim}
 \end{codeenv}
 
-가상 클래스의 종류는 매우 많으므로, 자주 쓰이는 몇 가지를 제외하고는 필요할 때마다 찾아서 사용하면 된다. 더 많은 가상 클래스는 아래의 MDN reference에서 확인할 수 있습니다. 
+가상 클래스의 종류는 매우 많으므로, 자주 쓰이는 몇 가지를 제외하고는 필요할 때마다 찾아서 사용하면 된다. 더 많은 가상 클래스는 아래의 MDN reference에서 확인할 수 있다. 
 
 \begin{itemize}
     \item https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes

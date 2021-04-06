@@ -7,7 +7,7 @@ JS에는 다음과 같은 7개의 자료형이 존재합니다.
     \item Compound Type: object
 \end{itemize}
 
-변수나 상수의 자료형은 \verb|typeof| 함수로 확인할 수 있습니다. 이번 절에서는 symbol형을 제외한 6가지 자료형에 대해 다루고, 배열에 관해 다룹니다. 
+변수나 상수의 자료형은 \texttt{typeof} 함수로 확인할 수 있습니다. 이번 절에서는 symbol형을 제외한 6가지 자료형에 대해 다루고, 배열에 관해 다룹니다. 
 
 \subsection*{Number}
 
@@ -30,7 +30,7 @@ number형은 수()를 저장하는 자료형입니다. number형에는 정수, �
 \end{verbatim}
 \end{codeenv}
 
-number 자료형에는 일반적인 수 이외에도 \verb|Infinity|와 \verb|NaN|(not a number)도 있습니다. \verb|Infinity|와 \verb|NaN|은 0으로 나누는 연산이 작용하면 발생합니다. 
+number 자료형에는 일반적인 수 이외에도 \texttt{Infinity}와 \texttt{NaN}(not a number)도 있습니다. \texttt{Infinity}와 \texttt{NaN}은 0으로 나누는 연산이 작용하면 발생합니다. 
 
 \begin{codeenv}{code:infinity-nan}{Infinity and NaN}\begin{verbatim}
 
@@ -69,7 +69,7 @@ string형은 문자열을 저장하는 자료형입니다. string형 문자열 �
 \end{verbatim}
 \end{codeenv}
 
-string형의 변수에 값을 할당할 때 큰따옴표(\verb|"|)나 작은따옴표(\verb|'|)를 사용하여 문자열을 감쌉니다. 다만, 문자열을 서로 다른 문자로 감싸는 것은 불가능합니다. 또한, 문자열 내에 감싸는 문자가 포함되어 있다면 역슬래시(\verb|\|)를 이용하여 escape 시켜야 합니다. 
+string형의 변수에 값을 할당할 때 큰따옴표(\texttt{"})나 작은따옴표(\texttt{'})를 사용하여 문자열을 감쌉니다. 다만, 문자열을 서로 다른 문자로 감싸는 것은 불가능합니다. 또한, 문자열 내에 감싸는 문자가 포함되어 있다면 역슬래시(\verb|\|)를 이용하여 escape 시켜야 합니다. 
 
 \begin{codeenv}{code:string-type-assign}{Assigning Value on String Type Variable}\begin{verbatim}
 
@@ -89,7 +89,7 @@ McDonald's
 
 \subsection*{Boolean}
 
-boolean형은 논리적인 요소를 나타내며, \verb|true|와 \verb|false| 두 가지의 값이 가능합니다. 
+boolean형은 논리적인 요소를 나타내며, \texttt{true}와 \texttt{false} 두 가지의 값이 가능합니다. 
 
 \begin{codeenv}{code:boolean-type}{Boolean Type}\begin{verbatim}
 
@@ -110,7 +110,7 @@ false
 
 \subsection*{Object}
 
-object형, 즉 객체형이란 속성(property)과 그에 대한 값(value)을 가질 수 있는 자료형입니다. 예를 들어, 어떠한 학생에 대한 정보를 다룰 때, 그 학생의 학번, 이름, 학과, 재학 여부 등을 별도의 변수에 저장하지 않고, \verb|student|라는 객체형 변수에 저장하여, 일괄적으로 다룰 수 있습니다. 
+object형, 즉 객체형이란 속성(property)과 그에 대한 값(value)을 가질 수 있는 자료형입니다. 예를 들어, 어떠한 학생에 대한 정보를 다룰 때, 그 학생의 학번, 이름, 학과, 재학 여부 등을 별도의 변수에 저장하지 않고, \texttt{student}라는 객체형 변수에 저장하여, 일괄적으로 다룰 수 있습니다. 
 
 객체에서는 속성을 key, 그에 대응하는 속성값을 value라고 합니다. Key는 문자열이어야 하고, 같은 계층에 있는 다른 key와 겹치는 key가 있을 수 없습니다. value에는 숫자, 문자열뿐만 아니라 객체 등 모든 종류의 데이터형이 가능합니다. 즉, 객체 내부에 또 다른 객체가 포함될 수 있어, 복잡한 데이터 구조를 형성하는 것이 가능합니다. 
 
@@ -140,7 +140,7 @@ false
 
 \subsection*{Undefined and Null}
 
-undefined 자료형은 값이 할당되지 않은 변수의 값이며, null 자료형은 값을 모르는, \verb|null| 값을 갖습니다. 
+undefined 자료형은 값이 할당되지 않은 변수의 값이며, null 자료형은 값을 모르는, \texttt{null} 값을 갖습니다. 
 
 \begin{codeenv}{code:undefined-type}{Undefined Type}\begin{verbatim}
 
@@ -153,7 +153,7 @@ undefined
 \end{verbatim}
 \end{codeenv}
 
-null 자료형은 \verb|typeof| 함수를 이용하면 잘못된 자료형을 반환받습니다. 이는 JS의 매우 오래된 버그이기 때문에 고치는 것이 불가능합니다. 따라서 변수가 \verb|null|임을 확인하기 위해서는 값을 직접 비교해야 합니다. 
+null 자료형은 \texttt{typeof} 함수를 이용하면 잘못된 자료형을 반환받습니다. 이는 JS의 매우 오래된 버그이기 때문에 고치는 것이 불가능합니다. 따라서 변수가 \texttt{null}임을 확인하기 위해서는 값을 직접 비교해야 합니다. 
 
 \begin{codeenv}{code:null-type}{Null Type}\begin{verbatim}
 
