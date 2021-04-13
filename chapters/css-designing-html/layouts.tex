@@ -1,23 +1,37 @@
 \section{Layouts} \label{sect:layouts}
 
-앞의 \sectref{sect:introducing-css}에서 CSS는 스타일과 레이아웃을 표현하는 데에 목적이 있는 문서라고 소개하였습니다. 지금까지는 CSS를 이용하여 텍스트의 크기나 색상, 배경의 색상이나 이미지를 디자인하는 방법을 다뤘습니다. 이번 절에서는 CSS를 이용하여 레이아웃을 잡는 방법을 다룰 것입니다. 
+\sectref{sect:introducing-css}에서 CSS는 스타일과 레이아웃을 표현하는 데에 목적이 있는 문서라고 소개하였다. 지금까지는 CSS를 이용하여 텍스트의 크기나 색상, 배경의 색상이나 이미지를 디자인하는 방법을 주로 다뤘다. 이번 절에서는 CSS를 이용하여 레이아웃을 설정하는 방법을 다룰 것이다.
 
 \subsection*{레이아웃이란}
-레이아웃(layout)은 직역하면 ``배치''라는 뜻을 갖는 단어입니다. CSS에서 레이아웃을 잡는 것은 사용자가 웹 페이지에서, 정보를 원활하게 주고받을 수 있게끔 HTML 요소들을 적절하게 배치하고 정돈하는 작업입니다. HTML 요소들을 웹 페이지 상에 원하는 대로 배치하는 것은 문서가 복잡해질수록 어려운 일입니다. 따라서 레이아웃을 잡는 작업을 정확히 하기 위해서는 각 CSS 속성들과 속성값의 성질을 정확히 알아야 하며, 많은 경험이 필요합니다. 
+레이아웃(layout)은 직역하면 ``배치''라는 뜻을 갖는 단어이다. CSS에서 레이아웃을 설정하는 것은 웹 페이지에서 사용자가 정보를 원활하게 주고받을 수 있게끔 HTML 요소들을 적절하게 배치하고 정돈하는 작업이다. HTML 요소들을 웹 페이지 상에 원하는 대로 배치하는 것은 문서가 복잡해질수록 어려운 일이다. 따라서 레이아웃을 정확히 설정하기 위해서는 각 CSS 속성들과 속성값의 성질을 정확히 알아야 한다.
 
 \figcmd{fig:devtools-layout}{Checking layout of HTML element in (a) Chrome and (b) Firefox}
-    {images/css-designing-html/devtools-layout.png}{.8}
+    {images/css-designing-html/devtools-layout.png}{.85}
 
-다행히도, 특정한 HTML 요소가 웹 페이지 내에서 영역을 어떻게 차지하고 어떻게 배치되는지 볼 수 있습니다. Chrome과 Firefox에서 F12를 눌러 개발자 도구를 열고, Chrome은 Elements 탭을, Firefox는 검사기 탭을 눌러 열려있는 HTML 문서의 코드를 띄웁니다. 그리고 레이아웃을 확인하고자 하는 요소 위에 마우스를 hover하면 해당 요소의 레이아웃이 \figref{fig:devtools-layout}와 같이 나타납니다. 반대로, 웹페이지에서 HTML 코드를 확인하고 싶은 부분을 우클릭한 후 [검사]를 누르면 해당 요소의 코드를 찾아줍니다. 이렇게 개발자 도구를 이용하여 HTML 문서를 디자인할 때 특정 요소가 어떠한 레이아웃을 갖는지, 어떻게 수정해야 할지 등의 정보를 보다 쉽게 얻을 수 있습니다. 
+다행히도, 웹 브라우저의 개발자 도구는 특정한 HTML 요소가 웹 페이지 내에서 영역을 어떻게 차지하고 있으며, 어떻게 배치되었는지 확인할 수 있는 기능을 제공한다. Chrome과 Firefox에서 F12를 눌러 개발자 도구를 열고, Chrome은 Elements 탭을, Firefox는 검사기 탭을 눌러 열려있는 HTML 문서의 코드를 띄운다. 그리고 레이아웃을 확인하고자 하는 요소 위에 마우스를 hover하면 해당 요소의 레이아웃이 \figref{fig:devtools-layout}와 같이 나타난다. 반대로, 웹 페이지에서 HTML 코드를 확인하고 싶은 부분을 우클릭한 후 [검사]를 누르면 해당 요소의 코드를 찾아준다. 이렇게 HTML 문서를 작성할 때 개발자 도구를 이용하면 특정 요소가 어떠한 레이아웃을 갖는지, 어떻게 수정해야 할지 등의 정보를 보다 쉽게 얻을 수 있다.
 
 \subsection*{Box Model}
-HTML의 각 요소는 사각형 형태의 레이아웃을 가지며, 이러한 레이아웃을 box model이라고 합니다. {fig:box-model}은 box model이 어떻게 구성되는지 직접적으로 보여줍니다. HTML 요소의 내용, 즉 content에 해당하는 부분은 content edge 내부에 들어갑니다. 예를 들어, \texttt{img} 태그의 경우 이미지가 내용에 해당하고, 제목 태그의 경우 태그 내부의 텍스트가 내용에 해당이 됩니다. Border 영역은 요소의 테두리가 차지하는 영역이며, padding 영역은 테두리로 둘러싸인 영역 중 내용 영역을 제외한 빈 공간입니다. 앞에서 학습한 배경과 관련된 속성들은 테두리의 내부, 즉 padding 영역과 content 영역에 적용됩니다. Margin 영역은 테두리 바깥쪽에서 요소가 차지하는 영역으로, 원칙상 다른 요소와는 겹쳐지지 않는 영역입니다.
+HTML의 각 요소는 \textbf{사각형 형태}의 레이아웃을 가지며, 이러한 레이아웃을 box model이라고 한다. {fig:box-model}을 참고하여 box model이 어떻게 구성되는지 알아보자.
 
-\figcmd{fig:box-model}{Box Model}{images/css-designing-html/box-model.png}{.5}
+\begin{itemize}
+    \item Content: HTML 요소의 내용에 해당하는 부분이 배치되는 영역
+    \begin{itemize}
+        \item 예: \texttt{img} 태그의 이미지, 제목 태그의 내부 텍스트
+    \end{itemize}
+    \item Border: 요소의 테두리가 차지하는 영역
+    \item Padding: Border과 content 사이의 영역
+    \begin{itemize}
+        \item 예: 배경은 content 영역과 padding 영역에 적용됨
+    \end{itemize}
+    \item Margin: 테두리 바깥쪽에서 요소가 차지하는 영역. 원칙상 다른 요소와는 겹치지 않음.
+\end{itemize}
 
-레이아웃을 구성할 때 이 box model을 제대로 이해하는 것이 중요합니다. 앞으로 나오는 예제 코드를 직접 작성해보고, 브라우저의 개발자 도구를 이용하여 padding과 border, margin이 어떻게 나타나는지 각각 살펴봅시다. 
+\figcmd{fig:box-model}{Box Model}{images/css-designing-html/box-model.png}{.15}
 
-먼저 content area에 관여하는 속성으로는 \texttt{width}와 \texttt{height}가 있습니다. 각각의 속성은 content area의 너비와 높이를 지정하는 속성이고, px, em 등의 단위나 \%를 이용하여 명시할 수 있습니다. \%로 지정하는 경우는 상위 요소의 너비나 높이를 기준으로 합니다. 
+이 box model은 HTML 요소 배치의 기본이 되기 때문에 제대로 이해하는 것이 매우 중요하다. 앞으로 나오는 예제 코드를 직접 작성해보고, 브라우저의 개발자 도구를 이용하여 padding과 border, margin이 어떻게 나타나는지 각각 살펴보자.
+
+먼저, content에 관여하는 속성으로는 \texttt{width}와 \texttt{height}가 있다. 두 속성은 각각 content 영역의 너비와 높이를 지정하는 속성이며, px, em 등의 단위나 \%를 이용하여 명시할 수 있다. \%로 지정하는 경우는 상위 요소의 너비나 높이를 기준으로 한다.
+\pagebreak
 
 \begin{codeenv}{code:box-content-area}{Content Area}\begin{verbatim}
 
@@ -41,9 +55,11 @@ HTML의 각 요소는 사각형 형태의 레이아웃을 가지며, 이러한 �
 \end{verbatim}
 \end{codeenv}
 
-Border에 관여하는 속성으로는 \texttt{border-width}, \texttt{border-style}, \texttt{border-color}, \texttt{border-radius} 등이 있습니다. \texttt{border-height}는 테두리의 굵기, \texttt{border-style}은 테두리의 모양, \texttt{border-color}는 테두리의 색상이며, \texttt{border-style}에는 \texttt{solid}, \texttt{dashed}, \texttt{dotted} 등의 값을 지정하여 테두리의 모양을 결정할 수 있습니다. 테두리를 한쪽 면에만 적용하고 싶은 경우에는 \texttt{border}를 \texttt{border-top}, \texttt{border-left}, \texttt{border-right}, \texttt{border-bottom} 등으로 대체하면 됩니다. 또한, \texttt{border-width}, \texttt{border-style}, \texttt{border-color}의 세 속성을 \texttt{border} 속성에 일괄적으로 기술할 수 있습니다. 이때 굵기, 모양, 색상을 차례대로 나열하여 작성해주면 됩니다. 
+Border에 관여하는 속성으로는 \texttt{border-width}, \texttt{border-style}, \texttt{border-color} 등이 있다. \texttt{border-height}는 테두리의 굵기, \texttt{border-style}은 테두리의 모양, \texttt{border-color}는 테두리의 색상을 나타내는 속성으로, 테두리의 모양은 \texttt{solid}, \texttt{dashed}, \texttt{dotted} 등의 값을 지정하여 테두리의 모양을 결정할 수 있다. 이 세가지 속성은 각각 따로 작성하여도 되고, \texttt{border} 속성에 굵기, 모양, 색상 순으로 나열하여 작성할 수도 있다. \coderef{code:box-border-area}에서 \texttt{\#box} 요소의 \texttt{border} 속성이 이러한 방법으로 작성되었다. 
 
-\texttt{border-radius}는 테두리의 모서리를 둥글게 만듭니다. \texttt{border}와 마찬가지로 네 모서리에 모두 적용되며, 한쪽 모서리에만 적용하고 싶으면 \texttt{border}와 유사하게 \texttt{top-left}, \texttt{top-right}, \texttt{bottom-left}, \texttt{bottom-right} 등의 방향을 기술해주면 됩니다. 
+또한, 방향에 관한 키워드\footnote{CSS에서 문서의 위, 아래, 왼쪽, 오른쪽 방향의 키워드는 각각 \texttt{top}, \texttt{bottom}, \texttt{left}, \texttt{right}이다.}를 사용하여 네 면 중 하나의 면에만 특정 스타일을 지정해줄 수 있다. 예를 들어, 왼쪽 면에만 스타일을 적용하고 싶은 경우 \texttt{border-left} 속성에 스타일을 작성한다.
+
+\texttt{border-radius}는 테두리의 모서리를 둥글게 만들 수 있는 속성으로, 속성값이 하나인 경우 주어진 값을 반지름으로 하는 원형으로, 두 개인 경우 두 값을 짧은 반지름과 긴 반지름으로 하는 타원형으로 만든다. \texttt{border}와 마찬가지로 네 모서리에 모두 적용되며, 한쪽 모서리에만 적용하고 싶은 경우 역시 방향과 관련된 키워드를 사용하여 기술한다. 예를 들어, 좌상단 모서리의 스타일은 \texttt{border-top-left-radius} 속성에 작성한다.
 
 \begin{codeenv}{code:box-border-area}{Border Area}\begin{verbatim}
 
@@ -61,7 +77,9 @@ Border에 관여하는 속성으로는 \texttt{border-width}, \texttt{border-sty
 \end{verbatim}
 \end{codeenv}
 
-Padding과 margin에 관한 속성은 그 영역의 크기를 명시해주고, 한 방향에만 padding/margin 값을 적용하고자 하면 방향을 써주면 됩니다. (예: \texttt{padding-left}, \texttt{margin-bottom}) 또한, 각 방향의 \texttt{padding}, \texttt{margin} 값이 다를 때, 번거롭게 방향마다 \texttt{property: value;}의 형태로 작성할 필요 없이, \tblref{tab:padding-margin-shortened}을 참고하여 \texttt{padding}, \texttt{margin} 속성의 값에 차례대로 각 방향의 값을 나열할 수도 있습니다. 
+Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부터 어느 정도 떨어져 있는지, margin 속성은 요소 가장자리의 각 면이 border 영역의 각 면으로부터 어느 정도 떨어져 있는지 명시하여 작성해준다. 앞의 border 영역과 마찬가지로 방향 키워드를 사용하여 한쪽 면에만 특정 padding/margin 값을 적용할 수 있다. (예: \texttt{padding-left}, \texttt{margin-bottom})
+
+다만 \texttt{padding}과 \texttt{margin} 속성은 방향마다 속성과 속성값을 모두 작성하는 번거로운 방식 대신, \tblref{tab:padding-margin-shortened}의 Shortened Form과 같이 \texttt{padding}, \texttt{margin} 속성의 값에 차례대로 각 방향의 값을 나열하여 작성하는 것이 가능하다.
 
 \begin{tblenv}
     {tab:padding-margin-shortened}
@@ -74,7 +92,7 @@ Padding과 margin에 관한 속성은 그 영역의 크기를 명시해주고, �
         >{\centering}m{0.1\textwidth}
     }
     \thickhline
-    Shortened & top & right & bottom & left \tabularnewline
+    Shortened Form & top & right & bottom & left \tabularnewline
     \hline
     \texttt{padding/margin: A;} & A & A & A & A \tabularnewline
     \texttt{padding/margin: A B;} & A & B & A & B \tabularnewline
@@ -83,9 +101,9 @@ Padding과 margin에 관한 속성은 그 영역의 크기를 명시해주고, �
     \thickhline
 \end{tblenv}
 
-\coderef{code:box-model-exam}를 참고하여 \texttt{padding}과 \texttt{margin}을 정하는 방법을 이해하고, 개발자 도구를 이용하여 box model의 각 부분이 웹 브라우저상에 어떻게 표시되는지 확인해봅시다. 
+\coderef{code:box-model-padding-margin}를 참고하여 \texttt{padding}과 \texttt{margin}을 정하는 방법을 이해하고, 개발자 도구를 이용하여 box model의 각 부분이 웹 브라우저상에 어떻게 표시되는지 확인해보자. 
 
-\begin{codeenv}{code:box-model-exam}{Examining Box Model}\begin{verbatim}
+\begin{codeenv}{code:box-model-padding-margin}{Examining Box Model}\begin{verbatim}
 
 
 <style>
@@ -108,13 +126,13 @@ Padding과 margin에 관한 속성은 그 영역의 크기를 명시해주고, �
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:box-model-exam}에서 \texttt{display: inline-block;}을 지우고 웹 페이지를 열어봅시다. 이번에는 각 \texttt{div.box} 요소가 세로로 나열되어 있는데, \figref{fig:margin-collapsing}와 같이 두 요소의 margin이 겹친 것을 볼 수 있습니다. 이렇게 HTML 요소 간에 margin이 겹치는 현상을 마진 상쇄 또는 마진 겹침(margin collapsing)이라고 합니다. Margin 겹침 현상은 인접한 형제 요소 간의 상하 margin이 겹칠 때, 빈 요소의 상하 margin이 겹칠 때, 부모 요소의 top(bottom) margin과 첫 번째(마지막) 자식 요소의 top(bottom) margin이 겹칠 때 발생합니다. \coderef{code:box-model-exam}의 경우는 형제 요소 간의 상하 margin이 겹친 경우로, margin 겹침 현상이 발생할 수 있다는 것을 모르면 코드를 작성할 때 곤란한 상황이 올 수 있으므로 유의하여야 합니다. 
+\coderef{code:box-model-padding-margin}에서 \texttt{display: inline-block;}을 지우고 웹 페이지를 열어보면 각 \texttt{.box} 요소가 세로로 나열된다. 이때 \figref{fig:margin-collapsing}와 같이 두 요소의 margin이 겹친 것을 확인할 수 있으며, 이렇게 HTML 요소 간에 margin이 겹치는 현상을 마진 상쇄 또는 마진 겹침(margin collapsing)이라고 한다. Margin 겹침 현상은 인접한 형제 요소 간의 상하 margin이 겹칠 때, 빈 요소의 상하 margin이 겹칠 때, 부모 요소의 top(bottom) margin과 첫 번째(마지막) 자식 요소의 top(bottom) margin이 겹칠 때 발생한다. \coderef{code:box-model-padding-margin}의 경우는 형제 요소 간의 상하 margin이 겹친 경우로, 이러한 현상을 모른 채로 디자인할 경우 당황스러운 상황이 발생할 수 있으므로 유의하여야 한다.
 
 \figcmd{fig:margin-collapsing}{Margin Collapsing}
-    {images/css-designing-html/margin-collapsing.png}{.5}
+    {images/css-designing-html/margin-collapsing.png}{.7}
 
 \subsection*{Inline-level and Block-level Elements}
-앞에서 HTML 요소는 Box Model에 따라 영역이 결정되고, 다른 요소들과 맞물려 배치된다는 것을 학습하였습니다. 앞의 \coderef{code:box-model-exam}에서 확인하였듯 HTML 요소는 배치될 때 이전 형제 요소의 오른쪽에 충분히 빈 공간이 있다면 오른쪽에, 그렇지 않으면 아래쪽에 배치됩니다. 그런데 앞서 HTML을 학습해오는 과정에서, 이전 형제 요소에 따로 margin이나 padding을 지정해주지 않았음에도 불구하고 이전 형제 요소와 같은 줄에 배치되지 않는 현상을 보았습니다. 
+앞에서 HTML 요소는 Box Model에 따라 영역이 결정되고, 다른 요소들과 맞물려 배치된다는 것을 학습하였습니다. 앞의 \coderef{code:box-model-padding-margin}에서 확인하였듯 HTML 요소는 배치될 때 이전 형제 요소의 오른쪽에 충분히 빈 공간이 있다면 오른쪽에, 그렇지 않으면 아래쪽에 배치됩니다. 그런데 앞서 HTML을 학습해오는 과정에서, 이전 형제 요소에 따로 margin이나 padding을 지정해주지 않았음에도 불구하고 이전 형제 요소와 같은 줄에 배치되지 않는 현상을 보았습니다. 
 
 \begin{codeenv}{code:inline-and-block-example}{Example of Inline-level, Block-level Elements}\begin{verbatim}
 
@@ -132,7 +150,7 @@ Padding과 margin에 관한 속성은 그 영역의 크기를 명시해주고, �
 
 그런데, 레이아웃을 구성하다 보면 요소들을 같은 줄에 배치하고 싶은데 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 사용해야 하는 경우가 있습니다. 이럴 때는 해당 요소의 \texttt{display} 값을 \texttt{inline-block}으로 지정해주면 됩니다. \texttt{inline-block}은 inline-level 요소의 성질과 block-level 요소의 성질을 모두 갖습니다. 또한, \texttt{display} 값을 \texttt{none}으로 지정하면 해당 요소가 보이지 않습니다.\footnote{유사한 속성으로는 \texttt{visibility: hidden}이 있습니다. 다만, 이 속성은 요소가 공간을 차지하되 보이지만 않게끔 합니다.}
  
-\coderef{code:box-model-exam}에서 \texttt{display} 속성의 값을 바꿔보며 이해해봅시다. 
+\coderef{code:box-model-padding-margin}에서 \texttt{display} 속성의 값을 바꿔보며 이해해봅시다. 
 
 \subsection*{Position}
 지금까지 학습한 레이아웃 배치 방식은, 이전의 형제 요소가 배치되고 난 다음 공간에 다음 요소가 차례대로 배치되는 방식입니다. 이렇게 배치하는 방식이 일반적이나, 간혹 웹페이지에서 다른 요소들과의 위치와는 관계없이 고정된 위치에 배치되는 요소들이 있고, 다른 요소와 겹치게끔 배치되는 요소들이 있습니다. 대표적으로는 뉴스 기사에서 스크롤을 내려도 계속 화면상에 표시되는 광고들이 있습니다. 이처럼 \texttt{position} 속성을 이용하면 위치를 특정하는 배치를 할 수 있습니다. 
