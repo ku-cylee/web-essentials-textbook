@@ -76,6 +76,7 @@ Border에 관여하는 속성으로는 \texttt{border-width}, \texttt{border-sty
 <div id="box"></div>
 \end{verbatim}
 \end{codeenv}
+\pagebreak
 
 Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부터 어느 정도 떨어져 있는지, margin 속성은 요소 가장자리의 각 면이 border 영역의 각 면으로부터 어느 정도 떨어져 있는지 명시하여 작성해준다. 앞의 border 영역과 마찬가지로 방향 키워드를 사용하여 한쪽 면에만 특정 padding/margin 값을 적용할 수 있다. (예: \texttt{padding-left}, \texttt{margin-bottom})
 
@@ -132,7 +133,8 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
     {images/css-designing-html/margin-collapsing.png}{.7}
 
 \subsection*{Inline-level and Block-level Elements}
-앞에서 HTML 요소는 Box Model에 따라 영역이 결정되고, 다른 요소들과 맞물려 배치된다는 것을 학습하였습니다. 앞의 \coderef{code:box-model-padding-margin}에서 확인하였듯 HTML 요소는 배치될 때 이전 형제 요소의 오른쪽에 충분히 빈 공간이 있다면 오른쪽에, 그렇지 않으면 아래쪽에 배치됩니다. 그런데 앞서 HTML을 학습해오는 과정에서, 이전 형제 요소에 따로 margin이나 padding을 지정해주지 않았음에도 불구하고 이전 형제 요소와 같은 줄에 배치되지 않는 현상을 보았습니다. 
+
+지금까지 모든 HTML 요소는 box model에 따라 영역이 결정되고, 영역에 따라 다른 요소들과 맞물려 배치됨을 학습하였다. 앞의 \coderef{code:box-model-padding-margin}에서는 HTML 요소가 이전 형제 요소의 오른쪽에 충분히 빈 공간이 있다면 오른쪽에, 그렇지 않으면 아래쪽에 배치되었다. 그런데 지금까지 HTML을 다루면서, 이전 형제 요소에 따로 margin이나 padding을 지정해주지 않았음에도 불구하고 이전 형제 요소와 같은 줄에 배치되지 않는 현상을 보았다.
 
 \begin{codeenv}{code:inline-and-block-example}{Example of Inline-level, Block-level Elements}\begin{verbatim}
 
@@ -142,28 +144,29 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:inline-and-block-example}의 HTML 문서를 웹 브라우저상에서 확인해보면, \texttt{h1} 태그와 \texttt{h2} 태그에 padding이나 margin을 전혀 부여하지 않았음에도 불구하고 서로 다른 줄에 배치된 것을 확인할 수 있습니다. 반대로, \texttt{h2} 태그 내부의 텍스트와 \texttt{span} 태그 내부의 텍스트는 서로 같은 줄에 배치되어 있습니다. 이처럼 같은 줄에 다른 요소가 배치되는 것을 허용하는지에 따라 inline-level 요소와 block-level 요소로 구분할 수 있고, 이 성질은 \texttt{display} 속성을 이용하여 변경할 수 있습니다. 
+\coderef{code:inline-and-block-example}에서 \texttt{h1} 태그와 \texttt{h2} 태그에 padding이나 margin이 전혀 부여되지 않았음에도 불구하고 서로 다른 줄에 배치되었다. 반대로, \texttt{h2} 태그 내부의 텍스트와 \texttt{span} 태그 내부의 텍스트는 서로 같은 줄에 배치되어 있다. 앞의 \sectref{sect:commonly-used-html-tags}에서 non-semantic 태그는 다른 요소와 같은 줄에 있으려고 하는지에 따라 \texttt{div} 태그와 \texttt{span} 태그로 나뉜다고 했던 것을 기억하는가? 이처럼 같은 줄에 다른 요소가 배치되는 것을 허용하는지에 따라 inline-level 요소와 block-level 요소로 구분할 수 있고, 이 성질은 \texttt{display} 속성을 이용하여 명시할 수 있다.
 
-먼저, block-level 요소는 다른 요소와 같은 줄을 공유하지 않으며, 웹 페이지 화면의 가로 폭을 모두 차지합니다. 따라서 여러 block-level 요소들을 배치하면 수직 방향으로 배치됩니다. Block-level 요소는 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 적용할 수 있으며, 그 내부에 inline-level 요소를 포함할 수 있습니다. \texttt{display} 속성의 값을 \texttt{block}으로 명시하면 block-level 요소의 성질을 갖게 되며, \texttt{div}, \texttt{h1}~\texttt{h6}, \texttt{p}, \texttt{ol}, \texttt{ul}, \texttt{li}, \texttt{hr}, \texttt{table}, \texttt{form} 등의 태그는 기본적으로 block-level 요소에 해당됩니다. 
+먼저 inline-level 요소는 다른 요소와 같은 줄을 공유하고, content의 너비만큼만 가로 폭을 차지한다. Inline-level 요소에는 \texttt{width}, \texttt{height}, \texttt{margin-top}, \texttt{margin-bottom}, \texttt{padding} 등의 속성을 적용할 수 없으며, 그 내부에 inline-level 요소를 포함할 수 없다. \texttt{display} 속성값이 \texttt{inline}인 요소는 inline-level 요소의 성질을 가지며, \texttt{span}, \texttt{a}, \texttt{strong}, \texttt{img}, \texttt{br}, \texttt{input}, \texttt{select}, \texttt{textarea}, \texttt{button} 등의 태그는 기본적으로 inline-level 요소이다. 
 
-반대로 inline-level 요소는 다른 요소와 같은 줄을 공유하고, content의 너비만큼만 가로 폭을 차지합니다. 이 요소에는 \texttt{width}, \texttt{height}, \texttt{margin-top}, \texttt{margin-bottom}, \texttt{padding} 등의 속성을 적용할 수 없으며, 그 내부에 inline-level 요소를 포함할 수 없습니다. \texttt{display} 속성의 값을 \texttt{inline}으로 명시하면 inline-level 요소의 성질을 갖게 되며, \texttt{span}, \texttt{a}, \texttt{strong}, \texttt{img}, \texttt{br}, \texttt{input}, \texttt{select}, \texttt{textarea}, \texttt{button} 등의 태그는 기본적으로 inline-level 요소에 해당됩니다. 
+반대로 block-level 요소는 다른 요소와 같은 줄을 공유하지 않으며, 웹 페이지 화면의 가로 폭을 모두 차지하여 여러 block-level 요소들을 배치하면 수직 방향으로 배치된다. Block-level 요소에는 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 적용할 수 있으며, 그 내부에 inline-level 요소를 포함할 수 있다. \texttt{display} 속성값을 \texttt{block}인 요소는 block-level 요소의 성질을 갖게 되며, \texttt{div}, \texttt{h1}~\texttt{h6}, \texttt{p}, \texttt{ol}, \texttt{ul}, \texttt{li}, \texttt{hr}, \texttt{table}, \texttt{form} 등의 태그는 기본적으로 block-level 요소이다.
 
-그런데, 레이아웃을 구성하다 보면 요소들을 같은 줄에 배치하고 싶은데 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 사용해야 하는 경우가 있습니다. 이럴 때는 해당 요소의 \texttt{display} 값을 \texttt{inline-block}으로 지정해주면 됩니다. \texttt{inline-block}은 inline-level 요소의 성질과 block-level 요소의 성질을 모두 갖습니다. 또한, \texttt{display} 값을 \texttt{none}으로 지정하면 해당 요소가 보이지 않습니다.\footnote{유사한 속성으로는 \texttt{visibility: hidden}이 있습니다. 다만, 이 속성은 요소가 공간을 차지하되 보이지만 않게끔 합니다.}
+그런데, 레이아웃을 구성하다 보면 요소들을 같은 줄에 배치하고 싶은데 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 사용해야 하는 경우가 있다. 이러한 문제는 해당 요소의 \texttt{display} 값을 \texttt{inline-block}으로 지정하여 해결할 수 있다. \texttt{inline-block}은 inline-level 요소의 성질과 block-level 요소의 성질을 모두 갖는다. 또한, \texttt{display} 값을 \texttt{none}으로 지정하면 해당 요소가 보이지 않아, 사용자로부터 숨길 수 있다.\footnote{유사한 속성으로는 \texttt{visibility: hidden}이 있으나, \texttt{display: none}과는 달리 요소가 공간을 차지하되 보이지만 않게끔 한다.}
  
-\coderef{code:box-model-padding-margin}에서 \texttt{display} 속성의 값을 바꿔보며 이해해봅시다. 
+\coderef{code:box-model-padding-margin}에서 \texttt{display} 속성의 값을 바꿔보며 이해해보자. 
 
 \subsection*{Position}
-지금까지 학습한 레이아웃 배치 방식은, 이전의 형제 요소가 배치되고 난 다음 공간에 다음 요소가 차례대로 배치되는 방식입니다. 이렇게 배치하는 방식이 일반적이나, 간혹 웹페이지에서 다른 요소들과의 위치와는 관계없이 고정된 위치에 배치되는 요소들이 있고, 다른 요소와 겹치게끔 배치되는 요소들이 있습니다. 대표적으로는 뉴스 기사에서 스크롤을 내려도 계속 화면상에 표시되는 광고들이 있습니다. 이처럼 \texttt{position} 속성을 이용하면 위치를 특정하는 배치를 할 수 있습니다. 
 
-\texttt{position} 속성에는 \texttt{static}, \texttt{relative}, \texttt{absolute}, \texttt{fixed}의 네 가지 값이 존재하며, 기본값은 \texttt{static}입니다. 즉, 지금까지 배치해왔던 것처럼 빈 공간에 왼쪽에서 오른쪽으로, 위에서 아래로 차례대로 배치됩니다. 나머지 세 값은 \texttt{top}, \texttt{left}, \texttt{right}, \texttt{bottom} 속성과 함께 사용하여, 요소의 위치를 정할 수 있습니다. 이 네 속성은 기준점이 요소로부터 얼마나, 어떤 방향으로 떨어져 있는지 나타내는 속성입니다.
+지금까지는 이전의 형제 요소가 배치되고 난 다음 공간에 다음 요소가 차례대로 배치되는 레이아웃 배치 방식에 대해 알아보았다. 이러한 방식이 일반적인 배치 방식이지만, 간혹 웹페이지에서 다른 요소들과의 위치와는 관계없이 고정된 위치에 배치되는 요소들이 있고, 다른 요소와 겹치게끔 배치되는 요소들이 있다. 대표적으로는 뉴스 기사에서 스크롤을 내려도 계속 화면상에 표시되는 광고들이 이러한 배치를 갖는다. 이렇게 특정 위치에 HTML 요소를 배치하고자 할때 \texttt{position} 속성을 이용한다.
 
-먼저 \texttt{relative}는 \texttt{top}, \texttt{left}, \texttt{right}, \texttt{bottom} 속성이 특정되어 있지 않으면 \texttt{static}과 동일하게 작동하고, 특정되어 있다면 \texttt{static}으로 지정된 경우를 기준으로 요소가 이동하게 됩니다. 이렇게 지정한 요소의 위치가 변한다고 하더라도 다른 요소들의 위치는 영향을 받지 않습니다. 
+\texttt{position} 속성에는 \texttt{static}, \texttt{relative}, \texttt{absolute}, \texttt{fixed}의 네 가지 값이 존재한다. 기본값은 \texttt{static}으로, \texttt{static} 배치 방식은 HTML 요소가 지금까지 학습해왔던 배치 방식, 즉 빈 공간에 왼쪽에서 오른쪽으로, 위에서 아래로 차례대로 배치된다. 나머지 세 값은 네 개의 방향 속성을 함께 사용하여 요소의 위치를 정할 수 있다. 방향 속성, 즉 \texttt{top}, \texttt{left}, \texttt{right}, \texttt{bottom} 속성은 기준점이 요소로부터 어떤 방향으로 얼마나 떨어져 있는지 나타내며, 속성값이 명시되지 않은 경우 기본값은 \texttt{0}이다.
 
-\texttt{absolute}는 원래 요소가 배치되었어야 할 공간과 관계없이, 부모나 조상 요소를 기준으로 배치됩니다. 이때 기준이 되는 부모나 조상 요소는 반드시 그 \texttt{position} 값이 \texttt{static} 이외의 다른 값이어야 하고, 기준으로 삼을만한 요소를 찾지 못하면 \texttt{body} 태그가 기준이 됩니다. \texttt{position}이 \texttt{absolute}인 요소가 원래 배치되었어야 하는 공간은 빈 공간 취급을 받아 다른 요소가 들어올 수 있으며, \texttt{display: block}인 요소인 경우 너비가 content에 맞게 바뀌기 때문에 적절한 너비를 지정해주어야 합니다. 
+먼저 \texttt{relative}는 \texttt{static}으로 지정되었을 때를 기준으로 방향 속성의 값에 따라 이동되어 배치되며, 네 방향 속성이 모두 지정되지 않은 경우 \texttt{static}과 동일하게 배치된다. \texttt{relative}로 인해 \texttt{static}이었을 때와 비교하여 요소의 위치가 벗어났다고 해서 다른 요소들의 위치가 바뀌는 것은 아니다.
 
-\texttt{fixed}는 \texttt{absolute}와 유사한 성질을 갖지만, 위치를 지정하는 기준이 웹페이지가 사용자, 즉 화면에 보여지는 영역(viewport)입니다. 따라서 스크롤을 내렸을 때 화면에서 사라지지 않고 고정된 위치에 요소를 배치하고자 할 때 사용합니다. 
+\texttt{absolute}는 원래 요소가 배치되었어야 할 공간과 관계없이 \texttt{position} 값이 \texttt{static}이 아닌 부모나 조상 요소를 기준으로 배치되며, 이러한 부모나 조상 요소를 찾지 못하면 \texttt{body} 태그를 기준으로 배치된다. \texttt{absolute} 속성값을 갖는 요소가 원래 배치되었어야 하는 공간에는 다른 요소가 들어올 수 있으며, 요소의 \texttt{display} 속성이 \texttt{block}이더라도 너비가 content에 맞게 바뀌기 때문에 적절한 너비를 지정해주어야 한다.
 
-\texttt{position}에 관해 정확히 이해하기 위해, \coderef{code:position-property}에서 \texttt{\#pos-element}에 \texttt{position}에 관련된 속성과 그 값을 바꿔가며 확인해봅시다. 
+\texttt{fixed}는 \texttt{absolute}와 유사한 성질을 갖지만, 위치를 지정하는 기준이 viewport, 즉 화면에 보여지는 웹페이지의 영역이다. 따라서 화면을 스크롤하여 올리거나 내렸을 때도 화면에서 고정된 위치에 요소를 배치할 때 사용된다.
+
+ \coderef{code:position-property}에서 \texttt{\#pos-element}에 \texttt{position}에 관련된 속성과 그 값을 지정하고 바꿔가며 \texttt{position}에 대해 정확히 이해해보자.
 
 \begin{codeenv}{code:position-property}{Example of \texttt{position} Property}\begin{verbatim}
 
@@ -196,4 +199,4 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 \end{verbatim}
 \end{codeenv}
 
-여담으로, \texttt{position} 속성을 다루다 보면 요소 간에 겹침이 발생하여, 특정 요소를 다른 요소 위에 오게 하고 싶을 때가 있습니다. 이때 \texttt{z-index} 속성을 이용하여 요소 간의 쌓임 순서를 조절할 수 있습니다. \texttt{z-index}의 값은 정수(integer)가 가능하며, \texttt{0}을 기본값으로 갖습니다. 이 값이 높은 요소는 위에 쌓이고, 낮은 요소는 아래에 쌓입니다. 
+여담으로, \texttt{position} 속성을 다루다 보면 요소 간에 겹침이 발생하여 특정 요소를 다른 요소 위에 오도록 할 필요가 있다. 이때 \texttt{z-index} 속성을 이용하면 요소 간의 쌓임 순서를 조절할 수 있다. \texttt{z-index}의 값은 정수(integer)이며, \texttt{0}이 기본값이고, 값이 높은 요소가 위에 쌓이고, 낮은 요소는 아래에 쌓인다. 
