@@ -1,0 +1,52 @@
+\section{CSS Exercises} \label{sect:css-exercises}
+
+\subsection*{Exercise 1}
+\coderef{code:exercise-responsive-web-1}를 참고하여, \texttt{body} 태그의 배경색을 800px 미만일 때는 \texttt{skyblue}, 800px 이상 1200px 미만일 때는 \texttt{blue}, 1200px 이상일 때는 \texttt{darkblue}가 되도록 style.css를 작성하여라. \texttt{h1} 태그의 색은 \texttt{white}로 고정되어야 한다.
+
+\begin{codeenv}{code:exercise-responsive-web-1}{Exercise 1}\begin{verbatim}
+
+
+<!doctype html>
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" text="type/css" href="./style.css">
+</head>
+<body>
+    <h1 style="color: white">Responsive Web</h1>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 2}
+\coderef{code:exercise-responsive-web-2}을 참고하여 웹 페이지의 너비가 800px 이상이면 \figref{fig:exercise-responsive-web-figure}a, 800px 미만이면 \figref{fig:exercise-responsive-web-figure}b와 같이 렌더링 되도록 style.css 파일을 작성하여라.
+
+\figcmd{fig:exercise-responsive-web-figure}
+    {Webpage view of Code 2.20 when the screen width is (a) wider than 800px and (b) narrower than 800px.}
+    {images/css-designing-html/responsive-layout.png}{.6}
+
+\begin{codeenv}{code:exercise-responsive-web-2}{Exercise of Responsive Web (2) - HTML}\begin{verbatim}
+
+
+<!doctype html>
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" text="type/css" href="./style.css">
+</head>
+<body>
+    <div class="header"></div>
+    <div class="body">
+        <div class="navbar"></div>
+        <div class="content"></div>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}

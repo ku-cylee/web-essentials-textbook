@@ -1,0 +1,77 @@
+\section{CSS Exercise Answers}\label{sect:css-exercise-answers}
+
+\subsection*{Exercise 1}
+
+\begin{codeenv}{code:exercise-responsive-web-answer-1}{Exercise 1 Answer}\begin{verbatim}
+
+
+body {
+    background-color: skyblue;
+}
+
+@media only screen and (min-width: 800px) {
+    body {
+        background-color: blue;
+    }           
+}
+
+@media only screen and (min-width: 1200px) {
+    body {
+        background-color: darkblue;
+    }           
+}
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 2}
+
+\begin{codeenv}{code:exercise-responsive-web-answer-2}{Exercise 2 Answer}\begin{verbatim}
+
+
+div {
+    margin: 20px 0;
+}
+
+.header {
+    height: 100px;
+    background-color: pink;
+    border: 2px solid red;
+}
+
+.navbar {
+    height: 200px;
+    background-color: gold;
+    border: 2px solid brown;
+}
+
+.content {
+    height: 300px;
+    background-color: skyblue;
+    border: 2px solid blue;
+}
+
+.footer {
+    height: 200px;
+    background-color: lightgreen;
+    border: 2px solid green;
+}
+
+@media only screen and (min-width: 800px) {
+    .body > div {
+        margin: 0;
+    }
+
+    .navbar {
+        width: 19%;
+        height: 500px;
+        display: inline-block;
+    }
+
+    .content {
+        width: 79%;
+        height: 500px;
+        display: inline-block;
+    }
+}
+\end{verbatim}
+\end{codeenv}
