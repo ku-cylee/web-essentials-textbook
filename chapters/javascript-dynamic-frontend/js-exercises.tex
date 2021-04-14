@@ -1,0 +1,251 @@
+\section{JS Exercises} \label{sect:js-exercises}
+
+\subsection*{Exercise 1}
+
+\coderef{code:exercise-dom-1}을 참고하여 버튼을 클릭하면 \texttt{\#color-box}의 배경색이 랜덤하게 바뀌도록 script.js에 \texttt{work} 함수를 작성하여라. 색상은 R, G, B의 값으로 표현될 수 있으며, 각 값은 0에서 255 사이의 정숫값을 갖는다.
+
+\begin{codeenv}{code:exercise-dom-1}{Exercise 1}\begin{verbatim}
+
+
+<!doctype html>
+<head>
+    <style>
+        #color-box { width: 400px; height: 400px; border: 2px solid black }
+    </style>
+    <script src="./script.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <div id="color-box"></div>
+    <button onclick="work()">Change Color</button>
+</body>
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 2}
+
+\coderef{code:exercise-dom-2}를 참고하여, 버튼을 클릭하면 \texttt{input}에 입력된 값의 구구단을 \texttt{\#times-result}에 출력하도록 script.js에 \texttt{work} 함수를 작성하여라. 입력된 값이 1 이상 9 이하의 자연수가 아닌 경우에는 \texttt{Input Error!}라는 문구를 출력한다. 
+
+Hint: \texttt{input}에 입력된 값은 그 요소의 \texttt{value} 속성의 값이다.
+
+\begin{codeenv}{code:exercise-dom-2}{Exercise 2}\begin{verbatim}
+
+
+<!doctype html>
+<head>
+    <script src="./script.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <h1>Times Table</h1>
+    <h3>Input an integer between 1 - 9.</h3>
+    <div>
+        <input type="text" id="number" name="number" >
+        <button onclick="work()">Show Result</button>
+    </div>
+    <div id="times-result"></div>
+</body>
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 3}
+
+\coderef{code:code:exercise-dom-3}를 참고하여 버튼을 클릭하면 다섯 개 상자 중 두 번째 상자의 색을 변경되도록 script.js에 \texttt{work} 함수를 작성하여라.
+
+\begin{codeenv}{code:code:exercise-dom-3}{Exercise 3}\begin{verbatim}
+
+
+<!doctype html>
+<head>
+    <style>
+        .box { 
+            display: inline-block; 
+            width: 100px; 
+            height: 100px; 
+            background-color: red 
+        }
+    </style>
+    <script src="./script.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    <button onclick="work()">Change Color</button>
+</body>
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 4}
+
+\coderef{code:exercise-bom-1}를 참고하여 버튼을 눌렀을 때 주어진 레벨업 시스템이 작동하여 레벨 0에서 레벨 10까지 레벨업을 계속 시도하도록 script.js에 \texttt{work} 함수를 작성하여라.
+
+\begin{itemize}
+    \item 레벨업을 시도하면 확률적으로 성공할 수도, 실패할 수도 있다. 성공하면 레벨이 1만큼 오른다.
+    \item 레벨업이 성공할 확률은 현재의 레벨에 따라 다르다.
+    \item 웹 페이지에서는 현재 레벨과 시도 횟수를 표시한다.
+    \item 현재 레벨이 파란색 게이지 바의 길이에 반영되어야 한다. 
+    \begin{itemize}
+        \item (레벨 $n$인 경우 전체 게이지 바의 $\frac n {10}$을 차지)
+    \end{itemize}
+    \item 프로그램은 50ms에 한 번씩 레벨업을 시도한다.
+\end{itemize}
+
+\begin{codeenv}{code:exercise-bom-1}{Exercise 4}\begin{verbatim}
+
+
+<!doctype html>
+<head>
+    <style>
+        #gauge-background {
+            width: 300px; height: 10px;
+            background-color: red; position: relative; margin: 20px 0
+        }
+        #gauge-bar {
+            background-color: blue; width: 0; height: 10px; position: absolute
+        }
+    </style>
+    <script src="./script.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <h1>Level-Up System</h1>
+    <div id="gauge-background">
+        <div id="gauge-bar"></div>
+    </div>
+    <div>Current Level: <span id="current-level">0</span></div>
+    <div>Attempts: <span id="attempts">0</span></div>
+    <button id="start-btn" onclick="work()">Start Level Up</button>
+</body>
+\end{verbatim}
+\end{codeenv}
+
+\begin{itemize}
+    \item Step 1: DOM을 이용하여 필요한 요소들을 상수를 선언하여 저장하고, 이 외에도 필요한 변수들을 선언한다.
+    \item Step 2: 레벨업 성공 확률을 \% 단위, number형의 배열로 저장한다. 레벨 0에서 레벨 9까지 다음 레벨로의 레벨업이 성공할 확률은 각각 100\%, 60\%, 36\%, 22\%, 13\%, 8\%, 5\%, 3\%, 2\%, 1\%이다.
+    \item Step 3: \% 단위의 확률을 인자로 받아, 제시된 확률에 맞게 무작위로 성공 여부를 판단하여, 성공하면 \texttt{true}, 실패하면 \texttt{false}를 반환하는 함수를 구현한다.
+    \begin{itemize}
+        \item 예를 들어, \texttt{32}를 인자로 받으면 32\%의 확률로 \texttt{true}, 68\%의 확률로 \texttt{false}를 반환해야 한다.
+        \item Hint: 0 이상 20 미만의 정수 중 하나를 무작위로 뽑았을 때 13 미만의 정수는 65\% 확률로 뽑힌다.
+    \end{itemize}
+    \item Step 4: 버튼을 눌렀을 때 작동하는 기능은 \texttt{work} 함수 내부에 작성한다.
+\end{itemize}
+
+\subsection*{Exercise 5}
+
+\coderef{code:exercise-event-1}를 참고하여 쇼핑몰 사이트에서 물품을 하나씩 카트에 담으면, 지불할 금액의 총합이 그 물품의 액수만큼 증가하여 나타나는 웹 페이지를 script.js를 작성하여 완성하여라.
+
+\begin{codeenv}{code:exercise-event-1}{Exercise 5}\begin{verbatim}
+
+
+<!doctype html>
+<head>
+    <style>
+        body > div { margin: 20px 0; }
+        .item { 
+            width: 500px; padding: 10px; margin: 20px 0; 
+            background-color: #d3d3d3; border: 2px solid gray;
+        }
+        .item > div { display: inline-block; vertical-align: top; }
+        .item-image > img { width: 100px }
+        .item-info { margin-left: 10px }
+        .item-info > div { margin-bottom: 10px; }
+        .item-name { font-size: 20px; font-weight: bold }
+    </style>
+    <script src="./script.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <div id="header">
+        <h1>Marketplace</h1>
+        <div>Total Cost: <span id="cost">0</span> KRW</div>
+    </div>
+
+    <div id="items">
+        <div class="item" id="apple">
+            <div class="item-image">
+                <img src="https://i.imgur.com/PMmhG47.jpg" >
+            </div>
+            <div class="item-info">
+                <div class="item-name">Apple</div>
+                <div class="item-price">Unit Price: 700 KRW</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+        <div class="item" id="orange">
+            <div class="item-image">
+                <img src="https://i.imgur.com/IOEmEO1.jpg" >
+            </div>
+            <div class="item-info">
+                <div class="item-name">Orange</div>
+                <div class="item-price">Unit Price: 800 KRW</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+        <div class="item" id="lemon">
+            <div class="item-image">
+                <img src="https://i.imgur.com/ZYLR99S.jpg" >
+            </div>
+            <div class="item-info">
+                <div class="item-name">Lemon</div>
+                <div class="item-price">Unit Price: 900 KRW</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</body>
+\end{verbatim}
+\end{codeenv}
+
+\begin{itemize}
+    \item Step 1: \texttt{.item} 요소들은 그 물품의 이름을 \texttt{id} 값으로 가지고 있다. 각 \texttt{id}가 \texttt{key}, 해당 물품의 단가를 \texttt{value}로 하는 객체를 만든다. 그리고, 필요한 변수/상수들을 선언하고 할당하여라.
+    \item Step 2: 이 문제에서는 여러 요소에 이벤트 리스너를 등록해야 하므로 등록할 요소들을 선택한다.
+    \item Step 3: for-of문을 사용하여 각 요소에 이벤트 리스너를 등록한다.
+    \item Step 4: 이벤트 리스너 내부를 구현한다.
+    \begin{itemize}
+        \item Hint: 이벤트 리스너가 등록된 요소가 속한 \texttt{.item} 요소의 \texttt{id} 값을 가져와야 합니다. \sectref{sect:objects}에서 자기 자신을 지칭하는 키워드가 무엇이라고 소개했는지 기억나시나요?
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Exercise 6}
+
+\coderef{code:exercise-event-2}를 참고하여 사각형 게임 오브젝트를 방향키를 이용하여 움직여서, 원형의 게임 오브젝트를 잡으면 이기는 간단한 게임을 script.js를 작성하여 완성하여라.
+
+\begin{codeenv}{code:exercise-event-2}{Exercise 6}\begin{verbatim}
+
+
+<!doctype html>
+<head>
+    <style>
+        #game-panel {
+            width: 800px; height: 500px; position: relative; border: 4px solid black
+        }
+        #game-panel > div {
+            width: 20px; height: 20px; position: absolute
+        }
+        .circle { border: 2px solid red; border-radius: 20px }
+        .square { border: 2px solid darkblue; background-color: blue }
+    </style>
+    <script src="./script.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <h1>Catch the circle</h1>
+    <div id="game-panel"></div>
+    <div id="success-message"></div>
+</body>
+\end{verbatim}
+\end{codeenv}
+
+\begin{itemize}
+    \item Step 1: \texttt{\#game-panel}의 크기는 가로 800px, 세로 500px이다. \texttt{\#game-panel}을 가로와 세로 모두 100px 단위로 나누어 단위 사각형을 40개 만들 수 있다. 게임 오브젝트들은 항상 단위 사각형의 중앙에 위치한다. 게임이 시작할 때 사각형 게임 오브젝트는 가장 왼쪽 하단에 있는 단위 사각형, 원형 게임 오브젝트는 가장 오른쪽 상단에 있는 단위 사각형에 위치한다. 이 정보를 이용하여, 각 게임 오브젝트의 좌표를 \texttt{x}, \texttt{y}를 속성으로 갖는 좌표 객체로 표현한다.
+    \begin{itemize}
+        \item Hint 1: \texttt{x} 좌표의 기준은 \texttt{\#game-panel}의 왼쪽 면, \texttt{y} 좌표의 \texttt{\#game-panel}의 위쪽 면이다.
+        \item Hint 2: 요소의 위치는 그 요소의 왼쪽 상단이 기준이 된다. 그렇지만 문제에서는 요소의 중심이 단위 사각형의 중심과 일치할 것을 요구하고 있다.
+    \end{itemize}
+    \item Step 2: 위, 아래, 왼쪽, 오른쪽 방향키의 key code는 각각 \texttt{38}, \texttt{40}, \texttt{37}, \texttt{39}이다. 이 상수들을 저장할 수 있는 객체를 만들고, 이 외에도 필요한 변수나 상수들을 선언 $\cdot$ 할당한다.
+    \item Step 3: \texttt{setGameObjectPosition}: 요소 객체와 좌표 객체를 인자로 받아, 요소 객체의 위치를 좌표 객체에 따라 이동시키는 함수를 작성한다.
+    \item Step 4: \texttt{moveGameObjectByKey}: 좌표 객체와 key code를 인자로 받아, key code에 따라서 이동된 새 좌표 객체를 반환하는 함수를 작성한다.
+    \item Step 5: \texttt{isGameObjectOutOfRange}: 좌표 객체를 인자로 받아, 해당 좌표가 \texttt{\#game-panel}을 벗어나는지를 판별하여 그 값을 반환하는 함수를 작성한다.
+    \item Step 6: HTML 문서에 사각형 게임 오브젝트와 원형 게임 오브젝트를 각각 추가한다. 사각형 게임 오브젝트의 클래스는 square, 원형 게임 오브젝트의 클래스는 circle이다.
+    \item Step 7: HTML 문서에 이벤트 리스너를 적절한 이벤트에 연동시킨다. 이벤트 리스너에서는 먼저 사각형 오브젝트를 key code에 따라 이동시킨 새로운 좌표를 알아낸다. 새로운 좌표가 \texttt{\#game-panel}을 벗어나면 경고창을 띄우고, 그렇지 않다면 새로운 좌표로 오브젝트를 이동시킨다. 만일 사각형 오브젝트가 원형 오브젝트에 도달하는 데 성공했다면, 원형 오브젝트를 \texttt{\#game-panel}에서 삭제하고, \texttt{\#success-message} 요소에 성공했다는 메시지를 전달한다.
+\end{itemize}
