@@ -5,13 +5,25 @@
 \subsection*{레이아웃이란}
 레이아웃(layout)은 직역하면 ``배치''라는 뜻을 갖는 단어이다. CSS에서 레이아웃을 설정하는 것은 웹 페이지에서 사용자가 정보를 원활하게 주고받을 수 있게끔 HTML 요소들을 적절하게 배치하고 정돈하는 작업이다. HTML 요소들을 웹 페이지 상에 원하는 대로 배치하는 것은 문서가 복잡해질수록 어려운 일이다. 따라서 레이아웃을 정확히 설정하기 위해서는 각 CSS 속성들과 속성값의 성질을 정확히 알아야 한다.
 
-\figcmd{fig:devtools-layout}{Checking layout of HTML element in (a) Chrome and (b) Firefox}
-    {images/css-designing-html/devtools-layout.png}{.85}
+\begin{figure}[htb]\vspace{10pt}\centering
+    \begin{subfigure}{.47\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/css-designing-html/chrome-devtools-layout.png}
+        \caption{Chrome}
+        \label{fig:devtools-chrome}
+    \end{subfigure}
+    \begin{subfigure}{.47\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/css-designing-html/firefox-devtools-layout.png}
+        \caption{Firefox}
+        \label{fig:devtools-firefox}
+    \end{subfigure}
+    \caption{Checking layout of HTML element using DevTools}
+    \label{fig:devtools-layout}
+\end{figure}
 
 다행히도, 웹 브라우저의 개발자 도구는 특정한 HTML 요소가 웹 페이지 내에서 영역을 어떻게 차지하고 있으며, 어떻게 배치되었는지 확인할 수 있는 기능을 제공한다. Chrome과 Firefox에서 F12를 눌러 개발자 도구를 열고, Chrome은 Elements 탭을, Firefox는 검사기 탭을 눌러 열려있는 HTML 문서의 코드를 띄운다. 그리고 레이아웃을 확인하고자 하는 요소 위에 마우스를 hover하면 해당 요소의 레이아웃이 \figref{fig:devtools-layout}와 같이 나타난다. 반대로, 웹 페이지에서 HTML 코드를 확인하고 싶은 부분을 우클릭한 후 [검사]를 누르면 해당 요소의 코드를 찾아준다. 이렇게 HTML 문서를 작성할 때 개발자 도구를 이용하면 특정 요소가 어떠한 레이아웃을 갖는지, 어떻게 수정해야 할지 등의 정보를 보다 쉽게 얻을 수 있다.
 
 \subsection*{Box Model}
-HTML의 각 요소는 \textbf{사각형 형태}의 레이아웃을 가지며, 이러한 레이아웃을 box model이라고 한다. {fig:box-model}을 참고하여 box model이 어떻게 구성되는지 알아보자.
+HTML의 각 요소는 \textbf{사각형 형태}의 레이아웃을 가지며, 이러한 레이아웃을 box model이라고 한다. \figref{fig:box-model}을 참고하여 box model이 어떻게 구성되는지 알아보자.
 
 \begin{itemize}
     \item Content: HTML 요소의 내용에 해당하는 부분이 배치되는 영역
@@ -31,7 +43,6 @@ HTML의 각 요소는 \textbf{사각형 형태}의 레이아웃을 가지며, �
 이 box model은 HTML 요소 배치의 기본이 되기 때문에 제대로 이해하는 것이 매우 중요하다. 앞으로 나오는 예제 코드를 직접 작성해보고, 브라우저의 개발자 도구를 이용하여 padding과 border, margin이 어떻게 나타나는지 각각 살펴보자.
 
 먼저, content에 관여하는 속성으로는 \texttt{width}와 \texttt{height}가 있다. 두 속성은 각각 content 영역의 너비와 높이를 지정하는 속성이며, px, em 등의 단위나 \%를 이용하여 명시할 수 있다. \%로 지정하는 경우는 상위 요소의 너비나 높이를 기준으로 한다.
-\pagebreak
 
 \begin{codeenv}{code:box-content-area}{Content Area}\begin{verbatim}
 
@@ -76,7 +87,6 @@ Border에 관여하는 속성으로는 \texttt{border-width}, \texttt{border-sty
 <div id="box"></div>
 \end{verbatim}
 \end{codeenv}
-\pagebreak
 
 Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부터 어느 정도 떨어져 있는지, margin 속성은 요소 가장자리의 각 면이 border 영역의 각 면으로부터 어느 정도 떨어져 있는지 명시하여 작성해준다. 앞의 border 영역과 마찬가지로 방향 키워드를 사용하여 한쪽 면에만 특정 padding/margin 값을 적용할 수 있다. (예: \texttt{padding-left}, \texttt{margin-bottom})
 
@@ -127,14 +137,26 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:box-model-padding-margin}에서 \texttt{display: inline-block;}을 지우고 웹 페이지를 열어보면 각 \texttt{.box} 요소가 세로로 나열된다. 이때 \figref{fig:margin-collapsing}와 같이 두 요소의 margin이 겹친 것을 확인할 수 있으며, 이렇게 HTML 요소 간에 margin이 겹치는 현상을 마진 상쇄 또는 마진 겹침(margin collapsing)이라고 한다. Margin 겹침 현상은 인접한 형제 요소 간의 상하 margin이 겹칠 때, 빈 요소의 상하 margin이 겹칠 때, 부모 요소의 top(bottom) margin과 첫 번째(마지막) 자식 요소의 top(bottom) margin이 겹칠 때 발생한다. \coderef{code:box-model-padding-margin}의 경우는 형제 요소 간의 상하 margin이 겹친 경우로, 이러한 현상을 모른 채로 디자인할 경우 당황스러운 상황이 발생할 수 있으므로 유의하여야 한다.
+\coderef{code:box-model-padding-margin}에서 \texttt{display: inline-block;}을 지우고 웹 페이지를 열어보면 각 \texttt{.box} 요소가 세로로 나열된다. 이때 \figref{fig:margin-collapsing}와 같이 두 요소의 margin이 겹친 것을 확인할 수 있으며, 이렇게 HTML 요소 간에 margin이 겹치는 현상을 마진 상쇄 또는 마진 겹침(margin collapsing)이라고 한다. Margin 겹침 현상은 인접한 형제 요소 간의 상하 margin이 겹칠 때, 빈 요소의 상하 margin이 겹칠 때, 부모 요소의 top(bottom) margin과 첫 번째(마지막) 자식 요소의 top(bottom) margin이 겹칠 때 발생한다. \coderef{code:box-model-padding-margin}의 경우는 형제 요소 간의 상하 margin이 겹친 경우로, 이러한 현상이 발생하는 디자인을 할 때 유의하여야 한다.
 
-\figcmd{fig:margin-collapsing}{Margin Collapsing}
-    {images/css-designing-html/margin-collapsing.png}{.7}
+\begin{figure}[htb]\vspace{10pt}\centering
+    \begin{subfigure}{.42\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/css-designing-html/margin-collapsing-upper-box.png}
+        \caption{Upper Box}
+        \label{fig:margin-collapsing-upper}
+    \end{subfigure}
+    \begin{subfigure}{.42\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/css-designing-html/margin-collapsing-lower-box.png}
+        \caption{Lower Box}
+        \label{fig:margin-collapsing-lower}
+    \end{subfigure}
+    \caption{Margin Collapsing}
+    \label{fig:margin-collapsing}
+\end{figure}
 
 \subsection*{Inline-level and Block-level Elements}
 
-지금까지 모든 HTML 요소는 box model에 따라 영역이 결정되고, 영역에 따라 다른 요소들과 맞물려 배치됨을 학습하였다. 앞의 \coderef{code:box-model-padding-margin}에서는 HTML 요소가 이전 형제 요소의 오른쪽에 충분히 빈 공간이 있다면 오른쪽에, 그렇지 않으면 아래쪽에 배치되었다. 그런데 지금까지 HTML을 다루면서, 이전 형제 요소에 따로 margin이나 padding을 지정해주지 않았음에도 불구하고 이전 형제 요소와 같은 줄에 배치되지 않는 현상을 보았다.
+지금까지 모든 HTML 요소는 box model에 따라 영역이 결정되고, 영역에 따라 다른 요소들과 맞물려 배치됨을 학습하였다. 앞의 \coderef{code:box-model-padding-margin}에서는 HTML 요소가 이전 형제 요소의 오른쪽에 충분히 빈 공간이 있다면 오른쪽에, 그렇지 않으면 아래쪽에 배치되었다. 그런데 지금까지 HTML을 다루면서, 이전 형제 요소에 따로 margin이나 padding을 지정해주지 않아도 이전 형제 요소와 같은 줄에 배치되지 않는 현상을 보았다.
 
 \begin{codeenv}{code:inline-and-block-example}{Example of Inline-level, Block-level Elements}\begin{verbatim}
 
@@ -148,7 +170,7 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 
 먼저 inline-level 요소는 다른 요소와 같은 줄을 공유하고, content의 너비만큼만 가로 폭을 차지한다. Inline-level 요소에는 \texttt{width}, \texttt{height}, \texttt{margin-top}, \texttt{margin-bottom}, \texttt{padding} 등의 속성을 적용할 수 없으며, 그 내부에 inline-level 요소를 포함할 수 없다. \texttt{display} 속성값이 \texttt{inline}인 요소는 inline-level 요소의 성질을 가지며, \texttt{span}, \texttt{a}, \texttt{strong}, \texttt{img}, \texttt{br}, \texttt{input}, \texttt{select}, \texttt{textarea}, \texttt{button} 등의 태그는 기본적으로 inline-level 요소이다. 
 
-반대로 block-level 요소는 다른 요소와 같은 줄을 공유하지 않으며, 웹 페이지 화면의 가로 폭을 모두 차지하여 여러 block-level 요소들을 배치하면 수직 방향으로 배치된다. Block-level 요소에는 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 적용할 수 있으며, 그 내부에 inline-level 요소를 포함할 수 있다. \texttt{display} 속성값을 \texttt{block}인 요소는 block-level 요소의 성질을 갖게 되며, \texttt{div}, \texttt{h1}~\texttt{h6}, \texttt{p}, \texttt{ol}, \texttt{ul}, \texttt{li}, \texttt{hr}, \texttt{table}, \texttt{form} 등의 태그는 기본적으로 block-level 요소이다.
+반대로 block-level 요소는 다른 요소와 같은 줄을 공유하지 않으며, 웹 페이지 화면의 가로 폭을 모두 차지하여 여러 block-level 요소들을 배치하면 수직 방향으로 배치된다. Block-level 요소에는 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 적용할 수 있으며, 그 내부에 inline-level 요소를 포함할 수 있다. \texttt{display} 속성값을 \texttt{block}인 요소는 block-level 요소의 성질을 갖게 되며, \texttt{div}, \texttt{h1}\textasciitilde\texttt{h6}, \texttt{p}, \texttt{ol}, \texttt{ul}, \texttt{li}, \texttt{hr}, \texttt{table}, \texttt{form} 등의 태그는 기본적으로 block-level 요소이다.
 
 그런데, 레이아웃을 구성하다 보면 요소들을 같은 줄에 배치하고 싶은데 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 사용해야 하는 경우가 있다. 이러한 문제는 해당 요소의 \texttt{display} 값을 \texttt{inline-block}으로 지정하여 해결할 수 있다. \texttt{inline-block}은 inline-level 요소의 성질과 block-level 요소의 성질을 모두 갖는다. 또한, \texttt{display} 값을 \texttt{none}으로 지정하면 해당 요소가 보이지 않아, 사용자로부터 숨길 수 있다.\footnote{유사한 속성으로는 \texttt{visibility: hidden}이 있으나, \texttt{display: none}과는 달리 요소가 공간을 차지하되 보이지만 않게끔 한다.}
  

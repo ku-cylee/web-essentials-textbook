@@ -2,7 +2,93 @@
 
 \subsection*{Exercise 1}
 
-\begin{codeenv}{code:responsive-web-1-answer}{Exercise 1 Answer}\begin{verbatim}
+\begin{codeenv}{code:selectors-1-answer}{Exercise 1 Answer}\begin{verbatim}
+    
+
+h1 {
+    text-align: center;
+}
+
+.chapter-name {
+    font-weight: bold
+}
+
+#current-chapter > .chapter-name {
+    color: red
+}
+
+.chapter > .horizontal-lists {
+    color: blue
+}
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 2}
+
+\begin{codeenv}{code:layouts-1-answer}{Exercise 2 Answer}\begin{verbatim}
+
+
+.numbers {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.number {
+    display: inline-block;
+    width: 50px;
+    padding-top: 12px;
+    padding-bottom: 15px;
+    margin: 0 10px;
+    border: 1px solid black;
+    border-radius: 25px;
+    background-color: lightcoral;
+}
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 3}
+
+\begin{codeenv}{code:layouts-2-answer-html}{Exercise 3 Answer (HTML)}\begin{verbatim}
+
+
+<div id="scroll-button">
+    <a href="#page-top">
+        <div id="top-scroll-cell" class="scroll-button-cell">&#9650;</div>
+    </a>
+    <a href="#page-bottom">
+        <div class="scroll-button-cell">&#9660;</div>
+    </a>
+</div>
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:layouts-2-answer-css}{Exercise 3 Answer (CSS)}\begin{verbatim}
+
+
+#scroll-button {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    border: 3px solid darkblue;
+    border-radius: 18px;
+    background-color: darkblue;
+    font-size: 15pt;
+}
+
+.scroll-button-cell {
+    padding: 1px 7px 4px;
+    color: white;
+}
+
+.scroll-button-cell:not(#top-scroll-cell) {
+    border-top: 2px solid white;
+}
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 4}
+
+\begin{codeenv}{code:responsive-web-1-answer}{Exercise 4 Answer}\begin{verbatim}
 
 
 body {
@@ -23,9 +109,9 @@ body {
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Exercise 2}
+\subsection*{Exercise 5}
 
-\begin{codeenv}{code:responsive-web-2-answer}{Exercise 2 Answer}\begin{verbatim}
+\begin{codeenv}{code:responsive-web-2-answer}{Exercise 5 Answer}\begin{verbatim}
 
 
 div {

@@ -2,9 +2,20 @@
 
 지금까지 CSS를 이용하여 문서를 디자인하는 방법을 다루면서 주로 가로 폭이 넓은, PC의 웹 브라우저를 기준으로 작업해왔다. 그러나 모든 사용자가 웹 페이지를 항상 PC와 같이 가로 폭이 넓은 디바이스에서 열람하는 것은 아니다. 휴대폰과 같은 모바일 디바이스는 가로 폭이 좁기 때문에, PC를 기준으로 설계한 웹 페이지는 모바일에서 열람했을 때 가독성이 심각하게 저하될 수 있다. HTML 요소들이 의도와는 다르게 배치될 수 있고, 이를 방지하고자 요소의 너비 등을 정해진 값으로 딱딱하게 정하면 모바일 디바이스에서는 좌우로 스크롤하면서 웹 페이지를 읽어야 합니다. 웹 페이지는 가급적 좌우 방향으로는 움직이지 않고, 상하 방향으로만 움직여 정보를 전달하게끔 설계하였을 때 가독성이 좋은데, 위와 같이 PC를 기준으로 웹 페이지를 설계하면 가독성이 매우 떨어진다. 따라서, 웹 페이지가 렌더링되는 화면의 크기에 따라 디자인이 바뀌는, \textbf{반응형 웹 페이지(Responsive Web)}를 디자인할 필요가 있다.
 
-\figcmd{fig:w3schools-responsive}
-    {Webpage view of W3Schools Homepage (https://www.w3schools.com/) on (a) PC browser and (b) mobile browser.}
-    {images/css-designing-html/w3schools-responsive.png}{0.6}
+\begin{figure}[htb]\vspace{10pt}\centering
+    \begin{subfigure}{.757\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/css-designing-html/github-responsive-desktop.png}
+        \caption{Desktop Browser}
+        \label{fig:github-responsive-desktop}
+    \end{subfigure}
+    \begin{subfigure}{.2\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/css-designing-html/github-responsive-mobile.png}
+        \caption{Mobile Browser}
+        \label{fig:github-responsive-mobile}
+    \end{subfigure}
+    \caption{Webpage view of GitHub Homepage}
+    \label{fig:github-responsive}
+\end{figure}
 
 \subsection*{Viewport}
 반응형 웹 페이지는 웹 페이지가 렌더링되는 화면, 즉 뷰포트에 따라 디자인이 바뀌므로 먼저 뷰포트를 설정해주어야 한다. 뷰포트의 크기는 \coderef{code:viewport-setting}과 같이 HTML 문서의 \texttt{meta} 태그에서 설정한다.
