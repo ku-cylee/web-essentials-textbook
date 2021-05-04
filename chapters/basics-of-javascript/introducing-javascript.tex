@@ -1,12 +1,12 @@
 \section{Introducing Javascript} \label{sect:introducing-javascript}
 
-자바스크립트(Javascript; JS)는 인터프리터형 프로그래밍 언어로, 웹 분야에서 광범위하게 사용되는 언어입니다. Front-end에서는 웹 페이지를 동적으로 작동하는 기능을 JS로 구현하며, 프론트엔드 프레임워크인 Angular.js, Vue.js 등에서도 널리 쓰입니다. 또한, front-end 뿐만 아니라 back-end 애플리케이션 역시 Node.js 엔진을 이용하여 JS로 구현할 수 있는 등, JS의 응용 범위는 광범위합니다. 이러한 JS의 성질로 인해, Stackoverflow에서 조사한 사용 빈도에 따른 컴퓨터 언어의 순위에서 7년째 1위를 차지하고 있습니다. 
+자바스크립트(Javascript; JS)는 인터프리터형 프로그래밍 언어로, 웹 분야에서 광범위하게 사용되는 언어이다. Front-end에서는 웹 페이지를 동적으로 작동하는 기능을 JS를 사용하여 구현하며, 프론트엔드 프레임워크인 Angular.js와 React.js 등에서도 널리 쓰인다. 또한, front-end 뿐만 아니라 back-end 애플리케이션 역시 Node.js 엔진을 이용하여 JS로 구현할 수 있는 등의 특징을 갖는다. 이러한 JS의 특징으로 인해 2020년 기준 Stackoverflow에서 조사한 컴퓨터 언어의 사용 빈도 순위에서 7년째 1위를 차지할 정도로 여러 분야에서 광범위하게 응용되고 있다.
 
 \subsection*{컴파일형 언어와 인터프리터형 언어}
 
-컴퓨터 언어는 그 언어로 작성된 프로그램의 실행 방식에 따라 컴파일러형 언어와 인터프리터형 언어, 두 가지로 나눌 수 있습니다. 컴파일러형 언어로 작성된 프로그램은 실행하기 위해 소스 코드를 기계어로 변환하는 과정, 즉 컴파일 과정이 필요합니다. C와 C++, Java, Rust, Go 등이 대표적인 컴파일러형 언어입니다. 
+컴퓨터 언어는 그 언어로 작성된 프로그램의 실행 방식에 따라 컴파일러형 언어와 인터프리터형 언어, 두 가지로 나뉜다. 컴파일러형 언어로 작성된 프로그램은 실행하기 위해 소스 코드를 기계어로 변환하는 과정, 즉 컴파일 과정이 필요하며, C와 C++, Java, Rust, Go 등이 대표적인 컴파일러형 언어이다.
 
-반면 인터프리터형 언어는 컴파일 과정 없이 인터프리터를 통해 소스 코드를 바로 실행할 수 있습니다. Python과 Javascript, Lisp 계열 언어들이 대표적인 인터프리터형 언어입니다. 컴파일 과정이 불필요하므로 인터프리터에 한 줄의 코드(정확히는 하나의 expression)를 입력한 후 바로 그 코드의 실행 결과를 확인할 수 있습니다. 
+반면 인터프리터형 언어는 컴파일 과정 없이 인터프리터를 통해 소스 코드를 바로 실행할 수 있는 언어로, Python과 JS, Lisp 계열 언어들이 대표적인 인터프리터형 언어이다. 인터프리터형 언어들은 컴파일 과정이 불필요하므로 인터프리터에 하나의 표현식(expression)을 입력한 후 바로 그 코드의 실행 결과를 확인할 수 있으며, REPL(Read-Eval-Print-Loop) Shell에서는 하나의 표현식을 실행한 후 결과를 바로 확인할 수 있다. 그러나 인터프리터형 언어는 표현식을 분석하고 컴파일하는 과정을 해당 표현식이 실행될 때마다 반복해야 하므로 컴파일형 언어에 비해 성능은 낮은 편이다.
 
 \begin{codeenv}{code:js-simple-example}{Simple Example of JS}\begin{verbatim}
 
@@ -16,7 +16,11 @@ undefined
 Hello World!
 > alert('Hello World!');
 undefined
+> 3 + 5;
+8
 \end{verbatim}
 \end{codeenv}
 
-웹 브라우저의 개발자 도구에서 Console 탭을 열어 JS 코드를 한 줄씩 실행해볼 수 있습니다. \coderef{code:js-simple-example}을 실행해봅시다. \texttt{console.log('Hello World!');}를 실행하면, 콘솔에 \texttt{Hello World!}라는 문자열이 출력되는 것을 볼 수 있습니다. \texttt{alert('Hello World!');}를 실행하면, 브라우저에 \texttt{Hello World!} 문자열을 담은 경고창이 출력됩니다. 화면에 문자열을 출력하려면 \texttt{console.log}를 사용해야 하지만, 콘솔에서 직접 JS 코드를 입력하여 실행하는 경우 코드 자체의 결과값도 출력됩니다. \texttt{Hello World!} 외에 \texttt{undefined}가 출력된 것은 이 때문입니다.
+웹 브라우저 개발자 도구의 Console 탭은 JS의 REPL Shell 역할을 하므로, Console 탭에서 \coderef{code:js-simple-example}을 실행하여 결과를 관찰해보자.
+
+첫 번째 표현식을 실행하면 콘솔에 \texttt{undefined}와 \texttt{Hello World!}라는 문자열이 출력되는데, 먼저 표현식의 반환값인 \texttt{undefined}가 console에 출력되었고, 이 표현식이 \texttt{Hello World!}라는 문자열을 출력하라는 뜻을 가지므로 해당 문자열 역시 console에 출력되었다. 두 번째 표현식을 실행하면 브라우저에 \texttt{Hello World!} 문자열을 담은 경고창이 나타나며, 역시 해당 표현식의 반환값인 \texttt{undefined}가 console에 출력되었다. 또한, 마지막 표현식을 실행하면 3과 5의 덧셈 결과값이 출력된다. 앞으로 본 교재에서는 표현식의 반환값이 \texttt{undefined}인 경우에는 결과 표시를 생략한다.
