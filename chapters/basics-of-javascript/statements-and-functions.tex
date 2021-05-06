@@ -2,9 +2,9 @@
 
 \subsection*{Comparison}
 
-JS의 비교 연산은 여타 언어들과 유사하게 \texttt{==}, \texttt{!=} 등을 사용합니다. 비교 연산의 결과가 참이면 true, 거짓이면 false를 반환합니다. 그러나 JS에는 strict comparison과 weak comparison이 존재합니다. 
+JS의 비교 연산은 여타 언어들과 유사하게 \texttt{==}과 \texttt{!=} 연산자로 수행될 수 있으며, 비교 연산의 결과가 참이면 \texttt{true}, 거짓이면 \texttt{false}를 반환한다. 그러나 JS에서는 \texttt{==}이나 \texttt{!=} 연산자로 비교 연산을 수행하였을 때 문제가 발생할 수 있다.
 
-\begin{codeenv}{code:weak-comparison}{Weak Comparison}\begin{verbatim}
+\begin{codeenv}{code:loose-equality}{Loose Equality}\begin{verbatim}
 
 
 > 0 == 0;
@@ -14,15 +14,26 @@ true
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:weak-comparison}를 실행해보면, number형의 \texttt{0}과 string형의 \texttt{'0'}을 비교했을 때 같다는 결과가 도출됩니다. 자료형이 다른데도 불구하고 이러한 결과가 도출된 이유는 JS에서 \texttt{==}과 \texttt{!=}는 연산자는 weak comparison 연산자이기 때문입니다. 즉, JS가 자의적으로 타입 변환을 한 후 비교 연산을 진행합니다. 이 타입 변환 규칙은 매우 복잡하기 때문에 weak comparison은 JS에서 매우 지양되는 문법입니다. 
+\coderef{code:loose-equality}에서는 number형의 \texttt{0}과 string형의 \texttt{'0'}을 비교하였다. 두 값은 자료형이 다름에도 불구하고 같다는 결과가 도출되는데, 그 이유는 JS에서 \texttt{==}과 \texttt{!=} 연산자를 이용하여 비교 연산을 수행할 때, 두 값에 대해 자의적으로 자료형 변환(type coercion)을 수행한 뒤 변환된 값을 비교하기 때문이다. 이렇게 비교 연산에서 \texttt{==}과 \texttt{!=} 연산자를 사용하여 자료형 변환이 이루어진 뒤 수행되는 연산을 loose equality이라고 한다. JS가 수행하는 타입 변환 규칙은 복잡하기 때문에 loose equality는 사용하지 않는 것이 권장된다.
 
-\figcmd{fig:weak-comparison-examples}
-    {(a) Weak comparison으로 비교하면 삼단논법이 적용되지 않기도 합니다. (b) 매우 복잡한 타입 변환 규칙으로 인해 JS에서 0은 삼위일체라는 meme도 있습니다.}
-    {images/basics-of-javascript/weak-comparison-examples.png}{.8}
+\begin{figure}[htb]\vspace{10pt}\centering
+    \begin{subfigure}{.231\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/basics-of-javascript/loose-equality-syllogism.png}
+        \caption{Syllogism does not hold}
+        \label{fig:loose-equality-syllogism}
+    \end{subfigure}
+    \begin{subfigure}{.729\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/basics-of-javascript/loose-equality-trinity.jpg}
+        \caption{The Javascript Trinity of \texttt{0}}
+        \label{fig:loose-equality-trinity}
+    \end{subfigure}
+    \caption{Loose Equality Memes}
+    \label{fig:loose-equality-memes}
+\end{figure}
 
-이러한 이유로 JS에서는 자료형을 무시하고 값을 비교하는 weak comparison 대신 자료형까지 고려하여 값을 비교하는 strict comparison을 사용하는 것이 권장됩니다. Strict comparison의 연산자는 \texttt{===}, \texttt{!==}입니다.
+이러한 이유로 JS에서는 loose equality 대신 자료형까지 고려하여 값을 비교하는 strict equality가 권장된다. Strict equality는 \texttt{===}과 \texttt{!==} 연산자를 이용하여 수행될 수 있다.
 
-\begin{codeenv}{code:strong-comparison}{Strong Comparison}\begin{verbatim}
+\begin{codeenv}{code:strict-equality}{Strict Equality}\begin{verbatim}
 
 
 > 0 === 0;
@@ -32,76 +43,91 @@ false
 \end{verbatim}
 \end{codeenv}
 
-\figref{fig:comparison-table}는 JS에서 값을 weak comparison과 strong comparison으로 비교할 때 같은 값으로 간주하는 경우와 다른 값으로 간주하는 경우를 나타낸 표입니다. 알아두어서 나쁠 것은 없지만, 차라리 strong comparison을 이용하여 비교하는 것이 훨씬 깔끔하고 이해하기 쉬우므로 굳이 외워둘 필요는 없습니다. 
+\figref{fig:comparison-table}는 loose equality와 strict equality의 결과를 정리한 표이다. 이 결과를 알아두어서 나쁠 것은 없지만, 가독성이 좋고 논리적 오류를 최소화할 수 있는 strict equality를 사용하는 것이 훨씬 효율적이다.
 
-\figcmd{fig:comparison-table}
-    {(a) Weak comparison and (b) strict comparison in JS. The cell is colored in green if true. Image from https://dorey.github.io/JavaScript-Equality-Table/}
-    {images/basics-of-javascript/comparison-table.png}{.7}
+\begin{figure}[htb]\vspace{10pt}\centering
+    \begin{subfigure}{.45\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/basics-of-javascript/loose-equality.png}
+        \caption{Loose Equality}
+        \label{fig:loose-equality-table}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}\centering
+        \includegraphics[width=\textwidth]{images/basics-of-javascript/strict-equality.png}
+        \caption{Strict Equality}
+        \label{fig:strict-equality-table}
+    \end{subfigure}
+    \caption{Equality table of JS. Colored cell implies \texttt{true}}
+    \label{fig:comparison-table}
+\end{figure}
 
-\subsection*{조건문}
+% Image from https://dorey.github.io/JavaScript-Equality-Table/
 
-JS의 조건문은 여타 언어들의 조건문과 비슷합니다. \texttt{if}, \texttt{if else}, \texttt{else}의 키워드를 사용합니다. 
+\subsection*{Conditional Statements}
 
-\begin{codeenv}{code:conditional-stmt}{조건문}\begin{verbatim}
+JS의 조건문은 여타 언어들의 조건문과 유사하게 \texttt{if}, \texttt{if else}, \texttt{else}의 키워드를 사용한다.
+
+\begin{codeenv}{code:if-else-stmt}{If-else Statement}\begin{verbatim}
 
 
-> let num = 10;
+> const num = 100;
 > if (num % 2 === 0) {
-        console.log('num is even');
-    } else {
-        console.log('num is odd');
-    }
+      console.log('num is even');
+  } else {
+      console.log('num is odd');
+  }
 num is even
-> let isEven = (num % 2 === 0);
-> isEven;
-true
+> const isEven = num % 2 === 0;
 > if (isEven) {
-        console.log('num is even');
-    } else {
-        console.log('num is odd');
-    }
+      console.log('num is even');
+  } else {
+      console.log('num is odd');
+  }
 num is even
-> let remainder = num % 3;
+> const remainder = num % 3;
 > if (remainder === 0) {
-        console.log('remainder is 0');
-    } else if (remainder === 1) {
-        console.log('remainder is 1');
-    } else {
-        console.log('remainder is 2');
-    }
+      console.log('remainder is 0');
+  } else if (remainder === 1) {
+      console.log('remainder is 1');
+  } else {
+      console.log('remainder is 2');
+  }
 remainder is 1
 \end{verbatim}
 \end{codeenv}
+\pagebreak
 
-또한, switch-case 문도 지원합니다. 사용되는 키워드로는 \texttt{switch}, \texttt{case}, \texttt{default}, \texttt{break}의 등이 있습니다. 
+또한, switch-case문과 삼항 연산자 \texttt{? :}도 지원한다.
 
-\begin{codeenv}{code:switch-case-stmt}{switch-case문}\begin{verbatim}
+\begin{codeenv}{code:switch-case-stmt-tertiary}{switch-case Statement and Tertiary operator}\begin{verbatim}
 
 
-> let remainder = 10 % 3;
+> const num = 100;
+> const remainder = num % 3;
 > switch (remainder) {
-        case 1:
-            console.log('remainder is 1.'); break;
-        case 2:
-            console.log('remainder is 2.'); break;
-        default:
-            console.log('remainder is 0.');
-    }
-remainder is 1.
+      case 1:
+          console.log('remainder is 1'); break;
+      case 2:
+          console.log('remainder is 2'); break;
+      default:
+          console.log('remainder is 0');
+  }
+remainder is 1
+> const quotient = ((num % 7 === 0) ? num : (num - num % 7)) / 7;
+14
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{반복문}
+\subsection*{Iteration Statements}
 
-JS의 반복문 역시 여타 언어들과 크게 다르지 않습니다. 
+JS의 반복문 역시 여타 언어들과 유사하게 \texttt{for}문을 사용한다.
 
 \begin{codeenv}{code:for-stmt}{반복문}\begin{verbatim}
 
 
-> let fruits = ['apple', 'orange', 'mango', 'grapes'];
+> const fruits = ['apple', 'orange', 'mango', 'grapes'];
 > for (let i = 0; i < fruits.length; i++) {
-        console.log(fruits[i]);
-    }
+      console.log(fruits[i]);
+  }
 apple
 orange
 mango
@@ -109,12 +135,13 @@ grapes
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:for-stmt}와 같이 반복문을 사용할 때마다 배열의 index를 어떠한 변수에 저장하고, index를 이용해 배열의 각 원소값을 가져오는 것은 번거롭습니다. 이를 간결하게 사용할 수 있는 문법이 for...of문입니다.
+\coderef{code:for-stmt}와 같이 반복문을 사용할 때마다 배열의 index를 어떠한 변수에 저장하고, 이를 이용해 배열의 각 원소를 가져오는 것은 번거롭다. for-of문을 사용하여 반복문을 간결하게 사용할 수 있다.
 
-\begin{codeenv}{code:for-of-stmt}{for...of 문}\begin{verbatim}
+\begin{codeenv}{code:for-of-stmt}{for-of문}\begin{verbatim}
 
 
-> for (let fruit of fruits) {
+> const fruits = ['apple', 'orange', 'mango', 'grapes'];
+> for (const fruit of fruits) {
     console.log(fruit);
 }
 apple
@@ -124,15 +151,15 @@ grapes
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:for-of-stmt}과 같이 for...of문은 배열의 각 원소를 차례대로 지정한 변수(fruit)에 저장하고, 그 변수를 for문 내에서 사용할 수 있습니다. 따라서 for...of문을 사용하면 각 원소의 index는 알 수 없지만, 개별 원소는 직접 가져올 수 있는 장점이 있습니다.
+\coderef{code:for-of-stmt}과 같이 for-of문은 배열의 각 원소를 차례대로 특정 변수(\texttt{fruit})에 저장하고, for문 내에서 사용할 수 있도록 한다. 이렇게 for-of문을 사용하면 각 원소의 index는 알 수 없지만, 개별 원소는 직접 가져와 반복문을 간결하게 작성할 수 있는 장점이 있다.
 
-\begin{codeenv}{code:for-in-stmt}{for...in 문}\begin{verbatim}
+\begin{codeenv}{code:for-in-stmt}{for-in문}\begin{verbatim}
 
 
-> let person = { age: 21, name: 'Frank', height: 171, isMale: true, weight: 60 };
-> for (let key in person) {
-        console.log(key + ': ' + person[key]);
-    }
+> const person = { age: 21, name: 'Frank', height: 171, isMale: true, weight: 60 };
+> for (const key in person) {
+      console.log(key + ': ' + person[key]);
+  }
 age: 21
 name: Frank
 height: 171
@@ -141,82 +168,87 @@ weight: 60
 \end{verbatim}
 \end{codeenv}
 
-for...of 문과 별개로, for...in 문도 존재합니다. for...in 문은 배열이 아닌 객체(object)에 대해 동작합니다. for 문 내부에서 객체의 각 key를 직접 가져와 사용할 수 있으며, 앞에서 다룬 바와 같이 key를 알면 속성값에도 바로 접근할 수 있습니다.
+for-of문과 유사하여 헷갈리기 쉬운 for-in문은 객체(object)에 대해 동작하며, for-in문 내부에서 객체의 각 key를 직접 가져와 사용할 수 있고, 이를 이용해 value에도 바로 접근할 수 있다.
 
-\subsection*{함수}
+\subsection*{Functions}
 
-JS에서 함수는 \coderef{code:basic-function}와 같이 선언하고, 사용합니다. 
-
-\begin{codeenv}{code:basic-function}{함수 선언 및 사용}\begin{verbatim}
+\begin{codeenv}{code:basic-function}{Function Declaration and Call}\begin{verbatim}
 
 
 > function add(x, y) {
-    return x + y;
-}
+      return x + y;
+  }
 > add(1, 2);
 3
-> add(-1, 2);
-1
 > add('1', '2');
 '12'
 \end{verbatim}
 \end{codeenv}
 
-function 키워드를 이용하여 함수의 이름과 파라미터를 작성해주고, 중괄호 내부에 함수 내용을 작성합니다. 주목할 점은, JS에서는 자료형을 따로 지정하지 않으므로 함수를 선언할 때에도 함수의 return type이나 parameter의 type을 명시해줄 필요가 없다는 점입니다. 따라서, 코드의 마지막 줄과 같이 사용될 수도 있습니다. 
+JS에서 함수는 \coderef{code:basic-function}와 같이 \texttt{function} 키워드를 이용하여 함수의 이름과 인자를 작성하고, 중괄호 내부에 함수 내용을 작성한다. JS에서는 식별자의 자료형을 따로 지정하지 않으므로 인자와 반환값의 자료형 역시 따로 지정하지 않는다는 점을 주목하여야 한다. 따라서, \coderef{code:basic-function}의 함수는 마지막 줄과 같이 사용될 수도 있다.
 
 \begin{codeenv}{code:arrow-function}{Arrow Function}\begin{verbatim}
 
 
 > const add = (x, y) => {
-    return x + y;
-};
+      return x + y;
+  };
 > add(1, 2);
 3
+> const square = num => num * num;
+> square(5);
+25
 \end{verbatim}
 \end{codeenv}
 
-ES6에서는 함수를 정의할 때 \coderef{code:arrow-function}과 같이 arrow(\texttt{=>})를 사용하여 정의할 수도 있습니다. Arrow function을 이용하여 함수를 정의하면 간결하게 정의할 수 있습니다. JS에서 함수는 하나의 변수나 상수처럼 취급할 수 있는데, 이를 염두에 두고 구문을 분석하면 상수 \texttt{add}에 함수를 할당하는 구문임을 알 수 있습니다. 변수나 상수 취급이 가능하므로, 함수를 다른 변수에 저장할 수 있고, 다른 함수의 인자(argument)로 넘길 수도 있습니다. 
+ES6 이후에는 \coderef{code:arrow-function}과 같이 arrow(\texttt{=>})를 사용하여 함수를 비교적 간결하게 정의하는 것이 권장된다. 표현식을 관찰해보면, \texttt{x}와 \texttt{y} 두 인자를 받아 덧셈을 수행한 뒤 반환하는 함수를 \texttt{add}라는 식별자에 할당하였다. JS에서는 함수 역시 하나의 변수 또는 상수로 취급될 수 있어 arrow function을 이용하여 함수를 작성할 수 있고, 함수를 다른 함수의 인자로 넘길 수도 있다.
 
-Arrow Function을 활용하여 \coderef{code:anonymous-function}와 같이 익명 함수(anonymous function)를 선언할 수 있습니다. 
+Arrow function의 인자가 1개일 때는 인자 부분의 괄호를 생략할 수 있고, 함수에 값을 반환하는 부분만 있는 경우 중괄호와 \texttt{return} 키워드가 생략될 수 있다.
 
 \begin{codeenv}{code:anonymous-function}{Anonymous Function}\begin{verbatim}
 
 
-> (x, y) => {
-      return x + y;
-  }
-function (x, y)
-> ((x, y) => {
-      return x + y;
+> num => num * num;
+function (num)
+> ((base, power) => {
+      res = 1;
+      for (let i = 0; i < power; i++) res *= base;
+      return res;
   })(3, 5);
-8
+243
 \end{verbatim}
 \end{codeenv}
 
-함수 중에는 함수를 인자로 쓰는 함수가 있는데, 이러한 함수를 고차원 함수(high-order function)라고 합니다. 익명 함수는 재사용할 일이 없는 함수를 고차원 함수의 인자로 넘길 때 유용하게 사용됩니다. \coderef{code:high-order-function}를 실행해봅시다. 
+Arrow function을 활용하면 \coderef{code:anonymous-function}와 같이 익명 함수(anonymous function)를 선언할 수 있다.
 
 \begin{codeenv}{code:high-order-function}{Anonymous Function with High-order Function}\begin{verbatim}
 
 
-> let arr = ['a', 'bb', 'ccc', 'dddd'];
-> let lengthArray = arr.map(e => e.length);
-> lengthArray;
+> const arr = ['a', 'bb', 'ccc', 'dddd'];
+> const lengths = arr.map(e => e.length);
+> lengths;
 [ 1, 2, 3, 4 ]
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:high-order-function}에서 \texttt{map} 함수는 다른 함수를 인자로 받고, 인자로 받은 함수에 배열의 각 원소를 인자로 주어 실행한 결과를 배열로써 반환합니다. JS에는 이렇게 함수를 인자로 받아 사용하는 고차원 함수가 많으므로, 고차원 함수에 대해 다루면서 익명 함수를 빈번하게 사용하게 됩니다. 
-
-익명 함수를 이용하여, 앞에서 다룬 for...of 문을 \coderef{code:foreach-method}과 같이 바꿔 사용할 수 있습니다. 
+함수 중에는 함수를 인자로 쓰는 함수가 있는데, 이러한 함수를 고차원 함수(high-order function)라고 한다. 익명 함수는 재사용하지 않는 함수를 고차원 함수의 인자로 넘길 때 유용하게 사용된다. \coderef{code:high-order-function}에서 \texttt{map} 함수는 배열의 각 원소를 인자로 받은 함수의 인자로 주어 실행한 결과를 배열로 반환한다. JS에서는 이러한 고차원 함수가 특히 많으므로 고차원 함수를 사용하면서 익명 함수를 빈번하게 사용하게 될 것이다.
 
 \begin{codeenv}{code:foreach-method}{\texttt{forEach} Method}\begin{verbatim}
 
 
 > const fruits = ['apple', 'orange', 'mango', 'grapes'];
-> fruits.forEach(e => console.log(e));
+> fruits.forEach(fruit => console.log(fruit));
 apple
 orange
 mango
 grapes
+> const printFruit = (fruit, idx) => console.log('#' + (idx + 1) + ': ' + fruit);
+> fruits.forEach(printFruit);
+#1: apple
+#2: orange
+#3: mango
+#4: grapes
 \end{verbatim}
 \end{codeenv}
+
+익명 함수를 이용하여, 앞에서 다룬 for-of 문을 \coderef{code:foreach-method}과 같이 \texttt{forEach} 함수를 사용하여 바꿀 수 있다. \texttt{forEach} 함수는 각 원소뿐만 아니라 원소의 index와 원본 배열까지도 받아 사용할 수 있다.
