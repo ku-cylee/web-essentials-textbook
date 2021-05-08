@@ -64,7 +64,7 @@ Uncaught ReferenceError: num2 is not defined
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:var-let-scope}를 실행하면, \texttt{var}로 선언된 \texttt{num1}의 값은 정상적으로 출력되나, \texttt{let}으로 선언된 \texttt{num2}는 출력되지 않고 정의되지 않았다는 에러가 발생한다. 이렇듯 \texttt{var}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 있고 함수 밖에서는 접근될 수 없는 function-scope이며, \texttt{let}과 \texttt{const}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 없는 block-scope이다.
+\coderef{code:var-let-scope}\를 실행하면, \texttt{var}로 선언된 \texttt{num1}의 값은 정상적으로 출력되나, \texttt{let}으로 선언된 \texttt{num2}는 출력되지 않고 정의되지 않았다는 에러가 발생한다. 이렇듯 \texttt{var}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 있고 함수 밖에서는 접근될 수 없는 function-scope이며, \texttt{let}과 \texttt{const}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 없는 block-scope이다.
 
 \begin{tblenv}
     {tab:var-let-const-table}

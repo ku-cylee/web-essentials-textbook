@@ -34,7 +34,7 @@ ul { list-style: none }
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:child-desc-selector}를 통해 이해해보자. 자식 선택자인 \texttt{.class1 > span}은 \texttt{\#span1}만 선택하나, 자손 선택자인 \texttt{.class1 span}은 \texttt{\#span1}과 \texttt{\#span3}를 선택한다.
+\coderef{code:child-desc-selector}\를 통해 이해해보자. 자식 선택자인 \texttt{.class1 > span}은 \texttt{\#span1}만 선택하나, 자손 선택자인 \texttt{.class1 span}은 \texttt{\#span1}과 \texttt{\#span3}를 선택한다.
 
 \subsection*{Pseudo-class Selector}
 가상 클래스 선택자(pseudo-class selector)는 특정한 상태에 놓여있는 요소들을 선택하는 선택자이다. 예를 들어 \texttt{button} 태그로 구현한 버튼에 일반적인 상태, 호버된 상태, 비활성화된 상태 등의 상태를 클래스의 형태로 나타낸 것을 가상 클래스(pseudo-class)라고 하며, 각각 다른 스타일을 적용할 수 있다. 이러한 가상 클래스 선택자는 \texttt{:pseudo-class}의 형태로 쓰고, \texttt{element:pseudo-class}로 표현된 선택자는 \texttt{element} 선택자로 선택된 요소 중 \texttt{pseudo-class}에 해당하는 요소들을 선택한다. \texttt{a} 태그는 \texttt{:link}, \texttt{:visited}, \texttt{:hover}, \texttt{:active} 등의 가상 클래스를 가질 수 있다.

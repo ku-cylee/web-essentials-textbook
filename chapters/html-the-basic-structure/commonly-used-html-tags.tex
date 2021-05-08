@@ -3,7 +3,7 @@
 이 절에서는 소개되는 태그들은 HTML에서 굉장히 자주 사용되는 태그들이다. 예제를 따라서 직접 작성해보고 웹 브라우저에서 열어 결과를 확인해보자.
 
 \subsection*{Heading (\texttt{h1} - \texttt{h6}) Tags}
-\texttt{h1} - \texttt{h6} 태그는 heading의 약자로, 제목을 나타낼 때 사용되는 태그이다. h 뒤의 숫자가 작을수록 화면에 표시되는 글자의 크기가 크다. \coderef{code:heading-tags}을 직접 실행해보고, 태그 내부의 내용을 바꾸어보자.
+\texttt{h1} - \texttt{h6} 태그는 heading의 약자로, 제목을 나타낼 때 사용되는 태그이다. h 뒤의 숫자가 작을수록 화면에 표시되는 글자의 크기가 크다. \coderef{code:heading-tags}\를 직접 실행해보고, 태그 내부의 내용을 바꾸어보자.
 
 \begin{codeenv}{code:heading-tags}{\texttt{h1} - \texttt{h6} Tags}\begin{verbatim}
 <h1>This is h1 tag</h1>
@@ -47,7 +47,7 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
         \end{itemize}
 \end{itemize}
 
-\coderef{code:atag}를 직접 실행해보고, 위의 속성값을 참고하여 \texttt{a} 태그를 활용해보자.
+\coderef{code:atag}\를 직접 실행해보고, 위의 속성값을 참고하여 \texttt{a} 태그를 활용해보자.
 
 \begin{codeenv}{code:atag}{\texttt{a} Tag}\begin{verbatim}
 <a href="https://www.google.com" title="Google Homepage" target="_self">Google</a>
@@ -70,7 +70,7 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \subsection*{List Tags}
 리스트, 즉 항목들을 나열하여 표현할 수 있는 태그들이 세 가지 있다. 순서가 없는 리스트(unordered list)를 나타내는 \texttt{ul} 태그, 순서가 있는 리스트(ordered list)를 나타내는 \texttt{ol} 태그가 있으며, 두 종류의 리스트 모두 리스트의 각 원소를 \texttt{li} 태그를 이용하여 나열한다.
 
-\texttt{ul} 태그나 \texttt{ol} 태그를 이용하여 리스트를 표현하면 각 원소의 앞에 bullet과 같은 문자나 숫자가 자동으로 생깁니다. 이러한 표식은 CSS를 활용하여 제거하거나 변경할 수 있다. \coderef{code:list-tags}을 직접 실행해보고, 다양한 형태의 리스트를 직접 만들어보자.
+\texttt{ul} 태그나 \texttt{ol} 태그를 이용하여 리스트를 표현하면 각 원소의 앞에 bullet과 같은 문자나 숫자가 자동으로 생깁니다. 이러한 표식은 CSS를 활용하여 제거하거나 변경할 수 있다. \coderef{code:list-tags}\를 직접 실행해보고, 다양한 형태의 리스트를 직접 만들어보자.
 
 \begin{codeenv}{code:list-tags}{List Tags}\begin{verbatim}
 <h3>Unordered List</h3>
@@ -167,11 +167,11 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:input-tags}을 살펴보면, 모든 입력 태그에는 \texttt{name} 값이 지정되어 있고, 선택지가 있는 입력 태그에는 \texttt{value} 값이 지정되어 있는 것을 확인할 수 있다. \texttt{name} 속성의 값과 \texttt{value} 속성의 값은 key-value pair를 이루어, \texttt{name}의 값과 \texttt{value}의 값은 각각 입력받은 항목의 이름과 값을 뜻한다. 다만 텍스트를 입력받는 태그들의 경우 입력란에 입력한 값이 \texttt{value} 값이므로 \texttt{value} 값이 필요하지 않는데, 이 값을 직접 지정해줄 경우 기본값이 된다. \texttt{name}과 \texttt{value}의 값은 입력받은 데이터를 key-value pair의 형태로 전송할 때 사용되기 때문에 매우 중요한 속성이다.
+\coderef{code:input-tags}\를 살펴보면, 모든 입력 태그에는 \texttt{name} 값이 지정되어 있고, 선택지가 있는 입력 태그에는 \texttt{value} 값이 지정되어 있는 것을 확인할 수 있다. \texttt{name} 속성의 값과 \texttt{value} 속성의 값은 key-value pair를 이루어, \texttt{name}의 값과 \texttt{value}의 값은 각각 입력받은 항목의 이름과 값을 뜻한다. 다만 텍스트를 입력받는 태그들의 경우 입력란에 입력한 값이 \texttt{value} 값이므로 \texttt{value} 값이 필요하지 않는데, 이 값을 직접 지정해줄 경우 기본값이 된다. \texttt{name}과 \texttt{value}의 값은 입력받은 데이터를 key-value pair의 형태로 전송할 때 사용되기 때문에 매우 중요한 속성이다.
 
 \subsection*{HTML Entities}
 
-HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 때문에, 이러한 문자들을 실제로 웹 페이지 상에 표시하고자 할 때 문제가 발생할 수 있다. \coderef{code:ineq-without-entity}과 같이 HTML을 작성하면 어떤 문제가 발생할지 예상해보자. 
+HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 때문에, 이러한 문자들을 실제로 웹 페이지 상에 표시하고자 할 때 문제가 발생할 수 있다. \coderef{code:ineq-without-entity}\와 같이 HTML을 작성하면 어떤 문제가 발생할지 예상해보자. 
 
 \begin{codeenv}{code:ineq-without-entity}{Improper Way of Displaying \texttt{<} and \texttt{>}}\begin{verbatim}
 <h3>This is how inequality <signs> look like.</h3>
@@ -180,14 +180,14 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 
 \coderef{code:ineq-without-entity}에서는 \texttt{<signs>}라는 텍스트가 태그로 취급되어, ``This is how inequality {\textless} signs {\textgreater} look like.''이라는 텍스트를 표시하려고 했던 의도와는 달리, ``This is how inequality look like.''이라는 텍스트가 표시되었다. 이는 \texttt{<}, \texttt{>} 두 문자열이 태그를 나타내기 위한 문자이기 때문에 발생하는 현상이다. 그렇다면 이러한 문자들은 표시하기 위해서는 어떻게 작성해야 하는가? 또한, ※과 $\rightarrow$와 같은 키보드 상에는 존재하지 않는 문자는 어떻게 작성하는가?
 
-이러한 특수문자는 위해 HTML 개체(entity)를 사용하여 나타낸다. HTML 개체는 개체의 이름을 사용하여 \texttt{\&<entity-name>;}의 형태로 나타내거나, 개체의 번호를 사용하여 \texttt{\&\#<entity-number>;}의 형태로 나타낸다. 예를 들어, \texttt{<}, \texttt{>}의 개체 이름은 각각 lt, gt이므로 \coderef{code:ineq-without-entity}은 \coderef{code:ineq-with-entity}와 같이 나타내어질 수 있다.
+이러한 특수문자는 위해 HTML 개체(entity)를 사용하여 나타낸다. HTML 개체는 개체의 이름을 사용하여 \texttt{\&<entity-name>;}의 형태로 나타내거나, 개체의 번호를 사용하여 \texttt{\&\#<entity-number>;}의 형태로 나타낸다. 예를 들어, \texttt{<}, \texttt{>}의 개체 이름은 각각 lt, gt이므로 \coderef{code:ineq-without-entity}\는 \coderef{code:ineq-with-entity}\와 같이 나타내어질 수 있다.
 
 \begin{codeenv}{code:ineq-with-entity}{Proper Way of Displaying \texttt{<} and \texttt{>}}\begin{verbatim}
 <h3>This is how inequality &lt;signs&gt; look like.</h3>
 \end{verbatim}
 \end{codeenv}
 
-이외에도 \texttt{\&quot;}(``), \texttt{\&amp;}(\&) 등의 개체도 존재한다. 특히 \texttt{\&nbsp;}는 non-breaking space의 약자로, 공백을 뜻한다. 앞에서 \texttt{br} 태그의 필요성을 설명하면서 whitespace 문자는 여러 번 연속되어 나열되어도 하나의 공백으로 취급된다고 하였다. 그러므로 여러 칸을 띄워 표시할 때 단순히 space를 여러 번 입력하여 나타내면 안되고, \texttt{\&nbsp;}라는 HTML 개체를 이용하여 연속된 공백을 나타내야 한다. \coderef{code:nbsp-usage}을 확인해보자.
+이외에도 \texttt{\&quot;}(``), \texttt{\&amp;}(\&) 등의 개체도 존재한다. 특히 \texttt{\&nbsp;}는 non-breaking space의 약자로, 공백을 뜻한다. 앞에서 \texttt{br} 태그의 필요성을 설명하면서 whitespace 문자는 여러 번 연속되어 나열되어도 하나의 공백으로 취급된다고 하였다. 그러므로 여러 칸을 띄워 표시할 때 단순히 space를 여러 번 입력하여 나타내면 안되고, \texttt{\&nbsp;}라는 HTML 개체를 이용하여 연속된 공백을 나타내야 한다. \coderef{code:nbsp-usage}\를 확인해보자.
 
 \begin{codeenv}{code:nbsp-usage}{Usage of \texttt{\&nbsp;}}\begin{verbatim}
 <h3>This is how you use     nbsp.</h3>
@@ -195,7 +195,7 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 \end{verbatim}
 \end{codeenv}
 
-이 외에도 별도의 개체 이름이 없는 특수문자의 경우 유니코드 번호를 이용하여 삽입할 수 있다. 유니코드 번호는 https://www.fileformat.info/info/unicode/char/search.htm 페이지에서 검색하여 찾을 수 있다. 예를 들어, reference mark, 혹은 흔히 당구장 문자(※)로 불리는 문자의 유니코드 번호는 8251이므로, \coderef{code:html-entity-refmark}와 같이 입력될 수 있다.
+이 외에도 별도의 개체 이름이 없는 특수문자의 경우 유니코드 번호를 이용하여 삽입할 수 있다. 유니코드 번호는 https://www.fileformat.info/info/unicode/char/search.htm 페이지에서 검색하여 찾을 수 있다. 예를 들어, reference mark, 혹은 흔히 당구장 문자(※)로 불리는 문자의 유니코드 번호는 8251이므로, \coderef{code:html-entity-refmark}\와 같이 입력될 수 있다.
 
 \begin{codeenv}{code:html-entity-refmark}{Proper Way of Displaying \texttt{<} and \texttt{>}}\begin{verbatim}
 <h3>&#8251; This is how inequality &lt;signs&gt; look like.</h3>
@@ -205,7 +205,7 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 \subsection*{\texttt{div} and \texttt{span} Tag}
 HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이지를 디자인하고 추가 기능을 부여하기 위해서는 HTML을 구조화할 필요가 있다. 지금까지 살펴본 태그들은 모두 특정한 기능을 가진 태그들인데, 구조화할 때 사용되는 태그가 앞의 태그들처럼 특정한 기능을 갖는다면, HTML 코드의 구조가 엉망진창이 될 수 밖에 없다. 이러한 이유로 존재하는, 특정한 기능이 없고, HTML 요소들을 묶어서 레이아웃(layout)을 구성하기 위해 존재하는 태그를 non-semantic 태그라고 하며, \texttt{div}와 \texttt{span} 태그가 있다. 
 
-두 태그는 특징상 약간의 차이가 있는데, \texttt{div} 태그는 인접한 요소와 같은 줄에 있으려고 하지 않고, \texttt{span} 태그는 인접한 요소와 같은 줄에 있으려고 한다. \coderef{code:div-and-span-tags}를 통해 이러한 특징을 확인해보자.
+두 태그는 특징상 약간의 차이가 있는데, \texttt{div} 태그는 인접한 요소와 같은 줄에 있으려고 하지 않고, \texttt{span} 태그는 인접한 요소와 같은 줄에 있으려고 한다. \coderef{code:div-and-span-tags}\를 통해 이러한 특징을 확인해보자.
 
 \begin{codeenv}{code:div-and-span-tags}{\texttt{div} and \texttt{span} Tags}\begin{verbatim}
 <div>
@@ -230,6 +230,6 @@ HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이�
 \end{verbatim}
 \end{codeenv}
 
-두 태그를 비교하기 위해 작성된 \coderef{code:div-and-span-tags}를 조금만 관찰하면, 비슷한 기능이나 역할을 하는 요소들이 묶여있어, 전체적인 구조를 파악하기 용이하다. 이렇게 \texttt{div}와 \texttt{span} 태그를 사용하는 것만으로도 그렇지 않았을 때보다 코드가 훨씬 구조화되고, 가독성이 대폭 좋아진 것을 확인할 수 있다. 
+두 태그를 비교하기 위해 작성된 \coderef{code:div-and-span-tags}\를 조금만 관찰하면, 비슷한 기능이나 역할을 하는 요소들이 묶여있어, 전체적인 구조를 파악하기 용이하다. 이렇게 \texttt{div}와 \texttt{span} 태그를 사용하는 것만으로도 그렇지 않았을 때보다 코드가 훨씬 구조화되고, 가독성이 대폭 좋아진 것을 확인할 수 있다. 
 
 \texttt{div}와 \texttt{span}은 대표적인 non-semantic 태그이지만, 개발자의 편의에 따라 예약되지 않은 태그 이름 사용하여 HTML 문서를 작성할 수 있다. 유사하게, 태그 속성 역시 예약되지 않은 속성의 이름과 속성값을 사용하여 HTML 문서를 작성하고, 이를 CSS와 JS 문서에서 사용할 수 있다.
