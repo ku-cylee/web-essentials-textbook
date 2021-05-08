@@ -13,8 +13,6 @@ JS는 다른 언어들과 마찬가지로 변수나 상수 등의 식별자(iden
 식별자는 \texttt{var}, \texttt{let}, \texttt{const} 등의 키워드를 이용하여 선언한다. 먼저, \texttt{var}는 지금까지 널리 사용되어 온 키워드로, \texttt{var}로 선언한 변수는 재선언할 수 있고, 값을 재할당할 수도 있다.
 
 \begin{codeenv}{code:var-keyword}{Declaring Variable using \texttt{var}}\begin{verbatim}
-
-
 > var num1 = 3;
 > num1;
 3
@@ -29,8 +27,6 @@ JS는 다른 언어들과 마찬가지로 변수나 상수 등의 식별자(iden
 반면 \texttt{let}으로 선언한 변수는 값을 재할당할 수는 있으나, 재선언은 불가능하다.\footnote{Chrome의 개발자 도구를 이용하였을 때 재선언이 가능한 버그가 보고되었다. (2021년 기준)}
 
 \begin{codeenv}{code:let-keyword}{Declaring Variable using \texttt{let}}\begin{verbatim}
-
-
 > let num2 = 3;
 > num2 + 5;
 8
@@ -44,8 +40,6 @@ SyntaxError: redeclaration of let num2
 \texttt{const}는 constant, 즉 상수(常數)의 약자로, \texttt{const}로 선언한 상수는 재선언과 재할당이 모두 불가능하다.
 
 \begin{codeenv}{code:const-keyword}{Declaring Constant using \texttt{const}}\begin{verbatim}
-
-
 > const constNum = 3;
 undefined
 > constNum + 5;
@@ -61,8 +55,6 @@ SyntaxError: redeclaration of const constNum
 \texttt{var}는 JS 초창기부터 사용되어 왔던 식별자 선언 키워드인 반면, \texttt{let}과 \texttt{const}는 ES6 출시와 함께 추가된 식별자 선언 키워드이다. \texttt{var}과 \texttt{let}/\texttt{const}는 재선언 가능성에서도 차이점이 있지만, 식별자의 접근 가능한 범위(scope)에도 차이가 있다.
 
 \begin{codeenv}{code:var-let-scope}{Scope of var and let}\begin{verbatim}
-
-
 > { var num1 = 1; }
 > num1;
 1

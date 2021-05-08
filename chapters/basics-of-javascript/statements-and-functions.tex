@@ -5,8 +5,6 @@
 JS의 equality comparison은 여타 언어들과 유사하게 \texttt{==}과 \texttt{!=} 연산자로 수행될 수 있으며, 비교 연산의 결과가 참이면 \texttt{true}, 거짓이면 \texttt{false}를 반환한다. 그러나 JS에서는 \texttt{==}이나 \texttt{!=} 연산자로 비교 연산을 수행하였을 때 문제가 발생할 수 있다.
 
 \begin{codeenv}{code:loose-equality}{Loose Equality}\begin{verbatim}
-
-
 > 0 == 0;
 true
 > 0 == '0';
@@ -34,8 +32,6 @@ true
 이러한 이유로 JS에서는 loose equality 대신 자료형까지 고려하여 값을 비교하는 strict equality가 권장된다. Strict equality는 \texttt{===}과 \texttt{!==} 연산자를 이용하여 수행될 수 있다.
 
 \begin{codeenv}{code:strict-equality}{Strict Equality}\begin{verbatim}
-
-
 > 0 === 0;
 true
 > 0 === '0';
@@ -69,8 +65,6 @@ MDN 문서\footnote{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equa
 JS의 조건문은 여타 언어들의 조건문과 유사하게 \texttt{if}, \texttt{if else}, \texttt{else}의 키워드를 사용한다.
 
 \begin{codeenv}{code:if-else-stmt}{If-else Statement}\begin{verbatim}
-
-
 > const num = 100;
 > const isEven = num % 2 === 0;
 > if (isEven) {
@@ -95,8 +89,6 @@ remainder is 1
 또한, switch-case문과 삼항 연산자 \texttt{? :}도 지원한다.
 
 \begin{codeenv}{code:switch-case-stmt-ternary}{switch-case Statement and Ternary operator}\begin{verbatim}
-
-
 > const num = 100;
 > const remainder = num % 3;
 > switch (remainder) {
@@ -118,8 +110,6 @@ remainder is 1
 JS의 반복문 역시 여타 언어들과 유사하게 for문을 사용하며, while문과 do-while문 역시 지원한다.
 
 \begin{codeenv}{code:for-stmt}{for Statement}\begin{verbatim}
-
-
 > const fruits = ['apple', 'orange', 'mango', 'grapes'];
 > for (let i = 0; i < fruits.length; i++) {
       console.log(fruits[i]);
@@ -134,8 +124,6 @@ grapes
 \coderef{code:for-stmt}와 같이 반복문을 사용할 때마다 배열의 index를 어떠한 변수에 저장하고, 이를 이용해 배열의 각 원소를 가져오는 것은 번거롭다. for-of문을 사용하여 반복문을 간결하게 사용할 수 있다.
 
 \begin{codeenv}{code:for-of-stmt}{for-of Statement}\begin{verbatim}
-
-
 > const fruits = ['apple', 'orange', 'mango', 'grapes'];
 > for (const fruit of fruits) {
     console.log(fruit);
@@ -150,8 +138,6 @@ grapes
 \coderef{code:for-of-stmt}과 같이 for-of문은 배열의 각 원소를 차례대로 특정 변수(\texttt{fruit})에 저장하고, for문 내에서 사용할 수 있도록 한다. 이렇게 for-of문을 사용하면 각 원소의 index는 알 수 없지만, 개별 원소는 직접 가져와 반복문을 간결하게 작성할 수 있는 장점이 있다.
 
 \begin{codeenv}{code:for-in-stmt}{for-in Statement}\begin{verbatim}
-
-
 > const person = { age: 21, name: 'Frank', height: 171, isMale: true, weight: 60 };
 > for (const key in person) {
       console.log(key + ': ' + person[key]);
@@ -169,8 +155,6 @@ for-of문과 유사하여 헷갈리기 쉬운 for-in문은 객체(object)에 대
 \subsection*{Functions}
 
 \begin{codeenv}{code:basic-function}{Function Declaration and Call}\begin{verbatim}
-
-
 > function add(x, y) {
       return x + y;
   }
@@ -184,8 +168,6 @@ for-of문과 유사하여 헷갈리기 쉬운 for-in문은 객체(object)에 대
 JS에서 함수는 \coderef{code:basic-function}와 같이 \texttt{function} 키워드를 이용하여 함수의 이름과 인자를 작성하고, 중괄호 내부에 함수 내용을 작성한다. JS에서는 식별자의 자료형을 따로 지정하지 않으므로 인자와 반환값의 자료형 역시 따로 지정하지 않는다는 점을 주목하여야 한다. 따라서, \coderef{code:basic-function}의 함수는 마지막 줄과 같이 사용될 수도 있다.
 
 \begin{codeenv}{code:arrow-function}{Arrow Function}\begin{verbatim}
-
-
 > const add = (x, y) => {
       return x + y;
   };
@@ -202,8 +184,6 @@ ES6 이후에는 \coderef{code:arrow-function}과 같이 arrow(\texttt{=>})를 �
 Arrow function의 인자가 1개일 때는 인자 부분의 괄호를 생략할 수 있고, 함수에 값을 반환하는 부분만 있는 경우 중괄호와 \texttt{return} 키워드가 생략될 수 있다.
 
 \begin{codeenv}{code:anonymous-function}{Anonymous Function}\begin{verbatim}
-
-
 > num => num * num;
 function (num)
 > ((base, power) => {
@@ -218,8 +198,6 @@ function (num)
 Arrow function을 활용하면 \coderef{code:anonymous-function}와 같이 익명 함수(anonymous function)를 선언할 수 있다.
 
 \begin{codeenv}{code:high-order-function}{Anonymous Function with High-order Function}\begin{verbatim}
-
-
 > const arr = ['a', 'bb', 'ccc', 'dddd'];
 > const lengths = arr.map(e => e.length);
 > lengths;
@@ -230,8 +208,6 @@ Arrow function을 활용하면 \coderef{code:anonymous-function}와 같이 익�
 함수 중에는 함수를 인자로 쓰는 함수가 있는데, 이러한 함수를 고차원 함수(high-order function)라고 한다. 익명 함수는 재사용하지 않는 함수를 고차원 함수의 인자로 넘길 때 유용하게 사용된다. \coderef{code:high-order-function}에서 \texttt{map} 함수는 배열의 각 원소를 인자로 받은 함수의 인자로 주어 실행한 결과를 배열로 반환한다. JS에서는 이러한 고차원 함수가 특히 많으므로 고차원 함수를 사용하면서 익명 함수를 빈번하게 사용하게 될 것이다.
 
 \begin{codeenv}{code:foreach-method}{\texttt{forEach} Method}\begin{verbatim}
-
-
 > const fruits = ['apple', 'orange', 'mango', 'grapes'];
 > fruits.forEach(fruit => console.log(fruit));
 apple

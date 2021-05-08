@@ -6,8 +6,6 @@
 \texttt{h1} - \texttt{h6} 태그는 heading의 약자로, 제목을 나타낼 때 사용되는 태그이다. h 뒤의 숫자가 작을수록 화면에 표시되는 글자의 크기가 크다. \coderef{code:heading-tags}을 직접 실행해보고, 태그 내부의 내용을 바꾸어보자.
 
 \begin{codeenv}{code:heading-tags}{\texttt{h1} - \texttt{h6} Tags}\begin{verbatim}
-
-
 <h1>This is h1 tag</h1>
 <h2>This is h2 tag</h2>
 <h3>This is h3 tag</h3>
@@ -23,8 +21,6 @@
 HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 종류와 관계없이 하나의 공백 취급을 받고, 이러한 whitespace 문자들은 여러 개 연속적으로 나열되어도 하나의 공백으로 취급된다. 따라서, 코드 내에서 줄 바꿈을 하여 작성해도 실제로는 줄 바꿈이 되지 않으며, 줄 바꿈을 하기 위해서는 \texttt{br} 태그를 줄 바꿈 하고자 하는 위치에 넣어야 한다. 
 
 \begin{codeenv}{code:par-tag}{\texttt{p}, \texttt{br} Tag}\begin{verbatim}
-
-
 <p>
     HTML stands for HyperText Markup Language.<br>
     It is a language used to express the structure of webpage.
@@ -38,6 +34,7 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 
 \subsection*{\texttt{a} Tag}
 \texttt{a} 태그는 HTML 요소에 다른 웹 페이지로 이동할 수 있는 하이퍼링크를 걸 수 있는 태그이다. 이 태그는 속성값에 유의하여 작성하여야 하며, 다음 세 속성은 \texttt{a} 태그에서 가장 자주 쓰이는 속성들이다. 
+\newpage
 
 \begin{itemize}
     \item \texttt{href}: HTML 요소와 연결될 리소스의 주소
@@ -53,8 +50,6 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \coderef{code:atag}를 직접 실행해보고, 위의 속성값을 참고하여 \texttt{a} 태그를 활용해보자.
 
 \begin{codeenv}{code:atag}{\texttt{a} Tag}\begin{verbatim}
-
-
 <a href="https://www.google.com" title="Google Homepage" target="_self">Google</a>
 <br>
 <a href="https://www.naver.com" title="Naver" target="_blank">Naver</a>
@@ -67,8 +62,6 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \texttt{button} 태그에 중요한 속성으로는 \texttt{disabled}, \texttt{type} 등이 있다. \texttt{disabled} 속성을 설정하면 버튼은 비활성화되어 클릭할 수 없는 상태가 되며, \texttt{type}은 버튼을 눌렀을 때 수행되는 동작의 성격에 차이가 생긴다. 버튼을 눌렀을 때 동작이 수행되도록 하는 방법은 \chapref{ch:javascript-dynamic-frontend}에서 다룬다.
 
 \begin{codeenv}{code:button-tag}{\texttt{button} Tag}\begin{verbatim}
-
-
 <button type="submit">Learn front-end</button>
 <button disabled>Learn back-end</button>
 \end{verbatim}
@@ -80,8 +73,6 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \texttt{ul} 태그나 \texttt{ol} 태그를 이용하여 리스트를 표현하면 각 원소의 앞에 bullet과 같은 문자나 숫자가 자동으로 생깁니다. 이러한 표식은 CSS를 활용하여 제거하거나 변경할 수 있다. \coderef{code:list-tags}을 직접 실행해보고, 다양한 형태의 리스트를 직접 만들어보자.
 
 \begin{codeenv}{code:list-tags}{List Tags}\begin{verbatim}
-
-
 <h3>Unordered List</h3>
 <ul>
     <li>Visual Studio Code</li>
@@ -113,8 +104,6 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \begin{codeenv}{code:img-tag}
     {\texttt{img} Tag\footnote{이 코드에서는 HTML의 속성-속성값 쌍을 분리하기 위해 1칸의 공백 대신 개행 문자와 5칸의 공백을 사용하였다. HTML에서는 연속된 whitespace 문자들을 하나의 공백으로 취급하기 때문에 이렇게 표시할 수 있으며, 속성이 많거나, 속성값이 길거나, 내용이 길거나 등의 이유로 HTML 요소가 지나치게 길어지면 이와 같이 개행하여 작성하는 것이 좋다.}}
     \begin{verbatim}
-
-
 <img src="https://s.pstatic.net/static/www/img/uit/2019/sp_search.svg"
      alt="Naver Logo"
      width=640>
@@ -126,8 +115,6 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 글자의 폰트를 변경할 수 있는 태그들이다. 간단한 HTML 문서를 작성할 때는 쓰일 수 있으나, CSS를 활용하여 작성하는 것이 권장되기 때문에 자주 쓰이지는 않는다. 
 
 \begin{codeenv}{code:font-tags}{Font Tags}\begin{verbatim}
-
-
 <b>Bold Text</b><br>
 <strong>Important Text</strong><br>
 <i>Italic Text</i><br>
@@ -154,8 +141,6 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \texttt{textarea} 태그는 \texttt{input} 태그와는 달리 여러 줄의 텍스트를 입력받을 수 있으며, 입력받는 부분의 크기나 설명 등은 속성을 이용하여 설정할 수 있다. \texttt{select}, \texttt{option} 태그는 여러 선택지 중 하나를 선택할 수 있는 drop-down 리스트를 만드는 태그이다. 
 
 \begin{codeenv}{code:input-tags}{Input Tags}\begin{verbatim}
-
-
 <h3>Input username: </h3>
 <input type="text" name="username">
 
@@ -189,8 +174,6 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 때문에, 이러한 문자들을 실제로 웹 페이지 상에 표시하고자 할 때 문제가 발생할 수 있다. \coderef{code:ineq-without-entity}과 같이 HTML을 작성하면 어떤 문제가 발생할지 예상해보자. 
 
 \begin{codeenv}{code:ineq-without-entity}{Improper Way of Displaying \texttt{<} and \texttt{>}}\begin{verbatim}
-
-
 <h3>This is how inequality <signs> look like.</h3>
 \end{verbatim}
 \end{codeenv}
@@ -200,8 +183,6 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 이러한 특수문자는 위해 HTML 개체(entity)를 사용하여 나타낸다. HTML 개체는 개체의 이름을 사용하여 \texttt{\&<entity-name>;}의 형태로 나타내거나, 개체의 번호를 사용하여 \texttt{\&\#<entity-number>;}의 형태로 나타낸다. 예를 들어, \texttt{<}, \texttt{>}의 개체 이름은 각각 lt, gt이므로 \coderef{code:ineq-without-entity}은 \coderef{code:ineq-with-entity}와 같이 나타내어질 수 있다.
 
 \begin{codeenv}{code:ineq-with-entity}{Proper Way of Displaying \texttt{<} and \texttt{>}}\begin{verbatim}
-
-
 <h3>This is how inequality &lt;signs&gt; look like.</h3>
 \end{verbatim}
 \end{codeenv}
@@ -209,8 +190,6 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 이외에도 \texttt{\&quot;}(``), \texttt{\&amp;}(\&) 등의 개체도 존재한다. 특히 \texttt{\&nbsp;}는 non-breaking space의 약자로, 공백을 뜻한다. 앞에서 \texttt{br} 태그의 필요성을 설명하면서 whitespace 문자는 여러 번 연속되어 나열되어도 하나의 공백으로 취급된다고 하였다. 그러므로 여러 칸을 띄워 표시할 때 단순히 space를 여러 번 입력하여 나타내면 안되고, \texttt{\&nbsp;}라는 HTML 개체를 이용하여 연속된 공백을 나타내야 한다. \coderef{code:nbsp-usage}을 확인해보자.
 
 \begin{codeenv}{code:nbsp-usage}{Usage of \texttt{\&nbsp;}}\begin{verbatim}
-
-
 <h3>This is how you use     nbsp.</h3>
 <h3>This is how you use &nbsp;&nbsp;&nbsp;&nbsp;nbsp.</h3>
 \end{verbatim}
@@ -219,8 +198,6 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 이 외에도 별도의 개체 이름이 없는 특수문자의 경우 유니코드 번호를 이용하여 삽입할 수 있다. 유니코드 번호는 https://www.fileformat.info/info/unicode/char/search.htm 페이지에서 검색하여 찾을 수 있다. 예를 들어, reference mark, 혹은 흔히 당구장 문자(※)로 불리는 문자의 유니코드 번호는 8251이므로, \coderef{code:html-entity-refmark}와 같이 입력될 수 있다.
 
 \begin{codeenv}{code:html-entity-refmark}{Proper Way of Displaying \texttt{<} and \texttt{>}}\begin{verbatim}
-
-
 <h3>&#8251; This is how inequality &lt;signs&gt; look like.</h3>
 \end{verbatim}
 \end{codeenv}
@@ -231,8 +208,6 @@ HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이�
 두 태그는 특징상 약간의 차이가 있는데, \texttt{div} 태그는 인접한 요소와 같은 줄에 있으려고 하지 않고, \texttt{span} 태그는 인접한 요소와 같은 줄에 있으려고 한다. \coderef{code:div-and-span-tags}를 통해 이러한 특징을 확인해보자.
 
 \begin{codeenv}{code:div-and-span-tags}{\texttt{div} and \texttt{span} Tags}\begin{verbatim}
-
-
 <div>
     <h3>&lt;div&gt; tag</h3>
     <div>

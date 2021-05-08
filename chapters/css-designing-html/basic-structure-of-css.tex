@@ -12,8 +12,6 @@ CSS의 구조는 \figref{fig:css-basic-struct}과 같이 표현될 수 있다. �
 스타일은 key-value pair의 형태인 속성과 속성값의 집합으로 표현한다. \textbf{속성(property)}은 HTML 요소에 적용하고자 하는 디자인 요소로, 너비, 높이, 글자의 색, 폰트의 크기 및 굵기 등 250가지가 넘는 다양한 속성들이 존재하며, 각 속성에는 그에 대응하는 \textbf{속성값(value)}을 지정할 수 있다. 예를 들어, 글자의 색상과 관련된 속성은 \texttt{color}이며, 속성값으로는 \texttt{red}나 \texttt{blue}와 같은 색상 이름이나, \texttt{\#1ADB9E}와 같은 hex code 형태 등이 가능하다. 속성과 속성값 pair를 \verb|property: value|의 형태로 쓰고, 각 pair를 세미콜론(\texttt{;})으로 구분하여 나열한다.
 
 \begin{codeenv}{code:css-simple-example}{Simple Example of CSS}\begin{verbatim}
-
-
 .main-panel {
     width: 800px;
     height: 450px;
@@ -47,8 +45,6 @@ CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 문서를 적�
 첫 번째 방법은 inline style으로, HTML 요소에 \texttt{style} 속성의 값으로 property-value pair를 직접 열거하는 방법이며, HTML 요소에 개별적으로 스타일을 적용하는 방식이기 때문에 선택자를 쓰지 않는다. 이 방법은 각 요소가 어떠한 디자인을 가지는지 쉽게 알 수는 있으나, 웹 페이지의 구조를 표현한다는 HTML의 목적에 위배되며, 요소마다 스타일을 작성해주어야 하므로 동일한 스타일을 적용하고자 하는 HTML 요소가 많아질 경우 문서의 불필요하게 길어지며 유지 및 보수 역시 번거로워진다. 따라서 inline style은 지양되는 스타일이지만, 예외적으로 서식이 있는 텍스트(rich text)를 표현할 때에는 자주 사용된다.
 
 \begin{codeenv}{code:css-app-inline}{Applying CSS with Inline Style}\begin{verbatim}
-
-
 <div>
     Already member? <span style="font-weight: bold">Sign In</span>
 </div>
@@ -61,8 +57,6 @@ CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 문서를 적�
 두 번째 방법은 internal style sheet으로, \texttt{head} 태그 내부에 \texttt{<style type="text/css">} 요소를 삽입하고, 그 내부에 CSS 코드를 작성한다. 선택자를 사용할 수 있으므로 inline style보다는 효율적으로 작성할 수 있으나, HTML 본연의 목적에는 여전히 위배되며, 여러 HTML 문서에 동일한 CSS 문서를 적용할 때에는 여전히 비효율적이며 번거롭다.
 
 \begin{codeenv}{code:css-app-internal}{Applying CSS with Internal Style Sheet}\begin{verbatim}
-
-
 <style type="text/css">
     .title {
         font-weight: bold;
@@ -83,6 +77,7 @@ CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 문서를 적�
 </ul>
 \end{verbatim}
 \end{codeenv}
+\newpage
 
 마지막 방법은 가장 권장되는 방법인 external style sheet으로, HTML 문서와 CSS 문서를 서로 다른 파일에 작성하고, HTML 문서의 \texttt{head} 태그 내부에 \texttt{link} 태그를 이용하여 CSS 파일을 연동한다. \texttt{link} 태그에는 다음과 같은 속성을 지정해주어야 한다.
 
@@ -95,8 +90,6 @@ CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 문서를 적�
 먼저 index.html과 style.css를 같은 폴더 내에 생성하고, \coderef{code:css-app-ext-css}와 같이 style.css를 작성한다.
 
 \begin{codeenv}{code:css-app-ext-css}{Applying CSS with External Style Sheet - style.css}\begin{verbatim}
-
-
 .title {
     font-weight: bold;
     font-size: 16px;
@@ -116,8 +109,6 @@ CSS에 대해 깊이 있게 다루기 전에, HTML 문서에 CSS 문서를 적�
 이후, index.html을 \coderef{code:css-app-ext-html}과 같이 작성한다. \texttt{link} 태그의 구조를 확인해보자.
 
 \begin{codeenv}{code:css-app-ext-html}{Applying CSS with External Style Sheet - index.html}\begin{verbatim}
-
-
 <head>
     <link type="text/css" rel="stylesheet" href="./style.css">
 </head>

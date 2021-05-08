@@ -9,8 +9,6 @@
 그런데 JS 파일에 함수를 만들어두고 사용하면 어떤 부작용이 있겠는가? 객체가 많은 프로그램의 경우는 함수의 수가 지나치게 많아져 가독성이 저하되고, 개발자가 헷갈리기 쉬워지고 코드 분석도 어려워지는 등 효율성이 저하될 수 있다. 또한, 다른 객체에 대해 유사한 작업을 수행하는 함수가 있다면 함수 이름이 겹쳐 namespace 오염이 일어날 수 있고, 함수 이름을 비효율적으로 짓게 된다. 따라서 객체의 속성값을 이용하는 함수는 객체 내부에 정의하여 namespace 오염과 부작용을 방지하고, 이를 메서드(method)라고 한다.
 
 \begin{codeenv}{code:object-method}{Method of Object}\begin{verbatim}
-
-
 > const person = {
       age: 21,
       name: 'Frank',
@@ -27,8 +25,6 @@
 메서드는 \coderef{code:object-method}과 같이 key에 메서드 이름을 작성하고 value에 메서드가 수행할 작업을 함수의 형태로 할당한다. 앞의 \texttt{increaseAge} 메서드는 자신이 속한 \texttt{person} 객체의 \texttt{age} 값을 \texttt{1}만큼 증가시켜야 하는데, 함수 내에 \texttt{age}가 선언되어 있지 않아 직접 접근할 수 없다. 이때 \texttt{this} 키워드를 사용하면 자기 자신이 속한 객체에 접근할 수 있다.\footnote{\texttt{this}는 자기 자신의 객체 외에도 다른 종류의 객체를 가리킬 수도 있다.} 즉 \texttt{increaseAge} 메서드 내부의 \texttt{this}는 \texttt{person}을 가리키고, \texttt{increaseAge}는 자신의 속성 \texttt{age}의 값을 \texttt{1}만큼 증가시킨다.
 
 \begin{codeenv}{code:object-simple-method}{Simple Method Syntax}\begin{verbatim}
-
-
 > const person = {
       age: 21,
       increaseAge() { this.age++ },
@@ -66,8 +62,6 @@ ES6의 축약 메서드 표현법에 따라 \coderef{code:object-simple-method}�
 \end{itemize}
 
 \begin{codeenv}{code:global-methods}{Global Methods}\begin{verbatim}
-
-
 > isFinite(3/0);
 false
 > isNaN(0/0);
@@ -96,8 +90,6 @@ string형 식별자, 즉 \texttt{String} 객체의 자주 쓰이는 속성이나
 \end{itemize}
 
 \begin{codeenv}{code:string-methods}{String Object Methods}\begin{verbatim}
-
-
 > const str = '  Hello World!\t';
 > str.length;
 15
@@ -138,8 +130,6 @@ true
 \end{itemize}
 
 \begin{codeenv}{code:array-methods}{Array Methods}\begin{verbatim}
-
-
 > const arr = ['apple', 'orange', 'banana'];
 > arr.length;
 3
@@ -196,8 +186,6 @@ false
 \end{itemize}
 
 \begin{codeenv}{code:date-methods}{Date Object Methods}\begin{verbatim}
-
-
 > const date = new Date(2021, 6, 19);
 undefined
 > date;
@@ -246,8 +234,6 @@ undefined
 \end{itemize}
 
 \begin{codeenv}{code:math-methods}{Math Object Methods}\begin{verbatim}
-
-
 > Math.SQRT2;
 1.4142135623730951
 > Math.max(3, 4, 5);
