@@ -4,10 +4,10 @@
 
 \subsection*{HTML 문서의 구조}
 
-DOM은 HTML 문서의 구조를 객체로 나타냅니다. HTML은 계층 구조로 되어 있고, 각 HTML 요소는 속성과 속성값을 가지고 있으므로, 객체로 나타내기 적합합니다. \texttt{head} 태그나 \texttt{body} 태그는 \texttt{html} 태그의 한 속성이고, \texttt{title} 태그는 \texttt{head} 태그의 속성으로 나타내는 등 HTML 요소를 어떻게 객체로 표현할 수 있을지 상상이 되나요? 
+DOM은 HTML 문서의 구조를 객체로 나타냅니다. HTML은 계층 구조로 되어 있고, 각 HTML 요소는 속성과 속성값을 가지고 있으므로, 객체로 나타내기 적합합니다. \texttt{head} 태그나 \texttt{body} 태그는 \texttt{html} 태그의 한 속성이고, \texttt{title} 태그는 \texttt{head} 태그의 속성으로 나타내는 등 HTML 요소를 어떻게 객체로 표현할 수 있을지 상상이 되나요?
 
-\figcmd{fig:html-elem-tree-struct}{Tree Structure of HTML Elements}
-    {images/javascript-dynamic-frontend/html-elem-tree-struct.png}{1.0}
+\figures{fig:html-elem-tree-struct}{Tree Structure of HTML Elements}
+    {\fig{images/javascript-dynamic-frontend/html-elem-tree-struct.png}{.7}}
 
 \figref{fig:html-elem-tree-struct}과 같이 HTML 문서는 하나의 tree 형태로 표현될 수 있고, 각 HTML 요소는 tree의 node로써 저장됩니다. 그리고 이 tree 형태로 표현된 객체는 root node인 document라는 객체에 저장됩니다. 이 tree의 각 node 객체에는 그 node의 정보(예: \texttt{href}, \texttt{style}, \texttt{class})뿐만 아니라 그 node의 정보를 수정하거나 읽어오는 메서드, 그 node를 기준으로 다른 요소들을 선택할 수 있는 메서드 등을 가지고 있습니다. 
 

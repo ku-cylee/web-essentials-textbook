@@ -5,20 +5,13 @@
 \subsection*{레이아웃이란}
 레이아웃(layout)은 직역하면 ``배치''라는 뜻을 갖는 단어이다. CSS에서 레이아웃을 설정하는 것은 웹 페이지에서 사용자가 정보를 원활하게 주고받을 수 있게끔 HTML 요소들을 적절하게 배치하고 정돈하는 작업이다. HTML 요소들을 웹 페이지 상에 원하는 대로 배치하는 것은 문서가 복잡해질수록 어려운 일이다. 따라서 레이아웃을 정확히 설정하기 위해서는 각 CSS 속성들과 속성값의 성질을 정확히 알아야 한다.
 
-\begin{figure}[htb]\vspace{10pt}\centering
-    \begin{subfigure}{.47\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/css-designing-html/chrome-devtools-layout.png}
-        \caption{Chrome}
-        \label{fig:devtools-chrome}
-    \end{subfigure}
-    \begin{subfigure}{.47\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/css-designing-html/firefox-devtools-layout.png}
-        \caption{Firefox}
-        \label{fig:devtools-firefox}
-    \end{subfigure}
-    \caption{Checking layout of HTML element using DevTools}
-    \label{fig:devtools-layout}
-\end{figure}
+\figures{fig:devtools-layout}{Checking layout of HTML element using DevTools}
+    {
+        \subfig{fig:devtools-chrome}{Chrome}
+            {images/css-designing-html/chrome-devtools-layout.png}{.47}
+        \subfig{fig:devtools-firefox}{Firefox}
+            {images/css-designing-html/firefox-devtools-layout.png}{.47}
+    }
 
 다행히도, 웹 브라우저의 개발자 도구는 특정한 HTML 요소가 웹 페이지 내에서 영역을 어떻게 차지하고 있으며, 어떻게 배치되었는지 확인할 수 있는 기능을 제공한다. Chrome과 Firefox에서 F12를 눌러 개발자 도구를 열고, Chrome은 Elements 탭을, Firefox는 검사기 탭을 눌러 열려있는 HTML 문서의 코드를 띄운다. 그리고 레이아웃을 확인하고자 하는 요소 위에 마우스를 hover하면 해당 요소의 레이아웃이 \figref{fig:devtools-layout}와 같이 나타난다. 반대로, 웹 페이지에서 HTML 코드를 확인하고 싶은 부분을 우클릭한 후 [검사]를 누르면 해당 요소의 코드를 찾아준다. 이렇게 HTML 문서를 작성할 때 개발자 도구를 이용하면 특정 요소가 어떠한 레이아웃을 갖는지, 어떻게 수정해야 할지 등의 정보를 보다 쉽게 얻을 수 있다.
 
@@ -38,7 +31,8 @@ HTML의 각 요소는 \textbf{사각형 형태}의 레이아웃을 가지며, �
     \item Margin: 테두리 바깥쪽에서 요소가 차지하는 영역. 원칙상 다른 요소와는 겹치지 않음.
 \end{itemize}
 
-\figcmd{fig:box-model}{Box Model}{images/css-designing-html/box-model.png}{.15}
+\figures{fig:box-model}{Box Model}
+    {\fig{images/css-designing-html/box-model.png}{.6}}
 
 이 box model은 HTML 요소 배치의 기본이 되기 때문에 제대로 이해하는 것이 매우 중요하다. 앞으로 나오는 예제 코드를 직접 작성해보고, 브라우저의 개발자 도구를 이용하여 padding과 border, margin이 어떻게 나타나는지 각각 살펴보자.
 
@@ -133,20 +127,12 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 
 \coderef{code:box-model-padding-margin}에서 \texttt{display: inline-block;}을 지우고 웹 페이지를 열어보면 각 \texttt{.box} 요소가 세로로 나열된다. 이때 \figref{fig:margin-collapsing}와 같이 두 요소의 margin이 겹친 것을 확인할 수 있으며, 이렇게 HTML 요소 간에 margin이 겹치는 현상을 마진 상쇄 또는 마진 겹침(margin collapsing)이라고 한다. Margin 겹침 현상은 인접한 형제 요소 간의 상하 margin이 겹칠 때, 빈 요소의 상하 margin이 겹칠 때, 부모 요소의 top(bottom) margin과 첫 번째(마지막) 자식 요소의 top(bottom) margin이 겹칠 때 발생한다. \coderef{code:box-model-padding-margin}의 경우는 형제 요소 간의 상하 margin이 겹친 경우로, 이러한 현상이 발생하는 디자인을 할 때 유의하여야 한다.
 
-\begin{figure}[htb]\vspace{10pt}\centering
-    \begin{subfigure}{.42\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/css-designing-html/margin-collapsing-upper-box.png}
-        \caption{Upper Box}
-        \label{fig:margin-collapsing-upper}
-    \end{subfigure}
-    \begin{subfigure}{.42\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/css-designing-html/margin-collapsing-lower-box.png}
-        \caption{Lower Box}
-        \label{fig:margin-collapsing-lower}
-    \end{subfigure}
-    \caption{Margin Collapsing}
-    \label{fig:margin-collapsing}
-\end{figure}
+\figures{fig:margin-collapsing}{Margin Collapsing}{
+    \subfig{fig:margin-collapsing-upper}{Upper Box}
+        {images/css-designing-html/margin-collapsing-upper-box.png}{.42}
+    \subfig{fig:margin-collapsing-lower}{Lower Box}
+        {images/css-designing-html/margin-collapsing-lower-box.png}{.42}
+}
 
 \subsection*{Inline-level and Block-level Elements}
 

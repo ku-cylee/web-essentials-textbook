@@ -3,9 +3,8 @@
 \subsection*{Exercise 1}
 \coderef{code:exercise-selectors-1}가 \figref{fig:exercise-selectors-1}과 같이 나타나도록 style.3.1.css를 작성하여라.
 
-\figcmd{fig:exercise-selectors-1}{Exercise 1 Example}
-    {images/css-designing-html/exercise-selectors-1.png}{0.65}
-
+\figures{fig:exercise-selectors-1}{Exercise 1 Example}
+    {\fig{images/css-designing-html/exercise-selectors-1.png}{0.7}}
 
 \begin{codeenv}{code:exercise-selectors-1}{Exercise 1}\begin{verbatim}
 <!doctype html>
@@ -48,8 +47,8 @@
 
 \coderef{code:exercise-layouts-1}이 \figref{fig:exercise-layouts-1}과 같이 나타나도록 style.3.2.css를 작성하여라.
 
-\figcmd{fig:exercise-layouts-1}{Exercise 2 Example}
-    {images/css-designing-html/exercise-layouts-1.png}{.75}
+\figures{fig:exercise-layouts-1}{Exercise 2 Example}
+    {\fig{images/css-designing-html/exercise-layouts-1.png}{.9}}
 
 \begin{codeenv}{code:exercise-layouts-1}{Exercise 2}\begin{verbatim}
 <!doctype html>
@@ -84,8 +83,8 @@
 
 \coderef{code:exercise-layouts-2}을 참고하여, \figref{fig:exercise-layouts-2}과 같이 우측 하단에 고정되어 있으면서, 클릭하였을 때 웹 페이지의 제일 상단과 제일 하단으로 이동하는 버튼을 \texttt{\#scroll-button} 내부를 수정하고, style.3.3.css를 작성하여 구현하여라. \texttt{a} 태그의 \texttt{href} 속성값으로 HTML 요소의 Id를 주면 눌렀을 때 해당 위치로 이동할 수 있으며, 위쪽 삼각형(▲)과 아래쪽 삼각형(▼)의 개체 번호는 각각 9650, 9660이다.
 
-\figcmd{fig:exercise-layouts-2}{Exercise 3 Example}
-    {images/css-designing-html/exercise-layouts-2.png}{1.0}
+\figures{fig:exercise-layouts-2}{Exercise 3 Example}
+    {\fig{images/css-designing-html/exercise-layouts-2.png}{.9}}
 
 \begin{codeenv}{code:exercise-layouts-2}{Exercise 3}\begin{verbatim}
 <!doctype html>
@@ -115,7 +114,7 @@
         <li>4 Basics of Javascript</li>
         <ul><li>4.1 Introducing Javascript</li><li>4.2 Declaration of Variables</li>
             <li>4.3 Data Types</li><li>4.4 Statements and Functions</li>
-            <li>4.5 Objects</li></ul>
+            <li>4.5 Built-in Objects</li><li>4.6 Basics of JS Exercises</li></ul>
         <li>5 Javascript: Dynamic Frontend</li>
         <ul><li>5.1 Javscript with Front-end</li> <li>5.2 Document Object Model</li>
             <li>5.3 Browser Object Model</li><li>5.4 Event and Event Listener</li>
@@ -156,20 +155,12 @@
 \subsection*{Exercise 5}
 \coderef{code:exercise-responsive-web-2}을 참고하여 웹 페이지의 너비가 800px 이상이면 \figref{fig:exercise-responsive-2-wide}, 800px 미만이면 \figref{fig:exercise-responsive-2-small}와 같이 렌더링 되도록 style.3.5.css 파일을 작성하여라.
 
-\begin{figure}[htb]\vspace{10pt}\centering
-    \begin{subfigure}{.63\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/css-designing-html/exercise-responsive-2-wide.png}
-        \caption{Wider than 800px}
-        \label{fig:exercise-responsive-2-wide}
-    \end{subfigure}
-    \begin{subfigure}{.21\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/css-designing-html/exercise-responsive-2-small.png}
-        \caption{Smaller than 800px}
-        \label{fig:exercise-responsive-2-small}
-    \end{subfigure}
-    \caption{Webpage view of Exercise}
-    \label{fig:exercise-responsive-2}
-\end{figure}
+\figures{fig:exercise-responsive-2}{Webpage view of Exercise}{
+    \subfig{fig:exercise-responsive-2-wide}{Wider than 800px}
+        {images/css-designing-html/exercise-responsive-2-wide.png}{.63}
+    \subfig{fig:exercise-responsive-2-small}{Smaller than 800px}
+        {images/css-designing-html/exercise-responsive-2-small.png}{.21}
+}
 
 \begin{codeenv}{code:exercise-responsive-web-2}{Exercise 5}\begin{verbatim}
 <!doctype html>

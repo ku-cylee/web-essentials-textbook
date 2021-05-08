@@ -14,20 +14,12 @@ true
 
 \coderef{code:loose-equality}에서는 number형의 \texttt{0}과 string형의 \texttt{'0'}을 비교하였다. 두 값은 자료형이 다름에도 불구하고 같다는 결과가 도출되는데, 그 이유는 JS에서 \texttt{==}과 \texttt{!=} 연산자를 이용하여 비교 연산을 수행할 때, 두 값에 대해 자의적으로 자료형 변환(type coercion)을 수행한 뒤 변환된 값을 비교하기 때문이다. 이렇게 비교 연산에서 \texttt{==}과 \texttt{!=} 연산자를 사용하여 자료형 변환이 이루어진 뒤 수행되는 연산을 loose equality이라고 한다. JS가 수행하는 타입 변환 규칙은 복잡하기 때문에 loose equality는 사용하지 않는 것이 권장된다.
 
-\begin{figure}[htb]\vspace{10pt}\centering
-    \begin{subfigure}{.231\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/basics-of-javascript/loose-equality-syllogism.png}
-        \caption{Syllogism does not hold}
-        \label{fig:loose-equality-syllogism}
-    \end{subfigure}
-    \begin{subfigure}{.729\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/basics-of-javascript/loose-equality-trinity.jpg}
-        \caption{The Javascript Trinity of \texttt{0}}
-        \label{fig:loose-equality-trinity}
-    \end{subfigure}
-    \caption{Loose Equality Memes}
-    \label{fig:loose-equality-memes}
-\end{figure}
+\figures{fig:loose-equality-memes}{Loose Equality Memes}{
+    \subfig{fig:loose-equality-syllogism}{Syllogism does not hold}
+        {images/basics-of-javascript/loose-equality-syllogism.png}{.231}
+    \subfig{fig:loose-equality-trinity}{The Javascript Trinity of \texttt{0}}
+        {images/basics-of-javascript/loose-equality-trinity.jpg}{.729}
+}
 
 이러한 이유로 JS에서는 loose equality 대신 자료형까지 고려하여 값을 비교하는 strict equality가 권장된다. Strict equality는 \texttt{===}과 \texttt{!==} 연산자를 이용하여 수행될 수 있다.
 
@@ -38,23 +30,17 @@ true
 false
 \end{verbatim}
 \end{codeenv}
+\newpage
 
 \figref{fig:comparison-table}는 loose equality와 strict equality의 결과를 정리한 표이다. 이 결과를 알아두어서 나쁠 것은 없지만, 가독성이 좋고 논리적 오류를 최소화할 수 있는 strict equality를 사용하는 것이 훨씬 효율적이다.
 
-\begin{figure}[htb]\vspace{10pt}\centering
-    \begin{subfigure}{.48\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/basics-of-javascript/loose-equality.png}
-        \caption{Loose Equality}
-        \label{fig:loose-equality-table}
-    \end{subfigure}
-    \begin{subfigure}{.48\textwidth}\centering
-        \includegraphics[width=\textwidth]{images/basics-of-javascript/strict-equality.png}
-        \caption{Strict Equality}
-        \label{fig:strict-equality-table}
-    \end{subfigure}
-    \caption{Equality table of JS. Colored cell implies \texttt{true}\protect\footnotemark}
-    \label{fig:comparison-table}
-\end{figure}
+\figures{fig:comparison-table}
+    {Equality table of JS. Colored cell implies \texttt{true}\protect\footnotemark}{
+    \subfig{fig:loose-equality-table}{Loose Equality}
+        {images/basics-of-javascript/loose-equality.png}{.48}
+    \subfig{fig:strict-equality-table}{Strict Equality}
+        {images/basics-of-javascript/strict-equality.png}{.48}
+}
 
 \footnotetext{https://dorey.github.io/JavaScript-Equality-Table/}
 
