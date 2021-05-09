@@ -1,13 +1,11 @@
 \section{Data Types} \label{sect:data-types}
 
-JS에는 다음과 같은 7개의 자료형이 존재한다.
+JS에는 다음과 같은 7개의 자료형이 존재하며, 이번 절에서는 symbol형을 제외한 6가지 자료형과 배열을 다룬다.
 
 \begin{itemize}
     \item Primitive Types: number, string, boolean, undefined, null, symbol
     \item Compound Type: object
 \end{itemize}
-
-이번 절에서는 symbol형을 제외한 6가지 자료형과 배열을 다룬다.
 
 \subsection*{Number}
 
@@ -43,7 +41,16 @@ NaN
 'number'
 \end{verbatim}
 \end{codeenv}
-\newpage
+
+ES7부터 지수 연산자를 지원하며, \coderef{code:exponentation-operator}\와 같이 사용한다.
+
+\begin{codeenv}{code:exponentation-operator}{Exponentation Operator}\begin{verbatim}
+> 3 ** 5
+243
+> 4 ** (-0.5)
+0.5
+\end{verbatim}
+\end{codeenv}
 
 \subsection*{String}
 

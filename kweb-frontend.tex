@@ -3,6 +3,7 @@
 \usepackage{kotex}
 \usepackage[open,openlevel=1]{bookmark}
 % \usepackage{minitoc}
+\usepackage[fleqn]{amsmath}
 
 \input{settings/title-styles}
 \input{settings/page-settings}
@@ -19,7 +20,7 @@
 \begin{document}
     \maketitle
     % \dominitoc
-    \tableofcontents
+    {\doublespacing\tableofcontents}
 
     \chapter{Introduction to Front-end} \label{ch:intoduction-to-front-end}
     % \minitoc
@@ -52,6 +53,7 @@
     \include{chapters/basics-of-javascript/data-types}
     \include{chapters/basics-of-javascript/statements-and-functions}
     \include{chapters/basics-of-javascript/built-in-objects}
+    \include{chapters/basics-of-javascript/basic-js-exercises}
 
     \chapter{Javascript: Dynamic Frontend} \label{ch:javascript-dynamic-frontend}
     % \minitoc
