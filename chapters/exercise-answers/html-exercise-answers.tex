@@ -1,1 +1,58 @@
 \section{HTML Exercise Answers} \label{sect:html-exercise-answers}
+
+\subsection*{Exercise 1}
+
+\begin{codeenv}{code:html-1-answer}{Exercise 1 Answer}\begin{verbatim}
+<!doctype html>
+<html>
+<head>
+    <title>KWEB Survey Page</title>
+</head>
+<body>
+    <div id="survey-header">
+        <h2>KWEB 설문조사</h2>
+        <div id="kweb-logo">
+            <img src="http://info.korea.ac.kr/_res/info/img/community/img_kweb.gif"
+                    alt="KWEB Logo"
+                    width=250>
+        </div>
+        <a href="https://www.facebook.com/kwebfamily/">KWEB 페이스북 페이지</a>
+    </div>
+    <div id="survey-body">
+        <div class="survey-question">
+            <h3>1. 이름을 작성해주세요.</h3>
+            <input type="text" name="name" >
+        </div>
+        <div class="survey-question">
+            <h3>2. 학번을 작성해주세요.</h3>
+            <input type="text" name="studentNumber" >
+        </div>
+        <div class="survey-question">
+            <h3>3. 현재 회원 등급을 선택해주세요.</h3>
+            <input type="radio" name="level" value="intern" >준회원
+            <input type="radio" name="level" value="qualified" >정회원
+            <input type="radio" name="level" value="break" >휴회원
+        </div>
+        <div class="survey-question">
+            <h3>4. 본인이 관심있는 분야를 모두 선택해주세요.</h3>
+            <input type="checkbox" name="field" value="frontend" >프론트엔드 프로그래밍
+            <input type="checkbox" name="field" value="backend" >백엔드 프로그래밍
+            <input type="checkbox" name="field" value="crawling" >웹 크롤링
+            <input type="checkbox" name="field" value="security" >웹 보안
+            <input type="checkbox" name="field" value="etc" >기타
+            <input type="text" name="fieldText" >
+        </div>
+        <div class="survey-question">
+            <h3>
+                5. 2020년 봄학기 KWEB 스터디에 대한 전반적인 평가와 피드백을 작성해주세요.
+            </h3>
+            <textarea name="feedbacks" cols="100" rows="20"></textarea>
+        </div>
+    </div>
+    <div id="survey-footer">
+        <button type="submit">제출</button>
+    </div>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}
