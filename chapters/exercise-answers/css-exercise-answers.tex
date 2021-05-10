@@ -81,14 +81,24 @@ h1 {
 \subsection*{Exercise 4}
 
 \begin{codeenv}{code:responsive-web-1-answer}{Exercise 4 Answer}\begin{verbatim}
+h1 {
+    color: white;
+}
+
 body {
     background-color: skyblue;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 600px) {
     body {
         background-color: blue;
     }           
+}
+
+@media only screen and (min-width: 900px) {
+    h1 {
+        color: yellow;
+    }
 }
 
 @media only screen and (min-width: 1200px) {
@@ -98,6 +108,7 @@ body {
 }
 \end{verbatim}
 \end{codeenv}
+\newpage
 
 \subsection*{Exercise 5}
 

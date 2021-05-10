@@ -134,7 +134,7 @@
 \end{codeenv}
 
 \subsection*{Exercise 4}
-\coderef{code:exercise-responsive-web-1}\을 참고하여, \texttt{body} 태그의 배경색을 800px 미만일 때는 \texttt{skyblue}, 800px 이상 1200px 미만일 때는 \texttt{blue}, 1200px 이상일 때는 \texttt{darkblue}가 되도록 style.3.4.css를 작성하여라. \texttt{h1} 태그의 색은 \texttt{white}로 고정되어야 한다.
+\coderef{code:exercise-responsive-web-1}\을 참고하여 style.3.4.css를 작성하여라. \texttt{body} 태그의 배경색이 600px 미만일 때는 \texttt{skyblue}, 600px 이상 1200px 미만일 때는 \texttt{blue}, 1200px 이상일 때는 \texttt{darkblue}이어야 하며, \texttt{h1} 태그의 색은 900px 미만일 때는 \texttt{white}, 900px 이상일 때는 \texttt{yellow}이어야 한다.
 
 \begin{codeenv}{code:exercise-responsive-web-1}{Exercise 4}\begin{verbatim}
 <!doctype html>
@@ -146,7 +146,7 @@
     <link rel="stylesheet" text="type/css" href="./style.3.4.css">
 </head>
 <body>
-    <h1 style="color: white">Responsive Web</h1>
+    <h1>Responsive Web</h1>
 </body>
 </html>
 \end{verbatim}
@@ -154,13 +154,6 @@
 
 \subsection*{Exercise 5}
 \coderef{code:exercise-responsive-web-2}\를 참고하여 웹 페이지의 너비가 800px 이상이면 \figref{fig:exercise-responsive-2-wide}, 800px 미만이면 \figref{fig:exercise-responsive-2-small}\과 같이 렌더링 되도록 style.3.5.css 파일을 작성하여라.
-
-\figures{fig:exercise-responsive-2}{Webpage view of Exercise}{
-    \subfig{fig:exercise-responsive-2-wide}{Wider than 800px}
-        {images/css-designing-html/exercise-responsive-2-wide.png}{.63}
-    \subfig{fig:exercise-responsive-2-small}{Smaller than 800px}
-        {images/css-designing-html/exercise-responsive-2-small.png}{.21}
-}
 
 \begin{codeenv}{code:exercise-responsive-web-2}{Exercise 5}\begin{verbatim}
 <!doctype html>
@@ -182,3 +175,11 @@
 </html>
 \end{verbatim}
 \end{codeenv}
+\newpage
+
+\figures{fig:exercise-responsive-2}{Webpage view of Exercise}{
+    \subfig{fig:exercise-responsive-2-wide}{Wider than 800px}
+        {images/css-designing-html/exercise-responsive-2-wide.png}{.63}
+    \subfig{fig:exercise-responsive-2-small}{Smaller than 800px}
+        {images/css-designing-html/exercise-responsive-2-small.png}{.21}
+}
