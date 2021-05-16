@@ -3,25 +3,25 @@
 \subsection*{Exercise 1}
 
 \begin{codeenv}{code:dom-1-answer}{Exercise 1 Answer}\begin{verbatim}
-const work = () => {
+const setRandomBgColor = () => {
     const red = Math.floor(Math.random() * 256);
     const blue = Math.floor(Math.random() * 256);
     const green = Math.floor(Math.random() * 256);
-    const newColor = 'rgb(' + red + ', ' + blue + ', ' + green + ')';
+    const newColor = 'rgb(' + red + ',' + blue + ',' + green + ')';
     document.getElementById('color-box').style.backgroundColor = newColor;
-}
+};
 \end{verbatim}
 \end{codeenv}
 
 \subsection*{Exercise 2}
 
 \begin{codeenv}{code:dom-2-answer}{Exercise 2 Answer}\begin{verbatim}
-const work = () => {
+const displayTimesResult = () => {
     const number = document.getElementById('number').value;
     const parsedNumber = parseInt(number);
     const timesResult = document.getElementById('times-result');
 
-    if (isNaN(parsedNumber)) {
+    if (!isFinite(parsedNumber) || isNaN(parsedNumber)) {
         return timesResult.innerText = 'Input Error!';
     }
     
@@ -37,19 +37,18 @@ const work = () => {
     for (let i = 1; i <= 9; i++) {
         result.push(parsedNumber + ' X ' + i + ' = ' + parsedNumber * i);
     }
-
     timesResult.innerText = result.join('\n');
-}
+};
 \end{verbatim}
 \end{codeenv}
 
 \subsection*{Exercise 3}
 
 \begin{codeenv}{code:dom-3-answer}{Exercise 3 Answer}\begin{verbatim}
-const work = () => {
-    const box = document.getElementsByClassName('box')[2];
+const changeBoxColor = () => {
+    const box = document.getElementsByClassName('box')[1];
     box.style.backgroundColor = 'blue';
-}
+};
 \end{verbatim}
 \end{codeenv}
 \newpage
@@ -57,30 +56,26 @@ const work = () => {
 \subsection*{Exercise 4}
 
 \begin{codeenv}{code:bom-1-answer}{Exercise 4 Answer}\begin{verbatim}
-const gaugeBarEl = document.getElementById('gauge-bar');
-const currentLevelEl = document.getElementById('current-level');
-const attemptsEl = document.getElementById('attempts');
 const probs = [ 100, 60, 36, 22, 13, 8, 5, 3, 2, 1 ];
 
-let count = 0;
+let attempts = 0;
 let level = 0;
 
-const chooseWithProb = ratio => {
+const getRandomBinaryResult = ratio => {
     const randomNumber = Math.floor(Math.random() * 100);
     return (randomNumber < ratio);
 };
 
-const work = () => {
+const tryLevelUp = () => {
     const loopId = setInterval(() => {
-        count++;
-        const successed = chooseWithProb(probs[level]);
+        attempts++;
+        const successed = getRandomBinaryResult(probs[level]);
         if (successed) {
             level++;
-            gaugeBarEl.style.width = level * 10 + '%';
-            currentLevelEl.innerText = level;
+            document.getElementById('gauge-bar').style.width = level * 10 + '%';
+            document.getElementById('current-level').innerText = level;
         }
-        attemptsEl.innerText = count;
-
+        document.getElementById('attempts').innerText = attempts;
         if (level >= 10) clearInterval(loopId);
     }, 50);
 };
@@ -95,14 +90,13 @@ const itemPrice = {
     orange: 800, 
     lemon: 900, 
 };
-const costEl = document.getElementById('cost');
-let price = 0;
+let totalPrice = 0;
 
-for (let buttonEl of document.getElementsByClassName('add-to-cart')) {
-    buttonEl.addEventListener('click', function () {
-        const itemName = this.parentNode.parentNode.getAttribute('id');
-        price += itemPrice[itemName];
-        costEl.innerText = price;
+for (const buttonEl of document.getElementsByClassName('add-to-cart')) {
+    buttonEl.addEventListener('click', event => {
+        const itemName = event.target.parentNode.parentNode.getAttribute('id');
+        totalPrice += itemPrice[itemName];
+        document.getElementById('cost').innerText = totalPrice;
     });
 }
 \end{verbatim}
@@ -157,15 +151,5 @@ document.addEventListener('keydown', (event) => {
         document.getElementById('success-message').innerText = 'You won the game!';
     }
 });
-
-const circleEl = document.createElement('div');
-circleEl.classList.add('circle');
-setGameObjectPosition(circleEl, circlePos);
-gamePanelEl.appendChild(circleEl);
-
-const squareEl = document.createElement('div');
-squareEl.classList.add('square');
-setGameObjectPosition(squareEl, squarePos);
-gamePanelEl.appendChild(squareEl);
 \end{verbatim}
 \end{codeenv}

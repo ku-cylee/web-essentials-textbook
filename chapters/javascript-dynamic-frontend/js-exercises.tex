@@ -2,44 +2,46 @@
 
 \subsection*{Exercise 1}
 
-\coderef{code:exercise-dom-1}\을 참고하여 버튼을 클릭하면 \texttt{\#color-box}의 배경색이 랜덤하게 바뀌도록 script.js에 \texttt{work} 함수를 작성하여라. 색상은 R, G, B의 값으로 표현될 수 있으며, 각 값은 0에서 255 사이의 정숫값을 갖는다.
+\coderef{code:exercise-dom-1}\을 참고하여 버튼을 클릭하면 \texttt{\#color-box}의 배경색을 랜덤하게 바꾸는 함수를 script.5.1.js의 \texttt{setRandomBgColor} 함수에 작성하여라. 색상은 R, G, B의 값으로 표현될 수 있고, 각 값은 0 이상 255 이하의 정수임을 이용하여라.
 
 \begin{codeenv}{code:exercise-dom-1}{Exercise 1}\begin{verbatim}
-
-
 <!doctype html>
 <head>
+    <title>JS Exercise 1</title>
+    <meta charset="utf-8">
     <style>
-        #color-box { width: 400px; height: 400px; border: 2px solid black }
+        #color-box {
+            width: 800px;
+            height: 450px;
+            border: 2px solid black
+        }
     </style>
-    <script src="./script.js" type="text/javascript" defer></script>
+    <script src="./script.5.1.js" type="text/javascript" defer></script>
 </head>
 <body>
     <div id="color-box"></div>
-    <button onclick="work()">Change Color</button>
+    <button onclick="setRandomBgColor()">Change Color</button>
 </body>
 \end{verbatim}
 \end{codeenv}
 
 \subsection*{Exercise 2}
 
-\coderef{code:exercise-dom-2}\를 참고하여, 버튼을 클릭하면 \texttt{input}에 입력된 값의 구구단을 \texttt{\#times-result}에 출력하도록 script.js에 \texttt{work} 함수를 작성하여라. 입력된 값이 1 이상 9 이하의 자연수가 아닌 경우에는 \texttt{Input Error!}라는 문구를 출력한다. 
-
-Hint: \texttt{input}에 입력된 값은 그 요소의 \texttt{value} 속성의 값이다.
+\coderef{code:exercise-dom-2}\를 참고하여, 버튼을 클릭하면 \texttt{input}에 입력된 값의 구구단을 \texttt{\#times-result}에 출력하고, 입력된 값이 1 이상 9 이하의 자연수가 아닌 경우에는 \texttt{Input Error!}라는 문구를 출력하는 함수를 script.5.2.js의 \texttt{displayTimesResult} 함수에 작성하여라. \texttt{input} 태그에 입력된 값은 \texttt{value} 속성을 통해 접근할 수 있음을 이용하여라.
 
 \begin{codeenv}{code:exercise-dom-2}{Exercise 2}\begin{verbatim}
-
-
 <!doctype html>
 <head>
-    <script src="./script.js" type="text/javascript" defer></script>
+    <title>JS Exercise 2</title>
+    <meta charset="utf-8">
+    <script src="./script.5.2.js" type="text/javascript" defer></script>
 </head>
 <body>
     <h1>Times Table</h1>
     <h3>Input an integer between 1 - 9.</h3>
     <div>
-        <input type="text" id="number" name="number" >
-        <button onclick="work()">Show Result</button>
+        <input type="text" id="number" name="number">
+        <button onclick="displayTimesResult()">Show Result</button>
     </div>
     <div id="times-result"></div>
 </body>
@@ -48,13 +50,13 @@ Hint: \texttt{input}에 입력된 값은 그 요소의 \texttt{value} 속성의 
 
 \subsection*{Exercise 3}
 
-\coderef{code:code:exercise-dom-3}\을 참고하여 버튼을 클릭하면 다섯 개 상자 중 두 번째 상자의 색을 변경되도록 script.js에 \texttt{work} 함수를 작성하여라.
+\coderef{code:code:exercise-dom-3}\을 참고하여 버튼을 클릭하면 다섯 개 상자 중 두 번째 상자의 색을 변경하는 함수를 script.5.3.js의 \texttt{changeBoxColor} 함수에 작성하여라.
 
 \begin{codeenv}{code:code:exercise-dom-3}{Exercise 3}\begin{verbatim}
-
-
 <!doctype html>
 <head>
+    <title>JS Exercise 3</title>
+    <meta charset="utf-8">
     <style>
         .box { 
             display: inline-block; 
@@ -63,7 +65,7 @@ Hint: \texttt{input}에 입력된 값은 그 요소의 \texttt{value} 속성의 
             background-color: red 
         }
     </style>
-    <script src="./script.js" type="text/javascript" defer></script>
+    <script src="./script.5.3.js" type="text/javascript" defer></script>
 </head>
 <body>
     <div>
@@ -73,38 +75,50 @@ Hint: \texttt{input}에 입력된 값은 그 요소의 \texttt{value} 속성의 
         <div class="box"></div>
         <div class="box"></div>
     </div>
-    <button onclick="work()">Change Color</button>
+    <button onclick="changeBoxColor()">Change Color</button>
 </body>
 \end{verbatim}
 \end{codeenv}
 
 \subsection*{Exercise 4}
 
-\coderef{code:exercise-bom-1}\을 참고하여 버튼을 눌렀을 때 주어진 레벨업 시스템이 작동하여 레벨 0에서 레벨 10까지 레벨업을 계속 시도하도록 script.js에 \texttt{work} 함수를 작성하여라.
+\coderef{code:exercise-bom-1}\을 참고하여 버튼을 눌렀을 때 주어진 레벨업 시스템이 작동하여 정해진 확률에 따라 레벨 0에서 레벨 10까지 50ms마다 레벨업을 계속 시도하는 함수를 script.5.4.js의 \texttt{work} 함수에 작성하여라.
 
 \begin{itemize}
-    \item 레벨업을 시도하면 확률적으로 성공할 수도, 실패할 수도 있다. 성공하면 레벨이 1만큼 오른다.
-    \item 레벨업이 성공할 확률은 현재의 레벨에 따라 다르다.
-    \item 웹 페이지에서는 현재 레벨과 시도 횟수를 표시한다.
-    \item 현재 레벨이 파란색 게이지 바의 길이에 반영되어야 한다. 
+    \item 레벨 0에서 레벨 9까지 다음 레벨로의 레벨업이 성공할 확률은 각각 100\%, 60\%, 36\%, 22\%, 13\%, 8\%, 5\%, 3\%, 2\%, 1\%이며, 성공하면 레벨이 1만큼 오르고, 실패하면 변하지 않는다.
+    \item 웹 페이지에는 현재 레벨과 시도 횟수를 표시하며, 현재 레벨이 파란색 게이지 바의 길이에 반영되어야 한다.  (레벨 $n$인 경우 전체 게이지 바의 $\frac n {10}$을 차지)
+\end{itemize}
+
+다음 단계에 따라 문제를 해결하여라.
+
+\begin{itemize}
+    \item Step 1: 레벨업 성공 확률을 \% 단위, number형의 배열로 저장한다. 
+    \item Step 2: 레벨, 시도 횟수 등 필요한 값을 변수와 상수로 선언한다.
+    \item Step 3: \% 단위의 확률을 인자로 받아, 확률에 따라 무작위로 성공 여부를 판별하여 반환하는 함수 \texttt{getRandomBinaryResult}를 구현한다.
     \begin{itemize}
-        \item (레벨 $n$인 경우 전체 게이지 바의 $\frac n {10}$을 차지)
+        \item 예: \texttt{getRandomBinaryResult(32)}의 반환값은 32\%의 확률로 \texttt{true}, 68\%의 확률로 \texttt{false}이다.
+        \item Hint: 0 이상 20 미만의 정수 중 하나를 무작위로 뽑았을 때 13 미만의 정수는 65\% 확률로 뽑힌다.
     \end{itemize}
-    \item 프로그램은 50ms에 한 번씩 레벨업을 시도한다.
+    \item Step 4: 버튼을 눌렀을 때 작동하는 기능은 \texttt{tryLevelUp} 함수 내부에 작성한다.
 \end{itemize}
 
 \begin{codeenv}{code:exercise-bom-1}{Exercise 4}\begin{verbatim}
-
-
 <!doctype html>
 <head>
+    <title>JS Exercise 4</title>
+    <meta charset="utf-8">
     <style>
         #gauge-background {
-            width: 300px; height: 10px;
-            background-color: red; position: relative; margin: 20px 0
+            position: relative;
+            width: 300px;
+            height: 10px;
+            margin: 20px 0;
+            background-color: red
         }
         #gauge-bar {
-            background-color: blue; width: 0; height: 10px; position: absolute
+            position: absolute;
+            height: 10px;
+            background-color: blue
         }
     </style>
     <script src="./script.js" type="text/javascript" defer></script>
@@ -116,51 +130,45 @@ Hint: \texttt{input}에 입력된 값은 그 요소의 \texttt{value} 속성의 
     </div>
     <div>Current Level: <span id="current-level">0</span></div>
     <div>Attempts: <span id="attempts">0</span></div>
-    <button id="start-btn" onclick="work()">Start Level Up</button>
+    <button id="start-btn" onclick="tryLevelUp()">Start Level Up</button>
 </body>
 \end{verbatim}
 \end{codeenv}
 
-\begin{itemize}
-    \item Step 1: DOM을 이용하여 필요한 요소들을 상수를 선언하여 저장하고, 이 외에도 필요한 변수들을 선언한다.
-    \item Step 2: 레벨업 성공 확률을 \% 단위, number형의 배열로 저장한다. 레벨 0에서 레벨 9까지 다음 레벨로의 레벨업이 성공할 확률은 각각 100\%, 60\%, 36\%, 22\%, 13\%, 8\%, 5\%, 3\%, 2\%, 1\%이다.
-    \item Step 3: \% 단위의 확률을 인자로 받아, 제시된 확률에 맞게 무작위로 성공 여부를 판단하여, 성공하면 \texttt{true}, 실패하면 \texttt{false}를 반환하는 함수를 구현한다.
-    \begin{itemize}
-        \item 예를 들어, \texttt{32}를 인자로 받으면 32\%의 확률로 \texttt{true}, 68\%의 확률로 \texttt{false}를 반환해야 한다.
-        \item Hint: 0 이상 20 미만의 정수 중 하나를 무작위로 뽑았을 때 13 미만의 정수는 65\% 확률로 뽑힌다.
-    \end{itemize}
-    \item Step 4: 버튼을 눌렀을 때 작동하는 기능은 \texttt{work} 함수 내부에 작성한다.
-\end{itemize}
-
 \subsection*{Exercise 5}
 
-\coderef{code:exercise-event-1}\을 참고하여 쇼핑몰 사이트에서 물품을 하나씩 카트에 담으면, 지불할 금액의 총합이 그 물품의 액수만큼 증가하여 나타나는 웹 페이지를 script.js를 작성하여 완성하여라.
+\coderef{code:exercise-event-1}\을 참고하여 물품을 카트에 담을 때마다 지불할 총 금액이 갱신되는 쇼핑몰 사이트를 script.5.5.js를 다음 단계를 따라 작성하여 완성하여라.
+
+\begin{itemize}
+    \item Step 1: \texttt{.item} 요소들은 그 물품의 이름을 \texttt{id} 값으로 가지고 있다. 각 \texttt{id}가 \texttt{key}, 해당 물품의 단가를 \texttt{value}로 하는 객체를 만든다. 그리고, 필요한 변수/상수들을 선언하고 할당하여라.
+    \item Step 2: 이 문제에서는 여러 요소에 이벤트 리스너를 등록해야 하므로 등록할 요소들을 선택하고, for-of문을 사용하여 각 요소에 이벤트 리스너를 등록한다.
+    \item Step 3: 이벤트가 발생한 요소가 속한 \texttt{.item} 요소의 \texttt{id} 값을 가져와 총 금액을 갱신하는 이벤트 리스너를 구현한다.
+\end{itemize}
 
 \begin{codeenv}{code:exercise-event-1}{Exercise 5}\begin{verbatim}
-
-
 <!doctype html>
 <head>
+    <title>JS Exercise 5</title>
+    <meta charset="utf-8">
     <style>
-        body > div { margin: 20px 0; }
+        body > div { margin: 20px 0 }
         .item { 
-            width: 500px; padding: 10px; margin: 20px 0; 
-            background-color: #d3d3d3; border: 2px solid gray;
+            width: 500px; padding: 10px; margin: 20px 0;
+            border: 2px solid gray; background-color: #d3d3d3;
         }
-        .item > div { display: inline-block; vertical-align: top; }
+        .item > div { display: inline-block; vertical-align: top }
         .item-image > img { width: 100px }
         .item-info { margin-left: 10px }
-        .item-info > div { margin-bottom: 10px; }
+        .item-info > div { margin-bottom: 10px }
         .item-name { font-size: 20px; font-weight: bold }
     </style>
-    <script src="./script.js" type="text/javascript" defer></script>
+    <script src="./script.5.5.js" type="text/javascript" defer></script>
 </head>
 <body>
     <div id="header">
         <h1>Marketplace</h1>
         <div>Total Cost: <span id="cost">0</span> KRW</div>
     </div>
-
     <div id="items">
         <div class="item" id="apple">
             <div class="item-image">
@@ -197,25 +205,15 @@ Hint: \texttt{input}에 입력된 값은 그 요소의 \texttt{value} 속성의 
 \end{verbatim}
 \end{codeenv}
 
-\begin{itemize}
-    \item Step 1: \texttt{.item} 요소들은 그 물품의 이름을 \texttt{id} 값으로 가지고 있다. 각 \texttt{id}가 \texttt{key}, 해당 물품의 단가를 \texttt{value}로 하는 객체를 만든다. 그리고, 필요한 변수/상수들을 선언하고 할당하여라.
-    \item Step 2: 이 문제에서는 여러 요소에 이벤트 리스너를 등록해야 하므로 등록할 요소들을 선택한다.
-    \item Step 3: for-of문을 사용하여 각 요소에 이벤트 리스너를 등록한다.
-    \item Step 4: 이벤트 리스너 내부를 구현한다.
-    \begin{itemize}
-        \item Hint: 이벤트 리스너가 등록된 요소가 속한 \texttt{.item} 요소의 \texttt{id} 값을 가져와야 합니다. \sectref{sect:built-in-objects}에서 자기 자신을 지칭하는 키워드가 무엇이라고 소개했는지 기억나시나요?
-    \end{itemize}
-\end{itemize}
-
 \subsection*{Exercise 6}
 
 \coderef{code:exercise-event-2}\를 참고하여 사각형 게임 오브젝트를 방향키를 이용하여 움직여서, 원형의 게임 오브젝트를 잡으면 이기는 간단한 게임을 script.js를 작성하여 완성하여라.
 
 \begin{codeenv}{code:exercise-event-2}{Exercise 6}\begin{verbatim}
-
-
 <!doctype html>
 <head>
+    <title>JS Exercise 6</title>
+    <meta charset="utf-8">
     <style>
         #game-panel {
             width: 800px; height: 500px; position: relative; border: 4px solid black
