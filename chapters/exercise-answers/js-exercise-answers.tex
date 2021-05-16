@@ -16,7 +16,7 @@ const setRandomBgColor = () => {
 \subsection*{Exercise 2}
 
 \begin{codeenv}{code:dom-2-answer}{Exercise 2 Answer}\begin{verbatim}
-const displayTimesResult = () => {
+const displayTimes = () => {
     const number = document.getElementById('number').value;
     const parsedNumber = parseInt(number);
     const timesResult = document.getElementById('times-result');
@@ -106,50 +106,46 @@ for (const buttonEl of document.getElementsByClassName('add-to-cart')) {
 \subsection*{Exercise 6}
 
 \begin{codeenv}{code:event-2-answer}{Exercise 6}\begin{verbatim}
-const gamePanelEl = document.getElementById('game-panel');
-const circlePos = { x: 740, y: 40 };
-const squarePos = { x: 40, y: 440 };
-const KEY_CODE = { UP: 38, DOWN: 40, LEFT: 37, RIGHT: 39 };
+const ROW_MIN = 0;
+const ROW_MAX = 6;
+const COL_MIN = 0;
+const COL_MAX = 7;
+const currentPos = { row: 5, col: 0 };
 
-const setGameObjectPosition = (gameObject, position) => {
-    gameObject.style.left = position.x + 'px';
-    gameObject.style.top = position.y + 'px';
+const getElementByPosition = pos => {
+    const cellsEl = document.getElementsByClassName('cells')[pos.row];
+    return cellsEl.getElementsByClassName('cell')[pos.col];
 };
 
-const moveGameObjectByKey = (pos, keyCode) => {
-    const newPos = { x: pos.x, y: pos.y };
-    switch (keyCode) {
-        case KEY_CODE.UP:
-            newPos.y -= 100; break;
-        case KEY_CODE.DOWN:
-            newPos.y += 100; break;
-        case KEY_CODE.LEFT:
-            newPos.x -= 100; break;
-        case KEY_CODE.RIGHT:
-            newPos.x += 100; break;
+const getNewPositionByKey = key => {
+    const pos = {
+        row: currentPos.row,
+        col: currentPos.col,
     }
-    return newPos;
-}
-
-const isGameObjectOutOfRange = (pos) => {
-    return (pos.x < 0) || (pos.x > 800) || (pos.y < 0) || (pos.y > 500);
+    switch (key) {
+        case 'ArrowUp': pos.row--; break;
+        case 'ArrowDown': pos.row++; break;
+        case 'ArrowLeft': pos.col--; break;
+        case 'ArrowRight': pos.col++; break;
+    }
+    return pos;
 };
 
-document.addEventListener('keydown', (event) => {
-    const newPos = moveGameObjectByKey(squarePos, event.keyCode);
+const isPositionInRange = pos => (pos.row >= ROW_MIN)
+    && (pos.row <= ROW_MAX) && (pos.col >= COL_MIN) && (pos.col <= COL_MAX);
 
-    if (isGameObjectOutOfRange(newPos)) {
-        return alert('Square gets out of range!');
-    } else {
-        squarePos.x = newPos.x;
-        squarePos.y = newPos.y;
-        setGameObjectPosition(squareEl, newPos);
-    }
+const isPositionWall = pos => getElementByPosition(pos).classList.contains('wall');
 
-    if (squarePos.x === circlePos.x && squarePos.y === circlePos.y) {
-        gamePanelEl.removeChild(circleEl);
-        document.getElementById('success-message').innerText = 'You won the game!';
+document.addEventListener('keyup', event => {
+    getElementByPosition(currentPos).classList.remove('current');
+    const newPos = getNewPositionByKey(event.code);
+    if (isPositionInRange(newPos) && !isPositionWall(newPos)) {
+        currentPos.row = newPos.row;
+        currentPos.col = newPos.col;
     }
+    const newElmt = getElementByPosition(currentPos);
+    newElmt.classList.add('current');
+    if (newElmt.classList.contains('target')) alert('You escaped!');
 });
 \end{verbatim}
 \end{codeenv}
