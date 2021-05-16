@@ -82,7 +82,7 @@ document.addEventListener('mousedown', event => {
     \item \texttt{clientX}, \texttt{clientY}: 뷰포트를 기준으로 마우스 이벤트가 발생한 위치를 값으로 갖는 속성
     \item \texttt{offsetX}, \texttt{offsetY}: 이벤트가 발생한 요소를 기준으로 마우스 이벤트가 발생한 위치를 값으로 갖는 속성
     \item \texttt{screenX}, \texttt{screenY}: 웹 페이지가 존재하는 화면을 기준으로 마우스 이벤트가 발생한 위치를 값으로 갖는 속성
-    \item \texttt{keyCode}: 키 입력과 관련된 이벤트를 발생시킨 키를 정수\footnote{https://keycode.info/에서 확인할 수 있다.}로 나타낸 속성
+    \item \texttt{code}: 키 입력과 관련된 이벤트를 발생시킨 키를 문자열\footnote{https://keycode.info/에서 확인할 수 있다.}로 나타낸 속성
 \end{itemize}
 
 \coderef{code:event-example}\은 이벤트 객체를 이용하여 \texttt{\#panel} 요소를 좌클릭 또는 우클릭하였을 때 \texttt{\#panel} 요소의 위쪽 테두리와 왼쪽 테두리에 내린 수선을 표시되며, 좌클릭하였을 때는 빨간색, 우클릭하였을 때는 파란색 수선이 표시되는 예제이다. (편의상 CSS와 JS를 모두 HTML 문서에 작성하였다.)
