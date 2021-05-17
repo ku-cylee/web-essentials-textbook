@@ -1,19 +1,17 @@
 \section{Basic Structure of HTML} \label{sect:basic-structure-of-html}
 
 \subsection*{Tags and Elements}
-HTML은 HyperText Markup Language의 약자로, HTML은 마크업 언어이며, 마크업 언어는 구조를 서술할 때 정해진 마크로 시작하여 마크로 끝나는 언어이다.
+HTML은 HyperText Markup Language, 즉 마크업 언어이며, 마크업 언어는 구조를 서술할 때 정해진 마크로 시작하여 마크로 끝나는 언어이다.
 
 \begin{codeenv}{code:html-example}{Example of HTML}\begin{verbatim}
 <!doctype html>
 <html>
 <head>
     <title>Example Domain</title>
-
-    <meta charset="utf-8" >
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="utf-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body>
     <div>
         <h1>Example Domain</h1>
@@ -23,11 +21,11 @@ HTML은 HyperText Markup Language의 약자로, HTML은 마크업 언어이며, 
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:html-example}\을 관찰해보며 HTML의 구조를 이해해보자. Example Domain이라는 내용을 \texttt{<title>}과 \texttt{</title>}이 감싸고 있는데, 이러한 문자열을 태그(tag)라고 한다. 두 태그에서 \texttt{title}을 \textbf{태그 이름(tag name)}이라고 하며, 태그 내부의 부분(Example Domain)을 \textbf{내용(content)}이라고 한다. 유사하게, 이 \texttt{title} 태그를 \texttt{<head>}와 \texttt{</head>}가 감싸고 있다. 이렇게 태그와 그 태그 사이에 wrap 되어있는 내용이 하나의 \textbf{HTML 요소(element)}를 구성하며, HTML 요소의 앞쪽에 위치하여 시작을 알리는 태그를 시작 태그, 뒤쪽에 위치하여 끝을 알리는 태그를 끝 태그라고 한다. 이처럼 HTML은 기본적으로 내용의 양 끝단을 태그로 감쌈으로써 구조를 표현한다.\footnote{다만, \texttt{meta} 태그와 같이 시작 태그만 존재하는 요소도 존재하며, 이러한 종류의 태그를 단일 태그라고 한다. 단일 태그는 그 자체만으로 하나의 요소가 된다.}
+\coderef{code:html-example}\을 관찰하여 HTML의 구조를 이해해보자. Example Domain이라는 내용을 \texttt{<title>}과 \texttt{</title>}이 감싸고 있는데, 이러한 문자열을 태그(tag)라고 한다. 두 태그에서 \texttt{title}을 \textbf{태그 이름(tag name)}이라고 하며, 태그 내부의 부분(Example Domain)을 \textbf{내용(content)}이라고 한다. 유사하게, 이 \texttt{title} 태그를 \texttt{<head>}와 \texttt{</head>}가 감싸고 있다. 이렇게 태그와 그 태그 사이에 감싸져 있는 내용이 하나의 \textbf{HTML 요소(element)}를 구성하며, HTML 요소의 앞쪽에 위치하여 시작을 알리는 태그를 시작 태그, 뒤쪽에 위치하여 끝을 알리는 태그를 끝 태그라고 한다. 이처럼 HTML은 기본적으로 내용의 양 끝단을 태그로 감쌈으로써 구조를 표현한다.\footnote{다만, \texttt{meta} 태그와 같이 시작 태그만 존재하는 요소도 존재하며, 이러한 종류의 태그를 단일 태그라고 한다. 단일 태그는 그 자체만으로 하나의 요소가 된다.}
 
-\coderef{code:html-example}\을 더 깊게 관찰해보면, \texttt{head} 태그의 요소와 \texttt{body} 태그의 요소가 \texttt{html} 태그의 요소 일부분인 것을 확인할 수 있다. 즉, HTML 요소는 내부에 또 다른 HTML 요소를 포함할 수 있고, 다른 HTML 요소의 일부가 될 수 있으며, 이와 같은 구조를 nested 구조라고 한다. HTML에서는 요소 A가 요소 B의 일부분을 구성할 때, 요소 A를 요소 B의 \textbf{하위 요소(sub element)} 혹은 \textbf{자식 요소(child element)}라고 하고, 요소 B를 요소 A의 \textbf{상위 요소(super element)} 혹은 \textbf{부모 요소(parent element)}라고 한다.
+\coderef{code:html-example}\을 더 관찰해보면 \texttt{head} 태그의 요소와 \texttt{body} 태그의 요소가 \texttt{html} 태그의 요소 일부분인 것을 확인할 수 있다. 즉, HTML 요소는 내부에 또 다른 HTML 요소를 포함할 수 있고, 다른 HTML 요소의 일부가 될 수 있으며, 이와 같은 구조를 nested 구조라고 한다. HTML에서는 요소 A와 요소 B가 요소 C의 일부분을 구성할 때, 요소 A와 B를 요소 C의 \textbf{하위 요소(sub element)} 혹은 \textbf{자식 요소(child element)}라고 하고, 요소 C를 요소 A와 요소 B의 \textbf{상위 요소(super element)} 혹은 \textbf{부모 요소(parent element)}라고 한다. 또한, 요소 A를 요소 B의 \textbf{형제 요소(sibling element)}라고 한다.
 
-또한, \texttt{meta} 태그에는 태그 내에 태그 이름 외의 다른 문자열이 존재한다는 것을 확인할 수 있다. 이는 각 HTML 요소의 속성과 관련된 문자열로, 첫 번째 \texttt{meta} 태그는 \texttt{charset} 속성의 값이 \texttt{utf-8}이며, 두 번째 \texttt{meta} 태그는 \texttt{http-equiv}의 값이 \texttt{Content-type}, \texttt{content}의 값이 \verb|text/html; charset=utf-8|이라는 뜻이다.\footnote{이렇게 데이터의 정의나 이름과 데이터의 값으로 이루어진 데이터 집합을 \textbf{키/값 쌍(key-value pair)}라고 하며, 데이터의 정의를 키(key), 데이터의 값을 값(value)라고 한다. 예를 들어, 어떠한 학생의 인적 정보를 저장한 데이터 집합이 있고, 그 내부에는 학생의 이름이 홍길동, 학번이 2021990999, 성별이 남성, 거주지는 서울특별시 성북구 등의 정보가 포함되어 있다고 가정하자. 그러면 학생의 ``이름'', ``학번'', ``성별'', ``거주지'' 등은 key가 되고, ``홍길동'', ``2021990999'', ``남성'', ``서울특별시 성북구'' 등은 각 key에 대한 value가 된다. 웹 분야 뿐만 아니라 컴퓨터과학 분야 전반에서 사용되는 대부분의 데이터는 이러한 key-value pair 형태로 표현될 수 있다.} 이렇듯 HTML의 속성은 key-value pair 형태의 데이터 집합이며, \textbf{속성(attribute)}은 key, 속성값은 value에 대응된다. 속성값은 기본적으로 큰따옴표(\texttt{"}) 내에 작성되며, 속성과 속성값은 등호(\texttt{=})로 연결된다. 그리고 각 key-value pair는 공백을 사이에 두고 나열될 수 있다. HTML 요소의 속성은 태그나 내용 못지않게 중요한 역할을 하는데, \sectref{sect:commonly-used-html-tags}에서 더 자세히 알아보도록 하자.
+또한, \texttt{meta} 태그에서는 태그 내에 태그 이름 외의 다른 문자열을 확인할 수 있다. 이는 HTML 요소의 속성과 관련된 문자열로, 첫 번째 \texttt{meta} 태그는 \texttt{charset} 속성의 값이 \texttt{utf-8}이며, 두 번째 \texttt{meta} 태그는 \texttt{http-equiv}의 값이 \texttt{Content-type}, \texttt{content}의 값이 \verb|text/html; charset=utf-8|이라는 뜻이다.\footnote{이렇게 데이터의 정의나 이름과 데이터의 값으로 이루어진 데이터 집합을 \textbf{키/값 쌍(key-value pair)}라고 하며, 데이터의 정의를 키(key), 데이터의 값을 값(value)라고 한다. 예를 들어, 어떠한 학생의 인적 정보를 저장한 데이터 집합이 있고, 그 내부에는 학생의 이름이 홍길동, 학번이 2021990999, 성별이 남성, 거주지는 서울특별시 성북구 등의 정보가 포함되어 있다고 가정하자. 그러면 학생의 ``이름'', ``학번'', ``성별'', ``거주지'' 등은 key가 되고, ``홍길동'', ``2021990999'', ``남성'', ``서울특별시 성북구'' 등은 각 key에 대한 value가 된다. 웹 분야 뿐만 아니라 컴퓨터과학 분야 전반에서 사용되는 대부분의 데이터는 이러한 key-value pair 형태로 표현될 수 있다.} 이렇듯 HTML의 속성은 key-value pair 형태의 데이터 집합이며, \textbf{속성(attribute)}은 key, 속성값은 value에 대응된다. 속성값은 기본적으로 큰따옴표(\texttt{"}) 내에 작성되며, 속성과 속성값은 등호(\texttt{=})로 연결되며, 각 key-value pair는 공백을 사이에 두고 나열된다. HTML 요소의 속성은 태그나 내용 못지않게 중요한 역할을 하는데, \sectref{sect:commonly-used-html-tags}에서 더 자세히 다룬다.
 
 이제까지 살펴본 HTML 요소의 구조를 종합해보면 \figref{fig:html-elmt-struct}\와 같이 표현될 수 있다.
 
@@ -52,6 +50,6 @@ HTML 문서의 구조에는 가장 기본적인 틀이 정해져 있다. 먼저 
 \end{verbatim}
 \end{codeenv}
 
-\texttt{head} 태그는 문서에 대한 전반적인 정보를 담고 있는 태그로, 이 태그에는 \texttt{title}, \texttt{meta}, \texttt{link} 등 다양한 태그들이 사용되나, 가장 대표적인 두 태그만 살펴보자. 먼저, \texttt{title} 태그 내부의 텍스트는 웹 페이지의 제목으로, 웹 브라우저를 통해 웹 페이지에 접속했을 때 브라우저의 상단에 표시된다. \texttt{meta} 태그는 HTML 문서의 인코딩 방법, viewport, 키워드 등 중요한 정보들을 지정할 수 있는 태그이다. 
+\texttt{head} 태그는 문서에 대한 전반적인 정보를 담고 있는 태그로, 이 태그에는 \texttt{title}, \texttt{meta}, \texttt{link} 등 다양한 태그들이 사용된다. 이번 절에서는 \texttt{title}과 \texttt{meta} 두 태그만 살펴보자. 먼저, \texttt{title} 태그 내부의 텍스트는 웹 페이지의 제목으로, 웹 브라우저를 통해 웹 페이지에 접속했을 때 브라우저의 상단에 표시된다. \texttt{meta} 태그는 HTML 문서의 인코딩 방법, viewport, 키워드 등 중요한 정보들을 지정할 수 있는 태그이다. 
 
-\texttt{body} 태그는 웹 페이지에서 사용자에게 보여질 부분이 포함되는 태그이다. 개발자가 웹 페이지를 통해 사용자에게 보여주고자 하는 텍스트, 이미지 등의 내용은 \texttt{body} 태그 안에 구현되어야 하며, \sectref{sect:commonly-used-html-tags}에서 본격적으로 웹 페이지의 내용을 구현하는 방법에 대한 학습을 진행한다.
+\texttt{body} 태그는 웹 페이지에서 사용자에게 보여질 부분이 포함되는 태그이다. 개발자가 웹 페이지를 통해 사용자에게 보여주고자 하는 텍스트, 이미지 등의 내용은 \texttt{body} 태그 안에 작성되어야 하며, \sectref{sect:commonly-used-html-tags}에서 본격적으로 웹 페이지의 내용을 작성하는 방법을 다룬다.
