@@ -1,6 +1,6 @@
 \section{Responsive Web} \label{sect:responsive-web}
 
-지금까지 CSS를 이용하여 문서를 디자인하는 방법을 다루면서 주로 가로 폭이 넓은, PC의 웹 브라우저를 기준으로 작업해왔다. 그러나 모든 사용자가 웹 페이지를 항상 PC와 같이 가로 폭이 넓은 디바이스에서 열람하는 것은 아니다. 휴대폰과 같은 모바일 디바이스는 가로 폭이 좁기 때문에, PC를 기준으로 설계한 웹 페이지는 모바일에서 열람했을 때 가독성이 심각하게 저하될 수 있다. HTML 요소들이 의도와는 다르게 배치될 수 있고, 이를 방지하고자 요소의 너비 등을 정해진 값으로 딱딱하게 정하면 모바일 디바이스에서는 좌우로 스크롤하면서 웹 페이지를 읽어야 합니다. 웹 페이지는 가급적 좌우 방향으로는 움직이지 않고, 상하 방향으로만 움직여 정보를 전달하게끔 설계하였을 때 가독성이 좋은데, 위와 같이 PC를 기준으로 웹 페이지를 설계하면 가독성이 매우 떨어진다. 따라서, 웹 페이지가 렌더링되는 화면의 크기에 따라 디자인이 바뀌는, \textbf{반응형 웹 페이지(Responsive Web)}를 디자인할 필요가 있다.
+지금까지 CSS를 이용하여 문서를 디자인할 때 주로 가로 폭이 넓은, PC의 웹 브라우저를 기준으로 작업해왔다. 그러나 모든 사용자가 항상 웹 페이지를 PC와 같이 가로 폭이 넓은 디바이스에서 열람하는 것은 아니다. 휴대폰과 같은 모바일 디바이스는 가로 폭이 좁아서 PC를 기준으로 설계한 웹 페이지는 모바일에서 열람했을 때 가독성이 심각하게 저하될 수 있다. HTML 요소들이 의도와는 다르게 배치될 수 있고, 이를 방지하고자 요소의 너비 등을 정해진 값으로 딱딱하게 정하면 모바일 디바이스에서는 좌우로 스크롤하면서 웹 페이지를 읽어야 한다. 웹 페이지는 가급적 좌우 방향으로는 움직이지 않고, 상하 방향으로만 움직여 정보를 전달하게끔 설계하였을 때 가독성이 좋은데, 위와 같이 PC를 기준으로 웹 페이지를 설계하면 가독성이 매우 떨어진다. 따라서, 웹 페이지가 렌더링되는 화면의 크기에 따라 디자인이 바뀌는, \textbf{반응형 웹 페이지(Responsive Web)}를 디자인할 필요가 있다.
 
 \figures{fig:github-responsive}{Webpage view of GitHub Homepage}{
     \subfig{fig:github-responsive-desktop}{Desktop Browser}
@@ -17,9 +17,9 @@
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:viewport-setting}의 코드는 페이지의 너비를 디바이스 화면의 너비로 설정(\texttt{width=device-width})하고, 원래 페이지의 크기를 그대로 사용(\texttt{initial-scale=1})하는 코드이다. 이 코드가 가장 기본적인 설정이며, 추가 설정이 가능하다. 이러한 뷰포트 설정은 \sectref{sect:basic-structure-of-html}의 \coderef{code:html-example}에서도 확인할 수 있다.
+\coderef{code:viewport-setting}의 코드는 페이지의 너비를 디바이스 화면의 너비로 설정(\texttt{width=device-width})하고, 원래 페이지의 크기를 그대로 사용(\texttt{initial-scale=1})하는 코드이다. 이 코드가 가장 기본적인 설정이며, 추가 설정이 가능하지만 이 교재에서는 기본 설정만 사용한다. 이러한 뷰포트 설정은 \sectref{sect:basic-structure-of-html}의 \coderef{code:html-example}에서도 확인할 수 있다.
 
-뷰포트는 개발자 도구를 이용하여도 조절할 수 있다. Chrome의 경우 개발자 탭에서 Elements 탭 왼쪽에, Firefox의 경우 오른쪽 상단에 모바일 디바이스와 유사한 아이콘(Toggle device toolbar)을 눌러 뷰포트를 조절할 수 있다.
+뷰포트는 개발자 도구를 이용하여 조절할 수도 있다. Chrome은 개발자 탭에서 Elements 탭 왼쪽에, Firefox는 오른쪽 상단에 모바일 디바이스와 유사한 아이콘(Toggle device toolbar)을 눌러 뷰포트를 조절할 수 있다.
 
 \subsection*{Media Query}
 이제 CSS를 이용하여 웹 페이지를 반응형으로 디자인해보자. 반응형 웹페이지를 디자인하기 위해서 \texttt{@media query}라는 구문을 사용한다.
