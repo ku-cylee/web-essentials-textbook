@@ -2,7 +2,7 @@
 
 \subsection*{ECMAScript}
 
-ECMAScript는 스크립트 언어에 관한 규약이고, 줄여서 ES라고 한다. JS는 ES의 표준을 따르며 ES는 JS를 이루는 코어 스크립트 언어이다. ES1이 1997년 출시된 이후 2015년 ES6가 출시되며 언어의 표준에 큰 변화가 발생하였고, 이후 약간의 업데이트를 통해 2019년 ES9가 출시되어 현재\footnote{2021년}에 이르고 있다. 본 교재에서는 ES9을 기준으로 JS를 다룬다.
+ECMAScript는 스크립트 언어에 관한 규약으로, 줄여서 ES라고 하며, JS는 ES의 표준을 따른다. ES1이 1997년 출시된 이후 2015년 ES6가 출시되며 언어의 표준에 큰 변화가 발생하였고, 이후 지속적인 업데이트를 통해 2019년 ES9가 출시되어 현재\footnote{2021년}에 이르고 있다. 본 교재에서는 ES9을 표준으로 한 JS를 다룬다.
 
 \subsection*{식별자의 선언}
 
@@ -36,6 +36,7 @@ JS는 다른 언어들과 마찬가지로 변수나 상수 등의 식별자(iden
 SyntaxError: redeclaration of let num2
 \end{verbatim}
 \end{codeenv}
+\newpage
 
 \texttt{const}는 constant, 즉 상수(常數)의 약자로, \texttt{const}로 선언한 상수는 재선언과 재할당이 모두 불가능하다.
 
@@ -52,7 +53,7 @@ SyntaxError: redeclaration of const constNum
 \end{verbatim}
 \end{codeenv}
 
-\texttt{var}는 JS 초창기부터 사용되어 왔던 식별자 선언 키워드인 반면, \texttt{let}과 \texttt{const}는 ES6 출시와 함께 추가된 식별자 선언 키워드이다. \texttt{var}과 \texttt{let}/\texttt{const}는 재선언 가능성에서도 차이점이 있지만, 식별자의 접근 가능한 범위(scope)에도 차이가 있다.
+\texttt{var}는 JS 초창기부터 사용되어 왔던 식별자 선언 키워드인 반면, \texttt{let}과 \texttt{const}는 ES6 출시와 함께 추가된 식별자 선언 키워드이다. \texttt{var}과 \texttt{let}/\texttt{const}는 재선언 가능성에서도 차이점이 있지만, 식별자에 접근할 수 있는 범위(scope)에도 차이가 있다.
 
 \begin{codeenv}{code:var-let-scope}{Scope of var and let}\begin{verbatim}
 > { var num1 = 1; }
@@ -64,7 +65,7 @@ Uncaught ReferenceError: num2 is not defined
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:var-let-scope}\를 실행하면, \texttt{var}로 선언된 \texttt{num1}의 값은 정상적으로 출력되나, \texttt{let}으로 선언된 \texttt{num2}는 출력되지 않고 정의되지 않았다는 에러가 발생한다. 이렇듯 \texttt{var}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 있고 함수 밖에서는 접근될 수 없는 function-scope이며, \texttt{let}과 \texttt{const}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 없는 block-scope이다.
+\coderef{code:var-let-scope}\를 실행하면, \texttt{var}로 선언된 \texttt{num1}의 값은 정상적으로 출력되나, \texttt{let}으로 선언된 \texttt{num2}는 정의되지 않았다는 에러가 발생한다. 이렇듯 \texttt{var}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 있고 함수 밖에서는 접근될 수 없는 function-scope이며, \texttt{let}과 \texttt{const}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 없는 block-scope이다.
 
 \begin{tblenv}
     {tab:var-let-const-table}
@@ -84,4 +85,4 @@ Uncaught ReferenceError: num2 is not defined
     \thickhline
 \end{tblenv}
 
-ES6 이전에는 \texttt{var}를 이용하여 변수를 선언하였으나, ES6 이후에는 \texttt{let}과 \texttt{const}를 이용하여 변수와 상수를 선언하는 것이 권장되며, \texttt{var}의 사용은 지양되는 추세이다. 그 이유는 \texttt{let}과 \texttt{const}가 재선언이 불가능하고, block-scope이기 때문이다. \texttt{var}는 function-scope이기 때문에 코드의 네임스페이스를 오염\footnote{https://stackoverflow.com/questions/22903542/what-is-namespace-pollution}시키며, run time에서 의도치 않은 논리적 오류가 발생할 수 있다. 반면 \texttt{let}과 \texttt{const}로 선언된 식별자는 block-scope이므로 네임스페이스 오염을 최소화할 수 있고, \texttt{const}로 선언된 상수는 재할당이 불가능하므로 run time에서 상수값을 변경되어 발생하는 논리적 오류를 방지할 수 있다.
+ES6 이전에는 \texttt{var}를 이용하여 변수를 선언하였으나, ES6 이후에는 \texttt{let}과 \texttt{const}가 재선언이 불가능하고, block-scope이기 때문에 \texttt{var}의 사용은 지양되고 \texttt{let}과 \texttt{const}를 이용하여 변수와 상수를 선언하는 것이 권장된다. \texttt{var}는 function-scope이기 때문에 코드의 네임스페이스를 오염\footnote{https://stackoverflow.com/questions/22903542/what-is-namespace-pollution}시키며, run-time에서 의도치 않은 논리적 오류를 발생시킬 수 있다. 반면 \texttt{let}과 \texttt{const}로 선언된 식별자는 block-scope이므로 네임스페이스 오염을 최소화할 수 있고, \texttt{const}로 선언된 상수는 재할당이 불가능하므로 run-time에서 상수값이 변경되어 발생하는 논리적 오류를 방지할 수 있다.
