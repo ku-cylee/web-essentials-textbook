@@ -140,7 +140,7 @@
 \coderef{code:exercise-event-1}\을 참고하여 물품을 카트에 담을 때마다 지불할 총 금액이 갱신되는 쇼핑몰 사이트를 script.5.5.js를 다음 단계를 따라 작성하여 완성하여라.
 
 \begin{itemize}
-    \item Step 1: \texttt{.item} 요소들은 그 물품의 이름을 \texttt{id} 값으로 가지고 있다. 각 \texttt{id}가 \texttt{key}, 해당 물품의 단가를 \texttt{value}로 하는 객체를 만든다. 그리고, 필요한 변수/상수들을 선언하고 할당하여라.
+    \item Step 1: \texttt{.item} 요소들은 그 물품의 이름을 \texttt{id} 값으로 가지고 있다. 각 \texttt{id}가 \texttt{key}, 해당 물품의 단가를 \texttt{value}로 하는 객체를 만든다. 그리고, 필요한 변수/상수들을 선언하고 할당한다.
     \item Step 2: 이 문제에서는 여러 요소에 이벤트 리스너를 등록해야 하므로 등록할 요소들을 선택하고, for-of문을 사용하여 각 요소에 이벤트 리스너를 등록한다.
     \item Step 3: 이벤트가 발생한 요소가 속한 \texttt{.item} 요소의 \texttt{id} 값을 가져와 총 금액을 갱신하는 이벤트 리스너를 구현한다.
 \end{itemize}
@@ -211,7 +211,7 @@
 \coderef{code:exercise-event-2-css}\와 \coderef{code:exercise-event-2-html}\를 참고하여 미로를 탈출 게임을 script.5.6.js를 작성하여 완성하여라. 시작 지점은 붉은 사각형, 탈출 지점은 푸른 사각형, 미로의 벽은 검정색 사각형이며, 붉은 사각형을 방향키를 이용하여 탈출 지점까지 이동시킨다. 방향키를 이용해 이동할 때는 인접한 사각형으로 이동하며, 벽이나 미로 밖으로 이동하려고 하면 이동하지 않는다.
 
 \begin{itemize}
-    \item Step 0: 이 문제의 미로는 \texttt{\#maze} 요소 내부에 정사각형 요소가 7행 8열로 배치되어 있다. 사각형의 위치는 행과 열을 이용하여 나타내고, \texttt{row}와 \texttt{col}을 속성으로 갖는 위치 객체를 이용한다. 예를 들어 탈출 지점은 1행 7열에 위치하며, 탈출 지점의 위치 객체는 \texttt{\{ row: 1, col: 7\} }이다.
+    \item Step 0: 이 문제의 미로는 \texttt{\#maze} 요소 내부에 정사각형 요소가 7행 8열로 배치되어 있다. 사각형의 위치는 행과 열을 이용하여 나타내고, \texttt{row}와 \texttt{col}을 속성으로 갖는 위치 객체를 이용한다. 예를 들어 탈출 지점은 1행 7열에 위치하며, 탈출 지점의 위치 객체는 \texttt{\{ row: 1, col: 7 \}}이다.
     \item Step 1: 행과 열의 최솟값과 최댓값을 나타내는 상수를 선언하고, 붉은 사각형의 위치 객체를 선언한다.
     \item Step 2: 위치 객체를 인자로 받아 해당 위치에 있는 요소를 반환하는 함수 \texttt{getElementByPosition}을 구현한다.
     \item Step 3: 이벤트 객체의 키 입력값을 인자로 받아 붉은 사각형의 위치에서 키 입력에 따라 이동한 새로운 위치 객체를 반환하는 함수 \texttt{getNewPositionByKey}를 구현한다.
