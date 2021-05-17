@@ -13,12 +13,8 @@
 \input{settings/captions}
 \input{settings/itemlist}
 
-\title{2021 KWEB Frontend}
-\author{Lee Chanyoung, KWEB}
-\date{}
-
 \begin{document}
-    \maketitle
+    \include{title}
     \dominitoc
     {\doublespacing\tableofcontents}
 
@@ -65,7 +61,7 @@
 
     \appendix
 
-    \chapter{Exercise Answers}
+    \chapter{Exercise Answers} \label{ch:exercise-answers}
     \minitoc
     \include{chapters/exercise-answers/html-exercise-answers}
     \include{chapters/exercise-answers/css-exercise-answers}
