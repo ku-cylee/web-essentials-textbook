@@ -1,0 +1,14 @@
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\newcommand{\figures}[3]
+    {\begin{figure}[htb]\vspace{10pt}\centering#3\caption{#2}\label{#1}\end{figure}}
+
+\newcommand{\fig}[2]{\includegraphics[width=#2\textwidth]{#1}}
+
+\newcommand{\subfig}[4]{
+    \begin{subfigure}{#4\textwidth}\centering
+        \includegraphics[width=\textwidth]{#3}
+        \caption{#2}\label{#1}
+    \end{subfigure}
+}

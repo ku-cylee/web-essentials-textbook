@@ -1,0 +1,20 @@
+\documentclass[a4paper,10pt,hidelinks]{book}
+
+\usepackage{kotex}
+\usepackage[open,openlevel=1]{bookmark}
+\usepackage[fleqn]{amsmath}
+
+\input{settings/subtoc}
+\input{settings/title-styles}
+\input{settings/page-settings}
+\input{settings/table-env}
+\input{settings/figures}
+\input{settings/code-env}
+\input{settings/captions}
+\input{settings/itemlist}
+
+\begin{document}
+    \include{title}
+    \dominitoc
+    {\doublespacing\tableofcontents}
+\end{document}
