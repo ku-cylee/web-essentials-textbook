@@ -12,23 +12,23 @@ Node.js는 JS의 대중성과 유연함으로 인해 유지 및 보수가 용이
 
 Node.js 플랫폼은 홈페이지(https://nodejs.org/)에서 제공된다. 홈페이지에서 지금까지 release된 모든 버전의 Node.js를 다운로드받을 수 있으나, LTS 버전과 Current 버전, 두 종류를 주로 제공한다. LTS 버전은 long time support, 즉 안정적이며 신뢰도가 높아 이미 개발이 완료되어 장기간 지원되는 버전이다. 따라서 애플리케이션을 실제로 구현할 때에는 LTS 버전이 적합하다. 반면 Current 버전은 가장 최근에 release된 Node.js 버전으로, 개발이 진행 중인 버전이기 때문에 버그 등의 불안정한 요소가 존재하기 때문에, Node.js의 최신 버전을 사용해볼 수는 있으나 실무에서 사용하기에는 적합하지 않다. 준회원 스터디에서는 2020년 9월 기준 LTS 버전인 12.18.3 버전을 사용하여 스터디를 진행한다.
 
-Windows와 macOS는 홈페이지에서 LTS 버전을 다운로드한 후, 설치파일을 실행해 추가 옵션 없이 설치한다. Linux 계열 운영체제는 Terminal\footnote{Shell에서 \$ 문자는 입력하는 란을 뜻한다. 따라서 \cd{\$ } 부분은 입력하지 않는다.}을 열어 \coderef{code:nodejs-linux-install}\을 따라 설치파일을 다운로드한 후 설치한다.
+Windows와 macOS는 홈페이지에서 LTS 버전을 다운로드한 후, 설치파일을 실행해 추가 옵션 없이 설치한다. Linux 계열 운영체제는 Terminal\footnote{Shell에서 \$ 문자는 입력하는 란을 뜻한다. 따라서 \cd{\$ } 부분은 입력하지 않는다.}을 열어 \shellref{shell:nodejs-linux-install}\을 따라 설치파일을 다운로드한 후 설치한다.
 
-\begin{codeenv}{code:nodejs-linux-install}{Installing Node.js on Linux}\begin{verbatim}
+\begin{shellenv}{shell:nodejs-linux-install}{Installing Node.js on Linux}\begin{verbatim}
 $ curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
 $ sudo apt install -y nodejs
 \end{verbatim}
-\end{codeenv}
+\end{shellenv}
 
-설치가 완료되면, Windows는 cmd, UNIX 계열 운영체제는 Terminal 등의 shell을 실행하여 \coderef{code:nodejs-version}\과 같이 Node.js와 npm의 버전을 확인한다.
+설치가 완료되면, Windows는 cmd, UNIX 계열 운영체제는 Terminal 등의 shell을 실행하여 \shellref{shell:nodejs-version}\과 같이 Node.js와 npm의 버전을 확인한다.
 
-\begin{codeenv}{code:nodejs-version}{Confirming Node.js Version}\begin{verbatim}
+\begin{shellenv}{shell:nodejs-version}{Confirming Node.js Version}\begin{verbatim}
 $ node -v
 v12.18.3
 $ npm -v
 6.14.6
 \end{verbatim}
-\end{codeenv}
+\end{shellenv}
 
 \subsection*{Running Simple Node.js Application}
 Node.js 홈페이지에는 Node.js로 구현한 아주 간단한 형태의 웹 서버 애플리케이션이 제시되어 있다. 프로젝트 폴더를 생성하고, index.js 파일을 생성한다. index.js 파일에 \coderef{code:nodejs-simple-web-server}\를 작성한다.
@@ -51,9 +51,9 @@ server.listen(port, hostname, () => {
 \end{verbatim}
 \end{codeenv}
 
-Shell에서 \coderef{code:running-simple-web-server}\와 같이 index.js를 실행하고, 브라우저를 실행하여 http://127.0.0.1:3000/에 접속하여 응답 결과를 확인한다. (http://localhost:3000/에 접속하여도 된다.)
+Shell에서 \shellref{shell:running-simple-web-server}\와 같이 index.js를 실행하고, 브라우저를 실행하여 http://127.0.0.1:3000/에 접속하여 응답 결과를 확인한다. (http://localhost:3000/에 접속하여도 된다.)
 
-\begin{codeenv}{code:running-simple-web-server}{Running index.js}\begin{verbatim}
+\begin{shellenv}{shell:running-simple-web-server}{Running index.js}\begin{verbatim}
 $ node index.js
 \end{verbatim}
-\end{codeenv}
+\end{shellenv}

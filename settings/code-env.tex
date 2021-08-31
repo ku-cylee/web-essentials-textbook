@@ -31,8 +31,13 @@
     {0pt}% space after theorem head
     {}% Manually specify head
 \theoremstyle{codestyle}
-\newtheorem{code}{Code}[chapter]
 
+\newtheorem{code}{Code}[chapter]
 \newenvironment{codeenv}[2]
     {\begin{mdframed}[style=codeframe]\begin{code}[#2]\label{#1}\linespread{1.0}{\ }}
     {\end{code}\end{mdframed}}
+
+\newtheorem{shell}{Shell}[chapter]
+\newenvironment{shellenv}[2]
+    {\begin{mdframed}[style=codeframe]\begin{shell}[#2]\label{#1}\linespread{1.0}{\ }}
+    {\end{shell}\end{mdframed}}

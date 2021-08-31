@@ -52,12 +52,12 @@ GitHub 홈페이지에 접속하여 우측 상단의 Sign Up을 클릭하여 회
     \fig{images/introduction-to-back-end/copying-remote-repo-url.png}{.6}
 }
 
-이제, 이 프로젝트를 \cd{clone} 명령어를 통해 로컬 환경에 다운로드 받을 수 있다. 프로젝트를 다운받고자 하는 디렉토리에서 터미널을 실행하고, \coderef{code:git-clone}에서 \cd{<repo-url>}에 복사해둔 원격 저장소 주소를 입력하여 실행한다. 이후, 프로젝트가 원하는 디렉토리에 정상적으로 clone 되었는지 확인한다.
+이제, 이 프로젝트를 \cd{clone} 명령어를 통해 로컬 환경에 다운로드 받을 수 있다. 프로젝트를 다운받고자 하는 디렉토리에서 터미널을 실행하고, \shellref{shell:git-clone}에서 \cd{<repo-url>}에 복사해둔 원격 저장소 주소를 입력하여 실행한다. 이후, 프로젝트가 원하는 디렉토리에 정상적으로 clone 되었는지 확인한다.
 
-\begin{codeenv}{code:git-clone}{Clone remote repository to local}\begin{verbatim}
+\begin{shellenv}{shell:git-clone}{Clone remote repository to local}\begin{verbatim}
 $ git clone <repo-url>
 \end{verbatim}
-\end{codeenv}
+\end{shellenv}
 
 \subsection*{Commit Project Updates}
 
@@ -68,16 +68,15 @@ $ git clone <repo-url>
 \end{verbatim}
 \end{codeenv}
 
-프로젝트 폴더에 index.js를 생성하고, \coderef{code:nodejs-simple-web-server}(\pageref{code:nodejs-simple-web-server})의 코드를 작성한다. 이후 \coderef{code:commit-and-push}\와 같은 과정을 통해 변경 사항을 commit하고, 이를 원격 저장소에 push한다. 이때 \cd{git add .} 명령어는 프로젝트 내 모든 파일의 변경 사항을 commit한다는 뜻이다. 이후 원격 저장소에 접속하여 commit 내역을 확인하여, 변경 사항이 정상적으로 반영되었는지 확인한다.
+프로젝트 폴더에 index.js를 생성하고, \coderef{code:nodejs-simple-web-server}(\pageref{code:nodejs-simple-web-server})의 코드를 작성한다. 이후 \shellref{shell:commit-and-push}\와 같은 과정을 통해 변경 사항을 commit하고, 이를 원격 저장소에 push한다. 이때 \cd{git add .} 명령어는 프로젝트 내 모든 파일의 변경 사항을 commit한다는 뜻이다. 이후 원격 저장소에 접속하여 commit 내역을 확인하여, 변경 사항이 정상적으로 반영되었는지 확인한다.
 
-\begin{codeenv}{code:commit-and-push}{Commit Changes and Push Commits}\begin{verbatim}
+\begin{shellenv}{shell:commit-and-push}{Commit Changes and Push Commits}\begin{verbatim}
 $ git add .
 $ git commit -m <commit-message>
 $ git push
 \end{verbatim}
-\end{codeenv}
+\end{shellenv}
 
 이제 index.js에서 \cd{port}의 값을 4000으로 바꾸고, config.txt 파일을 생성하여 아무 내용이나 입력한다. 그러면 index.js에서는 \cd{port}가 선언된 네 번째 줄에서 변경이 발생하였고, config.txt는 .gitignore에 의해 추적되지 않기 때문에 변경이 발생한 것으로 간주되지 않는다.
 
-\coderef{code:commit-and-push} 과정을 반복하여 변경 사항을 다시 commit 및 push하고, 원격 저장소에 접속하여 commit 내역을 확인해본다.
-
+\shellref{shell:commit-and-push} 과정을 반복하여 변경 사항을 다시 commit 및 push하고, 원격 저장소에 접속하여 commit 내역을 확인해본다.
