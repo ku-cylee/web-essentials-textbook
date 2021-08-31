@@ -1,1 +1,83 @@
 \section{git and GitHub}\label{sect:git-and-github}
+
+\subsection*{Version Control System(VCS) and git}
+
+애플리케이션을 개발하다 보면 소스 코드를 백업하고, 개발 버전을 관리하고, 소스 코드의 변경사항을 기록하여 추적하는 등의 작업이 필요하다. 이러한 작업을 수행해주는 시스템을 버전 관리 시스템(Version Control System, VCS)이라고 한다.
+
+git은 소프트웨어 개발 분야에서 압도적인 지지율을 차지하는 버전 관리 시스템이다. 버전 관리뿐만 아니라 git은 branch를 이용하여 여러 사용자가 하나의 프로젝트를 작업하고 merge를 통해 변경사항을 조율할 수 있게 하고, 별도의 서버에 소스 코드를 저장하여 소스 코드의 백업과 공유를 용이하게 한다.
+
+\subsection*{How git works}
+
+git은 프로젝트를 저장소(repository)에 저장하여 관리한다. 특정 디렉토리에서 git 저장소를 생성하면, 해당 디렉토리에 속한 모든 하위 파일과 하위 폴더는 프로젝트를 구성하는 요소가 된다. 즉, 해당 디렉토리에 있는 파일에 변경사항이 발생하면, 이는 git에 의해 추적(track)된다.
+
+로컬 디렉토리에서 발생한 변경사항은 \cd{add}를 이용하여 Staging Area에 추가되고, \cd{commit}을 통해 로컬 저장소(local repository)에 변경사항이 반영된다. 이렇게 \cd{commit}을 이용하여 변경사항을 반영할 때마다 하나의 commit이 생성되는데, git은 각각의 commit을 단위로 버전을 관리하여 변경사항을 확인할 수 있게 한다. Staging Area는 \cd{commit}을 실행하기 전 commit할 내용을 정리할 수 있게 도와주는 중간 단계 역할을 수행한다.
+
+이렇게 생성된 commit들은 \cd{push} 명령을 이용하여 원격 저장소(remote repository)에 업로드할 수 있으며, commit 단위로 로컬 저장소의 변경사항을 원격 저장소에 반영한다. 이와 반대로 \cd{pull} 명령은 원격 저장소에 저장된 변경사항을 로컬 저장소에 반영하며, \cd{clone} 명령은 원격 저장소를 복사하여 로컬에 저장한다.
+
+\figures{fig:how-git-works}{How git works}{
+    \fig{images/introduction-to-back-end/how-git-works.png}{.7}
+}
+
+\subsection*{gitignore}
+
+애플리케이션을 제작하다 보면 설정 파일(config), 로그 파일, 빌드 파일(.exe나 .out 등) 등 프로젝트 폴더 내에 소스 코드가 아닌 파일들이 생성될 때가 있다. 설정 파일이나 로그 파일 등의 경우 각자의 개발 환경에 맞게 설정해야 하고, 공개적으로 배포되었을 때 이미 진행 중인 서비스에 심각한 보안 취약점을 야기할 수 있다. 빌드 파일의 경우, 사람이 읽을 수 없는 기계어로 되어있기 때문에 변경사항을 추적하는 것이 무의미하고, 용량도 많이 차지하며, 빌드 방법만 정확히 서술해두면 다른 사용자가 충분히 빌드할 수 있으므로 추적하지 않는다.
+
+이렇게 개발자가 git의 변경사항 추적에서 제외하고 싶은 파일이나 폴더는 그 파일의 상대 주소를 gitignore 파일에 정규 표현식 형태로 명시하여 추적하지 않을 수 있습니다. 프로젝트 디렉토리의 최상위 폴더에 .gitignore 파일을 생성한 후, 추적에서 제외할 폴더나 파일을 명시하면 추적 대상에서 제외된다.
+
+추적에서 제외할 파일이나 폴더의 목록은 애플리케이션에서 사용하는 언어, 프레임워크, IDE 등 다양한 요소의 영향을 받는다. 다음 웹 사이트는 이런 조건에 따라 기본적인 .gitignore 파일을 자동으로 생성해주는 유용한 기능을 제공한다.
+
+\begin{itemize}
+    \item https://www.toptal.com/developers/gitignore
+\end{itemize}
+
+\subsection*{Installing git}
+
+Linux 계열의 운영체제는 사전에 git이 설치되어 있고, macOS의 경우 Xcode를 설치하였다면 같이 설치되어 있다. Windows와 git이 설치되지 않은 macOS의 경우 git 홈페이지(https://git-scm.com/downloads)에 접속하여 운영체제에 맞는 git 설치파일을 다운받아 설치한다. 이때 \figref{fig:git-install-check-add-path}\와 같이 PATH 설정을 체크하고 진행한다.
+
+설치가 완료되면, shell을 열고 git 버전을 확인하여 설치가 잘 되었는지 확인한다. (\cd{git --version})
+
+\figures{fig:git-install-check-add-path}{Check ``add PATH'' on installation}{
+    \fig{images/introduction-to-back-end/git-install-check-add-path.png}{.5}
+}
+
+\subsection*{Starting GitHub and Creating Repository}
+
+GitHub은 대표적인 무료 git 저장소로, git을 이용하여 원격 저장소를 저장할 수 있다. 자신의 프로젝트를 원격 저장소에 저장하여 업로드할 수 있으며, 다른 사람들과 공유할 수도 있다. GitHub은 프로젝트 관리에 필요한 다양하고 유용한 기능을 제공하여, 오늘날 가장 대중적인 프로젝트 관리 및 오픈 소스 공유 플랫폼이 되었다.
+
+GitHub 홈페이지에 접속하여 우측 상단의 Sign Up을 클릭하여 회원가입 페이지에 접속한 후, 사용자명, 비밀번호, 이메일 주소를 입력하고 Verify your account를 완료한다. 이후 하단의 Next: Select a plan을 누르고, Free Plan을 선택한 후, 본인의 정보를 입력하고 Complete setup을 클릭하여 완료한다. 마지막으로 이메일로 인증하여 가입을 마무리한다.
+
+\sectref{sect:installing-and-running-node-js}에서 작성한 코드에서 저장소를 생성하는 실습을 진행해보자. GitHub 홈페이지 좌측의 Repositories 메뉴에서 New 버튼을 클릭하여, 새로운 저장소를 생성할 수 있는 페이지에 접속한다. Repository Name란에 저장소 이름을 my-first-repo로 지정하고, ``Create Repository''를 클릭하여 새로운 저장소를 생성한다. 새로운 저장소를 생성하면, 해당 저장소를 열람할 수 있는 페이지로 이동된다. 여기에서 \figref{fig:copying-remote-repo-url}\과 같이 원격 저장소의 주소를 복사해둔다.
+
+\figures{fig:copying-remote-repo-url}{Copying Remote Repository URL}{
+    \fig{images/introduction-to-back-end/copying-remote-repo-url.png}{.6}
+}
+
+이제, 이 프로젝트를 \cd{clone} 명령어를 통해 로컬 환경에 다운로드 받을 수 있다. 프로젝트를 다운받고자 하는 디렉토리에서 터미널을 실행하고, \coderef{code:git-clone}에서 \cd{<repo-url>}에 복사해둔 원격 저장소 주소를 입력하여 실행한다. 이후, 프로젝트가 원하는 디렉토리에 정상적으로 clone 되었는지 확인한다.
+
+\begin{codeenv}{code:git-clone}{Clone remote repository to local}\begin{verbatim}
+$ git clone <repo-url>
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Commit Project Updates}
+
+이제 로컬 환경에 clone된 프로젝트를 수정하고, 수정한 내역을 commit해본다. 먼저 프로젝트 내에 .gitignore 파일을 생성\footnote{파일 시스템은 . 으로 시작하는 파일을 만드는 것을 그다지 좋아하지 않으므로, VS Code 등의 IDE를 이용하여 만드는 것을 추천한다.}하고, \coderef{code:gitignore-example}\과 같이 작성하여 확장자가 txt인 모든 파일을 추적하지 않도록 한다.
+
+\begin{codeenv}{code:gitignore-example}{.gitignore}\begin{verbatim}
+*.txt
+\end{verbatim}
+\end{codeenv}
+
+프로젝트 폴더에 index.js를 생성하고, \coderef{code:nodejs-simple-web-server}(\pageref{code:nodejs-simple-web-server})의 코드를 작성한다. 이후 \coderef{code:commit-and-push}\와 같은 과정을 통해 변경 사항을 commit하고, 이를 원격 저장소에 push한다. 이때 \cd{git add .} 명령어는 프로젝트 내 모든 파일의 변경 사항을 commit한다는 뜻이다. 이후 원격 저장소에 접속하여 commit 내역을 확인하여, 변경 사항이 정상적으로 반영되었는지 확인한다.
+
+\begin{codeenv}{code:commit-and-push}{Commit Changes and Push Commits}\begin{verbatim}
+$ git add .
+$ git commit -m <commit-message>
+$ git push
+\end{verbatim}
+\end{codeenv}
+
+이제 index.js에서 \cd{port}의 값을 4000으로 바꾸고, config.txt 파일을 생성하여 아무 내용이나 입력한다. 그러면 index.js에서는 \cd{port}가 선언된 네 번째 줄에서 변경이 발생하였고, config.txt는 .gitignore에 의해 추적되지 않기 때문에 변경이 발생한 것으로 간주되지 않는다.
+
+\coderef{code:commit-and-push} 과정을 반복하여 변경 사항을 다시 commit 및 push하고, 원격 저장소에 접속하여 commit 내역을 확인해본다.
+

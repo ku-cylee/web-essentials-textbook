@@ -1,1 +1,101 @@
 \section{HyperText Transfer Protocol (HTTP)}\label{sect:hypertext-transfer-protocol}
+
+\subsection*{What is HTTP?}
+
+\sectref{sect:introducing-web}에서 다룬 바와 같이 웹 애플리케이션은 클라이언트와 서버가 요청과 응답을 주고받아 데이터를 교환하며 작동한다. 교환되는 데이터에는 요청과 응답에 대한 여러 정보가 포함되어야 하는데, 이런 정보가 개발자마다 다른 방식으로 제공되면 클라이언트가 보낸 요청을 서버가 해석하지 못하는 등의 혼란이 발생한다. 이를 방지하기 위해 웹 애플리케이션에서 클라이언트와 서버 간의 데이터 교환이 이루어질 때 준수해야 하는 표준 규약(protocol)이 존재한다. 이 표준 규약이 바로 HTTP(HypeText Transfer Protocol)이다.
+
+HTTP는 헤드(HTTP head)와 본문(HTTP body)로 이루어져 있고, 헤드는 요청/응답 라인(request/response line)과 헤더(HTTP header)로 이루어져 있다. 요청/응답 라인에는 요청/응답에 대한 간단한 정보가 한 줄로 기록되어 있고, 헤더에는 요청이나 응답에 대한 상세한 정보나 옵션이 포함된다. 본문에는 요청에 대한 상세한 내용이나, 응답에 관한 내용이 포함되어 있다. 예를 들어, 웹 서버에서 응답하는 웹 사이트의 front-end 문서는 HTTP 응답의 본문 부분에 포함된다.
+
+\subsection*{HTTP Request}
+
+HTTP 요청(request)은 클라이언트가 서버에 전송하는 메시지로, \coderef{code:http-request-example}\은 HTTP 요청의 예시이다.
+
+\begin{codeenv}{code:http-request-example}{Head of HTTP Request Example}\begin{verbatim}
+GET /api/articles?bid=12&page=3&count=10 HTTP/1.1
+Host: kweb.korea.ac.kr
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Firefox/79.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: sid=s%3A_2uUdS9bmos5wPmQmMuHvVXHrcdIYHmk.%2F3FX1NwUkH5fFK3cd7gDr8qfMHsrvfMWGSO
+\end{verbatim}
+\end{codeenv}
+
+먼저 HTTP 요청의 요청 라인에는 차례대로 요청 메서드, URL, HTTP 버전이 차례대로 나열된다. 헤더에는 Host, User-Agent, Cookie등의 중요한 요소를 비롯하여 여러 정보가 포함되어 있다. User-Agent는 사용자가 요청을 보내기 위해 사용한 애플리케이션에 대한 정보를 제시하며, \coderef{code:http-request-example}의 요청은 Mozilla Firefox 브라우저에서 보낸 요청임을 알 수 있다. 쿠키(cookie)는 \sectref{sect:http-cookie-and-session}에서 다룬다.
+
+\subsection*{HTTP Method}
+
+HTTP 메서드(method)는 서버가 수행해야 할 동작을 나타낸다. 가장 흔히 쓰이는 메서드는 GET과 POST이며, 그 외에도 RESTful하게 구현된 애플리케이션에서는 PUT과 DELETE를 추가로 사용한다. 가장 많이 사용되는 네 메서드는 각각 다음과 같은 동작을 명시한다.
+
+\begin{itemize}
+    \item GET: 서버에 존재하는 리소스에 대한 열람(read)을 요청
+    \item POST: 서버에 특정 리소스를 새로 생성(create)할 것을 요청
+    \item PUT: 서버에 존재하는 특정 리소스를 수정(update)할 것을 요청
+    \item DELETE: 서버에 존재하는 특정 리소스를 삭제(delete)할 것을 요청
+\end{itemize}
+
+예를 들어, 서버에 있는 회원들에 대한 데이터를 다루고자 할 때, 특정 회원에 대한 정보를 열람하고자 할 때는 GET, 신규 회원이 가입하여 그 정보를 추가하고자 할 때는 POST, 이미 존재하는 회원에 대한 정보를 수정하고자 할 때는 PUT, 특정 회원이 사이트를 탈퇴하여 그 정보를 지우고자 할 때는 DELETE를 사용하여 요청한다.
+
+다만, 예전부터 웹 애플리케이션들은 GET과 POST만을 사용하여 구현되어왔고, 이러한 이유로 대부분의 웹 브라우저들이 GET과 POST 메서드만 지원한다. 따라서 GET 메서드는 요청의 주된 목적이 리소스의 열람인 경우, POST 메서드는 요청의 주된 목적이 리소스에 대한 변화인 경우 사용된다.
+
+\subsection*{URL (Uniform Resource Locator)}
+URL은 인터넷상에서 특정 리소스에 대한 위치를 나타내는 문자열로, 흔히 인터넷에서 URL을 링크 혹은 주소라고 부르기도 한다. URL은 정해진 구조에 따라 리소스에 대한 위치 정보를 세부적으로 담고 있다.
+
+\figures{fig:url-structure}{Brief Structure of URL}
+    {\fig{images/introduction-to-back-end/url-structure.png}{.85}}
+
+\figref{fig:url-structure}\는 간단한 형태의 URL의 구조이다. 각 요소는 다음과 같은 정보를 나타낸다.
+
+\begin{itemize}
+    \item protocol: 사용자가 요청을 보내 사용하고자 하는 애플리케이션에 대한 프로토콜; http, https 뿐만 아니라 ftp, mailto 등의 프로토콜도 많이 사용된다
+    \item host: 요청을 보내고자 하는 서버의 주소; 도메인 이름이나 아이피 주소가 사용된다 (예: naver.com / korea.ac.kr / 8.8.8.8)
+    \item port: 서버에 접근하기 위한 관문의 번호; 이론적으로 0 이상, $2^{16}=65536$ 미만의 정수가 가능하고, http의 경우 80번이 디폴트이며, 이 경우 생략할 수 있다
+    \item path: 서버상에 존재하는 리소스의 위치 경로; 다만, 최근에는 서버에 요청하고자 하는 작업을 추상적으로 나타낸다.
+    \item query: 요청에 대한 상세한 데이터나 조건 등을 key-value pair 형태로 제시하는 요소; \cd{?} 문자로 query임을 나타내고, \cd{key=value}의 형태로 나타내며, \cd\& 문자를 사용하여 구분한다. (예: \cd{?bid=12\&page=3\&count=10})
+\end{itemize}
+
+웹 서버는 받은 요청의 URL을 기반으로 요청을 처리하고, 수행한다.
+
+\subsection*{HTTP Response and Response Status}
+HTTP 응답(response)은 서버가 클라이언트에 전송하는 메시지로, \coderef{code:http-response-example}\은 HTTP 응답의 예시이다.
+
+\begin{codeenv}{code:http-response-example}{Head of HTTP Response Example}\begin{verbatim}
+HTTP/1.1 200 OK
+Server: nginx
+Date: Sat, 12 Sep 2020 13:43:29 GMT
+Content-Type: text/html
+Connection: keep-alive
+Content-Length: 224
+\end{verbatim}
+\end{codeenv}
+
+HTTP 응답의 응답 라인에는 차례대로 HTTP 버전, 상태 코드(status code), 상태 메시지(status message)가 나열된다. 응답 상태는 서버가 보낸 응답에 대한 대략적인 상태를 나타내며, 상태 코드 응답 상태를 정수 형태로 나타낸 요소이고, 상태 메시지는 해당 상태 코드가 어떤 상태를 의미하는지 간략하게 나타내는 문자열이다.
+
+공식적인 HTTP 상태 코드는 63개가 있으며, 상태 코드들은 다음과 같이 5개의 분류로 나뉜다.
+
+\begin{itemize}
+    \item 1XX (Informational Response): 요청을 받았으며, 작업을 수행 중
+    \item 2XX (Successful): 요청한 작업을 성공적으로 수행하였음
+    \item 3XX (Redirection): 요청을 완료하기 위해 클라이언트는 추가 작업을 수행해야 함
+    \item 4XX (Client Error): 클라이언트에서 잘못된 요청을 보내, 요청을 완료할 수 없음
+    \item 5XX (Server Error): 서버상의 문제로 요청을 완료할 수 없음
+\end{itemize}
+
+63개의 상태 코드 중 널리 사용되는 상태 코드들을 몇 개 소개하겠다.
+
+\begin{itemize}
+    \item 200 OK: 요청이 성공적으로 완료됨
+    \item 302 Found: 요청한 리소스가 다른 URL에 존재함
+    \item 304 Not Modified: 응답할 내용이 클라이언트가 이전에 받은 응답과 동일함
+    \item 400 Bad Request: 요청한 데이터의 형태가 잘못되어, 요청을 수행할 수 없음
+    \item 401 Unauthorized: 인증이 실패하였거나 이루어지지 않아, 요청을 수행할 수 없음
+    \item 403 Forbidden: 요청한 클라이언트가 적절한 접근 권한을 갖지 않음
+    \item 404 Not Found: 요청한 리소스가 서버에 존재하지 않음
+    \item 500 Internal Server Error: 서버 내부의 문제로 요청을 수행할 수 없음
+    \item 501 Not Implemented: 해당 요청이 구현되어 있지 않음 (보통 미래에 구현될 기능에 적용)
+    \item 503 Service Unavailable: 서버의 과부하나 점검으로 인해 요청을 수행할 수 없음
+\end{itemize}
+
+이처럼 상태 코드는 클라이언트(사용자)에게 요청에 대한 응답이 어떤 상태인지 알려준다. 예를 들어, 클라이언트가 /articles로 요청을 보냈는데, 서버가 302 Found와 함께 /articles/page/1이라는 URL을 응답하면, 클라이언트는 자동으로 응답받은 URL에 요청을 다시 보내 응답을 받아온다. 이러한 과정을 리다이렉트(redirect)라고 한다.
