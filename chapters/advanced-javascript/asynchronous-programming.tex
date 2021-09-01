@@ -61,9 +61,9 @@ console.log('bar');
 
 \figref{fig:sync-async-code-flow}\는 코드를 동기식으로 구현했을 때와 비동기식으로 구현했을 때 코드의 흐름을 개략적으로 나타낸 도식이다. 동기식 코드에서 작업 3은 작업 2가 종료된 이후 수행되는 반면, 비동기식 코드에서는 작업 3이 작업 2와 동시에 수행된다.
 
-\coderef{code:big-file-read-async}에서 볼드체로 표시된 부분이 콜백(callback) 함수이다. 콜백 함수는 메서드의 실행 결과를 인자로 받는 함수로, \cd{fs.readFile} 메서드는 파일 읽기를 실패한 경우 \cd{err} 인자에 에러 객체를 넘겨주고, 성공한 경우 읽은 데이터를 \cd{data} 인자에 넘겨줍니다. 이렇듯 콜백 함수를 사용하여 비동기적으로 수행된 코드의 결과를 사용할 수 있습니다. 
+\coderef{code:big-file-read-async}에서 볼드체로 표시된 부분이 콜백(callback) 함수이다. 콜백 함수는 메서드의 실행 결과를 인자로 받는 함수로, \cd{fs.readFile} 메서드는 파일 읽기를 실패한 경우 \cd{err} 인자에 에러 객체를 넘겨주고, 성공한 경우 읽은 데이터를 \cd{data} 인자에 넘겨줍니다. 이렇듯 콜백 함수를 사용하여 비동기적으로 수행된 코드의 결과를 사용할 수 있습니다.
 
-그러나 콜백을 이용한 비동기 프로그래밍은 여러 가지 문제점이 있다. 가장 대표적인 문제점은 콜백 지옥(callback hell)이다. 콜백 함수 내에서 또 비동기 함수를 사용하여 콜백을 호출하는 등의 코드가 반복되면, 들여쓰기(indent)가 계속되어 코드의 깊이가 점점 깊어진다. \coderef{code:callback-hell}\은 callback hell이 나타날 수 있는 하나의 예시이다. 적당한 들여쓰기는 코드의 흐름을 파악하기 쉽게 하지만, 지나친 들여쓰기는 코드의 가독성을 현저히 저해시킨다. 
+그러나 콜백을 이용한 비동기 프로그래밍은 여러 가지 문제점이 있다. 가장 대표적인 문제점은 콜백 지옥(callback hell)이다. 콜백 함수 내에서 또 비동기 함수를 사용하여 콜백을 호출하는 등의 코드가 반복되면, 들여쓰기(indent)가 계속되어 코드의 깊이가 점점 깊어진다. \coderef{code:callback-hell}\은 callback hell이 나타날 수 있는 하나의 예시이다. 적당한 들여쓰기는 코드의 흐름을 파악하기 쉽게 하지만, 지나친 들여쓰기는 코드의 가독성을 현저히 저해시킨다.
 
 \begin{codeenv}{code:callback-hell}{Example of Callback Hell}\begin{verbatim}
 const fs = require('fs');
@@ -82,7 +82,7 @@ fs.readFile('db.info', (err, data) => {
 \end{verbatim}
 \end{codeenv}
 
-따라서, callback 함수의 문제점을 해결하여 비동기 처리를 할 필요가 있다. 
+따라서, callback 함수의 문제점을 해결하여 비동기 처리를 할 필요가 있다.
 
 \subsection*{async/await}
 
@@ -109,12 +109,12 @@ console.log('bar');
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:big-file-read-async-await}\은 \coderef{code:big-file-read-async}\를 async/await 방식으로 작성한 코드이다. \coderef{code:big-file-read-async}에 비해 코드가 훨씬 간결해지고, 가독성이 향상된 것을 볼 수 있다. async/await 방식은 몇 가지 특징이 있다. 
+\coderef{code:big-file-read-async-await}\은 \coderef{code:big-file-read-async}\를 async/await 방식으로 작성한 코드이다. \coderef{code:big-file-read-async}에 비해 코드가 훨씬 간결해지고, 가독성이 향상된 것을 볼 수 있다. async/await 방식은 몇 가지 특징이 있다.
 
 \begin{itemize}
     \item 비동기 함수는 함수의 앞에 \cd{async} 키워드를 붙여 비동기 함수임을 표시한다.
     \item 비동기 함수를 호출할 때 \cd{await} 키워드를 사용하면 함수가 끝날 때까지 기다리며, 사용하지 않으면 기다리지 않고 다음 코드를 실행한다.
-    \item await 키워드는 비동기 함수 내에서만 사용 가능하다. 
+    \item await 키워드는 비동기 함수 내에서만 사용 가능하다.
     \item 사용하고자 하는 비동기 함수를 \cd{util.promisify} 메서드를 이용하여 promisify한 후 사용해야 한다.
 \end{itemize}
 
@@ -137,6 +137,6 @@ const readFile = util.promisify(fs.readFile);
 \end{verbatim}
 \end{codeenv}
 
-async/await 방식을 사용하면, callback hell 역시 해결할 수 있습니다. \coderef{code:callback-hell-resolved}\는 \coderef{code:callback-hell}\을 async/await 방식으로 작성한 코드로, callback hell이 해결되어 가독성이 높아진 것을 확인할 수 있다. 
+async/await 방식을 사용하면, callback hell 역시 해결할 수 있습니다. \coderef{code:callback-hell-resolved}\는 \coderef{code:callback-hell}\을 async/await 방식으로 작성한 코드로, callback hell이 해결되어 가독성이 높아진 것을 확인할 수 있다.
 
 이렇듯 코드를 간결하게 바꾸어주는 async/await 방식도 단점이 존재한다. async/await 방식은 자체적인 에러 처리가 불가능하므로 에러 처리는 \coderef{code:big-file-read-async-await}\과 같이 JS에 내장된 try...catch문을 사용하여야 한다. try...catch문을 사용한 에러 처리가 가독성 측면에선 깔끔하지만, JS의 try...catch문은 속도가 느리다는 단점을 가지고 있어 async/await 방식을 이용하였을 때 성능 저하가 나타날 수 있다.

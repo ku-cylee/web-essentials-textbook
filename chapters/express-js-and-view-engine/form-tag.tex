@@ -1,1 +1,35 @@
 \section{\texttt{form} Tag}\label{sect:form-tag}
+
+\subsection*{브라우저에서의 POST 요청}
+
+이제까지 웹 애플리케이션에 POST 요청을 보내기 위해서 Insomnia 프로그램을 사용하였습니다. 그러나 대부분 사용자는 Insomnia와 같은 프로그램을 사용하지 않고, 인터넷 브라우저에 띄워진 웹 페이지에서 요청을 보냅니다. 그러므로 HTML 문서에서, \cd{body} 데이터와 함께 POST 요청을 보낼 수 있어야 합니다.
+
+\cd{form} 태그는 HTML에서 이러한 작업을 가능하게 해줍니다. \cd{form} 태그로 요청을 보낼 때 HTTP 메서드는 \cd{method} 속성의 값을, 요청 경로는 \cd{action} 속성의 값을 따르며, \cd{form} 태그 요소 안쪽에 있는 버튼 요소가 클릭 되면 요청을 보냅니다. 이 버튼 요소는 \cd{button} 태그나 \cd{input} 태그이며, \cd{type} 속성의 값이 \cd{submit}이어야 합니다.
+
+버튼 요소가 클릭되어 요청을 보낼 때는 해당 \cd{form} 요소 내부의 모든 입력 요소(\cd{input} 태그, \cd{textarea} 태그 등)의 데이터를 HTTP 요청의 \cd{body}에 속성 이름 – 속성값의 형태로 보냅니다. 각 입력 요소의 \cd{name} 속성의 값이 속성 이름, \cd{value} 속성의 값이 속성값이 됩니다.
+
+views/login.pug를 \coderef{code:form-tag}\와 같이 작성하고, index.js에 GET / 요청에 대해 login.pug 템플릿 파일을 렌더링하고, POST /login 요청에 대해 \cd{body} 객체의 정보를 출력하는 애플리케이션을 구현해보세요.
+
+\begin{codeenv}{code:form-tag}{form Tag Example - views/login.pug}\begin{verbatim}
+doctype html
+html
+    head
+        title Login Page
+    body
+        form(method='post', action='/login')
+            div
+                label Username:
+                input#username-input(name='username', type='text')
+            div
+                label Password:
+                input#password-input(name='password', type='password')
+            div
+                div Introduce yourself
+                textarea#introduction-input(name='introduction')
+            button(type='submit') Submit
+\end{verbatim}
+\end{codeenv}
+
+\cd{form} 태그에서 현재 페이지의 경로와 HTTP 요청 경로가 동일하면, \cd{action} 속성은 생략하여도 됩니다. \cd{action} 속성을 생략하였을 때, 웹 애플리케이션이 제대로 작동하도록 프로그램을 수정해봅시다.
+
+이렇게 \cd{form} 태그를 이용하여 클라이언트에서 서버로 원하는 형태의 요청을 전송할 수 있습니다.

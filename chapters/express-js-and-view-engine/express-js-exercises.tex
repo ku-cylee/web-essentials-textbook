@@ -1,1 +1,27 @@
 \section{Express.js Exercises}\label{sect:express-js-exercises}
+
+\subsection*{Exercise 1}
+GET / 요청을 받으면 GET /, POST / 요청을 받으면 POST /라는 응답을 반환하는 Express.js 애플리케이션을 구현하고, 테스트해봅니다. PUT과 DELETE 메서드로도 확장해봅니다. (\cd{Router}를 사용하지 않고, \cd{app} 객체의 메서드를 그대로 사용하여 라우팅합니다.)
+
+\subsection*{Exercise 2}
+요청 객체(\cd{req})의 query와 body를 분석해보는 예제입니다. 요청에 관해 전달되는 상세한 정보는 query라고 하며, POST, PUT, DELETE 등의 메서드에서 전달되는 입력 데이터는 body라고 합니다. Express.js에서 body 데이터를 정상적으로 받으려면 \coderef{code:express-urlencoded}\와 같이 미들웨어 설정을 해주어야 합니다.
+
+\begin{codeenv}{code:express-urlencoded}{Express \cd{urlencoded} Config}\begin{verbatim}
+app.use(express.urlencoded({ extended: true }));
+\end{verbatim}
+\end{codeenv}
+
+GET / 요청을 받으면 \cd{req.query} 객체를, POST / 요청을 받으면 \cd{req.body} 객체를 문자열 형태로 변환하여 응답으로 반환하는 애플리케이션을 구현하세요. 객체 \cd{obj}는 \coderef{code:stringfy-mappable-object}\와 같이 문자열로 변환할 수 있습니다.
+
+\begin{codeenv}{code:stringfy-mappable-object}{Stringify Mappable Object obj}\begin{verbatim}
+Object.keys(obj).map(k => `${k}: ${obj[k]}`).join('\n');
+\end{verbatim}
+\end{codeenv}
+
+Insomnia에서는 Form 탭에서 Form URL Encoded를 선택하여 body 데이터를 작성하면 됩니다.
+
+\subsection*{Exercise 3}
+
+웹 애플리케이션은 필요한 데이터를 query 뿐만 아니라, 경로에 직접 받을 수도 있습니다. 예를 들어, 게시판의 10번째 페이지를 GET /board?page=10 경로로 요청받을 수도 있지만, GET /board/page/10 경로로 요청받도록 구현할 수도 있습니다. 이러한 형태의 URL을 semantic URL이라고 합니다. 이때, 경로에서 몇 번째 페이지에 해당하는지에 대한 부분은 가변적이기 때문에 앞에서 정의한 바와 같이 일일이 routing 할 수 없습니다. 이런 경우 가변적인 부분을 변수라고 표시하여 match 시켜야 합니다.
+
+위의 예시에서 제시된 경로는 /board/page/:page의 형태로 경로를 제시해주면 match됩니다. 앞에 콜론(\cd{:})이 붙은 부분은 그 부분이 가변적인 부분이라는 뜻이며, 이 부분의 값은 요청 객체의 \cd{params} 속성에 저장되어 있습니다. 이를 활용하여, GET /board/:page 경로로 요청을 받았을 때 몇 번째 페이지인지 알려주는 문자열을 생성하여 반환하는 Express.js 애플리케이션을 구현해보세요.
