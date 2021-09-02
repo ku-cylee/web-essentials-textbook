@@ -1,6 +1,14 @@
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{makecell}
+\usepackage{colortbl}
+
+\definecolor{tblheadcolor}{HTML}{DFE6F7}
+
+\newcommand\colc\centering
+\newcommand\coll\raggedright
+\newcommand\colr\raggedleft
+\newcommand\tw\textwidth
 
 \newlength{\thickarrayrulewidth}
 \setlength{\thickarrayrulewidth}{2.0\arrayrulewidth}
@@ -20,6 +28,6 @@
 \newenvironment{tblenv}[3]
     {\begin{table}[htb]
         \centering
-        \caption{#2 \label{#1}}
+        \caption{#2\label{#1}}
         \small\begin{tabular}{#3}\thickhline}
     {\thickhline\end{tabular}\end{table}}
