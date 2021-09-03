@@ -40,3 +40,8 @@
 \newenvironment{shellenv}[2]
     {\begin{mdframed}[style=codeframe]\begin{shell}[#2]\label{#1}\linespread{1.0}{\ }}
     {\end{shell}\end{mdframed}}
+
+\newtheorem{sql}{SQL}[chapter]
+\newenvironment{sqlenv}[2]
+    {\begin{mdframed}[style=codeframe]\begin{sql}[#2]\label{#1}\linespread{1.0}{\ }}
+    {\end{sql}\end{mdframed}}
