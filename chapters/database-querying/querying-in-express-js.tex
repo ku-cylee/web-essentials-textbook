@@ -1,1 +1,126 @@
 \section{Querying in Express.js}\label{sect:querying-in-express-js}
+
+\subsection*{DB Querying in Express.js App}
+
+Express.js에서는 \cd{mysql2} 모듈을 이용하여 MariaDB에 접근할 수 있습니다. Node.js 프로젝트를 생성하고, npm을 이용하여 \cd{mysql2}를 설치합니다.
+
+\begin{codeenv}{code:runquery-function-implementation}{Implementation of \cd{runQuery} Function (database.js)}\begin{verbatim}
+const mysql = require('mysql2/promise');
+
+const pool = mysql.createPool({
+    host: <db-host>,
+    port: <db-port>,
+    user: <db-username>,
+    password: <db-password>,
+    database: <db-name>,
+});
+
+const runQuery = async sql => {
+    try {
+        const conn = await pool.getConnection();
+        try {
+            const [result] = await conn.query(sql);
+            conn.release();
+            return result;
+        } catch (e) {
+            conn.release();
+            throw e;
+        }
+    } catch (e) {
+        throw (e);
+    }
+};
+
+module.exports = { runQuery };
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:runquery-function-implementation}\은 \cd{mysql2} 모듈을 이용하여 connection pool을 형성하고, SQL문 인자로 받아 실행시킨 후 그 결과를 반환하는 \cd{runQuery} 함수를 구현한 코드입니다. DB에 SQL문으로 querying을 할 때, 원래는 매번 사용자 이름과 비밀번호를 제시하여 연결을 생성한 후 DB에 데이터를 보내고 받아야 합니다.
+
+비유하자면 온라인 쇼핑몰에 접속하여 쇼핑하는데, 상품을 볼 때마다 매번 아이디와 비밀번호를 입력하여 로그인한다는 것인데, 상식적으로 이러한 구현은 너무 비효율적입니다. 그러므로 애플리케이션에서는 미리 연결을 생성하고 그 연결들의 모임인 connection pool을 만들어둔 후, 필요할 때마다 connection을 가져가서 사용하고, 사용이 끝나면 release 하여 pool에게 connection을 반납합니다.
+
+\begin{codeenv}{code:runquery-function-index}{Querying Using \cd{runQuery} Function (index.js)}\begin{verbatim}
+const { runQuery } = require('./database');
+
+(async () => {
+    const sql = "SELECT students.name, students.stdnt_num, attendance.score FROM attendance " +
+                "INNER JOIN students ON students.id = attendance.student " +
+                "INNER JOIN courses ON courses.id = attendance.course " +
+                "WHERE courses.name = 'Data Communications'";
+    const result = await runQuery(sql);
+    console.log(result);
+    console.log(result[0]);
+
+    const { name, stdnt_num, score } = result[0];
+    console.log(`name: ${name}, stdnt_num: ${stdnt_num}, score: ${score}`);
+})();
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:runquery-function-index}\는 앞서 구현한 database.js를 이용하여 DB 내의 데이터를 조회하고, 조회한 데이터를 변수에 저장하여 사용하는 코드입니다.
+
+\subsection*{SQL Injection}
+
+\coderef{code:runquery-function-implementation}\과 같은 구현은 언뜻 보기에 문제없는 코드이지만, 실제로는 SQL Injection이라는, 매우 잘 알려져 있고 치명적인 보안 취약점을 가지고 있습니다.
+
+\figures{fig:sql-injection}{Example of SQL Injection}{
+    \fig{images/database-querying/sql-injection.PNG}{.9}
+}
+
+Figure 5.1a는 \cd{users} 테이블에서 아이디와 비밀번호가 일치하는 row를 조회하는 SQL문입니다. 서버에서는 클라이언트로부터 아이디 값과 비밀번호 값을 받아, 이를 SQL문에 삽입한 뒤 실행하고, 그 결과에 따라 클라이언트가 올바른 인증을 요청하였는지 판단하면 됩니다.
+
+그런데 Figure 5.1a는 입력값에 따라 전혀 엉뚱한 조건으로 조회를 할 수 있는 SQL문입니다. 예를 들어, 서버를 공격하려고 하는 클라이언트에서, Figure 5.1b와 같이 비밀번호의 값으로 \cd{1234' OR '1'='1}와 같은 값을 보내면 어떤 일이 일어날까요?
+
+\cd{'1'='1'}은 항상 참이고, 참 값이 참여하는 OR 연산의 값은 항상 참입니다. 즉, \cd{SELECT}문의 \cd{WHERE} clause가 통째로 참이 되고, Figure 5.1c와 같이 모든 유저의 정보를 조회하는 SQL문과 같은 SQL문이 됩니다. 이렇게 되면 공격자가 다른 사용자의 아이디나 비밀번호를 알지 못해도 그 사용자의 정보에 접근할 수 있습니다.
+
+\begin{codeenv}{code:sql-injection-code}{SQL Injection Code}\begin{verbatim}
+const { runQuery } = require('./database');
+
+const viewScore = async (stdtName, stdntNum) => {
+    const sql = "SELECT students.name, attendance.score FROM students " +
+                "INNER JOIN attendance ON attendance.student = students.id " +
+                `WHERE name = '${stdtName}' AND stdnt_num = '${stdntNum}'`;
+    const result = await runQuery(sql);
+    console.log(result);
+};
+
+viewScore('stdt28', 'stdntnum28');
+viewScore('abcde', "1234' OR '1'='1");
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:sql-injection-code}\는 학생의 이름과 학번을 받아, 해당 학생의 성적을 출력하는 코드입니다. 이렇게 정의된 \cd{viewScore} 함수에 정상적인 인자값이 들어오면 의도한 로직이 정상적으로 실행됩니다.
+
+그러나 viewScore 함수에 Code 5.4와 같은 인자가 들어오면, 공격자는 그 어떤 학생의 이름과 학번을 알아내지 않고도 모든 학생의 성적을 조회할 수 있습니다.
+
+이러한 SQL Injection은 매우 기본적이고 대중적이면서, 치명적인 문제를 초래할 수 있는 보안 취약점입니다. 다행히도, SQL Injection을 방지하는 방법은 많이 개발되었고, DB와 통신하는 대부분 모듈에는 이러한 공격을 방지하는 기능이 탑재되어 있습니다.
+
+가장 대표적인 방법은 prepared statement를 이용한 방지입니다. 개발자가 실행하고자 하는 SQL문에서 사용자로부터 입력을 받는 부분을 미리 약속된 문자로 표시하여 prepared statement를 생성하고, 이 statement를 입력값과 함께 모듈에게 넘겨주면, 모듈은 입력값을 검증하여 입력값 그 자체로 인해 다른 기능을 수행하는 SQL문이 될 수 있는 부분을 제거하여 방지하면서 SQL문을 생성합니다.
+
+Prepared statement 작성 방식은 애플리케이션의 언어마다, 또 모듈마다 조금씩 다르지만, 대부분 경우 Figure 5.1d와 같이 물음표(\cd{?}) 문자를 사용하여 입력받는 부분을 표시합니다. \cd{mysql2} 모듈 역시 SQL Injection을 방지하는 기능이 탑재되어 있으며, 물음표 문자를 사용하여 입력받는 부분을 표시하면 됩니다.
+
+\begin{codeenv}{code:prepared-statement}{Prepared Statement}\begin{verbatim}
+const runQuery = async (query, data) => {
+    try {
+        const conn = await pool.getConnection();
+        try {
+            const sql = conn.format(query, data);
+            const [result] = await conn.query(sql);
+// (below omitted)
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:prepared-statement}\는 database.js에서 runQuery 함수를 SQL Injection에 대응할 수 있게 수정한 코드입니다. \cd{runQuery} 함수는 prepared statement(query)와 입력값(data)을 차례대로 배열 형태로 제공받아 SQL문을 생성하고, 이를 이용하여 DB와 통신합니다.
+
+\begin{codeenv}{code:using-prepared-statement}{Using Prepared Statement}\begin{verbatim}
+const viewScore = async (stdtName, stdntNum) => {
+    const sql = "SELECT students.name, attendance.score FROM students " +
+                "INNER JOIN attendance ON attendance.student = students.id " +
+                "WHERE name = ? AND stdnt_num = ?";
+    const result = await runQuery(sql, [stdtName, stdntNum]);
+    console.log(result);
+};
+\end{verbatim}
+\end{codeenv}
+
+\cd{runQuery} 함수의 형태가 수정되었으므로, index.js에서 \cd{runQuery} 함수를 사용하는 부분도 수정되어야 합니다. \coderef{code:using-prepared-statement}\는 index.js에서 \cd{runQuery} 함수를 호출하는 부분의 인자를 변경한 코드입니다. 이제 \coderef{code:sql-injection-code}\와 같이 \cd{viewScore} 함수를 실행하면 아무 데이터도 반환되지 않아, SQL Injection이 실제로 방어됨을 확인할 수 있습니다.
