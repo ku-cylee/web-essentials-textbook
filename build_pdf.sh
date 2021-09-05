@@ -1,1 +1,1 @@
-latexmk -synctex=1 --interaction=nonstopmode -file-line-error -xelatex -outdir=bin kweb-frontend.tex
+latexmk -synctex=1 --interaction=nonstopmode -file-line-error -xelatex -outdir=bin main.tex
