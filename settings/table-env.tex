@@ -13,6 +13,7 @@
 \newlength{\thickarrayrulewidth}
 \setlength{\thickarrayrulewidth}{2.0\arrayrulewidth}
 \renewcommand{\arraystretch}{2.0}
+\setlength\extrarowheight{-1pt}
 
 \makeatletter
 \def\thickhline{%
@@ -26,8 +27,8 @@
 \makeatother
 
 \newenvironment{tblenv}[3]
-    {\begin{table}[htb]
+    {\vspace{15pt}\begin{table}[htb]
         \centering
         \caption{#2\label{#1}}
         \small\begin{tabular}{#3}\thickhline}
-    {\thickhline\end{tabular}\end{table}}
+    {\thickhline\end{tabular}\vspace{15pt}\end{table}}
