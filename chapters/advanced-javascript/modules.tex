@@ -2,57 +2,73 @@
 
 \subsection*{Necessity of Modules}
 
-모듈(module)이란 외부의 영향을 받지 않는 독립적이고, 재사용이 가능한 코드의 묶음이다. 대체로 하나의 모듈에는 유사한 목적을 가진 상수, 메서드, 하위 모듈 등이 모여 있다. 예를 들어, C에는 strlen, strcat, strcpy 등 문자열을 다루는 함수들을 모아둔 string.h라는 헤더가 있고, Python에는 listdir, mkdir, rename 등 운영체제와 관련된 메서드를 모아둔 os라는 모듈이 있다. 마찬가지로 Node.js에도 파일 시스템을 다루기 위한 모듈, HTTP 요청을 보내고 응답을 받기 위한 모듈 등 특정 목적을 가진 코드들의 집합인 모듈들이 존재한다.
+모듈(module)이란 외부의 영향을 받지 않는 독립적이고, 재사용이 가능한 코드의 묶음으로, 대체로 하나의 모듈에는 유사한 목적을 가진 상수, 클래스, 메서드, 하위 모듈 등이 모여 있다. 예를 들어, C에는 \cd{strlen}, \cd{strcat}, \cd{strcpy} 등 문자열을 간편하게 다룰 수 있는 함수들을 모아둔 string.h라는 헤더가 있고, Python에는 \cd{listdir}, \cd{mkdir}, \cd{rename} 등 운영체제와 관련된 메서드를 모아둔 os라는 모듈이 있다. 마찬가지로 Node.js에도 유사한 목적을 가진 코드들의 집합인 모듈이 존재한다.
 
-앞서 언급한 파일 시스템을 다루기 위한 모듈, HTTP 요청을 보내고 응답을 받기 위한 모듈 등은 Node.js에서는 기본적으로 제공하는 내장 모듈이다. 내장 모듈에 대한 API 문서는 Node.js 홈페이지\footnote{https://nodejs.org/dist/latest-v12.x/docs/api/}에서 확인할 수 있다. 개발자는 내장 모듈 이외에도 자신만의 모듈을 제작하여, 자신의 코드를 목적에 맞게 분류하여 프로젝트를 구조화하거나, 자신이 원하는 기능을 모아둔 모듈을 제작할 수 있다.
+Node.js는 파일 시스템을 다루기 위한 모듈인 fs, HTTP 요청을 보내고 응답을 받는 모듈인 http 등을 내장 모듈의 형태로 기본적으로 제공하며, 내장 모듈의 API 문서는 Node.js 홈페이지에서 확인할 수 있다. 특히 http 모듈은 \coderef{code:nodejs-simple-web-server}(\pageref{code:nodejs-simple-web-server}쪽)에서 사용한 바 있다.
 
-Node.js를 이용하여 개발하면서, 개발자는 이러한 모듈을 다양하게 이용할 수 있다. 내장 모듈이나 자신이 제작한 모듈을 사용하거나, 패키지 매니저를 이용하여 완성도 있고 유용한 외장 모듈을 다운로드받아 사용할 수 있다. npm(node package manager)은 Node.js의 가장 대표적인 패키지 매니저로, 앞서 \sectref{sect:installing-and-running-node-js}에서 Node.js를 설치하는 과정에서 같이 설치한 바 있다. 최근에는 npm 이외에도 yarn 등의 패키지 매니저를 사용하기도 한다.
+내장 모듈 이외에도 인터넷 상에 배포된 외장 모듈을 npm이나 yarn과 같은 패키지 매니저를 통해 설치하여 사용할 수도 있고, 자신의 코드를 모듈화하고 분류하여 프로젝트를 구조화하거나, 자신이 원하는 기능을 모아둔 모듈을 제작할 수 있다.
 
-모듈을 전혀 사용하지 않고 완성도 있는 프로그램을 작성하는 것은 거의 불가능에 가깝다. 애플리케이션의 모든 기능을 개발자가 직접 하나하나 구현할 수는 있으나, 효율적인 개발이 불가능하고 코드가 매우 난잡해지는 등 가독성과 유지보수 측면에서 매우 나쁜 방법이다. 이번 장에서는 모듈을 사용하는 방법과 제작하는 방법에 대해 스터디할 것이다.
+소프트웨어 개발 과정에서 모듈을 적절히 도입하여 활용하는 것은 고수준(high-level) 애플리케이션의 개발자에게 필수적으로 요구되는 능력이다. 이론적으로 소프트웨어에서 사용되는 모든 기능을 직접 구현하는 것이 가능하긴 하지만, 구현하고자 하는 기능에 비해 요구되는 비용이 지나치게 많고 유지 및 보수가 매우 어렵기 때문에 지양되는 방법이다. 또한 모듈은 앞서 설명한 프로젝트의 구조화에서도 매우 중요한 역할을 한다. 이번 절에서는 이러한 모듈을 설치하고, 사용하고, 제작하는 방법을 다룬다.
 
-\subsection*{모듈의 설치}
+\subsection*{Installing External Module}
 
-외장 모듈은 npm을 이용하여 설치할 수 있다. 기본적으로, 모듈은 프로젝트마다 따로 설치하는 것이 원칙이다. 물론 전역(global)적으로 설치할 수는 있지만, 코드에 직접 사용되는 모듈은 dependency 측면에서 프로젝트별로 설치하는 것이 원칙이다.
+외장 모듈은 패키지 매니저를 통해 설치할 수 있으며, 본 교재에서는 \sectref{sect:node-js-platform}에서 설치한 npm을 이용한다. 프로젝트마다 사용하는 모듈의 버전이 달라 호환성 문제가 발생할 수 있기 때문에 모듈은 프로젝트마다 따로 설치하는 것이 원칙이다.
 
-\shellref{shell:external-module-install}은 hexo라는 모듈을 프로젝트에 설치하는 방법이다.
+\shellref{shell:external-module-install}은 프로젝트 폴더 내에 간단한 블로그를 빠르게 개발할 수 있는 프레임워크를 제공하는 hexo 모듈을 설치하는 방법이다. 설치가 완료되면 프로젝트 폴더 내에 ``node\_modules''라는 디렉토리가 생성되고, 그 안에 hexo를 비롯한 여러 디렉토리가 생성된 것을 확인할 수 있다.
 
 \begin{shellenv}{shell:external-module-install}{Installing External Module}\begin{verbatim}
 $ npm install hexo
 \end{verbatim}
 \end{shellenv}
 
-\subsection*{모듈의 생성}
+\subsection*{Generating Module}
 
-모듈은 하나의 파일이 하나의 모듈로 간주된다. \cd{module.exports}에 다른 파일에서 사용하고자 하는 상수, 함수, 객체 등의 값을 할당해주면, 모듈의 기능을 수행할 수 있다. \coderef{code:creating-module}은 모듈을 생성하는 예제이다.
+모듈은 하나의 파일이 하나의 모듈로 간주된다. \cd{module.exports}에 모듈 밖에서 사용할 상수, 함수, 객체 등의 값을 속성값으로 할당해주면, 다른 파일에서 이 모듈을 import하여 모듈 내의 상수, 함수, 객체 등을 사용할 수 있다. \coderef{code:creating-module}은 둥근 도형들의 넓이, 부피 등을 계산하는 모듈을 생성하는 예제이다.
 
-\begin{codeenv}{code:creating-module}{Creating Module - sayHello.js}\begin{verbatim}
-const format = (language, hello) => {
-    console.log(`Hello is "${hello}" in ${language}.`);
+\begin{codeenv}{code:creating-module}{Creating Module (circular-shapes.js)}\begin{verbatim}
+const PI = 3.14159265358;
+
+const round = number => Math.round(number * 100) / 100;
+
+const getCircumference = radius => round(2 * PI * radius);
+
+const getCircleArea = radius => round(PI * radius ** 2);
+
+const getCylinderSurfaceArea = (radius, height) => {
+    const circleArea = getCircleArea(radius);
+    const sideArea = getCircumference(radius) * height;
+    return round(2 * circleArea + sideArea);
 };
 
-export const english = () => {
-    return format('english', 'Hello');
-};
-
-export const spanish = () => {
-    return format('spanish', 'Hola');
-};
-
-export const french = () => {
-    return format('french', 'Bonjour');
-};
-
-export const german = () => {
-    return format('german', 'Guten Tag');
+module.exports = {
+    getCircumference: getCircumference,
+    getCircleArea: getCircleArea,
+    getCylinderSurfaceArea: getCylinderSurfaceArea,
+    getSphereVolume: radius => round(4 * PI * radius ** 3 / 3),
 };
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{모듈의 사용}
+다른 파일에서는 \coderef{code:creating-module}의 모듈의 변수, 상수, 함수 중 \cd{PI}, \cd{round}에는 접근할 수 없고, \cd{getCircumference}, \cd{getCircleArea}, \cd{getCylinderSurfaceArea}, \cd{getSphereVolume}에는 접근할 수 있다.
 
-모듈은 \cd{require} 함수를 사용하여 import할 수 있다. \cd{require} 함수는 모듈의 경로를 인자로 받는데, 내장 모듈이나 외장 모듈은 이름만 작성하면 되고, custom 모듈은 모듈을 사용하고자 하는 파일과의 상대 경로를 작성하면 됩니다.
+\begin{codeenv}{code:property-shorthand}{Property Shorthand}\begin{verbatim}
+module.exports = {
+    getCircumference,
+    getCircleArea,
+    getCylinderSurfaceArea,
+    getSphereVolume: radius => round(4 * PI * radius ** 3 / 3),
+};
+\end{verbatim}
+\end{codeenv}
 
-먼저, \coderef{code:import-internal-module}\은 내장 모듈인 \cd{path}를 import하여 \cd{path}라는 상수에 할당하고, 이를 사용하는 코드이다.
+\coderef{code:creating-module}에서 \cd{getCircleArea} 등과 같이 객체의 속성의 이름과 값에 할당되는 변수의 이름이 같을 경우 \coderef{code:property-shorthand}\와 같이 줄여쓸 수 있다.
+\newpage
+
+\subsection*{Importing and Using Module}
+
+모듈을 사용하기 위해서는 모듈을 \cd{require} 함수를 사용하여 import해야 한다. 내장 모듈이나 외장 모듈은 모듈의 이름을 \cd{require} 함수의 인자로 전달하고, 직접 생성한 모듈은 import하는 파일과의 상대 경로를 인자로 전달한다.
+
+먼저, \coderef{code:import-internal-module}\은 내장 모듈인 \cd{path}를 \cd{require} 함수를 이용해 import하여 \cd{path}라는 상수에 할당하고, 이를 사용하는 코드이다.
 
 \begin{codeenv}{code:import-internal-module}{Import Internal Module}\begin{verbatim}
 const path = require('path');
@@ -68,16 +84,29 @@ console.log(`path.extname = ${extname}`);
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:import-custom-module} 앞서 작성한 \cd{sayHello} 모듈을 import하고 사용하는 코드이다.
+\coderef{code:import-custom-module}\은 앞서 작성한 circular-shapes.js 모듈을 파일의 상대 경로를 \cd{require} 함수의 인자로 전달하여 import하고 사용하는 코드이다.
 
-\begin{codeenv}{code:import-custom-module}{Import Custom Module}\begin{verbatim}
-const sayHello = require('./sayHello');
+\begin{codeenv}{code:import-custom-module}{Import Custom Module \cd{circularShapes}}\begin{verbatim}
+const circularShapes = require('./circular-shapes');
 
-sayHello.english();
-sayHello.spanish();
-sayHello.french();
-sayHello.german();
+const r = 10;
+const h = 20;
+
+console.log(`Circumference = ${circularShapes.getCircumference(r)}`);
+console.log(`Circle Area = ${circularShapes.getCircleArea(r)}`);
+console.log(`Sphere Volume = ${circularShapes.getSphereVolume(r)}`);
+console.log(`Cylinder Surface Area = ${circularShapes.getCylinderSurfaceArea(r, h)}`);    
 \end{verbatim}
 \end{codeenv}
 
-\cd{require} 함수의 인자로 \cd{sayHello} 모듈 파일의 상대 경로가 들어간 것을 볼 수 있다.
+모듈 전체를 import한 \coderef{code:import-custom-module}\과는 달리 비구조화 할당을 이용하면 \coderef{code:import-part-module}\과 같이 모듈의 일부분만 import하여 사용할 수 있다.
+
+\begin{codeenv}{code:import-part-module}{Import Part of Module}\begin{verbatim}
+const { getCylinderSurfaceArea } = require('./circular-shapes');
+
+const r = 10;
+const h = 20;
+
+console.log(`Surface Area of Cylinder = ${getCylinderSurfaceArea(r, h)}`);
+\end{verbatim}
+\end{codeenv}

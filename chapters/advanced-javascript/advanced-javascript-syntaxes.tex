@@ -99,8 +99,8 @@ if (!foo) { ... }
 
 \begin{codeenv}{code:convert-truthy-falsy}{Converting Truthy and Falsy Values}\begin{verbatim}
 const emptyArray = [];
-const val1 = !!val1            // true
-const val2 = !!val1.length;    // false
+const val1 = !!emptyArray;         // true
+const val2 = !!emptyArray.length;  // false
 \end{verbatim}
 \end{codeenv}
 
