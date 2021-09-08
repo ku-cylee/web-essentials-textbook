@@ -133,4 +133,6 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 \end{verbatim}
 \end{codeenv}
 
-이 프로그램은 라우팅 기능을 미들웨어 형태로 router.js에 구현하고, 이를 index.js에서 모듈 형태로 import하여 \cd{app} 객체에 추가하여 구현하였다. 이렇게 \cd{Router} 객체와 모듈을 이용하여 라우팅과 관련된 코드를 분리하여 프로젝트를 구조화할 수 있다. \cd{use} 메서드의 \cd{'/'}는 /로 시작하는 경로는 \cd{router}에서 처리하라는 뜻으로, 이 값을 \cd{'/api'}로 바꾸면 GET /api, POST /api 등의 라우트로 접속해야 적절한 응답을 받을 수 있다. 여기에 router.js에서 \cd{get} 메서드의 인자를 \cd{'/'}에서 \cd{'/post'}로 바꾸면 GET /api/post로 요청을 보내야 ``GET /'' 응답을 받을 수 있다.
+이 프로그램은 라우팅 기능을 미들웨어 형태로 router.js에 구현하고, 이를 index.js에서 모듈 형태로 import하여 \cd{app} 객체에 추가하여 구현하였다. 이렇게 \cd{Router} 객체와 모듈을 이용하여 라우팅과 관련된 코드를 분리하여 프로젝트를 구조화할 수 있다.
+
+\cd{use} 메서드의 \cd{'/'}는 /로 시작하는 경로는 \cd{router}에서 처리하라는 뜻으로, 이 값을 \cd{'/api'}로 바꾸면 GET /api, POST /api 등의 라우트로 접속해야 적절한 응답을 받을 수 있다. 여기에 router.js에서 \cd{get} 메서드의 인자를 \cd{'/'}에서 \cd{'/post'}로 바꾸면 GET /api/post로 요청을 보내야 ``GET /'' 응답을 받을 수 있다.
