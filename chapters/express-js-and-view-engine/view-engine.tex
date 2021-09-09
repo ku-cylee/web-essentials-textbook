@@ -87,7 +87,7 @@ app.get('/', (req, res) => res.render('index.pug'));
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:pug-example-index-js}에서 GET /의 controller 함수를 \coderef{code:pug-example-get-index}\와 같이 수정한다. \cd{render} 메서드에 템플릿 파일의 상대 경로를 인자로 전달하면 템플릿 파일이 pug 모듈에 의해 HTML 문서로 변환(render)되어 응답으로 보내지게 된다. 이때 템플릿 파일의 상대 경로는 \coderef{code:pug-example-index-js}에서 \cd{set} 메서드를 통해 설정한 템플릿 폴더를 기준으로 한다.
+\coderef{code:pug-example-index-js}에서 GET /의 controller 함수를 \coderef{code:pug-example-get-index}\와 같이 수정한다. \cd{render} 메서드에 템플릿 파일의 상대 경로를 인자로 전달하면 템플릿 파일이 pug 모듈에 의해 HTML 문서로 변환(render)되어 응답으로 보내지게 된다. 이때 템플릿 파일의 상대 경로는 \coderef{code:pug-example-index-js}에서 \cd{set} 메서드를 통해 설정한 템플릿 디렉토리를 기준으로 한다.
 
 이제 서버를 실행하고, GET /에 요청을 보내 템플릿 문서가 잘 render되어 응답되었는지 확인한다.
 
