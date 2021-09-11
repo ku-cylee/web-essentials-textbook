@@ -36,7 +36,7 @@ const util = require('util');
 const getDirList = util.promisify(fs.readdir);
 const getFileStat = util.promisify(fs.stat);
 
-const PATH = './test';  // Your test directory
+const PATH = './test';
 
 const searchDirectory = async directory => {
     const files = await getDirList(directory);
