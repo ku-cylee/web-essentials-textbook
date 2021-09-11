@@ -57,7 +57,7 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \end{codeenv}
 
 \subsection*{\texttt{button} Tag}
-\texttt{button} 태그는 클릭할 수 있는 버튼을 생성하는 태그이다. 이 태그를 눌렀다가 놓았을 때 특정한 동작이 수행될 수 있으며, \texttt{input} 태그를 이용해서도 유사한 기능을 구현할 수는 있으나 디자인적 관점에서 \texttt{button} 태그가 더 편하므로 더 많이 사용한다. 
+\texttt{button} 태그는 클릭할 수 있는 버튼을 생성하는 태그이다. 이 태그를 눌렀다가 놓았을 때 특정한 동작이 수행될 수 있으며, \texttt{input} 태그를 이용해서도 유사한 기능을 구현할 수는 있으나 디자인적 관점에서 \texttt{button} 태그가 더 편하므로 더 많이 사용한다.
 
 \texttt{button} 태그에 중요한 속성으로는 \texttt{disabled}, \texttt{type} 등이 있다. \texttt{disabled} 속성을 설정하면 버튼은 비활성화되어 클릭할 수 없는 상태가 되며, \texttt{type}은 버튼을 눌렀을 때 수행되는 동작의 성격에 차이가 생긴다. 버튼을 눌렀을 때 동작이 수행되도록 하는 방법은 \chapref{ch:javascript-dynamic-frontend}에서 다룬다.
 
@@ -112,7 +112,7 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 \end{codeenv}
 
 \subsection*{Font Tags}
-글자의 폰트를 변경할 수 있는 태그들이다. 간단한 HTML 문서를 작성할 때는 쓰일 수 있으나, CSS를 활용하여 작성하는 것이 권장되기 때문에 자주 쓰이지는 않는다. 
+글자의 폰트를 변경할 수 있는 태그들이다. 간단한 HTML 문서를 작성할 때는 쓰일 수 있으나, CSS를 활용하여 작성하는 것이 권장되기 때문에 자주 쓰이지는 않는다.
 
 \begin{codeenv}{code:font-tags}{Font Tags}\begin{verbatim}
 <b>Bold Text</b><br>
@@ -138,7 +138,7 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
     \item \texttt{checkbox}: 선택 목록 중 여러 개 선택할 수 있음
 \end{itemize}
 
-\texttt{textarea} 태그는 \texttt{input} 태그와는 달리 여러 줄의 텍스트를 입력받을 수 있으며, 입력받는 부분의 크기나 설명 등은 속성을 이용하여 설정할 수 있다. \texttt{select}, \texttt{option} 태그는 여러 선택지 중 하나를 선택할 수 있는 drop-down 리스트를 만드는 태그이다. 
+\texttt{textarea} 태그는 \texttt{input} 태그와는 달리 여러 줄의 텍스트를 입력받을 수 있으며, 입력받는 부분의 크기나 설명 등은 속성을 이용하여 설정할 수 있다. \texttt{select}, \texttt{option} 태그는 여러 선택지 중 하나를 선택할 수 있는 drop-down 리스트를 만드는 태그이다.
 
 \begin{codeenv}{code:input-tags}{Input Tags}\begin{verbatim}
 <h3>Input username: </h3>
@@ -171,7 +171,7 @@ HTML에서는 공백( ), 줄 바꿈(\verb|\n|) 등의 whitespace 문자들은 �
 
 \subsection*{HTML Entities}
 
-HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 때문에, 이러한 문자들을 실제로 웹 페이지 상에 표시하고자 할 때 문제가 발생할 수 있다. \coderef{code:ineq-without-entity}\와 같이 작성된 HTML 문서는 어떤 문제가 발생할지 예상해보자. 
+HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 때문에, 이러한 문자들을 실제로 웹 페이지 상에 표시하고자 할 때 문제가 발생할 수 있다. \coderef{code:ineq-without-entity}\와 같이 작성된 HTML 문서는 어떤 문제가 발생할지 예상해보자.
 
 \begin{codeenv}{code:ineq-without-entity}{Improper Way of Displaying \texttt{<} and \texttt{>}}\begin{verbatim}
 <h3>This is how inequality <signs> look like.</h3>
@@ -203,7 +203,7 @@ HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 
 \end{codeenv}
 
 \subsection*{\texttt{div} and \texttt{span} Tag}
-HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이지를 디자인하고 추가 기능을 부여하기 위해서는 HTML을 구조화할 필요가 있다. 지금까지 살펴본 태그들은 모두 특정한 기능을 가진 태그들인데, 구조화할 때 사용되는 태그가 앞의 태그들처럼 특정한 기능을 갖는다면, HTML 코드의 구조가 엉망진창이 될 수 밖에 없다. 이러한 이유로 존재하는, 특정한 기능이 없고, HTML 요소들을 묶어서 레이아웃(layout)을 구성하기 위해 존재하는 태그를 non-semantic 태그라고 하며, \texttt{div}와 \texttt{span} 태그가 있다. 
+HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이지를 디자인하고 추가 기능을 부여하기 위해서는 HTML을 구조화할 필요가 있다. 지금까지 살펴본 태그들은 모두 특정한 기능을 가진 태그들인데, 구조화할 때 사용되는 태그가 앞의 태그들처럼 특정한 기능을 갖는다면, HTML 코드의 구조가 엉망진창이 될 수 밖에 없다. 이러한 이유로 존재하는, 특정한 기능이 없고, HTML 요소들을 묶어서 레이아웃(layout)을 구성하기 위해 존재하는 태그를 non-semantic 태그라고 하며, \texttt{div}와 \texttt{span} 태그가 있다.
 
 \texttt{div} 태그는 인접한 요소와 같은 줄에 있으려고 하지 않고, \texttt{span} 태그는 인접한 요소와 같은 줄에 있으려고 한다는 차이가 있다. \coderef{code:div-and-span-tags}\를 통해 이러한 특징을 확인해보자.
 
@@ -230,6 +230,6 @@ HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이�
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:div-and-span-tags}\를 조금만 관찰하면, 비슷한 기능이나 역할을 하는 요소들이 묶여있어 전체적인 구조를 파악하기 용이하다. 이렇게 \texttt{div}와 \texttt{span} 태그를 사용하는 것만으로도 그렇지 않았을 때보다 코드가 훨씬 구조화되고, 가독성이 대폭 좋아진 것을 확인할 수 있다. 
+\coderef{code:div-and-span-tags}\를 조금만 관찰하면, 비슷한 기능이나 역할을 하는 요소들이 묶여있어 전체적인 구조를 파악하기 용이하다. 이렇게 \texttt{div}와 \texttt{span} 태그를 사용하는 것만으로도 그렇지 않았을 때보다 코드가 훨씬 구조화되고, 가독성이 대폭 좋아진 것을 확인할 수 있다.
 
 \texttt{div}와 \texttt{span}은 대표적인 non-semantic 태그이지만, 개발자의 편의에 따라 예약되지 않은 태그 이름 사용하여 HTML 문서를 작성할 수 있다. 유사하게, 태그 속성 역시 예약되지 않은 속성의 이름과 속성값을 사용하여 HTML 문서를 작성하고, 이를 CSS와 JS에서 사용할 수 있다.

@@ -58,7 +58,7 @@ HTML의 각 요소는 \textbf{사각형 형태}의 레이아웃을 가지며, �
 \end{verbatim}
 \end{codeenv}
 
-Border에 관여하는 속성으로는 \texttt{border-width}, \texttt{border-style}, \texttt{border-color} 등이 있다. \texttt{border-height}는 테두리의 굵기, \texttt{border-style}은 테두리의 모양, \texttt{border-color}는 테두리의 색상을 나타내는 속성으로, 테두리의 모양은 \texttt{solid}, \texttt{dashed}, \texttt{dotted} 등의 값을 지정하여 테두리의 모양을 결정할 수 있다. 이 세 가지 속성은 각각 따로 작성하여도 되고, \texttt{border} 속성에 굵기, 모양, 색상 순으로 나열하여 작성할 수도 있다. \coderef{code:box-border-area}에서 \texttt{\#box} 요소의 \texttt{border} 속성이 이러한 방법으로 작성되었다. 
+Border에 관여하는 속성으로는 \texttt{border-width}, \texttt{border-style}, \texttt{border-color} 등이 있다. \texttt{border-height}는 테두리의 굵기, \texttt{border-style}은 테두리의 모양, \texttt{border-color}는 테두리의 색상을 나타내는 속성으로, 테두리의 모양은 \texttt{solid}, \texttt{dashed}, \texttt{dotted} 등의 값을 지정하여 테두리의 모양을 결정할 수 있다. 이 세 가지 속성은 각각 따로 작성하여도 되고, \texttt{border} 속성에 굵기, 모양, 색상 순으로 나열하여 작성할 수도 있다. \coderef{code:box-border-area}에서 \texttt{\#box} 요소의 \texttt{border} 속성이 이러한 방법으로 작성되었다.
 
 또한, 방향에 관한 키워드\footnote{CSS에서 문서의 위, 아래, 왼쪽, 오른쪽 방향의 키워드는 각각 \texttt{top}, \texttt{bottom}, \texttt{left}, \texttt{right}이다.}를 사용하여 네 면 중 하나의 면에만 특정 스타일을 지정해줄 수 있다. 예를 들어, 왼쪽 면에만 스타일을 적용하고 싶은 경우 \texttt{border-left} 속성에 스타일을 작성한다.
 
@@ -102,7 +102,7 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
     \thickhline
 \end{tblenv}
 
-\coderef{code:box-model-padding-margin}\을 참고하여 \texttt{padding}과 \texttt{margin}을 정하는 방법을 이해하고, 개발자 도구를 이용하여 box model의 각 부분이 웹 브라우저상에 어떻게 표시되는지 확인해보자. 
+\coderef{code:box-model-padding-margin}\을 참고하여 \texttt{padding}과 \texttt{margin}을 정하는 방법을 이해하고, 개발자 도구를 이용하여 box model의 각 부분이 웹 브라우저상에 어떻게 표시되는지 확인해보자.
 
 \begin{codeenv}{code:box-model-padding-margin}{Examining Box Model}\begin{verbatim}
 <style>
@@ -146,13 +146,13 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 
 \coderef{code:inline-and-block-example}에서 \texttt{h1} 태그와 \texttt{h2} 태그에 padding이나 margin이 전혀 부여되지 않았음에도 불구하고 서로 다른 줄에 배치되었다. 반대로, \texttt{h2} 태그 내부의 텍스트와 \texttt{span} 태그 내부의 텍스트는 서로 같은 줄에 배치되어 있다. 앞의 \sectref{sect:commonly-used-html-tags}에서 non-semantic 태그는 다른 요소와 같은 줄에 있으려고 하는지에 따라 \texttt{div} 태그와 \texttt{span} 태그로 나뉜다고 했던 것을 기억하는가? 이처럼 같은 줄에 다른 요소가 배치되는 것을 허용하는지에 따라 inline-level 요소와 block-level 요소로 구분할 수 있고, 이 성질은 \texttt{display} 속성을 이용하여 명시할 수 있다.
 
-먼저 \textbf{inline-level 요소}는 다른 요소와 같은 줄을 공유하고, content의 너비만큼만 가로 폭을 차지한다. Inline-level 요소에는 \texttt{width}, \texttt{height}, \texttt{margin-top}, \texttt{margin-bottom}, \texttt{padding} 등의 속성을 적용할 수 없으며, 그 내부에 inline-level 요소를 포함할 수 없다. \texttt{display} 속성값이 \texttt{inline}인 요소는 inline-level 요소의 성질을 가지며, \texttt{span}, \texttt{a}, \texttt{strong}, \texttt{img}, \texttt{br}, \texttt{input}, \texttt{select}, \texttt{textarea}, \texttt{button} 등의 태그는 기본적으로 inline-level 요소이다. 
+먼저 \textbf{inline-level 요소}는 다른 요소와 같은 줄을 공유하고, content의 너비만큼만 가로 폭을 차지한다. Inline-level 요소에는 \texttt{width}, \texttt{height}, \texttt{margin-top}, \texttt{margin-bottom}, \texttt{padding} 등의 속성을 적용할 수 없으며, 그 내부에 inline-level 요소를 포함할 수 없다. \texttt{display} 속성값이 \texttt{inline}인 요소는 inline-level 요소의 성질을 가지며, \texttt{span}, \texttt{a}, \texttt{strong}, \texttt{img}, \texttt{br}, \texttt{input}, \texttt{select}, \texttt{textarea}, \texttt{button} 등의 태그는 기본적으로 inline-level 요소이다.
 
 반대로 \textbf{block-level 요소}는 다른 요소와 같은 줄을 공유하지 않으며, 웹 페이지 화면의 가로 폭을 모두 차지하여 여러 block-level 요소들을 배치하면 수직 방향으로 배치된다. Block-level 요소에는 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 적용할 수 있으며, 그 내부에 inline-level 요소를 포함할 수 있다. \texttt{display} 속성값을 \texttt{block}인 요소는 block-level 요소의 성질을 갖게 되며, \texttt{div}, \texttt{h1}\textasciitilde\texttt{h6}, \texttt{p}, \texttt{ol}, \texttt{ul}, \texttt{li}, \texttt{hr}, \texttt{table}, \texttt{form} 등의 태그는 기본적으로 block-level 요소이다.
 
 그런데, 레이아웃을 구성하다 보면 요소들을 같은 줄에 배치하면서 \texttt{width}, \texttt{height}, \texttt{margin}, \texttt{padding} 등의 속성을 사용해야 하는 경우가 있다. 이러한 문제는 해당 요소의 \texttt{display} 값을 inline-level 요소의 성질과 block-level 요소의 성질을 모두 갖는 \texttt{inline-block}으로 지정하여 해결할 수 있다. 또한, \texttt{display} 값을 \texttt{none}으로 지정하면 해당 요소가 보이지 않아, 사용자로부터 숨길 수 있다.\footnote{유사한 속성으로는 \texttt{visibility: hidden}이 있으나, \texttt{display: none}과는 달리 요소가 공간을 차지하되 보이지만 않게끔 한다.}
- 
-\coderef{code:box-model-padding-margin}에서 \texttt{display} 속성의 값을 바꿔보며 이해해보자. 
+
+\coderef{code:box-model-padding-margin}에서 \texttt{display} 속성의 값을 바꿔보며 이해해보자.
 
 \subsection*{Position}
 
