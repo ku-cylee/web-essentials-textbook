@@ -15,7 +15,7 @@
 \begin{tblenv}
     {tab:departments-table-basic}
     {\cd{departments} Table}
-    {>{\colc}m{0.12\tw}|>{\colc}m{0.3\tw}|>{\colc}m{0.12\tw}}
+    {?>{\colc}m{0.12\tw}|>{\colc}m{0.3\tw}|>{\colc}m{0.12\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
     \cd{kor\_name} & \cd{eng\_name} & \cd{college}\tabularnewline
@@ -51,7 +51,7 @@
 \begin{tblenv}
     {tab:departments-table-pk}
     {\cd{departments} Table with Primary Key}
-    {>{\colc}m{0.05\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.3\tw}|>{\colc}m{0.12\tw}}
+    {?>{\colc}m{0.05\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.3\tw}|>{\colc}m{0.12\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
     \cd{id} & \cd{kor\_name} & \cd{eng\_name} & \cd{college}\tabularnewline
@@ -89,7 +89,7 @@ CREATE TABLE `departments` (
 \begin{tblenv}
     {tab:courses-table-pk-fk}
     {\cd{courses} Table with Primary Key and Foreign Key}
-    {>{\colc}m{0.05\tw}|>{\colc}m{0.16\tw}|>{\colc}m{0.11\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.07\tw}|>{\colc}m{0.07\tw}}
+    {?>{\colc}m{0.05\tw}|>{\colc}m{0.16\tw}|>{\colc}m{0.11\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.07\tw}|>{\colc}m{0.07\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
     \cd{id} & \cd{name} & \cd{department} & \cd{code} & \cd{is\_major} & \cd{is\_required} & \cd{credit} & \cd{period}\tabularnewline
@@ -141,7 +141,7 @@ CREATE TABLE `courses` (
 \begin{tblenv}
     {tab:colleges-table}
     {\cd{colleges} Table}
-    {>{\colc}m{0.05\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.25\tw}|>{\colc}m{0.08\tw}}
+    {?>{\colc}m{0.05\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.25\tw}|>{\colc}m{0.08\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
     \cd{id} & \cd{kor\_name} & \cd{eng\_name} & \cd{code}\tabularnewline
@@ -162,7 +162,7 @@ CREATE TABLE `courses` (
 \begin{tblenv}
     {tab:departments-table-fk}
     {\cd{departments} Table with Foreign Key}
-    {>{\colc}m{0.05\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.3\tw}|>{\colc}m{0.1\tw}}
+    {?>{\colc}m{0.05\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.3\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
     \cd{id} & \cd{kor\_name} & \cd{eng\_name} & \cd{college}\tabularnewline

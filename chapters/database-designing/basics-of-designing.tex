@@ -29,7 +29,7 @@ Java, Python 등의 프로그램에서 모든 변수가 자료형을 갖듯, DB�
 \begin{tblenv}
     {tab:courses-table-basic}
     {\cd{courses} Table}
-    {>{\colc}m{0.16\tw} | >{\colc}m{0.12\tw} | >{\colc}m{0.15\tw} | >{\colc}m{0.1\tw} | >{\colc}m{0.1\tw}}
+    {?>{\colc}m{0.16\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.15\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
     \cd{name} & \cd{code} & \cd{classification} & \cd{credit} & \cd{period}\tabularnewline
@@ -52,7 +52,7 @@ Java, Python 등의 프로그램에서 모든 변수가 자료형을 갖듯, DB�
 \begin{tblenv}
     {tab:courses-table-types}
     {\cd{courses} Table with Data Types}
-    {>{\colc}m{0.16\tw} | >{\colc}m{0.12\tw} | >{\colc}m{0.15\tw} | >{\colc}m{0.1\tw} | >{\colc}m{0.1\tw}}
+    {?>{\colc}m{0.16\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.15\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
     \cd{name} & \cd{code} & \cd{classification} & \cd{credit} & \cd{period}\tabularnewline
@@ -85,7 +85,7 @@ Java, Python 등의 프로그램에서 모든 변수가 자료형을 갖듯, DB�
 \begin{tblenv}
     {tab:courses-table-categories}
     {\cd{courses} Table with Categories}
-    {>{\colc}m{0.16\tw} | >{\colc}m{0.12\tw} | >{\colc}m{0.12\tw} | >{\colc}m{0.15\tw} | >{\colc}m{0.1\tw} | >{\colc}m{0.1\tw}}
+    {?>{\colc}m{0.16\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.15\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
     \cd{name} & \cd{department} & \cd{code} & \cd{classification} & \cd{credit} & \cd{period}\tabularnewline
@@ -119,7 +119,7 @@ Java, Python 등의 프로그램에서 모든 변수가 자료형을 갖듯, DB�
 \begin{tblenv}
     {tab:courses-table-subdivisions}
     {\cd{courses} Table with \cd{classification} Subdivisions}
-    {>{\colc}m{0.16\tw} | >{\colc}m{0.12\tw} | >{\colc}m{0.12\tw} | >{\colc}m{0.1\tw} | >{\colc}m{0.12\tw} | >{\colc}m{0.1\tw} | >{\colc}m{0.1\tw}}
+    {?>{\colc}m{0.16\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.11\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.11\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
     \cd{name} & \cd{department} & \cd{code} & \cd{is\_major} & \cd{is\_required} & \cd{credit} & \cd{period}\tabularnewline
@@ -145,7 +145,7 @@ Java, Python 등의 프로그램에서 모든 변수가 자료형을 갖듯, DB�
     \thickhline
 \end{tblenv}
 
-\subsection*{Handle Table With SQL}
+\subsection*{Create Table With SQL}
 
 앞에서 설계한 과목 테이블 \tblref{tab:courses-table-subdivisions}\를 SQL을 이용하여 DB에 생성해보자.
 
