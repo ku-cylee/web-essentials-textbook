@@ -45,13 +45,13 @@ HTTP 메서드(method)는 서버가 수행해야 할 동작의 종류를 나타�
 URL(Uniform Resource Locator)은 인터넷 상에서 특정 리소스의 위치를 나타내는 문자열로, 흔히 링크 혹은 주소라고 부르기도 한다. URL은 정해진 구조에 따라 리소스에 대한 위치 정보를 세부적으로 담고 있다.
 
 \figures{fig:url-structure}{Brief Structure of URL}
-    {\fig{images/introduction-to-back-end/url-structure.png}{.85}}
+    {\fig{images/introduction-to-back-end/url-structure.png}{.93}}
 
 \figref{fig:url-structure}\는 간단한 URL의 구조이다. 각 요소는 다음과 같은 정보를 나타낸다.
 
 \begin{itemize}
     \item protocol: 사용자가 요청을 보내 사용하고자 하는 애플리케이션의 프로토콜; http, https 뿐만 아니라 ftp, mailto 등의 프로토콜도 많이 사용된다.
-    \item host: 요청을 보내고자 하는 서버의 주소; 도메인 이름이나 아이피 주소가 사용된다 (예: google.com / korea.ac.kr / 8.8.8.8)
+    \item hostname: 요청을 보내고자 하는 서버의 주소; 도메인 이름이나 아이피 주소가 사용된다 (예: google.com / korea.ac.kr / 8.8.8.8)
     \item port: 서버에 접근하기 위한 관문의 번호; 이론적으로 0 이상, $2^{16}=65536$ 미만의 정수가 가능하고, 프로토콜의 기본 포트에 요청을 보낼 때에는 생략할 수 있다. http의 기본 포트는 80번.
     \item path: 서버상에 존재하는 리소스의 위치 경로; 최근에는 서버에 요청하고자 하는 작업을 추상적으로 나타낸다.
     \item query: 요청에 대한 상세한 조건과 그에 대응하는 값을 key-value pair 형태로 제시하는 요소; \cd{?} 문자로 query임을 나타내고, \cd{key=value}의 형태로 나타내며, 각 key-value pair는 \cd\& 문자를 사용하여 구분한다. (예: \cd{?bid=12\&page=3\&count=10})
