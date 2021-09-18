@@ -116,3 +116,19 @@ UPDATE <table-name> SET <c1>=<v1>, <c2>=<v2>, ..., <cn>=<vn> WHERE <condition>
 DELETE FROM <table-name> WHERE <condition>
 \end{verbatim}
 \end{sqlenv}
+
+\subsection*{Aggregate Functions}
+
+앞의 5.3장 실습에서 사용된 테이블에서, 특정 강의를 수강하는 학생들의 수를 구하는 방법을 생각해봅시다. \cd{SELECT}를 이용하여 학생들의 데이터를 모두 가져온 뒤, row의 수를 세면 학생들의 수를 구할 수 있습니다. 그러나 SQL문의 aggregate 함수를 이용하면, 이러한 계산을 직접 수행할 필요가 없습니다.
+
+Aggregate 함수란, 여러 row로 이루어진 데이터 그룹을 하나의 값으로 표현할 수 있는 함수로, 평균을 구하는 함수 \cd{Avg}, 총합을 구하는 함수 \cd{Sum}, 데이터의 개수를 구하는 함수 \cd{Count}, 최솟값을 구하는 함수 \cd{Min}, 최댓값을 구하는 함수 \cd{Max} 등이 있습니다. 예를 들어, \shellref{shell:aggregate-function}\은 credit이 4인 과목의 개수를 구하는 SQL문입니다.
+
+\begin{shellenv}{shell:aggregate-function}{Example of Using Aggregate Function}\begin{verbatim}
+> SELECT Count(id) FROM courses WHERE credit = 4;
+\end{verbatim}
+\end{shellenv}
+
+\subsection*{Advanced Select Options}
+
+% https://dev.mysql.com/doc/refman/8.0/en/select.html
+% GROUP BY, HAVING / ORDER BY, ASC, DESC / LIMIT, OFFSET
