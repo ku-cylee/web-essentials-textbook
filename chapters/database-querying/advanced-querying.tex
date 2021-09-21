@@ -1,0 +1,87 @@
+\section{Advanced Querying}\label{sect:advanced-querying}
+
+\tblref{tab:scores-table}\은 세 학생들의 세 과목에 대한 성적을 저장하는 \cd{scores} 테이블을 표로 나타낸 것이다. \coderef{code:scores-table-sql}\을 이용하면 \cd{scores} 테이블을 생성하고 데이터를 삽입할 수 있다.
+
+\begin{tblenv}
+    {tab:scores-table}
+    {\cd{scores} Table}
+    {?>{\colc}m{0.08\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.2\tw}|>{\colc}m{0.08\tw}?}
+    \thickhline
+    \rowcolor{tblheadcolor}
+    \cd{id} & \cd{student} & \cd{course} & \cd{score}\tabularnewline
+    \hline
+    1 & Barack & Discrete Mathematics & 87\tabularnewline
+    \hline
+    2 & Joe & Discrete Mathematics & 92\tabularnewline
+    \hline
+    3 & Barack & Machine Learning & 61\tabularnewline
+    \hline
+    4 & Donald & Operating Systems & 98\tabularnewline
+    \hline
+    5 & Joe & Machine Learning & 78\tabularnewline
+    \hline
+    6 & Donald & Discrete Mathematics & 58\tabularnewline
+    \hline
+    7 & Donald & Machine Learning & 82\tabularnewline
+    \hline
+    8 & Joe & Operating Systems & 66\tabularnewline
+    \thickhline
+\end{tblenv}
+
+\subsection*{Aggregate Functions}
+
+\cd{scores} 테이블에서 ``Machine Learning'' 강의의 시험 성적의 평균, 표준편차 등을 구하는 상황을 가정해보자. 앞의 \sectref{sect:crud-operations}에서 공부한 \cd{SELECT} 키워드를 이용하여 \cd{course} column의 값이 ``Machine Learning''인 모든 row를 읽은 뒤 \cd{score} column의 각 값을 이용하여 평균, 표준편차의 값을 각각 직접 계산해야 한다. 그러나 SQL문의 집계 함수를 사용하면 이러한 계산을 직접 수행하지 않아도 된다.
+
+집계 함수(aggregate function)란 여러 row로 이루어진 데이터의 집합을 하나의 값으로 표현할 수 있는 함수로, MariaDB(MySQL)에서는 20가지의 집계 함수\footnote{https://mariadb.com/kb/en/aggregate-functions/}를 지원하며, 그 중 7가지 함수만 소개한다.
+
+\begin{itemize}
+    \item \cd{Avg}: 평균값을 반환하는 함수
+    \item \cd{Count}: NULL이 아닌 값들의 개수를 반환하는 함수
+    \item \cd{Group\_concat}: 값들을 연결하여 생성된 문자열을 반환하는 함수
+    \item \cd{Max}: 최댓값을 반환하는 함수
+    \item \cd{Min}: 최솟값을 반환하는 함수
+    \item \cd{Stddev}: 표준편차를 반환하는 함수
+    \item \cd{Sum}: 총 합계를 반환하는 함수
+\end{itemize}
+
+\shellref{shell:avg-stddev-example}\은 집계 함수인 \cd{Avg}와 \cd{Stddev} 함수를 이용하여 ``Machine Learning'' 강의의 시험 성적의 평균과 표준편차를 구하는 예제이다.
+
+\begin{shellenv}{shell:avg-stddev-example}{Example of \cd{Avg} and \cd{Stddev}}\begin{verbatim}
+> SELECT Avg(`score`), Stddev(`id`) FROM `scores` WHERE `course` = 'Machine Learning';
+\end{verbatim}
+\end{shellenv}
+
+Row의 개수가 필요한 경우에는 \cd{Count} 함수의 인자로 \cd{*}(asterisk)를 넘겨주면 된다. \shellref{shell:count-concat-example}\은 \cd{Count}와 \cd{Group\_concat} 함수를 이용하여 \cd{score} column의 값이 80 이상, 90 미만인 학생의 수(\cd{B\_count})와 명단(\cd{students})을 조회하는 예제이다.
+
+\begin{shellenv}{shell:count-concat-example}{Example of \cd{Count} and \cd{Group\_concat}}
+\begin{verbatim}
+> SELECT Count(*) as `B_count`, Group_concat(`student`) as `students` FROM `scores`
+      WHERE `score` >= 80 AND `score` < 90;
+\end{verbatim}
+\end{shellenv}
+
+\cd{scores} 테이블에서 강의별 시험 결과를 조회해야 하는 경우도 있다. 이때 \cd{GROUP BY} clause를 이용하여 조회 데이터를 그룹화하고 그룹별로 집계 함수의 데이터를 얻을 수 있다. \shellref{shell:group-by-example}\은 \cd{scores} 테이블을 \cd{course} column의 값에 따라 그룹화하여 각 강의의 이름, 응시자 수, 평균, 표준편차를 조회하는 예제이다.
+
+\begin{shellenv}{shell:group-by-example}{Example of \cd{Count} and \cd{Group\_concat}}
+\begin{verbatim}
+> SELECT `course`, Count(*) as `cnt`, Avg(`score`) as `avg`, Stddev(`score`) as `stddev`
+      FROM `scores` GROUP BY `course`;
+\end{verbatim}
+\end{shellenv}
+
+\subsection*{Advanced Select Options}
+
+\cd{ORDER BY} 키워드를 이용하면 column의 값에 따라 row들을 정렬할 수 있다. \cd{ASC}는 오름차순, \cd{DESC}는 내림차순을 의미하며 기본값은 \cd{ASC}이다. \shellref{shell:order-by-example}\은 학생의 이름과 평균 성적을 평균 성적의 내림차순으로 정렬하여 조회한 예제이다.
+
+\begin{shellenv}{shell:order-by-example}{\cd{ORDER BY} Example}\begin{verbatim}
+> SELECT `student`, Avg(`score`) as `avg_score` FROM `scores`
+      GROUP BY `student` ORDER BY `avg_score` DESC;
+\end{verbatim}
+\end{shellenv}
+
+\cd{LIMIT} 키워드를 이용하면 조회 결과 중 \cd{offset}번째 row부터 \cd{row\_count}개의 row만 조회할 수 있으며, 이를 \cd{LIMIT offset, row\_count}의 형태로 작성한다. 이때 \cd{offset}은 0부터 count하며, 생략될 경우 기본값은 0이다. \shellref{shell:limit-example}\은 \cd{scores} 테이블에서 성적의 내림차순으로 정렬한 row 중 2번째 row부터 4개의 row를 조회하는 예제이다.
+
+\begin{shellenv}{shell:limit-example}{\cd{LIMIT} Example}\begin{verbatim}
+> SELECT * FROM `scores` ORDER BY `score` DESC LIMIT 2, 4;
+\end{verbatim}
+\end{shellenv}

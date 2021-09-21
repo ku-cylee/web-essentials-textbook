@@ -1,0 +1,18 @@
+\section{Database Querying Source Codes}\label{sect:database-querying-codes}
+
+\begin{codeenv}{code:scores-table-sql}{\cd{scores} Table SQL}\begin{verbatim}
+CREATE TABLE `scores` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `student` VARCHAR(32) NOT NULL,
+    `course` VARCHAR(32) NOT NULL,
+    `score` INT NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `scores` VALUES (1,'Barack','Discrete Mathematics',87),
+    (2,'Joe','Discrete Mathematics',92),(3,'Barack','Machine Learning',61),
+    (4,'Donald','Operating System',98),(5,'Joe','Machine Learning',78),
+    (6,'Donald','Discrete Mathematics',58),(7,'Donald','Machine Learning',82),
+    (8,'Joe','Operating System',66);
+\end{verbatim}
+\end{codeenv}
