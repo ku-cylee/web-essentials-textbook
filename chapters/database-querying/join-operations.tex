@@ -173,20 +173,7 @@ $ mysql –u<username> -p<password> -D<db-name> < <sql-file-path>
 \end{verbatim}
 \end{shellenv}
 
-\shellref{shell:import-sql-file}\은 \cd{sql-file-path} 경로에 위치한 SQL 파일을 \cd{db-name} DB에 import하는 명령어이다. 이때 \cd{username} 계정은 \cd{db-name} DB에 권한을 갖고 있어야 한다.
-
-\begin{codeenv}{code:join-example-sql}{SQL Join Example Data}\begin{verbatim}
-CREATE TABLE `tb1` (`id` INT, `data1` VARCHAR(4), PRIMARY KEY (`id`)) ENGINE=InnoDB;
-CREATE TABLE `tb2` (`id` INT, `data2` VARCHAR(4), PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
-INSERT INTO `tb1` VALUES (1,'1-1'),(6,'1-6'),(7,'1-7'),(8,'1-8'),(10,'1-10'),
-(11,'1-11'),(12,'1-12'),(13,'1-13'),(14,'1-14'),(15,'1-15');
-INSERT INTO `tb2` VALUES (2,'2-2'),(3,'2-3'),(4,'2-4'),(5,'2-5'),(7,'2-7'),(8,'2-8'),
-(9,'2-9'),(11,'2-11'),(13,'2-13'),(14,'2-14');
-\end{verbatim}
-\end{codeenv}
-
-\coderef{code:join-example-sql}\을 DB에 import한다. \cd{tb1} 테이블은 \cd{id}와 \cd{data1} column을, \cd{tb2} 테이블은 \cd{id}와 \cd{data2} column을 갖는다. \cd{INSERT} 키워드를 이용하여 각 테이블에 10개의 row를 삽입하였다.
+\shellref{shell:import-sql-file}\은 \cd{sql-file-path} 경로에 위치한 SQL 파일을 \cd{db-name} DB에 import하는 명령어로, 이를 이용하여 \coderef{code:join-example-sql}\을 DB에 import한다. 이때 \cd{username} 계정은 \cd{db-name} DB에 권한을 갖고 있어야 한다. \cd{tb1} 테이블은 \cd{id}와 \cd{data1} column을, \cd{tb2} 테이블은 \cd{id}와 \cd{data2} column을 가지며, 각 테이블에는 10개의 데이터가 삽입되어 있다.
 
 \begin{sqlenv}{sql:join}{\cd{SELECT} with Join Operation Syntax}\begin{verbatim}
 SELECT <columns> FROM <left-table>
@@ -194,7 +181,7 @@ SELECT <columns> FROM <left-table>
 \end{verbatim}
 \end{sqlenv}
 
-\sqlref{sql:join}\은 \cd{left-table} 테이블에 \cd{right-table} 테이블을 \cd{join-condition}을 만족하며 join한 테이블을 생성하고, 그 테이블에서 \cd{SELECT} 키워드를 이용해 데이터를 조회하는 SQL문이다.
+\sqlref{sql:join}\은 \cd{left-table} 테이블에 \cd{right-table} 테이블을 \cd{join-condition}을 만족하며 join\footnote{MariaDB(MySQL)에서 full outer join 연산은 각 테이블에서 데이터를 조회한 뒤 합집합을 생성하여야 한다. 그러나 full outer join은 자주 쓰이는 연산이 아니므로 본 교재에서는 생략한다.}한 테이블을 생성하고, 그 테이블에서 \cd{SELECT} 키워드를 이용해 데이터를 조회하는 SQL문이다.
 
 \begin{shellenv}{shell:sql-join-operations}{Join Operations Using SQL}\begin{verbatim}
 > SELECT `data1` FROM `tb1`;
@@ -208,7 +195,7 @@ SELECT <columns> FROM <left-table>
 \end{verbatim}
 \end{shellenv}
 
-\shellref{shell:sql-join-operations}\는 \cd{tb1} 테이블에 \cd{tb2} 테이블을 \cd{tb1.id = tb2.id} 조건 하에 join하는 예제\footnote{MariaDB(MySQL)에서 full outer join 연산은 각 테이블에서 데이터를 조회한 뒤 합집합을 생성하여야 한다. 그러나 full outer join은 자주 쓰이는 연산이 아니므로 본 교재에서는 생략한다.}이다. 각 join 방식에 따라 조회 결과가 어떻게 달라지는지 확인해본다.
+\shellref{shell:sql-join-operations}\는 \cd{tb1} 테이블에 \cd{tb2} 테이블을 \cd{tb1.id = tb2.id} 조건 하에 join하는 예제이다. 각 join 방식에 따라 조회 결과가 어떻게 달라지는지 확인해본다.
 
 Join 연산은 여러 테이블의 데이터를 동시에 다루기 때문에 서로 다른 테이블의 이름이 같은 column의 값을 조회하려고 하는 경우가 있다. \coderef{code:join-example-sql}의 예시에서도 \cd{tb1} 테이블의 \cd{id} column과 \cd{tb2} 테이블의 \cd{id} column은 서로 다른 column이지만 이름이 같다. 이때 \cd{id} column의 이름을 그냥 사용하면 SQL문 상에서 어느 테이블의 \cd{id} column인지 구분할 수 없다.
 

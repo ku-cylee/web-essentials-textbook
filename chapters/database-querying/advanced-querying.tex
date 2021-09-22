@@ -47,7 +47,8 @@
 \shellref{shell:avg-stddev-example}\은 집계 함수인 \cd{Avg}와 \cd{Stddev} 함수를 이용하여 ``Machine Learning'' 강의의 시험 성적의 평균과 표준편차를 구하는 예제이다.
 
 \begin{shellenv}{shell:avg-stddev-example}{Example of \cd{Avg} and \cd{Stddev}}\begin{verbatim}
-> SELECT Avg(`score`), Stddev(`id`) FROM `scores` WHERE `course` = 'Machine Learning';
+> SELECT Avg(`score`), Stddev(`score`) FROM `scores`
+      WHERE `course` = 'Machine Learning';
 \end{verbatim}
 \end{shellenv}
 
@@ -79,7 +80,7 @@ Row의 개수가 필요한 경우에는 \cd{Count} 함수의 인자로 \cd{*}(as
 \end{verbatim}
 \end{shellenv}
 
-\cd{LIMIT} 키워드를 이용하면 조회 결과 중 \cd{offset}번째 row부터 \cd{row\_count}개의 row만 조회할 수 있으며, 이를 \cd{LIMIT offset, row\_count}의 형태로 작성한다. 이때 \cd{offset}은 0부터 count하며, 생략될 경우 기본값은 0이다. \shellref{shell:limit-example}\은 \cd{scores} 테이블에서 성적의 내림차순으로 정렬한 row 중 2번째 row부터 4개의 row를 조회하는 예제이다.
+\cd{LIMIT} 키워드를 이용하면 조회 결과 중 \cd{offset}번째 row부터 \cd{row\_count}개의 row만 조회할 수 있으며, 이를 \cd{LIMIT <offset>, <row\_count>}의 형태로 작성한다. 이때 \cd{offset}은 0부터 count하고, 기본값은 0이다. \shellref{shell:limit-example}\은 \cd{scores} 테이블에서 성적의 내림차순으로 정렬한 row 중 2번째 row부터 4개의 row를 조회하는 예제이다.
 
 \begin{shellenv}{shell:limit-example}{\cd{LIMIT} Example}\begin{verbatim}
 > SELECT * FROM `scores` ORDER BY `score` DESC LIMIT 2, 4;
