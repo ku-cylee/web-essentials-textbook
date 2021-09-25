@@ -1,1 +1,98 @@
 \section{Database Querying Exercise Answers}\label{sect:database-querying-answers}
+
+\subsection*{Exercise 5.1}
+
+\begin{codeenv}{code:exercise-5-1-answer}{Exercise 5.1 Answer}\begin{verbatim}
+SELECT `id`, `c3`, `c5` FROM `crud` WHERE `c1` = 11 AND `c2` = 2;
+SELECT * FROM `crud` WHERE `c1` > 18 OR `c2` < 2;
+INSERT INTO `crud` (`c1`, `c2`, `c3`, `c5`) VALUES (7, 4, 'col101', 0);
+INSERT INTO `crud` VALUES (103, 3, 3, 'col103', DEFAULT, 1);
+SELECT * FROM `crud` WHERE `id` > 100;
+UPDATE `crud` SET `c3` = 'col0', `c5` = 0 WHERE `c1` > 4 AND `c1` < 9 AND `c2` = 1;
+SELECT * FROM `crud` WHERE `c1` > 4 AND `c1` < 9 AND `c2` = 1;
+DELETE FROM `crud` WHERE `c5` = 0;
+SELECT * FROM `crud` WHERE `c5` = 0;
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 5.2}
+
+\begin{codeenv}{code:exercise-5-2-answer}{Exercise 5.2 Answer}\begin{verbatim}
+-- (1)
+SELECT `types`.`name` AS `type`, `src`.`name` AS `srcStn`,
+        `dst`.`name` AS `dstStn`, `trains`.`departure`, `trains`.`arrival`
+FROM   `trains`
+       INNER JOIN `types` ON `types`.`id` = `trains`.`type`
+       INNER JOIN `stations` AS `src` ON `src`.`id` = `trains`.`source`
+       INNER JOIN `stations` AS `dst` ON `dst`.`id` = `trains`.`destination`
+ORDER  BY `departure`;
+
+-- (2)
+SELECT `trains`.`id`, `types`.`name` AS `type`,
+       `src`.`name` AS `srcStn`, `dst`.`name` AS `dstStn`,
+       Count(*) AS `occupied`, `types`.`maxseats` AS `maximum`
+FROM   `tickets`
+       INNER JOIN `trains` ON `trains`.`id` = `tickets`.`train`
+       INNER JOIN `types` ON `types`.`id` = `trains`.`type`
+       INNER JOIN `stations` AS `src` ON `src`.`id` = `trains`.`source`
+       INNER JOIN `stations` AS `dst` ON `dst`.`id` = `trains`.`destination`
+GROUP  BY `tickets`.`train`
+ORDER  BY `trains`.`id`;
+
+-- (3)
+SELECT `users`.`id`, `users`.`name`, Sum(`trains`.`distance`) / 10 AS `totalDistance`
+FROM   `tickets`
+       INNER JOIN `trains` ON `trains`.`id` = `tickets`.`train`
+       INNER JOIN `users` ON `users`.`id` = `tickets`.`user`
+GROUP  BY `users`.`id`
+ORDER  BY `totaldistance` DESC
+LIMIT  20;
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 5.3}
+
+\begin{codeenv}{code:exercise-5-3-answer}{Exercise 5.3 Answer}\begin{verbatim}
+const express = require('express');
+const { runQuery } = require('./database');
+
+const app = express();
+const port = 3000;
+
+app.get('/passengers', async (req, res, next) => {
+    try {
+        const { tid } = req.query;
+        const sql = 'SELECT users.id, users.name, tickets.seatNumber FROM tickets ' +
+            'INNER JOIN trains ON trains.id = tickets.train AND trains.id = ? ' +
+            'INNER JOIN users ON users.id = tickets.user ORDER BY seatNumber'
+        const passengers = await runQuery(sql, [tid]);
+        return res.send(passengers.map(passenger => {
+            const { id, name, seatNumber } = passenger;
+            return `${name} (#${id}): Seat #(${seatNumber})`;
+        }).join('\n'));
+    } catch (err) {
+        console.error(err);
+        return res.sendStatus(500);
+    }
+});
+
+app.get('/train/status', async (req, res, next) => {
+    try {
+        const { tid } = req.query;
+        const sql = 'SELECT Count(*) AS occupied, maxSeats AS maximum FROM tickets ' +
+            'INNER JOIN trains ON trains.id = tickets.train AND trains.id = ? ' +
+            'INNER JOIN types ON types.id = trains.type';
+        const { occupied, maximum } = (await runQuery(sql, [tid]))[0];
+        const isSeatsLeft = occupied < maximum
+        return res.send(`Train ${tid} is ${isSeatsLeft ? 'not sold out' : 'sold out'}`);
+    } catch (err) {
+        console.error(err);
+        return res.sendStatus(500);
+    }
+});
+
+app.listen(port, () => console.log(`Server listening on port ${port}!`));
+\end{verbatim}
+\end{codeenv}
+
+database.js 모듈은 \coderef{code:runquery-function}\과 \coderef{code:prepared-statement}\를 참고하여라.

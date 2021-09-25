@@ -1,1 +1,49 @@
 \section{Database Querying Exercises}\label{sect:database-querying-exercises}
+
+\subsection*{Exercise 5.1}
+
+\shellref{shell:import-sql-file}\을 참고하여 DB에 \coderef{code:crud-table-sql}\을 import하여 테이블을 생성하고 데이터를 삽입하여라. \cd{crud} 테이블에는 100개의 데이터가 있다. 다음 작업들을 수행하는 SQL문을 각각 작성하여라.
+
+\begin{enumerate}
+    \item \cd{c1}이 11이고 \cd{c2}가 2인 row의 \cd{id}, \cd{c3}, \cd{c5} column을 조회
+    \item \cd{c1}이 18보다 크거나 \cd{c2}가 2보다 작은 row의 모든 column을 조회
+    \item \cd{id}와 \cd{c4}는 기본값, \cd{c1}은 7, \cd{c2}는 4, \cd{c3}는 ``col101'', \cd{c5}는 0인 row를 생성
+    \item \cd{id}는 103, \cd{c1}은 3, \cd{c2}는 3, \cd{c3}는 ``col103'', \cd{c4}는 기본값, \cd{c5}는 1인 row를 생성
+    \item \cd{id}가 100보다 큰 row의 모든 column을 조회
+    \item \cd{c1}이 4보다 크고 9보다 작고, \cd{c2}가 1인 row의 \cd{c3}를 ``col0'', \cd{c5}를 0으로 수정
+    \item \cd{c1}이 4보다 크고 9보다 작고, \cd{c2}가 1인 row의 모든 column을 조회
+    \item \cd{c5}가 0인 row를 삭제
+    \item \cd{c5}가 0인 row의 모든 column을 조회
+\end{enumerate}
+
+\subsection*{Intercity Trains and Tickets System}
+
+Exercise 5.2와 Exercise 5.3은 우리나라 간선열차 노선과 예매 현황을 나타내는 데이터베이스를 다루는 문제이다. \shellref{shell:import-sql-file}\을 참고하여 DB에 \coderef{code:train-system-sql-tables}\를 import하여 5개 테이블 \cd{stations}, \cd{types}, \cd{trains}, \cd{users}, \cd{tickets}를 생성하여라. 이후 \coderef{code:train-system-sql-data}\를 import하여 각 테이블의 데이터를 모두 import하여라.
+
+\cd{stations}는 6개의 역, \cd{types}는 5개의 열차 종류, \cd{trains}는 19개의 열차 노선, \cd{users}는 50명의 사용자, \cd{tickets}는 80개의 예매 현황을 나타내는 테이블이다.
+
+\subsection*{Exercise 5.2}
+
+다음 작업들을 수행하는 SQL문을 각각 작성하여라.
+
+\begin{enumerate}
+    \item 각 노선의 열차 종류(\cd{type}), 출발역(\cd{srcStn}), 도착역(\cd{dstStn}), 출발 시각(\cd{departure}), 도착 시각(\cd{arrival})을 출발 시각의 오름차순으로 모두 조회
+    \item 각 노선의 ID(\cd{id}), 열차 종류(\cd{type}), 출발역(\cd{srcStn}), 도착역(\cd{dstStn}), 예매된 좌석 수(\cd{occupied}), 최대 좌석 수(\cd{maximum})를 노선의 ID의 오름차순으로 모두 조회
+    \item 각 사용자의 ID(\cd{id}), 이름(\cd{name}), 총 거리(\cd{totalDistance})를 총 거리의 내림차순으로 상위 20명만 조회
+\end{enumerate}
+
+\cd{totalDistance}는 km 단위로 나타내어야 하는데, \cd{trains} 테이블의 \cd{distance}는 100m 단위, 즉 값이 300이면 30km이다. Column의 값을 상수값으로 나누는 연산은 \coderef{code:column-division-constant}\와 같이 할 수 있다.
+
+\begin{codeenv}{code:column-division-constant}{Column Divison by Constant}\begin{verbatim}
+SELECT `foo` / 500 AS `bar` FROM `tbl`;
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 5.3}
+
+다음 두 라우트를 갖는 웹 서버를 구현하여라. 모든 라우트는 plain text 형태로 응답하고, 인자값에 대한 검증은 하지 않아도 되며, 에러가 발생하면 \cd{console.error} 메서드를 이용하여 에러를 출력하고, 500 Internal Server Error를 응답하여야 한다.
+
+\begin{itemize}
+    \item GET /passengers: Query로 노선의 ID인 \cd{tid}를 받아 해당 노선을 예매한 모든 승객의 이름, ID, 좌석 번호를 좌석 번호의 오름차순으로 응답하는 라우트
+    \item GET /train/status: Query로 노선의 ID인 \cd{tid}를 받아 해당 노선이 매진되었는지 판단하여 응답하는 라우트 (Hint: 예매된 좌석 수와 최대 좌석 수를 조회하여 비교한다)
+\end{itemize}

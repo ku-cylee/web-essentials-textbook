@@ -27,3 +27,123 @@ INSERT INTO `scores` VALUES (1,'Barack','Discrete Mathematics',87),
     (8,'Joe','Operating Systems',66);
 \end{verbatim}
 \end{codeenv}
+
+\begin{codeenv}{code:crud-table-sql}{\cd{crud} Table SQL}\begin{verbatim}
+CREATE TABLE `crud` (
+    `id` INT NOT NULL AUTO_INCREMENT, `c1` INT NOT NULL, `c2` INT NOT NULL,
+    `c3` VARCHAR(8) NOT NULL, `c4` TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+	`c5` TINYINT(1) NOT NULL DEFAULT 1, PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `crud` (c1,c2,c3,c5) VALUES (5,5,'col1',1),(17,3,'col2',1),
+    (7,1,'col3',1),(12,1,'col4',1),(7,2,'col5',1),(20,2,'col6',1),(20,2,'col7',1),
+    (11,2,'col8',1),(13,2,'col9',1),(19,5,'col10',1),(5,4,'col11',1),(7,1,'col12',1),
+    (7,3,'col13',1),(16,5,'col14',0),(17,3,'col15',1),(15,2,'col16',1),(15,5,'col17',1),
+    (10,4,'col18',0),(14,2,'col19',1),(5,5,'col20',1),(8,5,'col21',1),(20,3,'col22',0),
+    (9,3,'col23',1),(10,1,'col24',1),(10,4,'col25',1),(4,4,'col26',1),(12,1,'col27',1),
+    (3,5,'col28',1),(14,5,'col29',1),(16,3,'col30',1),(3,3,'col31',1),(9,2,'col32',1),
+    (1,3,'col33',1),(15,5,'col34',0),(6,1,'col35',1),(2,2,'col36',1),(3,2,'col37',0),
+    (14,3,'col38',1),(6,3,'col39',1),(13,4,'col40',1),(19,4,'col41',1),(16,2,'col42',1),
+    (12,5,'col43',1),(14,1,'col44',0),(17,2,'col45',0),(18,3,'col46',1),
+    (18,5,'col47',1),(9,1,'col48',1),(16,3,'col49',1),(18,4,'col50',1),(18,4,'col51',0),
+    (11,3,'col52',0),(8,4,'col53',1),(4,4,'col54',0),(11,2,'col55',0),(14,3,'col56',1),
+    (9,2,'col57',1),(12,1,'col58',1),(5,4,'col59',1),(19,5,'col60',1),(12,5,'col61',1),
+    (6,5,'col62',1),(1,3,'col63',1),(1,1,'col64',0),(3,1,'col65',1),(7,2,'col66',1),
+    (18,2,'col67',1),(17,1,'col68',1),(11,5,'col69',1),(1,5,'col70',1),(20,5,'col71',1),
+    (8,1,'col72',1),(20,5,'col73',1),(2,3,'col74',1),(12,3,'col75',1),(5,3,'col76',1),
+    (2,1,'col77',1),(5,4,'col78',0),(5,4,'col79',1),(11,5,'col80',1),(19,5,'col81',1),
+    (16,3,'col82',1),(4,1,'col83',0),(9,1,'col84',0),(8,4,'col85',1),(20,3,'col86',1),
+    (15,1,'col87',1),(5,5,'col88',0),(2,1,'col89',1),(6,4,'col90',0),(14,2,'col91',1),
+    (3,2,'col92',1),(18,2,'col93',1),(14,3,'col94',1),(3,1,'col95',1),(1,3,'col96',1),
+    (12,4,'col97',0),(10,3,'col98',1),(11,3,'col99',1),(9,3,'col100',1);
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:train-system-sql-tables}{Train System Tables SQL}
+\begin{verbatim}
+CREATE TABLE `stations` (
+    `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(20) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE `types` (
+    `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(20) NOT NULL,
+    `maxSeats` VARCHAR(20) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE `trains` (
+    `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `type` INT NOT NULL,
+    `source` INT NOT NULL,
+    `destination` INT NOT NULL,
+    `departure` TIME NOT NULL,
+    `arrival` TIME NOT NULL,
+    `distance` INT NOT NULL,
+    FOREIGN KEY (`type`) REFERENCES `types`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`source`) REFERENCES `stations`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`destination`) REFERENCES `stations`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE `users` (
+    `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(20) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE `tickets` (
+    `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `train` INT NOT NULL,
+    `user` INT NOT NULL,
+    `seatNumber` INT NOT NULL,
+    FOREIGN KEY (`train`) REFERENCES `trains`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`user`) REFERENCES `users`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
+\end{verbatim}
+\end{codeenv}
+\newpage
+
+\begin{codeenv}{code:train-system-sql-data}{Train System Data SQL}
+\begin{verbatim}
+INSERT INTO `stations` VALUES (1,'Seoul'),(2,'Busan'),(3,'GwangjuSongjeong'),
+    (4,'Gangneung'),(5,'Suseo'),(6,'Yeosu EXPO');
+
+INSERT INTO `types` VALUES (1,'KTX',8),(2,'SRT',8),(3,'KTX-Eum',7),
+    (4,'ITX-Saemaeul',6),(5,'Mugunghwa',5);
+
+INSERT INTO `trains` VALUES (1,4,6,1,'08:55','13:24',4299),
+    (2,1,1,2,'14:30','17:11',4174),(3,3,4,1,'18:40','20:51',2231),
+    (4,1,2,1,'08:20','11:32',4174),(5,2,3,5,'13:00','14:37',2905),
+    (6,3,1,4,'09:01','10:57',2231),(7,1,2,1,'16:38','19:12',4174),
+    (8,3,4,1,'12:25','14:27',2231),(9,1,1,2,'07:30','10:12',4174),
+    (10,5,3,2,'10:31','16:04',3253),(11,2,5,3,'09:40','11:26',2905),
+    (12,5,1,2,'09:56','15:32',4417),(13,2,3,5,'16:25','18:32',2905),
+    (14,5,2,3,'06:17','11:59',3253),(15,1,1,6,'07:05','10:17',3956),
+    (16,4,3,1,'11:26','15:06',3473),(17,2,2,5,'14:30','16:58',4001),
+    (18,1,1,3,'17:38','19:20',3078),(19,1,6,1,'18:05','21:18',4299);
+
+INSERT INTO `users` VALUES (1,'Kelda'),(2,'Jaqueline'),(3,'Jaymes'),(4,'Elicia'),
+    (5,'Lenny'),(6,'Sissy'),(7,'Joni'),(8,'Axl'),(9,'Kenyon'),(10,'Marmaduke'),
+    (11,'Deanna'),(12,'Baldric'),(13,'Lorn'),(14,'Jayla'),(15,'Ellery'),(16,'Karen'),
+    (17,'Candis'),(18,'Charli'),(19,'Clint'),(20,'Phillip'),(21,'Glanville'),
+    (22,'Beauregard'),(23,'Azura'),(24,'Teale'),(25,'Esmond'),(26,'Mayme'),
+    (27,'Lincoln'),(28,'Arline'),(29,'Earleen'),(30,'Cher'),(31,'Alys'),(32,'Corbin'),
+    (33,'Krista'),(34,'Bill'),(35,'Jena'),(36,'Lola'),(37,'Journey'),(38,'Hylda'),
+    (39,'Norah'),(40,'Davy'),(41,'Trixie'),(42,'Alysia'),(43,'Karrie'),(44,'Dolph'),
+    (45,'Wil'),(46,'Roland'),(47,'Gayle'),(48,'Cindi'),(49,'Keila'),(50,'Asher');
+
+INSERT INTO `tickets` VALUES (1,17,1,8),(2,14,2,4),(3,4,3,3),(4,2,3,5),(5,4,4,2),
+    (6,2,4,1),(7,19,5,3),(8,10,6,4),(9,3,7,5),(10,19,8,4),(11,8,9,1),(12,18,9,8),
+    (13,17,10,6),(14,11,11,3),(15,16,11,6),(16,18,11,5),(17,11,12,4),(18,16,12,4),
+    (19,18,12,6),(20,15,13,4),(21,4,14,8),(22,2,14,2),(23,11,15,1),(24,13,15,5),
+    (25,16,16,1),(26,18,16,3),(27,18,17,7),(28,11,18,2),(29,16,18,3),(30,1,19,5),
+    (31,18,19,1),(32,4,20,1),(33,9,21,5),(34,6,22,5),(35,8,22,4),(36,2,22,4),
+    (37,6,23,3),(38,8,23,7),(39,2,23,3),(40,4,24,6),(41,18,24,4),(42,12,25,1),
+    (43,7,25,5),(44,10,26,2),(45,6,27,6),(46,8,27,2),(47,18,27,2),(48,3,28,7),
+    (49,19,29,6),(50,12,30,2),(51,11,31,8),(52,16,31,2),(53,1,32,4),(54,2,32,6),
+    (55,19,33,7),(56,5,34,4),(57,14,35,5),(58,16,36,5),(59,9,37,1),(60,7,37,1),
+    (61,11,38,5),(62,5,38,7),(63,7,39,8),(64,2,40,7),(65,9,41,6),(66,7,41,2),
+    (67,15,42,6),(68,10,43,3),(69,7,43,6),(70,14,44,2),(71,1,45,2),(72,9,46,7),
+    (73,17,46,4),(74,4,47,5),(75,2,47,8),(76,8,48,6),(77,14,49,3),(78,13,49,1),
+    (79,10,50,1),(80,7,50,7);
+\end{verbatim}
+\end{codeenv}
