@@ -39,6 +39,17 @@ SELECT `foo` / 500 AS `bar` FROM `tbl`;
 \end{verbatim}
 \end{codeenv}
 
+\figures{fig:train-system-sql-result}{\excref{exc:train-system-sql} Results}{
+    \subfig{fig:train-system-time-table}{Result (1)}
+        {images/database-querying/train-system-time-table.png}{.3536}
+    \subfig{fig:train-system-seats-table}{Result (2)}
+        {images/database-querying/train-system-seats-table.png}{.3914}
+    \subfig{fig:train-system-total-distance}{Result (3)}
+        {images/database-querying/train-system-total-distance.png}{.1550}
+}
+
+각 문제의 SQL문 실행 결과는 \figref{fig:train-system-sql-result}\와 같아야 한다.
+
 \subsection*{\excstref{exc:train-system-server}}
 
 다음 두 라우트를 갖는 웹 서버를 구현하여라. 모든 라우트는 plain text 형태로 응답하고, 인자값에 대한 검증은 하지 않아도 되며, 에러가 발생하면 \cd{console.error} 메서드를 이용하여 에러를 출력하고, 500 Internal Server Error를 응답하여야 한다.
@@ -47,3 +58,16 @@ SELECT `foo` / 500 AS `bar` FROM `tbl`;
     \item GET /passengers: Query로 노선의 ID인 \cd{tid}를 받아 해당 노선을 예매한 모든 승객의 이름, ID, 좌석 번호를 좌석 번호의 오름차순으로 응답하는 라우트
     \item GET /train/status: Query로 노선의 ID인 \cd{tid}를 받아 해당 노선이 매진되었는지 판단하여 응답하는 라우트 (Hint: 예매된 좌석 수와 최대 좌석 수를 조회하여 비교한다)
 \end{itemize}
+
+\figures{fig:train-system-server-example-result}{\excref{exc:train-system-server} Example Results}{
+    \subfig{fig:train-system-passengers-tid5}{GET /passengers?tid=5}
+        {images/database-querying/train-system-passengers-tid5.png}{.45}
+    \subfig{fig:train-system-passengers-tid16}{GET /passengers?tid=16}
+        {images/database-querying/train-system-passengers-tid16.png}{.45}
+    \subfig{fig:train-system-trainstatus-tid5}{GET /train/status?tid=5}
+        {images/database-querying/train-system-trainstatus-tid5.png}{.45}
+    \subfig{fig:train-system-trainstatus-tid16}{GET /train/status?tid=16}
+        {images/database-querying/train-system-trainstatus-tid16.png}{.45}
+}
+
+\figref{fig:train-system-server-example-result}\는 라우트에 따른 서버의 응답 예시이다.
