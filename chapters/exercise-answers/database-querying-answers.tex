@@ -1,8 +1,8 @@
 \section{Database Querying Exercise Answers}\label{sect:database-querying-answers}
 
-\subsection*{Exercise 5.1}
+\subsection*{\excref{exc:simple-crud}}
 
-\begin{codeenv}{code:exercise-5-1-answer}{Exercise 5.1 Answer}\begin{verbatim}
+\begin{codeenv}{code:simple-crud-answer}{\excref{exc:simple-crud} Answer}\begin{verbatim}
 SELECT `id`, `c3`, `c5` FROM `crud` WHERE `c1` = 11 AND `c2` = 2;
 SELECT * FROM `crud` WHERE `c1` > 18 OR `c2` < 2;
 INSERT INTO `crud` (`c1`, `c2`, `c3`, `c5`) VALUES (7, 4, 'col101', 0);
@@ -15,9 +15,9 @@ SELECT * FROM `crud` WHERE `c5` = 0;
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Exercise 5.2}
+\subsection*{\excref{exc:train-system-sql}}
 
-\begin{codeenv}{code:exercise-5-2-answer}{Exercise 5.2 Answer}\begin{verbatim}
+\begin{codeenv}{code:train-system-sql-answer}{\excref{exc:train-system-sql} Answer}\begin{verbatim}
 -- (1)
 SELECT `types`.`name` AS `type`, `src`.`name` AS `srcStn`,
         `dst`.`name` AS `dstStn`, `trains`.`departure`, `trains`.`arrival`
@@ -50,9 +50,9 @@ LIMIT  20;
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Exercise 5.3}
+\subsection*{\excref{exc:train-system-server}}
 
-\begin{codeenv}{code:exercise-5-3-answer}{Exercise 5.3 Answer}\begin{verbatim}
+\begin{codeenv}{code:train-system-server-answer}{\excref{exc:train-system-server} Answer}\begin{verbatim}
 const express = require('express');
 const { runQuery } = require('./database');
 

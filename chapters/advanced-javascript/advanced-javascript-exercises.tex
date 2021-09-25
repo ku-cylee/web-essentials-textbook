@@ -1,13 +1,13 @@
 \section{Advanced Javascript Exercises}\label{sect:advanced-javascript-exercises}
 
-\subsection*{Exercise 2.1}
+\subsection*{\excstref{exc:cases-module}}
 
 주어진 식을 참고하여 \cd{n}과 \cd{r}를 인자로 받아 순열(permutation), 조합(combination), 중복 순열(multiset permutation), 중복 조합(multiset combination) 값을 반환하는 메서드 \cd{permutation}, \cd{combination}, \cd{multiPermutation}, \cd{multiCombination}을 갖는 모듈 cases를 구현하여라.
 
 $$ \mathrm{Permutation}:~{}_n\mathrm{P}_r = \frac{n!}{(n-r)!}~~/~~\mathrm{Multiset~Permutation}:~n^r $$
 $$ \mathrm{Combination}:~\binom{n}{r} = \frac{n!}{(n-r)!~r!}~~/~~\mathrm{Multiset~Combination}:~\left(\kern-.3em\binom{n}{r}\kern-.3em\right) = \binom{n+r-1}{r} $$
 
-\begin{codeenv}{code:exercise-2-1-example}{Exercise 2.1 Example}\begin{verbatim}
+\begin{codeenv}{code:cases-module-example}{\excref{exc:cases-module} Example}\begin{verbatim}
 const cases = require('./cases');
 
 const n = 8;
@@ -21,9 +21,9 @@ console.log(`Multi Combination: ${cases.multiCombination(n, r)}`);
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:exercise-2-1-example}\은 cases 모듈을 이용하여 작성한 예시 코드이다. 이 코드를 실행하였을 때 결과는 \shellref{shell:exercise-2-1-result}\와 같아야 한다.
+\coderef{code:cases-module-example}\은 cases 모듈을 이용하여 작성한 예시 코드이다. 이 코드를 실행하였을 때 결과는 \shellref{shell:cases-module-example-result}\와 같아야 한다.
 
-\begin{shellenv}{shell:exercise-2-1-result}{Exercise 2.1 Example Result}\begin{verbatim}
+\begin{shellenv}{shell:cases-module-example-result}{\excref{exc:cases-module} Example Result}\begin{verbatim}
 $ node index.2.1.js
 n = 8, r = 3
 Permutation: 336
@@ -34,7 +34,7 @@ Multi Combination: 120
 \end{shellenv}
 \newpage
 
-\subsection*{Exercise 2.2}
+\subsection*{\excstref{exc:directory-search}}
 
 프로젝트 내의 test 디렉토리 내부를 모두 탐색하여 확장자가 js인 파일의 목록을 출력하고, 탐색 과정에서 에러가 발생하면 \cd{console.error} 메서드를 이용하여 에러를 출력하는 프로그램을 내장 모듈인 fs와 path 모듈의 다음 메서드들을 활용하여 구현하여라. 두 모듈의 API 문서\footnote{14.17.6 버전의 경우 https://nodejs.org/dist/latest-v14.x/docs/api}는 Node.js 홈페이지에서 확인할 수 있으며, 필요에 따라 \coderef{code:file-read-async-await}\과 같이 \cd{util.promisify} 메서드를 사용해야 한다.
 
@@ -43,7 +43,7 @@ Multi Combination: 120
     \item path: \cd{extname}, \cd{join}
 \end{itemize}
 
-\begin{shellenv}{shell:exercise-2-2-example}{Exercise 2.2 Example (On Linux)}\begin{verbatim}
+\begin{shellenv}{shell:directory-search-example}{\excref{exc:directory-search} Example (On Linux)}\begin{verbatim}
 $ tree test
 test
 ├── 01.js
@@ -70,9 +70,9 @@ test
 \end{verbatim}
 \end{shellenv}
 
-예를 들어 test 폴더의 내부 구조가 \shellref{shell:exercise-2-2-example}\과 같을 때, 프로그램의 실행 결과는 \shellref{shell:exercise-2-2-result}\와 같아야 한다.
+예를 들어 test 폴더의 내부 구조가 \shellref{shell:directory-search-example}\과 같을 때, 프로그램의 실행 결과는 \shellref{shell:directory-search-example-result}\와 같아야 한다.
 
-\begin{shellenv}{shell:exercise-2-2-result}{Exercise 2.2 Example Result}\begin{verbatim}
+\begin{shellenv}{shell:directory-search-example-result}{\excref{exc:directory-search} Example Result}\begin{verbatim}
 $ node index.2.2.js
 test\01.js
 test\02.js

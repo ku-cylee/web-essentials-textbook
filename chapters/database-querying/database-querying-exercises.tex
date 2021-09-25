@@ -1,6 +1,6 @@
 \section{Database Querying Exercises}\label{sect:database-querying-exercises}
 
-\subsection*{Exercise 5.1}
+\subsection*{\excstref{exc:simple-crud}}
 
 \shellref{shell:import-sql-file}\을 참고하여 DB에 \coderef{code:crud-table-sql}\을 import하여 테이블을 생성하고 데이터를 삽입하여라. \cd{crud} 테이블에는 100개의 데이터가 있다. 다음 작업들을 수행하는 SQL문을 각각 작성하여라.
 
@@ -18,11 +18,11 @@
 
 \subsection*{Intercity Trains and Tickets System}
 
-Exercise 5.2와 Exercise 5.3은 우리나라 간선열차 노선과 예매 현황을 나타내는 데이터베이스를 다루는 문제이다. \shellref{shell:import-sql-file}\을 참고하여 DB에 \coderef{code:train-system-sql-tables}\를 import하여 5개 테이블 \cd{stations}, \cd{types}, \cd{trains}, \cd{users}, \cd{tickets}를 생성하여라. 이후 \coderef{code:train-system-sql-data}\를 import하여 각 테이블의 데이터를 모두 import하여라.
+\excref{exc:train-system-sql}\과 \excref{exc:train-system-server}\는 우리나라 간선열차 노선과 예매 현황을 나타내는 데이터베이스를 다루는 문제이다. \shellref{shell:import-sql-file}\을 참고하여 DB에 \coderef{code:train-system-tables}\를 import하여 5개 테이블 \cd{stations}, \cd{types}, \cd{trains}, \cd{users}, \cd{tickets}를 생성하여라. 이후 \coderef{code:train-system-data}\를 import하여 각 테이블의 데이터를 모두 import하여라.
 
 \cd{stations}는 6개의 역, \cd{types}는 5개의 열차 종류, \cd{trains}는 19개의 열차 노선, \cd{users}는 50명의 사용자, \cd{tickets}는 80개의 예매 현황을 나타내는 테이블이다.
 
-\subsection*{Exercise 5.2}
+\subsection*{\excstref{exc:train-system-sql}}
 
 다음 작업들을 수행하는 SQL문을 각각 작성하여라.
 
@@ -39,7 +39,7 @@ SELECT `foo` / 500 AS `bar` FROM `tbl`;
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Exercise 5.3}
+\subsection*{\excstref{exc:train-system-server}}
 
 다음 두 라우트를 갖는 웹 서버를 구현하여라. 모든 라우트는 plain text 형태로 응답하고, 인자값에 대한 검증은 하지 않아도 되며, 에러가 발생하면 \cd{console.error} 메서드를 이용하여 에러를 출력하고, 500 Internal Server Error를 응답하여야 한다.
 
