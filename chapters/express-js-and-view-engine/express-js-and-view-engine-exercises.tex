@@ -1,6 +1,6 @@
 \section{Express.js and View Engine Exercises}\label{sect:express-js-and-view-engine-exercises}
 
-\subsection*{\excstref{exc:express-query-body}}
+\subsection*{\excstref{exc:express-query-body}: Access to Query and Body}
 
 GET 요청을 보낼 때는 query를 통해 서버에 데이터를 보내고, POST, PUT, DELETE 등의 요청을 보낼 때는 body를 통해 데이터를 보낸다.
 
@@ -30,7 +30,7 @@ GET / 요청을 받으면 query 데이터를, POST /, PUT /, DELETE / 요청을 
 Insomnia를 이용하여 \figref{fig:query-body-exercise}\와 같이 잘 동작하는지 확인해본다. Body 데이터는 [Body] 탭에서 ``Form URL Encoded''를 선택한 뒤 데이터를 입력하여 보낼 수 있다.
 \newpage
 
-\subsection*{\excstref{exc:express-params}}
+\subsection*{\excstref{exc:express-params}: Access to URL Parameters}
 
 웹 서버는 필요에 따라 데이터를 query와 body가 아닌 경로에 직접 받을 수도 있다. 예를 들어 게시판의 10번째 페이지를 GET /board?page=10 라우트를 통해 요청받을 수도 있지만, GET /board/page/10 라우트로 요청받도록 할 수도 있다. 이러한 형태의 URL을 semantic URL이라고 한다. 이러한 형태의 라우트는 경로에 가변적인 부분이 있기 때문에 가변적인 부분을 변수로 받는다.
 
@@ -43,10 +43,10 @@ Insomnia를 이용하여 \figref{fig:query-body-exercise}\와 같이 잘 동작�
         {images/express-js-and-view-engine/params-exercise-2.png}{.4}
 }
 
-\subsection*{\excstref{exc:express-factorial}}
+\subsection*{\excstref{exc:express-factorial}: Factorial Server with Redirection}
 
 \cd{number} 값을 받아 그 값의 팩토리얼 값을 텍스트로 응답하는 GET /factorial 라우트와 GET /factorial/:number 라우트를 구현하여라. 이때 GET /factorial은 \cd{number} 값을 query 형태로 받아 GET /factorial/:number 라우트로 리다이렉트한다. 예를 들어, GET /factorial?number=10으로 들어온 요청은 GET /factorial/10으로 리다이렉트되어야 한다.
 
-\subsection*{\excstref{exc:form-login}}
+\subsection*{\excstref{exc:form-login}: Login Server with \cd{form} Tag}
 
 \pageref{code:form-tag}쪽의 \coderef{code:express-urlencoded}\를 참고하여 로그인할 수 있는 웹 페이지를 응답하는 GET / 라우트와 로그인 페이지에서 받은 \cd{username}과 \cd{password} 값을 텍스트로 응답하는 POST /login 라우트를 구현하여라. 이때 사용자로부터 body 데이터를 제대로 받기 위해서 \coderef{code:express-urlencoded}\와 같이 미들웨어를 설정하여라.
