@@ -76,7 +76,7 @@ UPDATE <table-name> SET <c1>=<v1>, <c2>=<v2>, ..., <cn>=<vn> WHERE <condition>
 \end{verbatim}
 \end{sqlenv}
 
-\sqlref{sql:update}\는 \cd{UPDATE} 키워드를 사용한 SQL문의 기본적인 형태로, \cd{table-name} 테이블에서 \cd{condition}을 만족하는 row들의 column 중 \cd{c1} column의 값을 \cd{v1}, \cd{c2} column의 값을 \cd{v2}, ..., \cd{cn} column의 값을 \cd{vn}으로 수정하는 SQL문입니다.
+\sqlref{sql:update}\는 \cd{UPDATE} 키워드를 사용한 SQL문의 기본적인 형태로, \cd{table-name} 테이블에서 \cd{condition}을 만족하는 row들의 column 중 \cd{c1} column의 값을 \cd{v1}, \cd{c2} column의 값을 \cd{v2}, ..., \cd{cn} column의 값을 \cd{vn}으로 수정하는 SQL문이다.
 
 \begin{shellenv}{shell:sql-update-example}{\cd{UPDATE} Example}\begin{verbatim}
 > UPDATE `students` SET `credits` = 73, `is_attending` = 0 WHERE `dptmt` = 32;

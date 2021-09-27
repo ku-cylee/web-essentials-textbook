@@ -157,7 +157,11 @@ CREATE TABLE `courses` (
     \thickhline
 \end{tblenv}
 
-지금까지 관계가 있는 테이블을 기본 키와 외래 키를 이용하여 설계하는 방법에 대해 알아보았다. 이러한 구조는 nested 될 수 있으며, 단과대의 정보를 담은 \cd{colleges} 테이블을 만들어 \cd{departments} 테이블과의 관계를 생성할 수도 있다. \tblref{tab:colleges-table}\은 이러한 \cd{colleges} 테이블의 구조를 나타낸 것이다.
+지금까지 관계가 있는 테이블을 기본 키와 외래 키를 이용하여 설계하는 방법에 대해 알아보았다. 이러한 관계에서는 하나의 \cd{departments} row는 여러 \cd{courses} row에게 참조될 수 있고, 하나의 \cd{courses} row는 하나의 \cd{departments} row만 참조할 수 있으므로 one-to-many 관계라고 한다.
+
+앞의 예시를 더 확장하여 하나의 테이블에서 여러 column이 각각 하나의 테이블을 참조할 수 있고, 그 테이블들이 모두 같은 테이블일 수도 있으며, 심지어는 column이 속한 테이블을 다시 참조하여 tree 구조의 테이블을 생성할 수도 있다. 예를 들어 \cd{professors} 테이블을 생성하고 \cd{courses} 테이블에 \cd{professors} 테이블을 참조하는 \cd{professor} column을 생성할 수 있다.
+
+또한 이러한 구조는 nested 될 수 있어 단과대의 정보를 담은 \cd{colleges} 테이블을 생성하고, \cd{departments} 테이블에 \cd{colleges} 테이블을 참조하는 column을 생성할 수도 있다. \tblref{tab:colleges-table}\은 이러한 \cd{colleges} 테이블의 구조를 나타낸 것이다.
 
 \begin{tblenv}
     {tab:departments-table-fk}
@@ -174,10 +178,12 @@ CREATE TABLE `courses` (
     \hline
     2 & 화학과 & Chemistry & 2\tabularnewline
     \hline
-    3 & 물리학과 & Physics & 3\tabularnewline
+    3 & 물리학과 & Physics & 2\tabularnewline
     \hline
     4 & 언어학과 & Linguistics & 1\tabularnewline
     \thickhline
 \end{tblenv}
 
 \cd{colleges} 테이블의 데이터를 참조할 수 있도록 \cd{departments} 테이블을 \tblref{tab:departments-table-fk}\와 같이 수정할 수 있다.
+
+One-to-many 관계를 이용하여 many-to-many 관계를 나타낼 수도 있다. 예를 들어 \cd{students}라는 테이블이 있다고 가정하면, 한 학생은 여러 강의를 수강할 수 있고 한 강의에는 여러 학생이 참여할 수 있으므로 many-to-many 관계가 생성된다. 이러한 관계는 \cd{courses} 테이블을 참조하는 \cd{course} column과 \cd{students} 테이블을 참조하는 \cd{student} column을 갖는 \cd{attendance} 테이블을 생성하여 나타낼 수 있다.

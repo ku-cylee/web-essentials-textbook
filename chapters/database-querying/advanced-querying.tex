@@ -44,7 +44,7 @@
 \end{verbatim}
 \end{shellenv}
 
-\shellref{shell:arithmetic-calculation-alias}\은 \shellref{shell:arithmetic-calculation}에서 최종 성적 값을 \cd{AS} 키워드를 이용하여 \cd{total}로 명명하여 조회하는 SQL문이다. 이렇게 \cd{AS} 키워드를 이용하면 column 이름을 다른 이름으로 조회할 수 있으며, SQL문이 너무 길어지는 것을 방지할 수도 있다.
+\shellref{shell:arithmetic-calculation-alias}\은 \shellref{shell:arithmetic-calculation}에서 최종 성적 값을 \cd{AS} 키워드를 이용하여 \cd{total}로 명명하여 조회하는 SQL문이다. 이렇게 \cd{AS} 키워드를 이용하면 column 이름을 다른 이름으로 조회할 수 있으며, SQL문이 너무 길어지는 것을 방지할 수도 있다. 다만 \cd{AS} 키워드는 원래 column의 이름을 바꾸지 않는다.
 
 \begin{shellenv}{shell:arithmetic-calculation-round}{Rounding Column Value}\begin{verbatim}
 > SELECT *, Round(.45 * `midterm` + .55 * `final`, -1) AS `rough_total` FROM `scores`;
