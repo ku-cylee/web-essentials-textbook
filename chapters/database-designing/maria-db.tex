@@ -123,4 +123,53 @@ MariaDB [kweb_db]>
 
 \shellref{shell:create-and-use-db}\와 같이 \cd{CREATE DATABASE} 키워드를 이용하여 \cd{kweb\_db}라는 데이터베이스를 생성할 수 있고, \cd{USE} 키워드를 이용하여 작업 중인 데이터베이스를 \cd{kweb\_db}로 바꿀 수 있다.
 
-이렇게 SQL을 이용하여 데이터베이스의 목록을 조회하고, 생성해 보았다. 본 교재에서는 이후 DB shell을 표시할 때 커서 부분에서 DBMS와 DB의 이름은 생략한다.
+본 교재에서는 이후 DB shell을 표시할 때 커서 부분에서 DBMS와 DB의 이름은 생략한다.
+
+\subsection*{Database User}
+
+DBMS에는 여러 DB를 생성할 수 있고, 하나의 애플리케이션은 하나의 DB를 사용하는 것이 원칙이므로 여러 애플리케이션이 하나의 DBMS에 접속할 수 있다. root 계정은 소위 관리자 계정에 해당하는 계정으로 DBMS 전체를 조작할 수 있고 모든 DB에 접근하여 데이터를 조작할 수 있다. 그러므로 여러 애플리케이션에서 각자의 DB를 사용하기 위해서 모두 root 계정으로 접속하면 다른 애플리케이션이 사용하는 DB의 데이터를 수정하거나 DB 자체를 없애버리는 등의 조작이 일어날 수 있어 보안상의 문제가 발생할 수 있다. 따라서 관리자는 애플리케이션마다 적어도 하나의 사용자 계정을 생성하고, 각 사용자의 권한을 제한하여 DB 전체가 공격받는 일이 없도록 해야한다.
+
+\begin{sqlenv}{sql:create-user}{Create User}\begin{verbatim}
+CREATE USER '<username>'@'<host>' IDENTIFIED BY '<password>'
+\end{verbatim}
+\end{sqlenv}
+
+먼저 root 계정으로 DB에 로그인한 후, \sqlref{sql:create-user}\과 같이 사용자 계정을 생성한다. 이때 \cd{host}는 사용자가 접속하고자 하는 host로, 생성된 계정은 host에 해당하는 컴퓨터에서만 접속할 수 있다. \cd{host} 값을 \cd{\%}로 설정하면 모든 host에서 접속할 수 있다.
+
+\begin{shellenv}{shell:create-kwebuser-user}{Create \cd{kwebuser} User}\begin{verbatim}
+CREATE USER 'kwebuser'@'%' IDENTIFIED BY 'kwebpw';
+\end{verbatim}
+\end{shellenv}
+
+\shellref{shell:create-kwebuser-user}\는 모든 host로부터 접근할 수 있고, 비밀번호는 ``kwebpw''인 ``kwebuser'' 계정을 생성한 예시이다.
+
+\begin{shellenv}{shell:create-two-dbs}{Create Two DBs}\begin{verbatim}
+> CREATE DATABASE kwebdb1;
+> CREATE DATABASE kwebdb2;
+\end{verbatim}
+\end{shellenv}
+
+\shellref{shell:create-two-dbs}\와 같이 두 DB를 생성하고, ``kwebuser'' 사용자에게 \cd{kwebdb1}의 권한만 부여해보자.
+
+\begin{sqlenv}{sql:grant-all-privileges}{Grant All Privileges to User}\begin{verbatim}
+GRANT ALL PRIVILEGES ON <db-name>.* TO '<username>'@'<host>'
+\end{verbatim}
+\end{sqlenv}
+
+\sqlref{sql:grant-all-privileges}\는 사용자에게 \cd{db-name} DB의 모든 권한을 부여하는 SQL문이다. 모든 권한 외에도 옵션에 따라 특정 권한만 부여할 수 있다.
+
+\begin{shellenv}{shell:grant-kwebdb1-to-kwebuser}{Grant All Privileges of \cd{kwebdb1} Table to ``kwebuser'' User}\begin{verbatim}
+> GRANT ALL PRIVILEGES ON kwebdb1.* TO 'kwebuser'@'%';
+\end{verbatim}
+\end{shellenv}
+
+\shellref{shell:grant-kwebdb1-to-kwebuser}\와 같이 \cd{kwebuser} 사용자에게 \cd{kwebdb1} DB의 권한만 부여한다. 이제 root 계정에서 로그아웃하고 \shellref{shell:mariadb-login}\을 참고하여 \cd{kwebuser} 사용자로 로그인해본다.
+
+\begin{shellenv}{shell:kwebuser-access-db}{Accessing DB with ``kwebuser'' User}\begin{verbatim}
+$ mysql -ukwebuser -pkwebpw
+> USE kwebdb1;
+> USE kwebdb2;
+\end{verbatim}
+\end{shellenv}
+
+\shellref{shell:kwebuser-access-db}\와 같이 ``kwebuser'' 사용자로 로그인한 후, \cd{kwebdb1} DB와 \cd{kwebdb2} DB에 각각 접속을 시도해보면 \cd{kwebdb1}에는 접속할 수 있으나 \cd{kwebdb2}에는 접속이 불가능하다는 것을 확인할 수 있다.
