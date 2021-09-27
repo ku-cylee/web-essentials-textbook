@@ -32,12 +32,7 @@
     \item 각 사용자의 ID(\cd{id}), 이름(\cd{name}), 총 거리(\cd{totalDistance})를 총 거리의 내림차순으로 상위 20명만 조회
 \end{enumerate}
 
-\cd{totalDistance}는 km 단위로 나타내어야 하는데, \cd{trains} 테이블의 \cd{distance}는 100m 단위, 즉 값이 300이면 30km이다. Column의 값을 상수값으로 나누는 연산은 \coderef{code:column-division-constant}\와 같이 할 수 있다.
-
-\begin{codeenv}{code:column-division-constant}{Column Divison by Constant}\begin{verbatim}
-SELECT `foo` / 500 AS `bar` FROM `tbl`;
-\end{verbatim}
-\end{codeenv}
+\cd{totalDistance}는 km 단위로 나타내어야 하는데, \cd{trains} 테이블의 \cd{distance}는 100m 단위, 즉 값이 300이면 30km이다.
 
 \figures{fig:train-system-sql-result}{\excref{exc:train-system-sql} Results}{
     \subfig{fig:train-system-time-table}{Result (1)}
