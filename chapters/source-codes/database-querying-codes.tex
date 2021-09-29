@@ -112,7 +112,8 @@ CREATE TABLE `stations` (
 CREATE TABLE `types` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(20) NOT NULL,
-    `maxSeats` VARCHAR(20) NOT NULL
+    `max_seats` VARCHAR(20) NOT NULL,
+    `fare_rate` INT NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE `trains` (
@@ -137,7 +138,7 @@ CREATE TABLE `tickets` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `train` INT NOT NULL,
     `user` INT NOT NULL,
-    `seatNumber` INT NOT NULL,
+    `seat_number` INT NOT NULL,
     FOREIGN KEY (`train`) REFERENCES `trains`(`id`) ON DELETE CASCADE,
     FOREIGN KEY (`user`) REFERENCES `users`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -149,8 +150,8 @@ CREATE TABLE `tickets` (
 INSERT INTO `stations` VALUES (1,'Seoul'),(2,'Busan'),(3,'GwangjuSongjeong'),
 (4,'Gangneung'),(5,'Suseo'),(6,'Yeosu EXPO');
 
-INSERT INTO `types` VALUES (1,'KTX',8),(2,'SRT',8),(3,'KTX-Eum',7),(4,'ITX-Saemaeul',6),
-(5,'Mugunghwa',5);
+INSERT INTO `types` VALUES (1,'KTX',8,15524),(2,'SRT',8,13712),(3,'KTX-Eum',7,14095),
+(4,'ITX-Saemaeul',6,9645),(5,'Mugunghwa',5,6475);
 
 INSERT INTO `trains` VALUES (1,4,6,1,'08:55','13:24',4299),
 (2,1,1,2,'14:30','17:11',4174),(3,3,4,1,'18:40','20:51',2231),
