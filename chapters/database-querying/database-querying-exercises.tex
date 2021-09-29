@@ -20,37 +20,49 @@
 
 \excref{exc:train-system-sql}\과 \excref{exc:train-system-server}\는 우리나라 간선열차 노선과 예매 현황을 나타내는 데이터베이스를 다루는 문제이다. \shellref{shell:import-sql-file}\을 참고하여 DB에 \coderef{code:train-system-tables}\를 import하여 5개 테이블 \cd{stations}, \cd{types}, \cd{trains}, \cd{users}, \cd{tickets}를 생성하여라. 이후 \coderef{code:train-system-data}\를 import하여 각 테이블의 데이터를 모두 import하여라.
 
-\cd{stations}는 6개의 역, \cd{types}는 5개의 열차 종류, \cd{trains}는 19개의 열차 노선, \cd{users}는 50명의 사용자, \cd{tickets}는 80개의 예매 현황을 나타내는 테이블이다. 운임률(\cd{types.fareRate})의 단위는 100km당 원(KRW)이며, 노선 길이(\cd{trains.distance})의 단위는 100m이다. 즉, \cd{types.fareRate}의 값이 30,000인 열차의 운임률은 1km당 300원이며, \cd{trains.distance}의 값이 200인 노선의 길이는 20km이다. 노선의 운임은 운임률과 노선의 거리를 이용하여 도출한 값을 백의 자리로 반올림하여 결정한다.
+\cd{stations}는 6개의 역, \cd{types}는 5개의 열차 종류, \cd{trains}는 20개의 열차 노선, \cd{users}는 50명의 사용자, \cd{tickets}는 80개의 예매 현황을 나타내는 테이블이다.
+
+각 열차에는 그 열차 종류(\cd{trains.type})의 최대 좌석 수(\cd{types.max\_seats})만큼의 사용자만 예매할 수 있으며, 좌석 번호(\cd{tickets.seat\_number})는 1부터 최대 좌석 수에 해당하는 번호까지 있다. 즉, 최대 10개의 좌석이 있는 열차에는 1번, 2번, \ldots, 10번 좌석이 존재한다.
+
+운임률(\cd{types.fare\_rate})의 단위는 100km당 원(KRW)이며, 노선 길이(\cd{trains.distance})의 단위는 100m이다. 즉, \cd{types.fare\_rate}의 값이 30,000인 열차의 운임률은 1km당 300원이며, \cd{trains.distance}의 값이 200인 노선의 길이는 20km이다. 노선의 운임은 운임률과 노선의 거리를 이용하여 도출한 값을 백의 자리로 반올림하여 결정한다.
 
 \subsection*{\excstref{exc:train-system-sql}: Intercity Trains and Tickets SQL Querying}
 
 다음 작업들을 수행하는 SQL문을 각각 작성하여라.
 
 \begin{enumerate}
-    \item ID가 6인 노선을 예매한 모든 승객의 ID(\cd{id}), 이름(\cd{name}), 좌석 번호(\cd{seat\_number})를 좌석 번호의 오름차순으로 조회
-    \item 각 사용자의 ID(\cd{id}), 이름(\cd{name}), 탑승 열차 수(\cd{trains\_count}) 총 거리(\cd{total\_distance})를 총 거리의 내림차순으로 상위 6명만 조회
+    \item ID가 11인 노선을 예매한 모든 승객의 ID(\cd{id}), 이름(\cd{name}), 좌석 번호(\cd{seat\_number})를 좌석 번호의 오름차순으로 조회
+    \item 각 사용자의 ID(\cd{id}), 이름(\cd{name}), 탑승 열차 수(\cd{trains\_count}), 총 거리(\cd{total\_distance})를 총 거리의 내림차순으로 상위 6명만 조회
     \item 각 노선의 ID(\cd{id}), 열차 종류(\cd{type}), 출발역(\cd{src\_stn}), 도착역(\cd{dst\_stn}), 여행 시간(\cd{travel\_time})을 여행 시간의 내림차순으로 상위 6개만 조회
     \item 각 노선의 열차 종류(\cd{type}), 출발역(\cd{src\_stn}), 도착역(\cd{dst\_stn}), 출발 시각(\cd{departure}), 도착 시각(\cd{arrival}), 운임(\cd{fare}; 원 단위)을 출발 시각의 오름차순으로 모두 조회
     \item 각 노선의 ID(\cd{id}), 열차 종류(\cd{type}), 출발역(\cd{src\_stn}), 도착역(\cd{dst\_stn}), 예매된 좌석 수(\cd{occupied}), 최대 좌석 수(\cd{maximum})를 노선의 ID의 오름차순으로 모두 조회 (예매한 사용자가 없는 노선은 제외)
     \item 각 노선의 ID(\cd{id}), 열차 종류(\cd{type}), 출발역(\cd{src\_stn}), 도착역(\cd{dst\_stn}), 예매된 좌석 수(\cd{occupied}), 최대 좌석 수(\cd{maximum})를 노선의 ID의 오름차순으로 모두 조회 (예매한 사용자가 없는 노선도 포함)
 \end{enumerate}
 
-\figures{fig:train-system-sql-result}{\excref{exc:train-system-sql} Results}{
-    \subfig{fig:train-system-passenger-list}{Result (1)}
-        {images/database-querying/train-system-passenger-list.png}{.2472}
-    \subfig{fig:train-system-total-distance}{Result (2)}
-        {images/database-querying/train-system-total-distance.png}{.2954}
-    \subfig{fig:train-system-travel-time}{Result (3)}
-        {images/database-querying/train-system-travel-time.png}{.3874}
-    \subfig{fig:train-system-time-table}{Result (4)}
-        {images/database-querying/train-system-time-table.png}{.3049}
-    \subfig{fig:train-system-seats-table-nonempty}{Result (5)}
-        {images/database-querying/train-system-seats-table-nonempty.png}{.3202}
-    \subfig{fig:train-system-seats-table}{Result (6)}
-        {images/database-querying/train-system-seats-table.png}{.3049}
-}
+여행 시간은 출발 시각과 도착 시각의 시간 차이로 계산하며, 두 시각의 시간 차는 \cd{Timediff} 함수를 이용하여 구할 수 있다. \coderef{code:sql-timediff}\는 \cd{former} 값과 \cd{latter} 값의 시간 차 \cd{diff}를 구하는 SQL문이다.
+
+\begin{codeenv}{code:sql-timediff}{\cd{Timediff} Function Example}\begin{verbatim}
+> SELECT Timediff(`latter`, `former`) AS `diff` FROM `table`;
+\end{verbatim}
+\end{codeenv}
 
 각 문제의 SQL문 실행 결과는 \figref{fig:train-system-sql-result}\와 같아야 한다.
+
+\figures{fig:train-system-sql-result}{\excref{exc:train-system-sql} Results}{
+    \subfig{fig:train-system-passenger-list}{\excref{exc:train-system-sql}.1}
+        {images/database-querying/train-system-passenger-list.png}{.2271}
+    \subfig{fig:train-system-total-distance}{\excref{exc:train-system-sql}.2}
+        {images/database-querying/train-system-total-distance.png}{.3041}
+    \subfig{fig:train-system-travel-time}{\excref{exc:train-system-sql}.3}
+        {images/database-querying/train-system-travel-time.png}{.3988}
+    \subfig{fig:train-system-time-table}{\excref{exc:train-system-sql}.4}
+        {images/database-querying/train-system-time-table.png}{.3049}
+    \subfig{fig:train-system-seats-table-nonempty}{\excref{exc:train-system-sql}.5}
+        {images/database-querying/train-system-seats-table-nonempty.png}{.3202}
+    \subfig{fig:train-system-seats-table}{\excref{exc:train-system-sql}.6}
+        {images/database-querying/train-system-seats-table.png}{.3049}
+}
+\newpage
 
 \subsection*{\excstref{exc:train-system-server}: Intercity Trains and Tickets Server}
 
@@ -58,13 +70,13 @@
 
 \begin{itemize}
     \item GET /fare: Query로 사용자의 ID인 \cd{uid}를 받아 해당 사용자가 지불해야 하는 총 요금을 응답하는 라우트
-    \item GET /train/status: Query로 노선의 ID인 \cd{tid}를 받아 해당 노선이 매진되었는지 판단하여 응답하는 라우트 (Hint: 예매된 좌석 수와 최대 좌석 수를 조회하여 비교한다)
+    \item GET /train/status: Query로 열차의 ID인 \cd{tid}를 받아 해당 열차가 매진되었는지 판단하여 응답하는 라우트 (Hint: 예매된 좌석 수와 최대 좌석 수를 조회하여 비교한다)
 \end{itemize}
 
 \figures{fig:train-system-server-example-result}{\excref{exc:train-system-server} Example Results}{
     \subfig{fig:train-system-fare-uid22}{GET /fare?uid=22}
         {images/database-querying/train-system-fare-uid22.png}{.45}
-    \subfig{fig:train-system-fare-uid22}{GET /fare?uid=36}
+    \subfig{fig:train-system-fare-uid36}{GET /fare?uid=36}
         {images/database-querying/train-system-fare-uid36.png}{.45}
     \subfig{fig:train-system-trainstatus-tid5}{GET /train/status?tid=5}
         {images/database-querying/train-system-trainstatus-tid5.png}{.45}
