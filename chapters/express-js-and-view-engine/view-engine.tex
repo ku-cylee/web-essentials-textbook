@@ -139,7 +139,7 @@ views/posts.pug를 \coderef{code:pug-example-posts-pug}\와 같이 작성한다.
 \begin{codeenv}{code:pug-example-get-posts}{pug Example Application - index.js (GET /posts/:until)}\begin{verbatim}
 app.get('/posts/:until', (req, res) => {
     const { until } = req.params;
-    const untilParsed = parseInt(until);
+    const untilParsed = parseInt(until, 10);
 
     const posts = [];
     if (!isNaN(untilParsed)) {

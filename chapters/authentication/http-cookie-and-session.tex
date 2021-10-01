@@ -56,9 +56,9 @@ app.get('/set/:id', (req, res) => {
     const { id } = req.params;
     if (!id) return res.sendStatus(404);
     req.session.user = {
-        id: parseInt(id),
+        id: parseInt(id, 10),
         name: `user#${id}`,
-        level: parseInt(Math.random() * 10) + 1,
+        level: Math.floor(Math.random() * 10) + 1,
     };
     res.send(`Completed /set/${id}`);
 });

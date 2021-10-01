@@ -97,7 +97,7 @@ app.get('/fare', async (req, res, next) => {
             'INNER JOIN users ON tickets.user = users.id AND users.id = ? ' +
             'INNER JOIN trains ON tickets.train = trains.id ' +
             'INNER JOIN types ON trains.type = types.id';
-        const { name, totalFare } = (await runQuery(sql, [parseInt(uid)]))[0];
+        const { name, totalFare } = (await runQuery(sql, [parseInt(uid, 10)]))[0];
         return res.send(`Total fare of ${name} is ${totalFare} KRW.`);
     } catch (err) {
         console.error(err);
@@ -110,7 +110,7 @@ app.get('/train/status', async (req, res, next) => {
         const { tid } = req.query;
         const sql = 'SELECT Count(*) AS occupied, max_seats AS maximum FROM tickets ' +
             'INNER JOIN types ON trains.type = types.id AND tickets.train = ?';
-        const { occupied, maximum } = (await runQuery(sql, [parseInt(tid)]))[0];
+        const { occupied, maximum } = (await runQuery(sql, [parseInt(tid, 10)]))[0];
         const isSeatsLeft = occupied < maximum;
         return res.send(`Train ${tid} is ${isSeatsLeft ? 'not sold out' : 'sold out'}`);
     } catch (err) {
