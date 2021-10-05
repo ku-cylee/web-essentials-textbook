@@ -1,10 +1,10 @@
 \section{\texttt{form} Tag}\label{sect:form-tag}
 
-\subsection*{Sending POST Request From Brower}
+\subsection*{Sending POST Request From Browser}
 
-지금까지는 Insomnia를 이용하여 웹 서버에 POST 요청을 보냈다. 그러나 대부분의 사용자는 이러한 프로그램을 사용하지 않고, 인터넷 브라우저에 띄워진 웹 페이지에서 요청을 보낸다. 그렇기 때문에 HTML 문서에서 \cd{body} 데이터와 함께 POST 요청을 보낼 수 있어야 한다.
+지금까지는 Insomnia를 이용하여 웹 서버에 POST 요청을 보냈다. 그러나 대부분의 사용자는 이러한 프로그램을 사용하지 않고, 인터넷 브라우저에 띄워진 웹 페이지에서 요청을 보내야 한다. 그렇기 때문에 HTML 문서에서 \cd{body} 데이터와 함께 POST 요청을 보낼 수 있어야 한다.
 
-\cd{form} 태그는 HTML 문서에서 GET과 POST 요청을 보내는 기능을 수행할 수 있는 태그이다. \cd{form} 요소 내에 태그가 \cd{input}이나 \cd{button}이고, \cd{type} 속성의 값이 \cd{submit}인 버튼을 클릭했을 때 \cd{form} 요소의 \cd{method} 속성의 값을 메서드, \cd{action} 속성의 값을 경로로 하여 HTTP 요청을 보낸다.
+\cd{form} 태그는 HTML 문서에서 GET과 POST 요청을 보내는 기능을 수행할 수 있는 태그이다. \cd{form} 요소 내에 태그가 \cd{input}이나 \cd{button}이고, \cd{type} 속성의 값이 \cd{submit}인 버튼을 클릭했을 때 \cd{form} 요소의 \cd{method} 속성의 값을 메서드, \cd{action} 속성의 값을 경로로 정하여 HTTP 요청을 보낸다.
 
 이때 \cd{form} 요소의 body는 요소 내부의 모든 입력 요소(\cd{input} 또는 \cd{textarea} 태그)의 데이터를 보내게 되는데, 입력 요소의 \cd{name} 속성의 값이 key, \cd{value} 속성의 값이 value가 된다.
 
