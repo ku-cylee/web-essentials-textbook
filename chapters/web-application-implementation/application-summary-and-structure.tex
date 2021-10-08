@@ -115,7 +115,7 @@ src/env.js에서는 .env 파일을 분석하여 각 값을 \cd{process.env} 객�
 
 \subsection*{Design Pattern and Objectives}
 
-\sectref{sect:implementing-daos}에서는 src/DAO/ 디렉토리에 DAO를 구현한다. DAO는 Data Access Object의 약자로, DB를 통해 데이터를 조회하거나 조작하는 작업을 전담하는 객체이다. \sectref{sect:implementing-user-routes}과 \sectref{sect:implementing-article-routes}에서는 각 라우트에 대한 controller 함수들을 구현한다.
+\sectref{sect:user-dao-implementation}과 \sectref{sect:article-dao-implementation}에서는 src/DAO/ 디렉토리에 DAO를 구현한다. DAO는 Data Access Object의 약자로, DB를 통해 데이터를 조회하거나 조작하는 작업을 전담하는 객체이다. \sectref{sect:user-routes-implementation}과 \sectref{sect:article-routes-implementation}에서는 각 라우트에 대한 controller 함수들을 구현한다.
 
 이렇게 model(DAO), view(pug 템플릿), controller의 세 부분으로 나누어 소프트웨어를 설계하는 방식을 MVC 패턴(\figref{fig:mvc-pattern})이라고 한다. Model에 해당하는 DAO에서는 오로지 특정 조건을 만족하는 데이터를 DB에서 가져오거나 데이터를 삽입하는 역할을 하고, view에 해당하는 pug 템플릿은 오로지 사용자에게 보여지는 영역, 즉 front-end 역할만 한다. 그리고 controller는 model을 적절히 활용하여 HTTP 요청을 처리하고, 그 결과를 view를 통해 클라이언트에 전달한다.
 

@@ -101,7 +101,7 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
     \fig{images/express-js-and-view-engine/middlewares-flow.png}{.9}
 }
 
-이러한 미들웨어의 특징과 일련의 미들웨어의 순차적 실행이라는 Express.js의 특징으로 인해 Express.js 애플리케이션에서 미들웨어는 매우 중요한 역할을 한다. 요청 객체에 대한 전처리, logging, 에러 처리, 라우팅 등은 모두 미들웨어의 형태로 작성할 수 있으며, Express.js 애플리케이션을 위해 개발된 모듈은 미들웨어 형태로 되어있는 것이 대부분이다. 특히, 미들웨어를 이용한 에러 처리는 \chapref{ch:implementing-web-application}에서 다룰 예정이다.
+이러한 미들웨어의 특징과 일련의 미들웨어의 순차적 실행이라는 Express.js의 특징으로 인해 Express.js 애플리케이션에서 미들웨어는 매우 중요한 역할을 한다. 요청 객체에 대한 전처리, logging, 에러 처리, 라우팅 등은 모두 미들웨어의 형태로 작성할 수 있으며, Express.js 애플리케이션을 위해 개발된 모듈은 미들웨어 형태로 되어있는 것이 대부분이다. 특히, 미들웨어를 이용한 에러 처리는 \chapref{ch:web-application-implementation}에서 다룰 예정이다.
 
 라우팅은 express 모듈의 \cd{Router} 객체를 이용하여 미들웨어 형태로 작성될 수 있다. 먼저 router.js를 생성하고, \coderef{code:middleware-routing-router}\와 같이 작성한다.
 
