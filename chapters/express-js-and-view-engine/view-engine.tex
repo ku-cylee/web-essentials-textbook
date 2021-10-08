@@ -27,7 +27,7 @@ $ npm install express pug
 \end{verbatim}
 \end{shellenv}
 
-index.js를 생성하고 \coderef{code:pug-example-index-js}\와 같이 작성한다. \cd{app} 객체의 \cd{set} 메서드를 이용하여 프로젝트 디렉토리(\cd{\_\_dirname})의 views 디렉토리를 템플릿 파일들을 모아둔 디렉토리로 설정하고, pug를 view engine으로 설정하였다. 이제 GET /, GET /page/:page, GET /posts/:until의 controller 함수를 각각 구현하며 pug 문법을 알아보자.
+index.js를 생성하고 \coderef{code:pug-example-index-js}\와 같이 작성한다. \cd{app.set} 메서드를 이용하여 프로젝트 디렉토리(\cd{\_\_dirname})의 views 디렉토리를 템플릿 파일들을 모아둔 디렉토리로 설정하고, pug를 view engine으로 설정하였다. 이제 GET /, GET /page/:page, GET /posts/:until의 controller 함수를 각각 구현하며 pug 문법을 알아보자.
 
 \begin{codeenv}{code:pug-example-index-js}{pug Example Application - index.js}\begin{verbatim}
 const express = require('express');
