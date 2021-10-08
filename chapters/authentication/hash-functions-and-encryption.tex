@@ -101,11 +101,11 @@ const encrypt = async text => {
 
 \coderef{code:hashing-key-stretching}\은 \coderef{code:salting}\을 수정한 코드로, 암호화를 20만 이상, 22만 미만의 랜덤 횟수만큼 반복적으로 수행하는 코드이다.
 
-\subsection*{Storing and Verifying Password}
+\subsection*{Password Generation and Verification}
 
 이제까지 비밀번호 등의 민감한 정보를 적절히 암호화하는 방법에 대해 학습하였다. 이러한 해시값은 암호화 과정에서 사용된 암호화 알고리즘, 해시값의 길이, salt, 반복 횟수 등의 인자들과 함께 저장되어야 한다.
 
-\begin{codeenv}{code:generating-password}{Generating Password (Derived from \coderef{code:hashing-key-stretching})}
+\begin{codeenv}{code:generating-password}{Password Generation (Derived from \coderef{code:hashing-key-stretching})}
 \begin{Verbatim}[commandchars=\\\[\]]
 const generatePassword = async password => {
     const ALGO = 'sha512';
