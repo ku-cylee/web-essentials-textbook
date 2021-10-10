@@ -24,7 +24,7 @@ $ npm install lodash
 
 \subsection*{Generating Module}
 
-모듈은 하나의 파일이 하나의 모듈로 간주된다. \cd{module.exports}에 모듈 밖에서 사용할 상수, 함수, 객체 등의 값을 속성값으로 할당해주면, 다른 파일에서 이 모듈을 import하여 모듈 내의 상수, 함수, 객체 등을 사용할 수 있다. \coderef{code:creating-module}은 둥근 도형들의 넓이, 부피 등을 계산하는 모듈을 생성하는 예제이다.
+모듈은 하나의 파일이 하나의 모듈로 간주된다. \cd{module.exports}에 모듈 밖에서 사용할 상수, 함수, 객체 등의 값을 속성값으로 할당하여 export 하면, 다른 파일에서 이 모듈을 import하여 모듈 내의 상수, 함수, 객체 등을 사용할 수 있다. \coderef{code:creating-module}은 둥근 도형들의 넓이, 부피 등을 계산하는 모듈을 생성하는 예제이다.
 
 \begin{codeenv}{code:creating-module}{Creating Module (circular-shapes.js)}\begin{verbatim}
 const PI = 3.14159265358;

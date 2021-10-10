@@ -1,0 +1,89 @@
+\section{Web Application Implementation Source Codes}\label{sect:web-application-implementation-source-codes}
+
+\begin{codeenv}{code:user-dao}{User DAO (src/DAO/user.js)}\begin{verbatim}
+const { runQuery } = require('../lib/database');
+
+const getByUsername = async username => {
+    const sql = 'SELECT id, display_name AS displayName, password, ' +
+                'is_active AS isActive, is_staff as isStaff FROM users ' +
+                'WHERE username = ?';
+    const result = await runQuery(sql, [username]);
+    return result[0];
+};
+
+const create = async (username, password, displayName) => {
+    const sql = 'INSERT INTO users (username, password, display_name) VALUES (?, ?, ?)';
+    await runQuery(sql, [username, password, displayName]);
+};
+
+module.exports = { getByUsername, create };
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:article-dao}{Article DAO (src/DAO/article.js)}\begin{verbatim}
+const { runQuery } = require('../lib/database');
+
+// formatDate, replaceDate
+
+const getList = async (start, count) => {
+    const sql = 'SELECT a.id, a.title, a.created_at AS createdAt,' +
+                'a.last_updated AS lastUpdated, u.display_name AS displayName ' +
+                'FROM articles AS a INNER JOIN users AS u ' +
+                'ON a.author = u.id AND a.is_active = 1 AND a.is_deleted = 0 ' +
+                'ORDER BY a.id DESC LIMIT ?, ?';
+    const articles = await runQuery(sql, [start, count]);
+    return articles.map(replaceDate);
+};
+
+const getTotalCount = async () => {
+    const sql = 'SELECT Count(*) AS articleCount FROM articles ' +
+                'WHERE is_active = 1 AND is_deleted = 0';
+    const { articleCount } = (await runQuery(sql))[0];
+    return articleCount;
+};
+
+const getById = async id => {
+    const sql = 'SELECT a.id, a.title, a.content, a.created_at AS createdAt, ' +
+                'a.last_updated AS lastUpdated, a.author, ' +
+                'u.display_name AS displayName FROM articles AS a '  +
+                'INNER JOIN users AS u ON a.author = u.id AND ' +
+                'a.id = ? AND a.is_active = 1 AND a.is_deleted = 0';
+    const articles = await runQuery(sql, [id]);
+    return replaceDate(articles[0]);
+};
+
+const getByIdAndAuthor = async (id, author) => {
+    const sql = 'SELECT title, content, author, created_at AS createdAt, ' +
+                'last_updated AS lastUpdated FROM articles ' +
+                'WHERE id = ? AND author = ? AND is_active = 1 AND is_deleted = 0';
+    const articles = await runQuery(sql, [id, author.id]);
+    return replaceDate(articles[0]);
+};
+
+const create = async (title, content, author) => {
+    const sql = 'INSERT INTO articles (title, content, author) VALUES (?, ?, ?)'
+    const { insertId } = await runQuery(sql, [title, content, author.id]);
+    return insertId;
+};
+
+const update = async (id, title, content) => {
+    const sql = 'UPDATE articles SET title = ?, content = ? WHERE id = ?';
+    await runQuery(sql, [title, content, id]);
+};
+
+const remove = async id => {
+    const sql = 'UPDATE articles SET is_deleted = 1 WHERE id = ?';
+    await runQuery(sql, [id]);
+};
+
+module.exports = {
+    getList,
+    getTotalCount,
+    getById,
+    getByIdAndAuthor,
+    create,
+    update,
+    remove,
+};
+\end{verbatim}
+\end{codeenv}

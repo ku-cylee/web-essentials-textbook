@@ -1,0 +1,117 @@
+\section{Database Design and DAO Implementation}\label{sect:db-design-and-dao-implementation}
+
+\subsection*{Database Tables Design}
+
+게시판 웹 애플리케이션의 DB를 설계해보자. 사용자와 관련된 데이터에는 어떠한 것이 있겠는가? 사용자 인증을 위한 아이디(\cd{username})과 암호화된 비밀번호(\cd{password})가 필요하며, 닉네임과 같이 다른 사용자들이 보는 이름인 \cd{displayName}이 필요하다. 이때 \cd{username}과 \cd{displayName}은 \cd{UNIQUE} 키워드를 넣어 중복을 방지한다. 또한 가입 날짜(\cd{date\_joined}), 탈퇴 여부(\cd{is\_active}), 관리자 여부(\cd{is\_staff}) 등이 필요하며, 각각 row 생성 시의 시각, 1, 0이 기본값이 되어야 한다. \coderef{code:users-table-schema}\는 이러한 \cd{users} 테이블을 생성하는 SQL문이다.
+
+\begin{codeenv}{code:users-table-schema}{\cd{users} Table Schema}\begin{verbatim}
+CREATE TABLE `users` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(16) NOT NULL UNIQUE,
+    `display_name` VARCHAR(32) NOT NULL UNIQUE,
+    `password` VARCHAR(151) NOT NULL,
+    `date_joined` DATETIME NOT NULL DEFAULT current_timestamp(),
+    `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+    `is_staff` TINYINT(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+\end{verbatim}
+\end{codeenv}
+
+이번에는 게시물 데이터를 저장하는 \cd{articles} 테이블을 설계해보자. 먼저 게시물의 제목(\cd{title}), 내용(\cd{content}), 작성자(\cd{author}) 등이 필요하며, \cd{author} column은 \cd{users.id}를 참조하도록 한다. 또한 작성 시각(\cd{created\_at}), 마지막 수정 시각(\cd{last\_updated}), 삭제 여부(\cd{is\_deleted}) 등의 정보가 필요하다. \cd{created\_at}과 \cd{last\_updated}의 값은 row 생성 시각으로 설정하고, \cd{ON UPDATE} 키워드를 사용하여 column의 값이 row가 수정될 때의 시각으로 바뀌도록 한다. \cd{is\_deleted}의 기본값은 \cd{0}으로 설정하고, 사용자가 게시물을 삭제하면 1로 바꾼다. \coderef{code:articles-table-schema}\는 이러한 \cd{articles} 테이블을 생성하는 SQL문이다.
+
+\begin{codeenv}{code:articles-table-schema}{\cd{articles} Table Schema}\begin{verbatim}
+CREATE TABLE `articles` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(50) NOT NULL,
+    `content` TEXT NOT NULL,
+    `author` INT NOT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT current_timestamp(),
+    `last_updated` DATETIME NOT NULL DEFAULT current_timestamp()
+        ON UPDATE current_timestamp(),
+    `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+    `is_deleted` TINYINT(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`author`) REFERENCES `users`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{User DAO Implementation}
+
+src/DAO/user.js를 생성하고, src/lib/database.js의 \cd{runQuery} 함수를 import한다. 그리고 다음 두 함수를 구현하고, 구현한 두 함수를 export 하여라. 구현 결과는 \coderef{code:user-dao}\를 참고하여라.
+
+\begin{itemize}
+    \item \cd{getByUsername}
+    \begin{itemize}
+        \item 인자: 사용자의 \cd{username}
+        \item 반환값: \cd{id}, \cd{password}, \cd{displayName}, \cd{isActive}, \cd{isStaff} 속성을 갖는 사용자 객체
+        \item \cd{username}의 값이 인자로 받은 \cd{username}인 사용자 객체 반환
+    \end{itemize}
+    \item \cd{create}
+    \begin{itemize}
+        \item 인자: 사용자의 \cd{username}, \cd{password} (암호화된 형태), \cd{displayName}
+        \item \cd{username}, \cd{password}, \cd{display\_name}의 값이 각각 인자로 받은 \cd{username}, \cd{password}, \cd{displayName}인 사용자 생성
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Article DAO Implementation}
+
+src/DAO/article.js를 생성하고, src/lib/database.js의 \cd{runQuery} 함수를 import한다. \cd{replaceDate} 함수는 인자로 받은 게시물(article) 객체가 falsy하면 그대로 반환하고, truthy하면 \cd{createdAt} 속성과 \cd{lastUpdated} 속성을 \cd{Date} 객체에서 문자열 형태로 변환하여 반환한다.
+
+다음의 7개 함수를 구현하고, 이를 모두 export 하여라. 구현 결과는 \coderef{code:article-dao}\를 참고하여라.
+
+\begin{itemize}
+    \item \cd{getList}
+    \begin{itemize}
+        \item 인자: \cd{start}, \cd{count}
+        \item 반환값: \cd{id}, \cd{title}, \cd{createdAt}, \cd{lastUpdated}, \cd{author}의 \cd{displayName} 속성을 갖는 게시물 객체의 배열
+        \item \cd{is\_active}가 1, \cd{is\_deleted}가 0인 게시물 객체를 \cd{id}의 역순으로 나열한 뒤 \cd{start}번째 row부터 \cd{count}개의 row 반환. 각 게시물 객체의 날짜는 문자열화되어 반환되어야 한다.
+    \end{itemize}
+    \item \cd{getTotalCount}
+    \begin{itemize}
+        \item 반환값: \cd{is\_active}가 1, \cd{is\_deleted}가 0인 게시물의 개수
+    \end{itemize}
+    \item \cd{getById}
+    \begin{itemize}
+        \item 인자: 게시물의 \cd{id}
+        \item 반환값: \cd{id}, \cd{title}, \cd{content}, \cd{createdAt}, \cd{lastUpdated}, \cd{author}, \cd{author}의 \cd{displayName} 속성을 갖는 게시물 객체
+        \item \cd{id}의 값이 인자로 받은 \cd{id}인 게시물 객체 반환
+    \end{itemize}
+    \item \cd{getByIdAndAuthor}
+    \begin{itemize}
+        \item 인자: 게시물의 \cd{id}, \cd{author} (사용자 객체)
+        \item 반환값: \cd{title}, \cd{content}, \cd{author}, \cd{createdAt}, \cd{lastUpdated} 속성을 갖는 게시물 객체
+        \item \cd{id}와 \cd{author}의 값이 인자로 받은 \cd{id}와 \cd{author.id}인 게시물 객체 반환
+    \end{itemize}
+    \item \cd{create}
+    \begin{itemize}
+        \item 인자: 게시물의 \cd{title}, \cd{content}, \cd{author} (사용자 객체)
+        \item 반환값: 생성된 게시물 데이터의 ID 값
+        \item \cd{title}, \cd{content}, \cd{author}의 값이 각각 인자로 받은 \cd{title}, \cd{content}, \cd{author.id}인 게시물 생성
+    \end{itemize}
+    \item \cd{update}
+    \begin{itemize}
+        \item 인자: 게시물의 \cd{id}, \cd{title}, \cd{content}
+        \item \cd{id}가 인자로 받은 \cd{id}인 게시물의 \cd{title}, \cd{content} 값을 인자로 받은 \cd{title}, \cd{content}로 수정
+    \end{itemize}
+    \item \cd{remove}
+    \begin{itemize}
+        \item 인자: 게시물의 \cd{id}
+        \item \cd{id}가 인자로 받은 \cd{id}인 게시물의 \cd{is\_deleted} 값을 1로 수정
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Generating DAO Module}
+
+이제 src/DAO/index.js를 생성하고, 앞에서 설계한 두 DAO를 각각 \cd{UserDAO}, \cd{ArticleDAO}로 import 한 뒤, 두 객체를 그대로 export한다. (\coderef{code:dao-module}) Node.js에서 import하는 모듈의 경로가 디렉토리이면 그 아래의 index.js가 모듈 파일로 간주되어, 이제 다른 모듈에서는 src/DAO 모듈을 import 하여 두 DAO에 모두 접근할 수 있다.
+
+\begin{codeenv}{code:dao-module}{DAO Module (src/DAO/index.js)}\begin{verbatim}
+const ArticleDAO = require('./article');
+const UserDAO = require('./user');
+
+module.exports = { ArticleDAO, UserDAO };
+\end{verbatim}
+\end{codeenv}
+
+src/lib/database.js의 \cd{runQuery} 함수를 import한다. \cd{replaceDate} 함수는 인자로 받은 게시물(article) 객체가 falsy하면 그대로 반환하고, truthy하면 \cd{createdAt} 속성과 \cd{lastUpdated} 속성을 \cd{Date} 객체에서 문자열 형태로 변환하여 반환한다.
