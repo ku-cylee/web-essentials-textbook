@@ -16,7 +16,10 @@ const create = async (username, password, displayName) => {
     await runQuery(sql, [username, password, displayName]);
 };
 
-module.exports = { getByUsername, create };
+module.exports = {
+    getByUsername,
+    create,
+};
 \end{verbatim}
 \end{codeenv}
 
@@ -88,7 +91,7 @@ module.exports = {
 \end{verbatim}
 \end{codeenv}
 
-\begin{codeenv}{code:index-ctrl}{Index Controller}\begin{verbatim}
+\begin{codeenv}{code:index-ctrl}{Index Controller (src/controller/ctrl.js)}\begin{verbatim}
 // GET /
 const indexPage = async (req, res, next) => {
     try {
@@ -98,12 +101,11 @@ const indexPage = async (req, res, next) => {
         return next(err);
     }
 };
-
 module.exports = { indexPage };
 \end{verbatim}
 \end{codeenv}
 
-\begin{codeenv}{code:auth-ctrl}{Auth Controller}\begin{verbatim}
+\begin{codeenv}{code:auth-ctrl}{Auth Controller (src/controller/auth/ctrl.js)}\begin{verbatim}
 const { UserDAO } = require('../../DAO');
 const { generatePassword, verifyPassword } = require('../../lib/authentication');
 
@@ -187,6 +189,162 @@ module.exports = {
     signUpForm,
     signUp,
     signOut,
+};
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:article-ctrl}{Article Controller (src/controller/article/ctrl.js)}\begin{verbatim}
+const { ArticleDAO } = require('../../DAO');
+
+// GET /article/:articleId(\\d+)
+const readArticle = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const { articleId } = req.params;
+
+        const article = await ArticleDAO.getById(articleId);
+        if (!article) throw new Error('NOT_FOUND');
+
+        return res.render('articles/details.pug', { user, article });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /article/compose
+const writeArticleForm = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        return res.render('articles/editor.pug', { user });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// POST /article/compose
+const writeArticle = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const title = req.body.title.trim();
+        const content = req.body.content.trim();
+        if (!title || title.length > 50 || !content || content.length > 65535)
+            throw new Error('BAD_REQUEST');
+
+        const newArticleId = await ArticleDAO.create(title, content, user);
+        return res.redirect(`/article/${newArticleId}`);
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /article/edit/:articleId(\\d+)
+const editArticleForm = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const { articleId } = req.params;
+
+        const article = await ArticleDAO.getByIdAndAuthor(articleId, user);
+        if (!article) throw new Error('NOT_FOUND');
+
+        return res.render('articles/editor.pug', { user, article });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// POST /article/edit/:articleId(\\d+)
+const editArticle = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const { articleId } = req.params;
+
+        const article = await ArticleDAO.getByIdAndAuthor(articleId, user);
+        if (!article) throw new Error('NOT_FOUND');
+
+        const title = req.body.title.trim();
+        const content = req.body.content.trim();
+        if (!title || title.length > 50 || !content || content.length > 65535)
+            throw new Error('BAD_REQUEST');
+
+        await ArticleDAO.update(articleId, title, content);
+        return res.redirect(`/article/${articleId}`);
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /article/delete/:articleId(\\d+)
+const deleteArticle = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const { articleId } = req.params;
+
+        const article = await ArticleDAO.getByIdAndAuthor(articleId, user);
+        if (!article) throw new Error('NOT_FOUND');
+
+        await ArticleDAO.remove(articleId, user);
+        return res.redirect('/articles/page/1');
+    } catch (err) {
+        return next(err);
+    }
+};
+
+module.exports = {
+    readArticle,
+    writeArticleForm,
+    writeArticle,
+    editArticleForm,
+    editArticle,
+    deleteArticle,
+};
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:articles-ctrl}{Articles Controller (Added to \coderef{code:index-ctrl})}\begin{verbatim}
+const { ArticleDAO } = require('../DAO');
+
+// indexPage
+
+// GET /articles/page/:page(\\d+)
+const listArticles = async (req, res, next) => {
+    try {
+        const { page } = req.params;
+        const { user } = req.session;
+        const pageNum = parseInt(page, 10);
+        if (pageNum <= 0) throw new Error('BAD_REQUEST');
+
+        const ARTICLES_PER_PAGE = 10;
+        const startIndex = (pageNum - 1) * ARTICLES_PER_PAGE;
+
+        const articles = await ArticleDAO.getList(startIndex, ARTICLES_PER_PAGE);
+        const articleCount = await ArticleDAO.getTotalCount();
+        const pageCount = Math.ceil(articleCount / ARTICLES_PER_PAGE);
+
+        return res.render('articles/index.pug', {
+            user,
+            articles,
+            page: pageNum,
+            hasPrev: pageNum > 1,
+            hasNext: pageNum < pageCount,
+        });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /articles
+const latestArticles = async (req, res, next) => {
+    try {
+        return res.redirect('/articles/page/1');
+    } catch (err) {
+        return next(err);
+    }
+};
+
+module.exports = {
+    indexPage,
+    listArticles,
+    latestArticles,
 };
 \end{verbatim}
 \end{codeenv}
