@@ -1,4 +1,4 @@
-\section{CRUD Operations}\label{sect:crud-operations}
+\section{CRUD Functions}\label{sect:crud-functions}
 
 \sectref{sect:intro-to-database}에서 DB가 반드시 갖추어야 하는 CRUD 기능에 대해 알아보았다. 이번 장에서는 SQL문을 이용하여 CRUD 기능에 해당하는 기능을 수행해본다.
 
@@ -18,7 +18,7 @@ INSERT INTO <table-name> (<c1>, <c2>, ..., <cn>) VALUES (<v1>, <v2>, ..., <vn>)
 \end{verbatim}
 \end{shellenv}
 
-\shellref{shell:sql-insert-example}\은 \cd{INSERT} 키워드를 이용하여 \cd{departments} 테이블에 \cd{name}은 ``Liberal Arts'', \cd{code}는 13인 row를 삽입하는 예제이다. 이때 \cd{id}는 \cd{AUTO\_INCREMENT} 옵션이 있어 값을 명시하지 않아도 그 값이 알아서 추가된다. 이렇게 기본값이 존재하는 column에는 값을 삽입하지 않으면 기본값이 생성된다.
+\shellref{shell:sql-insert-example}\은 \cd{INSERT} 키워드를 이용하여 \cd{departments} 테이블에 \cd{name}은 ``Liberal Arts'', \cd{code}는 13인 row를 삽입하는 예제이다. 이때 \cd{id}는 \cd{AUTO\_INCREMENT} 옵션이 있어 값을 명시하지 않아도 그 값이 자동으로 추가된다. 이렇게 기본값이 존재하는 column에는 값을 명시하지 않으면 기본값이 생성된다.
 
 \begin{shellenv}{shell:insert-without-column-names}{\cd{INSERT} Without Column Names Example}\begin{verbatim}
 > INSERT INTO `departments` VALUES (4, 'Liberal Arts', 13);
@@ -85,7 +85,7 @@ UPDATE <table-name> SET <c1>=<v1>, <c2>=<v2>, ..., <cn>=<vn> WHERE <condition>
 
 \shellref{shell:sql-update-example}\은 \cd{UPDATE} 키워드를 이용하여 \cd{students} 테이블에서 \cd{dptmt}의 값이 32인 모든 row의 \cd{credits} 값을 73, \cd{is\_attending} 값을 0으로 수정하는 예제이다.
 
-앞의 \cd{SELECT} 키워드와 마찬가지로 \cd{WHERE} clause를 생략하여 테이블 내의 모든 데이터를 일괄적으로 수정할 수 다.
+앞의 \cd{SELECT} 키워드와 마찬가지로 \cd{WHERE} clause를 생략하여 테이블 내의 모든 데이터를 일괄적으로 수정할 수 있다.
 
 \subsection*{DELETE}
 
@@ -103,7 +103,7 @@ DELETE FROM <table-name> WHERE <condition>
 \end{verbatim}
 \end{shellenv}
 
-\shellref{shell:sql-delete-example}\은 \cd{DELETE} 키워드를 이용하여 \cd{students} 테이블에서 \cd{dptmt}의 값이 13인 row를 모두 삭제하는 SQL문이다. \cd{DELETE} 키워드를 사용할 때 \cd{WHERE} clause를 생략하면 테이블 내의 모든 데이터가 삭제되므로 유의하여야 한다.
+\shellref{shell:sql-delete-example}\은 \cd{DELETE} 키워드를 이용하여 \cd{students} 테이블에서 \cd{dptmt}의 값이 13인 row를 모두 삭제하는 SQL문이다. \cd{DELETE} 키워드를 사용할 때 \cd{WHERE} clause를 생략하면 테이블 내의 모든 데이터가 삭제되므로 주의하여야 한다.
 
 \subsection*{Summary}
 

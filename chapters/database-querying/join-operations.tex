@@ -41,7 +41,7 @@ $$ A\times B=\{(x,y)~|~x\in A,~y\in B\}=\{(1,1),(2,1),(4,1),(1,3),(2,3),(4,3),(1
     \end{subtable}
 \end{table}
 
-이때, 두 테이블 \cd{A}와 \cd{B}를 join한 테이블은 \tblref{tab:join-example}\과 같다.
+두 테이블 \cd{A}와 \cd{B}를 join한 테이블은 \tblref{tab:join-example}\과 같다.
 
 \begin{tblenv}
     {tab:join-example}
@@ -71,13 +71,13 @@ $$ A\times B=\{(x,y)~|~x\in A,~y\in B\}=\{(1,1),(2,1),(4,1),(1,3),(2,3),(4,3),(1
     \thickhline
 \end{tblenv}
 
-DB에서는 두 테이블을 단순히 join하여 사용하기보다는 특정 조건을 만족하는 row들만 join하여 사용하는 경우가 대부분이다.
+다만, DB에서는 두 테이블을 단순히 join하여 사용하기보다는 특정 조건을 만족하는 row들만 join하여 사용하는 경우가 대부분이다.
 
 \subsection*{Inner Join and Outer Join}
 
 DB에서 두 테이블을 join할 때 T1 테이블에 T2 테이블을 join한다는 표현을 사용한다. 이때 편의상 T1 테이블을 왼쪽 테이블, T2 테이블을 오른쪽 테이블이라고 하자.
 
-먼저 inner join은 양 테이블에서 join 조건을 만족하는 row들만 join하는 방식으로, \tblref{tab:inner-join-example}\은 \cd{A} 테이블에 \cd{B} 테이블을 \cd{A.id = B.id} 조건 하에 inner join한 결과이다. \cd{A} 테이블의 2번 row는 \cd{B} 테이블에 \cd{id}가 2인 row가 없어 join에 참여하지 못했고, \cd{B} 테이블에서도 3번 row가 같은 이유로 join에 참여하지 못했다. 이러한 inner join은 통상적으로 그냥 join이라고 불리며, 그 방식으로부터 \cd{A} 테이블에 \cd{B} 테이블을 inner join한 결과는 \cd{B} 테이블에 \cd{A} 테이블을 inner join한 결과와 같음을 알 수 있다.
+먼저 inner join은 양 테이블에서 join 조건을 만족하는 row들만 join하는 방식으로, \tblref{tab:inner-join-example}\은 \cd{A} 테이블에 \cd{B} 테이블을 \cd{A.id = B.id} 조건 하에 inner join한 결과이다. \cd{A} 테이블의 2번 row는 \cd{B} 테이블에 \cd{id}가 2인 row가 없어 join에 참여하지 못했고, \cd{B} 테이블에서도 3번 row가 같은 이유로 join에 참여하지 못했다. \cd{A} 테이블에 \cd{B} 테이블을 inner join한 결과는 \cd{B} 테이블에 \cd{A} 테이블을 inner join한 결과와 같음을 알 수 있다.
 
 \begin{tblenv}
     {tab:inner-join-example}
@@ -128,6 +128,7 @@ Outer join은 특정 테이블의 모든 row를 강제로 join에 참여시키�
     4 & A4 & 4 & B4\tabularnewline
     \thickhline
 \end{tblenv}
+\newpage
 
 Right outer join은 left outer join과 정반대로 오른쪽 테이블의 모든 row를 join에 강제로 참여시키는 방식으로, \tblref{tab:right-outer-join-example}\은 \cd{A} 테이블에 \cd{B} 테이블을 \cd{A.id = B.id} 조건 하에 right outer join한 결과이다. Outer join의 join 방식에서 알 수 있듯, \cd{A} 테이블에 \cd{B} 테이블을 left outer join한 결과는 \cd{B} 테이블에 \cd{A} 테이블을 right outer join한 결과와 동일하다. (반대도 성립)
 
@@ -162,7 +163,7 @@ Full outer join은 양쪽 테이블의 모든 row를 join에 강제로 참여시
         {images/database-querying/full-outer-join.png}{.23}
 }
 
-\figref{fig:join-venn-diagram}\은 네 개의 Join 연산을 벤 다이어그램 형태로 나타낸 것이다.
+\figref{fig:join-venn-diagram}\은 네 개의 join 연산을 벤 다이어그램 형태로 나타낸 것이다.
 
 \subsection*{Join Operation in SQL}
 
@@ -207,7 +208,7 @@ ERROR 1052 (23000): Column 'name' in field list is ambiguous
 \end{verbatim}
 \end{shellenv}
 
-\shellref{shell:join-with-ambiguity}\를 실행하면 \cd{name}이라는 column이 모호하다(ambiguous)는 에러가 발생하였다. 이는 \cd{courses}와 \cd{departments} 테이블에 모두 \cd{name} column이 있어 DBMS는 어떤 \cd{name} column을 조회해야 하는지 알 수 없기 때문이다.
+\shellref{shell:join-with-ambiguity}\를 실행하면 \cd{name}이라는 column이 모호하다(ambiguous)는 에러가 발생한다. 이 에러는 \cd{courses}와 \cd{departments} 테이블에 모두 \cd{name} column이 있어 DBMS는 어떤 \cd{name} column을 조회해야 하는지 알 수 없기 때문에 발생한다.
 
 \begin{shellenv}{shell:join-without-ambiguity}{Join without Ambiguity}\begin{verbatim}
 > SELECT `departments`.`name`, `code`, `credit`, `period` FROM `courses`
@@ -286,7 +287,7 @@ ERROR 1052 (23000): Column 'name' in field list is ambiguous
 \end{verbatim}
 \end{shellenv}
 
-하나의 테이블에 여러 테이블을 join할 수도 있고, join된 테이블에 또 다른 테이블을 다시 join할 수도 있다. \shellref{shell:multiple-joins}\는 모든 강의의 ID(\cd{id}), 단과대명(\cd{college}), 학과명(\cd{department}), 강의명(\cd{course}), 강의 코드, 학점, 시간을 조회하는 SQL문으로, \cd{courses} 테이블에 \cd{departments} 테이블을 join한 뒤, \cd{departments} 테이블에 \cd{colleges} 테이블을 다시 join하였다.
+하나의 테이블에 여러 테이블을 join할 수도 있고, join된 테이블에 또 다른 테이블을 다시 join할 수도 있다. \shellref{shell:multiple-joins}\는 모든 강의의 ID(\cd{id}), 단과대명(\cd{college}), 학과명(\cd{department}), 강의명(\cd{course}), 강의 코드, 학점, 시간을 조회하는 SQL문으로, \cd{courses} 테이블에 \cd{departments} 테이블을 join한 뒤, \cd{departments} 테이블에 \cd{colleges} 테이블을 다시 join한다.
 
 \cd{AS} 키워드를 사용하면 \cd{departments} 테이블의 이름을 \cd{dept}로 줄인 것과 같이 테이블 이름을 바꾸어 SQL문이 지나치게 길어지는 것을 방지할 수 있다. 또한, 서로 다른 column이 같은 테이블을 참조하여 하나의 테이블이 두 번 이상 join에 참여하게 되어 테이블 이름에 모호함이 발생할 때 \cd{AS} 키워드는 반드시 필요하다.
 
