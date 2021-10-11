@@ -113,5 +113,3 @@ const UserDAO = require('./user');
 module.exports = { ArticleDAO, UserDAO };
 \end{verbatim}
 \end{codeenv}
-
-src/lib/database.js의 \cd{runQuery} 함수를 import한다. \cd{replaceDate} 함수는 인자로 받은 게시물(article) 객체가 falsy하면 그대로 반환하고, truthy하면 \cd{createdAt} 속성과 \cd{lastUpdated} 속성을 \cd{Date} 객체에서 문자열 형태로 변환하여 반환한다.
