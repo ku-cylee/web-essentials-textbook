@@ -10,7 +10,7 @@
     \item GET /: 홈 페이지
 \end{itemize}
 
-사용자 인증 기능을 담당하는 라우팅을 설계하자. 인증과 기능은 크게 회원 가입(sign up), 로그인(sign in), 로그아웃(sign out) 등이 있다. \sectref{sect:express-js-and-view-engine-exercises}의 \excref{exc:form-login}에서 이미 GET 메서드를 통해 로그인 페이지를 응답받고, POST 메서드를 통해 로그인 데이터를 받은 바 있다. 따라서 다음과 같이 라우트를 설계할 수 있다.
+사용자 인증 기능을 담당하는 라우팅을 설계하자. 인증과 관련된 기능은 크게 회원 가입(sign up), 로그인(sign in), 로그아웃(sign out) 등이 있다. \sectref{sect:express-js-and-view-engine-exercises}의 \excref{exc:form-login}에서 이미 GET 메서드를 통해 로그인 페이지를 응답하고, POST 메서드를 통해 로그인 데이터를 받은 바 있다. 따라서 다음과 같이 라우트를 설계할 수 있다.
 
 \begin{itemize}
     \item GET /auth/sign\_in : 로그인 페이지
@@ -20,23 +20,23 @@
     \item GET /auth/sign\_out : 로그아웃 처리\footnote{로그아웃 기능은 POST 메서드로 처리하는 것이 좋으나, 본 교재에서는 일단 GET 메서드로 처리한다.}
 \end{itemize}
 
-게시물과 관련된 기능을 담당하는 라우팅을 설계하자. 먼저 각각의 게시물에 대한 CRUD 기능, 즉 생성, 조회, 수정 삭제 기능을 수행할 라우트가 필요하다.\footnote{정책에 따라 특정 기능들은 제외될 수 있다.} 게시물 생성 기능과 수정 기능은 사용자가 데이터를 입력할 수 있는 페이지가 제공되어야 하므로 다음과 같이 라우트를 설계할 수 있다.
+게시물과 관련된 기능을 담당하는 라우팅을 설계하자. 먼저 각 게시물에 대한 CRUD 기능, 즉 생성, 조회, 수정 삭제 기능을 수행할 라우트가 필요하다.\footnote{정책에 따라 특정 기능들은 제외될 수 있다.} 게시물 생성 기능과 수정 기능은 사용자가 데이터를 입력할 수 있는 페이지가 제공되어야 하므로 다음과 같이 라우트를 설계할 수 있다.
 
 \begin{itemize}
-    \item GET /article/:articleId(\textbackslash{}\textbackslash{}d+) : \cd{id}가 \cd{articleId}인 게시물을 열람
+    \item GET /article/:articleId(\textbackslash{}d+) : \cd{id}가 \cd{articleId}인 게시물을 열람
     \item GET /article/compose : 새 게시물 작성 페이지
     \item POST /article/compose : 새 게시물 데이터 반영
-    \item GET /article/edit/:articleId(\textbackslash{}\textbackslash{}d+) : \cd{id}가 \cd{articleId}인 게시물 수정 페이지
-    \item POST /article/edit/:articleId(\textbackslash{}\textbackslash{}d+) : \cd{id}가 \cd{articleId}인 게시물 수정사항 반영
-    \item GET /article/delete/:articleId(\textbackslash{}\textbackslash{}d+) : \cd{id}가 \cd{articleId}인 게시물 삭제\footnote{게시물을 삭제하는 것은 POST 메서드를 사용하는 것이 옳으나, 본 교재에서는 일단 GET 메서드로 처리한다.}
+    \item GET /article/edit/:articleId(\textbackslash{}d+) : \cd{id}가 \cd{articleId}인 게시물 수정 페이지
+    \item POST /article/edit/:articleId(\textbackslash{}d+) : \cd{id}가 \cd{articleId}인 게시물 수정사항 반영
+    \item GET /article/delete/:articleId(\textbackslash{}d+) : \cd{id}가 \cd{articleId}인 게시물 삭제\footnote{게시물을 삭제하는 것은 POST 메서드를 사용하는 것이 옳으나, 본 교재에서는 일단 GET 메서드로 처리한다.}
 \end{itemize}
 
-여기에서 \cd{\textbackslash{}\textbackslash{}d+}는 정수와 매칭되는 정규표현식으로, 이렇게 작성하면 \cd{articleId}는 정수 형태의 문자열임이 보장된다.
+여기에서 \cd{\textbackslash{}d+}는 정수와 매칭되는 정규표현식으로, 이렇게 작성하면 \cd{articleId}는 정수 형태의 문자열임이 보장된다.
 
 게시판에서는 사용자의 편의를 위해 게시물의 목록도 조회할 수 있어야 한다. 이 웹 애플리케이션에서는 게시물 목록을 최신 게시물부터 페이지 단위로 조회할 수 있도록 한다. 이를 반영하면 다음과 같이 라우트를 설계할 수 있다.
 
 \begin{itemize}
-    \item GET /articles/page/:page(\textbackslash{}\textbackslash{}d+) : \cd{page}번째 페이지의 게시물 목록 조회
+    \item GET /articles/page/:page(\textbackslash{}d+) : \cd{page}번째 페이지의 게시물 목록 조회
     \item GET /articles : 1번째 페이지의 게시물 목록 조회
 \end{itemize}
 
@@ -67,7 +67,7 @@ src/controller/ctrl.js를 생성하고, 다음 controller를 구현한 뒤 expor
     \item Hint
     \begin{itemize}
         \item 템플릿 파일의 렌더링: \sectref{sect:view-engine} 참고
-        \item 사용자 정보는 세션 객체의 user 객체에 저장된다. (\sectref{sect:http-cookie-and-session})
+        \item 사용자 정보는 세션 객체의 \cd{user} 객체에 저장된다. (\sectref{sect:http-cookie-and-session})
     \end{itemize}
 \end{itemize}
 
@@ -91,7 +91,7 @@ src/controller/auth/ctrl.js를 생성하고, 다음 controller를 구현한 뒤 
 \begin{itemize}
     \item POST /auth/sign\_in → HTTP 요청의 body의 아이디와 비밀번호를 받아 로그인 처리
     \begin{itemize}
-        \item 아이디(username)나 비밀번호(password)가 없다면 \cd{BAD\_REQUEST} 에러 발생
+        \item 아이디(\cd{username})나 비밀번호(\cd{password})가 없으면 \cd{BAD\_REQUEST} 에러 발생
         \item DB에서 \cd{username}이 일치하는 사용자가 없으면 \cd{UNAUTHORIZED} 에러 발생
         \item 요청받은 비밀번호와 사용자의 비밀번호가 불일치하면 \cd{UNAUTHORIZED} 에러 발생
         \item 사용자의 \cd{id}, 아이디(\cd{username}), 닉네임(\cd{displayName}), 탈퇴 여부(\cd{isActive}), 관리자 여부(\cd{isStaff}) 정보를 담은 객체를 생성하여 세션의 \cd{user} 객체로 등록
@@ -150,7 +150,7 @@ module.exports = router;
 \end{verbatim}
 \end{codeenv}
 
-이제 각 controller 함수를 각 라우트에 연결하는 라우팅을 해보자. 먼저 src/controller/auth/index.js를 생성하고, \coderef{code:auth-routing}\과 같이 작성한다. \coderef{code:auth-routing}에는 express의 \cd{Router} 객체를 이용하여 경로가 /auth로 시작하는 라우트만 라우팅하며, 각 라우트의 경로에서 /auth는 생략한다. 그리고 이 \cd{Router} 객체를 export한다.
+이제 각 controller 함수를 각 라우트에 연결하는 라우팅을 해보자. src/controller/auth/index.js를 생성하고, \coderef{code:auth-routing}\과 같이 작성한다. \coderef{code:auth-routing}\은 express의 \cd{Router} 객체를 이용하여 경로가 /auth로 시작하는 라우트만 라우팅하며, 각 라우트의 경로에서 /auth는 생략한다. 그리고 이 \cd{Router} 객체를 export한다.
 
 \begin{codeenv}{code:index-routing}{Index Routing}\begin{verbatim}
 const { Router } = require('express');
@@ -168,22 +168,23 @@ module.exports = router;
 \end{verbatim}
 \end{codeenv}
 
-src/controller/index.js를 생성하고, \coderef{code:index-routing}\과 같이 작성한다. \coderef{code:index-routing}에서는 express의 \cd{Router} 객체에 GET / 라우트의 controller 함수를 등록하였고, \coderef{code:auth-routing}에서 작성한 \cd{Router} 객체를 /auth로 시작하는 경로에 대해서만 실행되는 미들웨어로 bind하였다. 이러한 구조는 인증(auth)과 관련된 라우트를 따로 분리하여 작성할 수 있도록 해준다.
+src/controller/index.js를 생성하고, \coderef{code:index-routing}\과 같이 작성한다. \coderef{code:index-routing}에서는 express의 \cd{Router} 객체에 GET / 라우트의 controller 함수를 등록하고, \coderef{code:auth-routing}에서 작성한 \cd{Router} 객체를 /auth로 시작하는 경로에 대해서만 실행되는 미들웨어로 bind한다. 이러한 구조는 인증(auth)과 관련된 라우트를 따로 분리하여 작성할 수 있도록 해준다.
 
-\begin{codeenv}{code:bind-controller}{Bind Controller Module on \cd{app}}\begin{verbatim}
+\begin{codeenv}{code:bind-controller}{Bind Controller Module on \cd{app}}
+\begin{Verbatim}[commandchars=\\\{\}]
 // omit
 
 const controller = require('./controller');
-const { errorHandler } = require('./lib/error-handler');
+\textbf{const \{ errorHandler \} = require('./lib/error-handler');}
 
 // omit
 
-app.use('/', controller);
+\textbf{app.use('/', controller);}
 
 app.use(errorHandler);
 
 module.exports = app;
-\end{verbatim}
+\end{Verbatim}
 \end{codeenv}
 
 src/app.js를 \coderef{code:bind-controller}\와 같이 수정하여 /로 시작하는 경로에 대해 src/controller 모듈이 실행될 수 있도록 한다. 이제 \shellref{shell:npm-run-script}\와 같이 서버를 실행하고, 지금까지 작성한 기능들을 직접 테스트 해보자.
@@ -195,9 +196,9 @@ src/controller/article/ctrl.js를 생성하고, 다음 controller를 구현한 �
 
 \subsubsection*{\cd{readArticle}}
 \begin{itemize}
-    \item GET /article/:articleId(\textbackslash{}\textbackslash{}d+) → \cd{articleId}에 해당하는 게시물 상세 페이지 응답
+    \item GET /article/:articleId(\textbackslash{}d+) → \cd{articleId}에 해당하는 게시물 상세 페이지 응답
     \begin{itemize}
-        \item DB에서 id가 \cd{articleId}인 게시물 조회 → 없으면 \cd{NOT\_EXIST} 에러 발생
+        \item DB에서 \cd{id}가 \cd{articleId}인 게시물 조회 → 없으면 \cd{NOT\_EXIST} 에러 발생
         \item 상세 페이지 응답
     \end{itemize}
     \item 템플릿: views/articles/details.pug
@@ -229,7 +230,7 @@ src/controller/article/ctrl.js를 생성하고, 다음 controller를 구현한 �
 
 \subsubsection*{\cd{editArticleForm}}
 \begin{itemize}
-    \item GET /article/edit/:articleId(\textbackslash{}\textbackslash{}d+) → \cd{articleId}에 해당하는 게시물 에디터 페이지 응답
+    \item GET /article/edit/:articleId(\textbackslash{}d+) → \cd{articleId}에 해당하는 게시물 에디터 페이지 응답
     \begin{itemize}
         \item DB에서 \cd{id}가 \cd{articleId}인 게시물 조회 → 없으면 \cd{NOT\_EXIST} 에러 발생
         \item 수정할 게시물의 제목과 내용이 포함된 게시물 에디터 페이지 응답
@@ -243,7 +244,7 @@ src/controller/article/ctrl.js를 생성하고, 다음 controller를 구현한 �
 
 \subsubsection*{\cd{editArticle}}
 \begin{itemize}
-    \item POST /article/edit/:articleId(\textbackslash{}\textbackslash{}d+) → \cd{articleId}에 해당하는 게시물의 제목과 내용을 HTTP 요청의 body의 제목과 내용으로 수정
+    \item POST /article/edit/:articleId(\textbackslash{}d+) → \cd{articleId}에 해당하는 게시물의 제목과 내용을 HTTP 요청의 body의 제목과 내용으로 수정
     \begin{itemize}
         \item \cd{trim} 메서드를 이용하여 제목(\cd{title})과 내용(\cd{content})에서 whitespace 제거
         \item Trim된 제목이나 내용이 빈 문자열이거나 저장 가능한 최대 길이를 초과하면 \cd{BAD\_REQUEST} 에러 발생
@@ -255,7 +256,7 @@ src/controller/article/ctrl.js를 생성하고, 다음 controller를 구현한 �
 
 \subsubsection*{\cd{deleteArticle}}
 \begin{itemize}
-    \item GET /article/delete/:articleId(\textbackslash{}\textbackslash{}d+) → \cd{articleId}에 해당하는 게시물을 삭제
+    \item GET /article/delete/:articleId(\textbackslash{}d+) → \cd{articleId}에 해당하는 게시물을 삭제
     \begin{itemize}
         \item DB에서 \cd{id}가 \cd{articleId}이고 요청을 보낸 사용자가 작성한 게시물 조회 → 없으면 \cd{NOT\_EXIST} 에러 발생
         \item DB에 해당 게시물의 \cd{is\_deleted} 값을 수정하여 게시물 삭제
@@ -263,7 +264,7 @@ src/controller/article/ctrl.js를 생성하고, 다음 controller를 구현한 �
     \end{itemize}
 \end{itemize}
 
-게시물 작성, 수정, 삭제 기능을 수행할 때 모두 요청한 사용자의 정보가 필요하므로 이러한 기능에 관여하는 5개 라우트는 모두 로그인하지 않은 사용자에게 \cd{NOT\_FOUND} 에러를 응답하여야 한다. 이 로직은 5개 라우트에 각각 구현하여도 되지만, 미들웨어를 이용하여 이 로직을 구현해보자.
+게시물 작성, 수정, 삭제 기능을 수행할 때 모두 요청한 사용자의 정보가 필요하므로 이러한 기능에 관여하는 5개 라우트는 모두 로그인하지 않은 사용자에게 404 Not Found 상태를 응답하여야 한다. 이 로직은 5개 라우트에 각각 구현하여도 되지만, 미들웨어를 이용하여 이 로직을 구현해보자.
 
 \begin{codeenv}{code:auth-middleware}{Auth Middleware}\begin{verbatim}
 const authRequired = async (req, res, next) => {
@@ -304,27 +305,27 @@ module.exports = router;
 \end{codeenv}
 \newpage
 
-이제 게시물 controller 함수를 라우팅하자. src/controller/article/index.js를 생성하고, \coderef{code:article-routing}\과 같이 작성한다. 여기에서 로그인이 필요한 5개 라우트에 대해 컨트롤러 미들웨어 직전에 \cd{authRequired} 미들웨어가 실행되게 함으로써 로그인하지 않은 사용자로부터 온 요청은 바로 응답되도록 한다.
+이제 게시물 controller 함수를 라우팅하자. src/controller/article/index.js를 생성하고, \coderef{code:article-routing}\과 같이 작성한다. 여기에서 로그인이 필요한 5개 라우트에 대해 컨트롤러 미들웨어 직전에 \cd{authRequired} 미들웨어가 실행되게 함으로써 로그인하지 않은 사용자로부터 온 요청은 미리 걸러내도록 한다.
 
 src/controller/ctrl.js에 다음 controller를 추가로 구현한 뒤 export하여라. 결과는 \coderef{code:articles-ctrl}\를 참고하여라.
 
 \subsubsection*{\cd{listArticles}}
 \begin{itemize}
-    \item GET /articles/page/:page(\textbackslash{}\textbackslash{}d+) → \cd{page}번째 페이지에 나열되어야 하는 게시물 목록 응답
+    \item GET /articles/page/:page(\textbackslash{}d+) → \cd{page}번째 페이지에 나열되어야 하는 게시물 목록 응답
     \begin{itemize}
         \item 요청에서 \cd{page} 값 도출 → 0 이하이면 \cd{BAD\_REQUEST} 에러 발생
         \item 한 페이지에는 최대 10개의 게시물 정보를 나열 → 나열될 게시물들이 전체 게시물의 몇 번째 게시물부터 10개인지 계산
         \item DB에서 나열할 게시물 데이터의 배열과 전체 게시물 데이터의 개수를 조회
-        \item 전체 게시물 데이터와 현제 페이지 번호를 이용하여 이전 페이지와 다음 페이지 존재 여부를 계산
+        \item 전체 게시물 데이터와 현재 페이지 번호를 이용하여 이전 페이지와 다음 페이지 존재 여부를 계산
         \item 게시물 목록 페이지 응답
     \end{itemize}
     \item 템플릿: views/articles/index.pug
     \begin{itemize}
-        \item user: 현재 로그인된 사용자 객체
-        \item articles: 나열할 게시물 객체들의 배열
-        \item page: 현재 페이지 번호 (정수 형태)
-        \item hasPrev: 이전 페이지의 존재 여부
-        \item hasNext: 다음 페이지의 존재 여부
+        \item \cd{user}: 현재 로그인된 사용자 객체
+        \item \cd{articles}: 나열할 게시물 객체들의 배열
+        \item \cd{page}: 현재 페이지 번호 (정수 형태)
+        \item \cd{hasPrev}: 이전 페이지의 존재 여부
+        \item \cd{hasNext}: 다음 페이지의 존재 여부
     \end{itemize}
 \end{itemize}
 
@@ -335,24 +336,25 @@ src/controller/ctrl.js에 다음 controller를 추가로 구현한 뒤 export하
 
 마지막으로, 이제 src/controller/index.js를 \coderef{code:index-routing-added}\와 같이 수정하여, 게시물과 관련된 기능을 담당하는 컨트롤러 함수들의 라우팅을 완료한다.
 
-\begin{codeenv}{code:index-routing-added}{Index Routing (Added)}\begin{verbatim}
-const { Router } = require('express');
+\begin{codeenv}{code:index-routing-added}{Index Routing (Added)}
+\begin{Verbatim}[commandchars=\\\{\}]
+const \{ Router \} = require('express');
 
 const ctrl = require('./ctrl');
-const article = require('./article');
+\textbf{const article = require('./article');}
 const auth = require('./auth');
 
 const router = Router();
 
 router.get('/', ctrl.indexPage);
-router.get('/articles/page/:page(\\d+)', ctrl.listArticles);
-router.get('/articles', ctrl.latestArticles);
+\textbf{router.get('/articles/page/:page(\textbackslash{}\textbackslash{}d+)', ctrl.listArticles);}
+\textbf{router.get('/articles', ctrl.latestArticles);}
 
-router.use('/article', article);
+\textbf{router.use('/article', article);}
 router.use('/auth', auth);
 
 module.exports = router;
-\end{verbatim}
+\end{Verbatim}
 \end{codeenv}
 
 이제 \shellref{shell:npm-run-script}\와 같이 서버를 실행하고, 지금까지 작성한 기능들을 직접 테스트 해보자.
