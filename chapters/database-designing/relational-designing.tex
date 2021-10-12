@@ -74,8 +74,8 @@
 \begin{codeenv}{code:create-table-primary-key}{Create \cd{departments} Table with Primary Key}\begin{verbatim}
 CREATE TABLE `departments` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `kor_name` VARCHAR(8) NOT NULL,
-    `eng_name` VARCHAR(32) NOT NULL,
+    `kor_name` VARCHAR(16) NOT NULL,
+    `eng_name` VARCHAR(50) NOT NULL,
     `college` VARCHAR(16) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -95,7 +95,7 @@ CREATE TABLE `departments` (
     \cd{id} & \cd{name} & \cd{department} & \cd{code} & \cd{is\_major} & \cd{is\_required} & \cd{credit} & \cd{period}\tabularnewline
     \hline
     \rowcolor{tblheadcolor}
-    \cd{INT} & \cd{VC(20)} & \cd{VC(16)} & \cd{VC(8)} & \cd{TINYINT(1)} & \cd{TINYINT(1)} & \cd{INT} & \cd{INT}\tabularnewline
+    \cd{INT} & \cd{VC(20)} & \cd{INT} & \cd{VC(8)} & \cd{TINYINT(1)} & \cd{TINYINT(1)} & \cd{INT} & \cd{INT}\tabularnewline
     \hline
     1 & 모두를위한파이썬 & 1 & COSE156 & 0 & 0 & 3 & 4\tabularnewline
     \hline
