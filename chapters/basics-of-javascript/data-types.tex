@@ -26,7 +26,7 @@ number형은 수(數)를 저장하는 자료형으로, 정수, 유리수 등을 
 \end{verbatim}
 \end{codeenv}
 
-number 자료형에는 일반적인 실수 이외에 \texttt{Infinity}와 \texttt{NaN}(not a number)이 있다. 두 값은 0으로 나누는 연산이 수행되면 발생한다.
+number 자료형에는 일반적인 실수 이외에 \cd{Infinity}와 \cd{NaN}(not a number)이 있다. 두 값은 0으로 나누는 연산이 수행되면 발생한다.
 
 \begin{codeenv}{code:infinity-nan}{Infinity and NaN}\begin{verbatim}
 > 3 / 0;
@@ -71,7 +71,7 @@ string형은 문자열을 저장하는 자료형으로, string형 문자열 간�
 \end{verbatim}
 \end{codeenv}
 
-문자열을 표현할 때 큰따옴표(\texttt{"})나 작은따옴표(\texttt{'})를 사용하여 문자열을 감싸며, 서로 다른 문자로 감싸는 것은 불가능하다. 또한, 문자열 내에 감싸는 문자 등이 포함되어 있는 경우 역슬래시(\verb|\|)를 이용하여 escape 시켜야 한다.
+문자열을 표현할 때 큰따옴표(\cd{"})나 작은따옴표(\cd{'})를 사용하여 문자열을 감싸며, 서로 다른 문자로 감싸는 것은 불가능하다. 또한, 문자열 내에 감싸는 문자 등이 포함되어 있는 경우 역슬래시(\verb|\|)를 이용하여 escape 시켜야 한다.
 
 \begin{codeenv}{code:string-type-assign}{Assigning Value on String Type Variable}\begin{verbatim}
 > "String";
@@ -89,7 +89,7 @@ McDonald's
 
 \subsection*{Boolean}
 
-boolean형은 논리적인 요소를 나타내는 자료형으로, \texttt{true}와 \texttt{false} 두 가지의 값이 가능하다.
+boolean형은 논리적인 요소를 나타내는 자료형으로, \cd{true}와 \cd{false} 두 가지의 값이 가능하다.
 
 \begin{codeenv}{code:boolean-type}{Boolean Type}\begin{verbatim}
 > 1 == 1;
@@ -108,7 +108,7 @@ false
 
 \subsection*{Object}
 
-object형, 즉 객체형이란 key와 value를 가질 수 있는 자료형이다. 예를 들어, 어떠한 학생에 대한 정보를 다룰 때, 학생의 학번, 이름, 학과, 재학 여부 등을 서로 다른 변수에 저장하지 않고, \texttt{student}라는 객체형 식별자에 저장하여 일괄적으로 다룰 수 있다. Key는 같은 계층에서 유일한 문자열이고, value에는 숫자, 문자열 등 자료형에 상관없이 모든 종류의 값이 할당될 수 있다. 즉, 객체 내부에 또 다른 객체가 포함될 수 있어, 계층이 있는 데이터(hierarchial data)를 형성하는 것이 가능하다.
+object형, 즉 객체형이란 key와 value를 가질 수 있는 자료형이다. 예를 들어, 어떠한 학생에 대한 정보를 다룰 때, 학생의 학번, 이름, 학과, 재학 여부 등을 서로 다른 변수에 저장하지 않고, \cd{student}라는 객체형 식별자에 저장하여 일괄적으로 다룰 수 있다. Key는 같은 계층에서 유일한 문자열이고, value에는 숫자, 문자열 등 자료형에 상관없이 모든 종류의 값이 할당될 수 있다. 즉, 객체 내부에 또 다른 객체가 포함될 수 있어, 계층이 있는 데이터(hierarchial data)를 형성하는 것이 가능하다.
 
 \begin{codeenv}{code:object-type}{Object Type}\begin{verbatim}
 > const person = {
@@ -134,7 +134,7 @@ false
 
 \subsection*{Undefined and Null}
 
-undefined형과 null형은 각각 값이 할당되지 않은 식별자와 값을 모르는 식별자가 갖는 자료형이며, 두 자료형의 값은 각각 항상 \texttt{undefined}와 \texttt{null}이다.
+undefined형과 null형은 각각 값이 할당되지 않은 식별자와 값을 모르는 식별자가 갖는 자료형이며, 두 자료형의 값은 각각 항상 \cd{undefined}와 \cd{null}이다.
 
 \begin{codeenv}{code:undefined-type}{Undefined Type}\begin{verbatim}
 > let undefVar;
@@ -145,7 +145,7 @@ undefined
 \end{verbatim}
 \end{codeenv}
 
-JS에는 null 자료형 식별자를 \texttt{typeof} 함수를 이용하여 확인할 때 잘못된 자료형을 반환받는 버그를 가지고 있다. 이는 매우 오래된 버그이므로 고치는 것이 불가능하다고 하며, 변수가 \texttt{null}임을 확인하기 위해서는 값을 직접 비교하여야 한다.
+JS에는 null 자료형 식별자를 \cd{typeof} 함수를 이용하여 확인할 때 잘못된 자료형을 반환받는 버그를 가지고 있다. 이는 매우 오래된 버그이므로 고치는 것이 불가능하다고 하며, 변수가 \cd{null}임을 확인하기 위해서는 값을 직접 비교하여야 한다.
 \newpage
 
 \begin{codeenv}{code:null-type}{Null Type}\begin{verbatim}

@@ -81,7 +81,7 @@ const htmlDocument = [
 \figures{fig:html-tree-struct}{Tree Structure of HTML Elements}
     {\fig{images/javascript-dynamic-frontend/html-tree-struct.png}{.8}}
 
-\coderef{code:html-tree-struct-html}\은 \figref{fig:html-tree-struct}\와 같은 구조로 표현될 수도 있다. 즉 HTML 문서는 tree로 표현될 수 있고, 모든 HTML 요소는 tree의 node로 표현될 수 있으며, \texttt{document} 객체에 접근하여 tree의 root node에 접근할 수 있다. DOM은 root node를 비롯한 모든 node, 즉 HTML 요소에 대해 어떤 요소의 정보에 접근하는 메서드, 어떤 요소를 기준으로 다른 요소를 선택할 수 있는 메서드 등을 제공한다.
+\coderef{code:html-tree-struct-html}\은 \figref{fig:html-tree-struct}\와 같은 구조로 표현될 수도 있다. 즉 HTML 문서는 tree로 표현될 수 있고, 모든 HTML 요소는 tree의 node로 표현될 수 있으며, \cd{document} 객체에 접근하여 tree의 root node에 접근할 수 있다. DOM은 root node를 비롯한 모든 node, 즉 HTML 요소에 대해 어떤 요소의 정보에 접근하는 메서드, 어떤 요소를 기준으로 다른 요소를 선택할 수 있는 메서드 등을 제공한다.
 
 이번 절에서는 DOM에서 제공하는 메서드를 이용하여 HTML 요소들을 제어하는 방법에 대해 학습한다.
 
@@ -114,14 +114,14 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 먼저, 어떤 요소의 자손 요소 중 id, class, 태그, CSS 선택자 등을 기준으로 요소를 조회할 수 있다.
 
 \begin{itemize}
-    \item \texttt{getElementById(id) => HTMLElement}: 요소의 자손 요소 중 주어진 문자열을 id로 갖는 요소를 반환하는 메서드
-    \item \texttt{getElementsByTagName(tagName) => HTMLCollection}: 요소의 자손 요소 중 주어진 문자열을 태그로 갖는 요소들의 유사 배열을 반환하는 메서드
-    \item \texttt{getElementsByClassName(className) => HTMLCollection}: 요소의 자손 요소 중 주어진 문자열을 class로 갖는 요소들의 유사 배열을 반환하는 메서드
-    \item \texttt{querySelector(selector) => HTMLElement}: 요소의 자손 요소 중 주어진 선택자로 선택되는 첫 번째 요소를 반환하는 메서드
-    \item \texttt{querySelectorAll(selector) => NodeList}: 요소의 자손 요소 중 주어진 선택자로 선택되는 요소들의 유사 배열을 반환하는 메서드
+    \item \cd{getElementById(id) => HTMLElement}: 요소의 자손 요소 중 주어진 문자열을 id로 갖는 요소를 반환하는 메서드
+    \item \cd{getElementsByTagName(tagName) => HTMLCollection}: 요소의 자손 요소 중 주어진 문자열을 태그로 갖는 요소들의 유사 배열을 반환하는 메서드
+    \item \cd{getElementsByClassName(className) => HTMLCollection}: 요소의 자손 요소 중 주어진 문자열을 class로 갖는 요소들의 유사 배열을 반환하는 메서드
+    \item \cd{querySelector(selector) => HTMLElement}: 요소의 자손 요소 중 주어진 선택자로 선택되는 첫 번째 요소를 반환하는 메서드
+    \item \cd{querySelectorAll(selector) => NodeList}: 요소의 자손 요소 중 주어진 선택자로 선택되는 요소들의 유사 배열을 반환하는 메서드
 \end{itemize}
 
-유사 배열이란 for문 등으로 iteration을 수행할 수 있으나 배열은 아닌 \texttt{HTMLCollection}, \texttt{NodeList} 클래스의 인스턴스를 표현하기 위한 용어로, 일반적으로 사용되는 용어는 아니다. 두 클래스 모두 요소들의 개수를 확인할 수 있는 \texttt{length} 속성이 있으나, \texttt{HTMLCollection} 클래스와 달리 \texttt{NodeList} 클래스는 \texttt{forEach} 메서드를 갖는다.
+유사 배열이란 for문 등으로 iteration을 수행할 수 있으나 배열은 아닌 \cd{HTMLCollection}, \cd{NodeList} 클래스의 인스턴스를 표현하기 위한 용어로, 일반적으로 사용되는 용어는 아니다. 두 클래스 모두 요소들의 개수를 확인할 수 있는 \cd{length} 속성이 있으나, \cd{HTMLCollection} 클래스와 달리 \cd{NodeList} 클래스는 \cd{forEach} 메서드를 갖는다.
 
 \coderef{code:dom-query-descendents}\를 실행해보며 결과를 확인해보자. 각 표현식의 결과값은 생략한다.
 \newpage
@@ -143,12 +143,12 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 또한, 어떤 요소를 기준으로 상대적인 위치에 있는 요소를 조회할 수 있다.
 
 \begin{itemize}
-    \item \texttt{parentElement}: 요소의 부모 요소를 값으로 갖는 속성
-    \item \texttt{children}: 요소의 자식 요소들의 유사 배열을 값으로 갖는 속성
-    \item \texttt{firstElementChild}: 요소의 첫 번째 자식 요소를 값으로 갖는 속성
-    \item \texttt{lastElementChild}: 요소의 마지막 자식 요소를 값으로 갖는 속성
-    \item \texttt{previousElementSibling}: 요소의 직전 형제 요소를 값으로 갖는 속성
-    \item \texttt{nextElementSibling}: 요소의 직후 형제 요소를 값으로 갖는 속성
+    \item \cd{parentElement}: 요소의 부모 요소를 값으로 갖는 속성
+    \item \cd{children}: 요소의 자식 요소들의 유사 배열을 값으로 갖는 속성
+    \item \cd{firstElementChild}: 요소의 첫 번째 자식 요소를 값으로 갖는 속성
+    \item \cd{lastElementChild}: 요소의 마지막 자식 요소를 값으로 갖는 속성
+    \item \cd{previousElementSibling}: 요소의 직전 형제 요소를 값으로 갖는 속성
+    \item \cd{nextElementSibling}: 요소의 직후 형제 요소를 값으로 갖는 속성
 \end{itemize}
 
 \coderef{code:dom-query-adjacents}\를 실행해보며 결과를 확인해보자. 각 표현식의 결과값은 생략한다.
@@ -170,21 +170,21 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 요소 객체에 접근하여 속성을 읽거나 쓰고 수정할 수 있다.
 
 \begin{itemize}
-    \item \texttt{innerText}: 요소 내부의 텍스트에 접근할 수 있는 속성; 이 속성의 값을 변경하면 요소 내부 텍스트도 변경된다.
-    \item \texttt{setAttribute(name, value)}: 요소의 \texttt{name} 속성의 값을 \texttt{value}로 설정(변경)하는 메서드
-    \item \texttt{getAttribute(name) => string}: 요소의 \texttt{name} 속성에 대한 속성값을 반환하는 메서드
-    \item \texttt{hasAttribute(name) => boolean}: 요소에 \texttt{name} 속성이 있는지 판별하는 메서드
-    \item \texttt{removeAttribute(name)}: 요소에서 \texttt{name} 속성을 제거하는 메서드
-    \item \texttt{style}: 요소의 CSS 스타일에 접근할 수 있는 객체; 각 CSS 속성은 \texttt{kebab-case}가 아니라 \texttt{camelCase}로 작성한다. (\coderef{code:html-elmt-attrs} 참고)
+    \item \cd{innerText}: 요소 내부의 텍스트에 접근할 수 있는 속성; 이 속성의 값을 변경하면 요소 내부 텍스트도 변경된다.
+    \item \cd{setAttribute(name, value)}: 요소의 \cd{name} 속성의 값을 \cd{value}로 설정(변경)하는 메서드
+    \item \cd{getAttribute(name) => string}: 요소의 \cd{name} 속성에 대한 속성값을 반환하는 메서드
+    \item \cd{hasAttribute(name) => boolean}: 요소에 \cd{name} 속성이 있는지 판별하는 메서드
+    \item \cd{removeAttribute(name)}: 요소에서 \cd{name} 속성을 제거하는 메서드
+    \item \cd{style}: 요소의 CSS 스타일에 접근할 수 있는 객체; 각 CSS 속성은 \cd{kebab-case}가 아니라 \cd{camelCase}로 작성한다. (\coderef{code:html-elmt-attrs} 참고)
     \newpage
-    \item \texttt{classList}: 요소의 클래스의 유사 배열에 접근할 수 있는 객체
+    \item \cd{classList}: 요소의 클래스의 유사 배열에 접근할 수 있는 객체
     \begin{itemize}
-      \item \texttt{length}: 클래스의 개수를 값으로 갖는 속성
-      \item \texttt{value}: 요소의 \texttt{class} 속성값을 값으로 갖는 속성
-      \item \texttt{contains(class) => boolean}: 클래스의 존재 유무를 판별하여 반환하는 메서드
-      \item \texttt{add(class1, class2, ..., classN)}: 주어진 클래스들을 추가하는 메서드
-      \item \texttt{remove(class1, class2, ..., classN)}: 주어진 클래스들을 제거하는 메서드
-      \item \texttt{toggle(class) => boolean}: 주어진 클래스가 클래스 유사배열에 존재하면 제거하고, 존재하지 않으면 삽입하며, 주어진 클래스가 추가되었으면 \texttt{true}, 제거되었으면 \texttt{false}를 반환하는 메서드
+      \item \cd{length}: 클래스의 개수를 값으로 갖는 속성
+      \item \cd{value}: 요소의 \cd{class} 속성값을 값으로 갖는 속성
+      \item \cd{contains(class) => boolean}: 클래스의 존재 유무를 판별하여 반환하는 메서드
+      \item \cd{add(class1, class2, ..., classN)}: 주어진 클래스들을 추가하는 메서드
+      \item \cd{remove(class1, class2, ..., classN)}: 주어진 클래스들을 제거하는 메서드
+      \item \cd{toggle(class) => boolean}: 주어진 클래스가 클래스 유사배열에 존재하면 제거하고, 존재하지 않으면 삽입하며, 주어진 클래스가 추가되었으면 \cd{true}, 제거되었으면 \cd{false}를 반환하는 메서드
     \end{itemize}
 \end{itemize}
 
@@ -209,9 +209,9 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 또한, 요소에 자식 요소를 추가하거나 제거할 수 있다.
 
 \begin{itemize}
-    \item \texttt{createElement(tagName) => element}: 주어진 태그 이름을 태그로 한 새로운 HTML 요소를 생성하여 반환하는 메서드; \texttt{document} 객체만 사용할 수 있는 메서드
-    \item \texttt{appendChild(element) => element}: 주어진 요소를 요소의 자식 요소로 삽입하고, 삽입된 요소를 반환하는 메서드
-    \item \texttt{removeChild(element) => element}: 주어진 요소를 요소의 자식 요소에서 제거하고, 제거된 요소를 반환하는 메서드
+    \item \cd{createElement(tagName) => element}: 주어진 태그 이름을 태그로 한 새로운 HTML 요소를 생성하여 반환하는 메서드; \cd{document} 객체만 사용할 수 있는 메서드
+    \item \cd{appendChild(element) => element}: 주어진 요소를 요소의 자식 요소로 삽입하고, 삽입된 요소를 반환하는 메서드
+    \item \cd{removeChild(element) => element}: 주어진 요소를 요소의 자식 요소에서 제거하고, 제거된 요소를 반환하는 메서드
 \end{itemize}
 
 \begin{codeenv}{code:child-elmts-modify}{Modifying Child Elements}\begin{verbatim}

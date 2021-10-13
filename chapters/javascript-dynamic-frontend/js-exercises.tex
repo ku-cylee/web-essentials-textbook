@@ -2,7 +2,7 @@
 
 \subsection*{Exercise 1}
 
-\coderef{code:exercise-dom-1}\을 참고하여 버튼을 클릭하면 \texttt{\#color-box}의 배경색을 랜덤하게 바꾸는 함수를 script.5.1.js의 \texttt{setRandomBgColor} 함수에 작성하여라. 색상은 R, G, B의 값으로 표현될 수 있고, 각 값은 0 이상 255 이하의 정수임을 이용하여라.
+\coderef{code:exercise-dom-1}\을 참고하여 버튼을 클릭하면 \cd{\#color-box}의 배경색을 랜덤하게 바꾸는 함수를 script.5.1.js의 \cd{setRandomBgColor} 함수에 작성하여라. 색상은 R, G, B의 값으로 표현될 수 있고, 각 값은 0 이상 255 이하의 정수임을 이용하여라.
 
 \begin{codeenv}{code:exercise-dom-1}{Exercise 1}\begin{verbatim}
 <!doctype html>
@@ -27,7 +27,7 @@
 
 \subsection*{Exercise 2}
 
-\coderef{code:exercise-dom-2}\를 참고하여, 버튼을 클릭하면 \texttt{input}에 입력된 값이 1 이상 9 이하의 자연수면 입력된 값의 구구단을 \texttt{\#times-result}에 출력하고, 아닌 경우에는 \texttt{Input Error!}를 출력하는 함수를 script.5.2.js의 \texttt{displayTimes} 함수에 작성하여라. \texttt{input} 태그에 입력된 값은 \texttt{value} 속성을 통해 접근할 수 있음을 이용하여라.
+\coderef{code:exercise-dom-2}\를 참고하여, 버튼을 클릭하면 \cd{input}에 입력된 값이 1 이상 9 이하의 자연수면 입력된 값의 구구단을 \cd{\#times-result}에 출력하고, 아닌 경우에는 \cd{Input Error!}를 출력하는 함수를 script.5.2.js의 \cd{displayTimes} 함수에 작성하여라. \cd{input} 태그에 입력된 값은 \cd{value} 속성을 통해 접근할 수 있음을 이용하여라.
 
 \begin{codeenv}{code:exercise-dom-2}{Exercise 2}\begin{verbatim}
 <!doctype html>
@@ -50,7 +50,7 @@
 
 \subsection*{Exercise 3}
 
-\coderef{code:code:exercise-dom-3}\을 참고하여 버튼을 클릭하면 다섯 개 상자 중 두 번째 상자의 색을 변경하는 함수를 script.5.3.js의 \texttt{changeBoxColor} 함수에 작성하여라.
+\coderef{code:code:exercise-dom-3}\을 참고하여 버튼을 클릭하면 다섯 개 상자 중 두 번째 상자의 색을 변경하는 함수를 script.5.3.js의 \cd{changeBoxColor} 함수에 작성하여라.
 
 \begin{codeenv}{code:code:exercise-dom-3}{Exercise 3}\begin{verbatim}
 <!doctype html>
@@ -82,7 +82,7 @@
 
 \subsection*{Exercise 4}
 
-\coderef{code:exercise-bom-1}\을 참고하여 버튼을 눌렀을 때 주어진 레벨업 시스템이 작동하여 정해진 확률에 따라 레벨 0에서 레벨 10까지 50ms마다 레벨업을 계속 시도하는 함수를 script.5.4.js의 \texttt{work} 함수에 작성하여라.
+\coderef{code:exercise-bom-1}\을 참고하여 버튼을 눌렀을 때 주어진 레벨업 시스템이 작동하여 정해진 확률에 따라 레벨 0에서 레벨 10까지 50ms마다 레벨업을 계속 시도하는 함수를 script.5.4.js의 \cd{work} 함수에 작성하여라.
 
 \begin{itemize}
     \item 레벨 0에서 레벨 9까지 다음 레벨로의 레벨업이 성공할 확률은 각각 100\%, 60\%, 36\%, 22\%, 13\%, 8\%, 5\%, 3\%, 2\%, 1\%이며, 성공하면 레벨이 1만큼 오르고, 실패하면 변하지 않는다.
@@ -94,12 +94,12 @@
 \begin{itemize}
     \item Step 1: 레벨업 성공 확률을 \% 단위, number형의 배열로 저장한다.
     \item Step 2: 레벨, 시도 횟수 등 필요한 값을 변수와 상수로 선언한다.
-    \item Step 3: \% 단위의 확률을 인자로 받아, 확률에 따라 무작위로 성공 여부를 판별하여 반환하는 함수 \texttt{getRandomBinaryResult}를 구현한다.
+    \item Step 3: \% 단위의 확률을 인자로 받아, 확률에 따라 무작위로 성공 여부를 판별하여 반환하는 함수 \cd{getRandomBinaryResult}를 구현한다.
     \begin{itemize}
-        \item 예: \texttt{getRandomBinaryResult(32)}의 반환값은 32\%의 확률로 \texttt{true}, 68\%의 확률로 \texttt{false}이다.
+        \item 예: \cd{getRandomBinaryResult(32)}의 반환값은 32\%의 확률로 \cd{true}, 68\%의 확률로 \cd{false}이다.
         \item Hint: 0 이상 20 미만의 정수 중 하나를 무작위로 뽑았을 때 13 미만의 정수는 65\% 확률로 뽑힌다.
     \end{itemize}
-    \item Step 4: 버튼을 눌렀을 때 작동하는 기능은 \texttt{tryLevelUp} 함수 내부에 작성한다.
+    \item Step 4: 버튼을 눌렀을 때 작동하는 기능은 \cd{tryLevelUp} 함수 내부에 작성한다.
 \end{itemize}
 
 \begin{codeenv}{code:exercise-bom-1}{Exercise 4}\begin{verbatim}
@@ -140,9 +140,9 @@
 \coderef{code:exercise-event-1}\을 참고하여 물품을 카트에 담을 때마다 지불할 총 금액이 갱신되는 쇼핑몰 사이트를 script.5.5.js를 다음 단계를 따라 작성하여 완성하여라.
 
 \begin{itemize}
-    \item Step 1: \texttt{.item} 요소들은 그 물품의 이름을 \texttt{id} 값으로 가지고 있다. 각 \texttt{id}가 \texttt{key}, 해당 물품의 단가를 \texttt{value}로 하는 객체를 만든다. 그리고, 필요한 변수/상수들을 선언하고 할당한다.
+    \item Step 1: \cd{.item} 요소들은 그 물품의 이름을 \cd{id} 값으로 가지고 있다. 각 \cd{id}가 \cd{key}, 해당 물품의 단가를 \cd{value}로 하는 객체를 만든다. 그리고, 필요한 변수/상수들을 선언하고 할당한다.
     \item Step 2: 이 문제에서는 여러 요소에 이벤트 리스너를 등록해야 하므로 등록할 요소들을 선택하고, for-of문을 사용하여 각 요소에 이벤트 리스너를 등록한다.
-    \item Step 3: 이벤트가 발생한 요소가 속한 \texttt{.item} 요소의 \texttt{id} 값을 가져와 총 금액을 갱신하는 이벤트 리스너를 구현한다.
+    \item Step 3: 이벤트가 발생한 요소가 속한 \cd{.item} 요소의 \cd{id} 값을 가져와 총 금액을 갱신하는 이벤트 리스너를 구현한다.
 \end{itemize}
 \newpage
 
@@ -211,13 +211,13 @@
 \coderef{code:exercise-event-2-css}\와 \coderef{code:exercise-event-2-html}\를 참고하여 미로를 탈출 게임을 script.5.6.js를 작성하여 완성하여라. 시작 지점은 붉은 사각형, 탈출 지점은 푸른 사각형, 미로의 벽은 검정색 사각형이며, 붉은 사각형을 방향키를 이용하여 탈출 지점까지 이동시킨다. 방향키를 이용해 이동할 때는 인접한 사각형으로 이동하며, 벽이나 미로 밖으로 이동하려고 하면 이동하지 않는다.
 
 \begin{itemize}
-    \item Step 0: 이 문제의 미로는 \texttt{\#maze} 요소 내부에 정사각형 요소가 7행 8열로 배치되어 있다. 사각형의 위치는 행과 열을 이용하여 나타내고, \texttt{row}와 \texttt{col}을 속성으로 갖는 위치 객체를 이용한다. 예를 들어 탈출 지점은 1행 7열에 위치하며, 탈출 지점의 위치 객체는 \texttt{\{ row: 1, col: 7 \}}이다.
+    \item Step 0: 이 문제의 미로는 \cd{\#maze} 요소 내부에 정사각형 요소가 7행 8열로 배치되어 있다. 사각형의 위치는 행과 열을 이용하여 나타내고, \cd{row}와 \cd{col}을 속성으로 갖는 위치 객체를 이용한다. 예를 들어 탈출 지점은 1행 7열에 위치하며, 탈출 지점의 위치 객체는 \cd{\{ row: 1, col: 7 \}}이다.
     \item Step 1: 행과 열의 최솟값과 최댓값을 나타내는 상수를 선언하고, 붉은 사각형의 위치 객체를 선언한다.
-    \item Step 2: 위치 객체를 인자로 받아 해당 위치에 있는 요소를 반환하는 함수 \texttt{getElementByPosition}을 구현한다.
-    \item Step 3: 이벤트 객체의 키 입력값을 인자로 받아 붉은 사각형의 위치에서 키 입력에 따라 이동한 새로운 위치 객체를 반환하는 함수 \texttt{getNewPositionByKey}를 구현한다.
-    \item Step 4: 인자로 받은 위치 객체가 미로 내에 존재하는지 판별하여 반환하는 함수 \texttt{isPositionInRange}를 구현한다.
-    \item Step 5: 인자로 받은 위치 객체가 미로의 벽인지 판별하여 반환하는 함수 \texttt{isPositionWall}을 구현한다.
-    \item Step 6: 방향키를 떼었을 때의 이벤트 리스너를 구현한다. 먼저 현재 위치의 사각형을 붉은 사각형에서 해제하고, 키 입력값을 이용하여 새로운 위치를 구한다. 새로운 위치가 적절한 위치이면 현재 위치를 새로운 위치로 바꾸고, 새로운 위치의 사각형을 붉은 사각형으로 지정한다. 마지막으로 새로운 위치가 탈출 지점이면 \texttt{You Escaped!} 문구를 경고창으로 띄운다.
+    \item Step 2: 위치 객체를 인자로 받아 해당 위치에 있는 요소를 반환하는 함수 \cd{getElementByPosition}을 구현한다.
+    \item Step 3: 이벤트 객체의 키 입력값을 인자로 받아 붉은 사각형의 위치에서 키 입력에 따라 이동한 새로운 위치 객체를 반환하는 함수 \cd{getNewPositionByKey}를 구현한다.
+    \item Step 4: 인자로 받은 위치 객체가 미로 내에 존재하는지 판별하여 반환하는 함수 \cd{isPositionInRange}를 구현한다.
+    \item Step 5: 인자로 받은 위치 객체가 미로의 벽인지 판별하여 반환하는 함수 \cd{isPositionWall}을 구현한다.
+    \item Step 6: 방향키를 떼었을 때의 이벤트 리스너를 구현한다. 먼저 현재 위치의 사각형을 붉은 사각형에서 해제하고, 키 입력값을 이용하여 새로운 위치를 구한다. 새로운 위치가 적절한 위치이면 현재 위치를 새로운 위치로 바꾸고, 새로운 위치의 사각형을 붉은 사각형으로 지정한다. 마지막으로 새로운 위치가 탈출 지점이면 \cd{You Escaped!} 문구를 경고창으로 띄운다.
 \end{itemize}
 
 \begin{codeenv}{code:exercise-event-2-css}{Exercise 6 - CSS}\begin{verbatim}
