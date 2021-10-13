@@ -1,8 +1,9 @@
-\documentclass[a4paper,10pt,hidelinks]{report}
+\documentclass[a4paper,10pt,hidelinks]{book}
 
 \usepackage{kotex}
-\usepackage[open,openlevel=1]{bookmark}
+\usepackage[open,openlevel=1,numbered]{bookmark}
 \usepackage[fleqn]{amsmath}
+\usepackage{xcolor}
 
 \input{settings/subtoc}
 \input{settings/title-styles}
@@ -10,21 +11,22 @@
 \input{settings/table-env}
 \input{settings/figures}
 \input{settings/code-env}
+% \input{settings/counters}
 \input{settings/captions}
 \input{settings/itemlist}
 
 \begin{document}
     \include{title}
     \dominitoc
-    {\doublespacing\tableofcontents}
+    \tableofcontents
 
-    \chapter{Introduction to Front-end} \label{ch:intoduction-to-front-end}
+    \chapter{Introduction to Front-end}\label{ch:intoduction-to-front-end}
     \minitoc
     \include{chapters/introduction-to-front-end/introducing-web}
     \include{chapters/introduction-to-front-end/2021-study-schedule}
     \include{chapters/introduction-to-front-end/setting-development-environment}
 
-    \chapter{HTML: The Basic Structure} \label{ch:html-the-basic-structure}
+    \chapter{HTML: The Basic Structure}\label{ch:html-the-basic-structure}
     \minitoc
     \include{chapters/html-the-basic-structure/introducing-html}
     \include{chapters/html-the-basic-structure/basic-structure-of-html}
@@ -32,7 +34,7 @@
     \include{chapters/html-the-basic-structure/class-and-id-attributes}
     \include{chapters/html-the-basic-structure/html-exercises}
 
-    \chapter{CSS: Desinging HTML} \label{ch:css-designing-html}
+    \chapter{CSS: Desinging HTML}\label{ch:css-designing-html}
     \minitoc
     \include{chapters/css-designing-html/introducing-css}
     \include{chapters/css-designing-html/basic-structure-of-css}
@@ -42,7 +44,7 @@
     \include{chapters/css-designing-html/responsive-web}
     \include{chapters/css-designing-html/css-exercises}
 
-    \chapter{Basics of Javascript} \label{ch:basics-of-javascript}
+    \chapter{Basics of Javascript}\label{ch:basics-of-javascript}
     \minitoc
     \include{chapters/basics-of-javascript/introducing-javascript}
     \include{chapters/basics-of-javascript/declaration-of-variables}
@@ -51,7 +53,7 @@
     \include{chapters/basics-of-javascript/built-in-objects}
     \include{chapters/basics-of-javascript/basic-js-exercises}
 
-    \chapter{Javascript: Dynamic Frontend} \label{ch:javascript-dynamic-frontend}
+    \chapter{Javascript: Dynamic Frontend}\label{ch:javascript-dynamic-frontend}
     \minitoc
     \include{chapters/javascript-dynamic-frontend/javascript-with-front-end}
     \include{chapters/javascript-dynamic-frontend/document-object-model}
@@ -61,7 +63,7 @@
 
     \appendix
 
-    \chapter{Exercise Answers} \label{ch:exercise-answers}
+    \chapter{Exercise Answers}\label{ch:exercise-answers}
     \minitoc
     \include{chapters/exercise-answers/html-exercise-answers}
     \include{chapters/exercise-answers/css-exercise-answers}

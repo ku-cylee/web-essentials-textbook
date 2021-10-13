@@ -1,13 +1,14 @@
 \usepackage{amsthm}
-\usepackage{xcolor}
 \usepackage{mdframed}
+\usepackage{fancyvrb}
+
+\newcommand\cd\texttt
 
 \definecolor{codebgcolor}{HTML}{E7E7E7}
 
 \mdfdefinestyle{codeframe}{
     hidealllines=true,
     backgroundcolor=codebgcolor,
-    skipabove=15pt,
     innertopmargin=-3pt,
     innerbottommargin=8pt,
 }
@@ -29,8 +30,18 @@
     {0pt}% space after theorem head
     {}% Manually specify head
 \theoremstyle{codestyle}
-\newtheorem{code}{Code}[chapter]
 
+\newtheorem{code}{Code}[chapter]
 \newenvironment{codeenv}[2]
-    {\begin{mdframed}[style=codeframe]\begin{code}[#2]\label{#1}\linespread{1.0}{\ }}
-    {\end{code}\end{mdframed}}
+    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{code}[#2]\label{#1}\linespread{1.1}{\ }}
+    {\end{code}\end{mdframed}\vspace{6pt}}
+
+\newtheorem{shell}{Shell}[chapter]
+\newenvironment{shellenv}[2]
+    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{shell}[#2]\label{#1}\linespread{1.1}{\ }}
+    {\end{shell}\end{mdframed}\vspace{6pt}}
+
+\newtheorem{sql}{SQL}[chapter]
+\newenvironment{sqlenv}[2]
+    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{sql}[#2]\label{#1}\linespread{1.1}{\ }}
+    {\end{sql}\end{mdframed}\vspace{6pt}}
