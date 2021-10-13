@@ -65,7 +65,7 @@ document.getElementById('btn').addEventListener('click', () => {
 지금까지 이벤트의 종류와 이벤트 리스너를 등록하는 방법에 대해 다루었다. 그런데 지금까지 학습한 방법으로는 이벤트 리스너에서 발생한 이벤트에 대한 정보를 얻을 수 없다는 문제가 발생한다. 예를 들어 \cd{keypress} 이벤트가 발생했을 때 사용자가 어느 키를 눌렀는지, \cd{mousedown} 이벤트가 발생했을 때 사용자가 좌클릭했는지 우클릭했는지, 어느 위치에 커서를 대고 눌렀는지 등에 대한 정보를 얻지 못한다.
 
 이러한 문제는 이벤트 리스너가 이벤트 객체를 받음으로써 해결된다. 발생한 이벤트에 대한 여러 정보를 담은 이벤트 객체가 생성되어 이벤트 리스너에 전달되며, 이 이벤트 객체를 인자로 받아서 사용할 수 있다. JS의 함수의 특성상 이벤트 리스너에서 이벤트 객체가 필요하지 않다면 앞의 \coderef{code:event-listener-addeventlistener}\와 같이 인자를 아예 받지 않을 수도 있다.
-\newpage
+
 
 \begin{codeenv}{code:event-object}{Event Listener with Event Object}\begin{verbatim}
 document.addEventListener('mousedown', event => {

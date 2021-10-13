@@ -124,7 +124,7 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 유사 배열이란 for문 등으로 iteration을 수행할 수 있으나 배열은 아닌 \cd{HTMLCollection}, \cd{NodeList} 클래스의 인스턴스를 표현하기 위한 용어로, 일반적으로 사용되는 용어는 아니다. 두 클래스 모두 요소들의 개수를 확인할 수 있는 \cd{length} 속성이 있으나, \cd{HTMLCollection} 클래스와 달리 \cd{NodeList} 클래스는 \cd{forEach} 메서드를 갖는다.
 
 \coderef{code:dom-query-descendents}\를 실행해보며 결과를 확인해보자. 각 표현식의 결과값은 생략한다.
-\newpage
+
 
 \begin{codeenv}{code:dom-query-descendents}{DOM Query Descendents Examples}\begin{verbatim}
 > document.getElementById('container');
@@ -176,7 +176,7 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
     \item \cd{hasAttribute(name) => boolean}: 요소에 \cd{name} 속성이 있는지 판별하는 메서드
     \item \cd{removeAttribute(name)}: 요소에서 \cd{name} 속성을 제거하는 메서드
     \item \cd{style}: 요소의 CSS 스타일에 접근할 수 있는 객체; 각 CSS 속성은 \cd{kebab-case}가 아니라 \cd{camelCase}로 작성한다. (\coderef{code:html-elmt-attrs} 참고)
-    \newpage
+    
     \item \cd{classList}: 요소의 클래스의 유사 배열에 접근할 수 있는 객체
     \begin{itemize}
       \item \cd{length}: 클래스의 개수를 값으로 갖는 속성
