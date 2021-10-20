@@ -26,11 +26,11 @@ HTTP에서는 클라이언트를 식별하기 위해 HTTP 쿠키(cookie)를 사�
 
 \figures{fig:http-auth-communication}{HTTP Authentication Communication}{
     \subfig{fig:auth-without-cookie}{Without Cookie}
-        {images/authentication/auth-without-cookie.png}{.2968}
+        {auth-without-cookie.png}{.2968}
     \subfig{fig:auth-with-cookie}{With Cookie}
-        {images/authentication/auth-with-cookie.png}{.3148}
+        {auth-with-cookie.png}{.3148}
     \subfig{fig:auth-with-session}{With Session}
-        {images/authentication/auth-with-session.png}{.3184}
+        {auth-with-session.png}{.3184}
 }
 
 \subsection*{Session Management in Express.js}
@@ -97,18 +97,18 @@ app.get('/destroy', (req, res) => {
 
 \figures{fig:insomnia-cookie}{Cookie Management on Insomnia}{
     \subfig{fig:insomnia-cookie-set}{Set-Cookie on Response Header}
-        {images/authentication/insomnia-cookie-set.png}{.475}
+        {insomnia-cookie-set.png}{.475}
     \subfig{fig:insomnia-cookie-send}{Cookie on Request Header}
-        {images/authentication/insomnia-cookie-send.png}{.475}
+        {insomnia-cookie-send.png}{.475}
 }
 
 서버를 실행하고 Insomnia를 이용하여 쿠키를 받고 보내본다. GET /set/:id 라우트로 요청을 보내면 서버는 응답 헤더의 Set-Cookie 속성에 쿠키값을 설정하여 응답하며, GET /get 요청을 보낼 때 Header 탭에서 Cookie의 값을 응답을 통해 받은 쿠키값으로 설정하여 보내면 세션에 저장된 데이터를 응답받을 수 있다.
 
 \figures{fig:view-cookie}{View Cookie on Browsers}{
     \subfig{fig:view-cookie-chrome}{Chrome}
-        {images/authentication/view-cookie-chrome.png}{.475}
+        {view-cookie-chrome.png}{.475}
     \subfig{fig:view-cookie-firefox}{Firefox}
-        {images/authentication/view-cookie-firefox.png}{.475}
+        {view-cookie-firefox.png}{.475}
 }
 
 Chrome이나 Firefox 등의 브라우저에서도 웹 서버의 동작을 확인해본다. 각 브라우저의 개발자 도구에서는 쿠키값을 확인할 수 있는데, \figref{fig:view-cookie}\와 같이 개발자 도구의 Application 탭이나 Storage 탭을 이용하여 브라우저(클라이언트)가 저장하는 쿠키의 값을 확인해본다.

@@ -51,7 +51,7 @@ $ sudo ufw verbose
 \shellref{shell:allow-port-80}\과 같이 80번 포트의 TCP 연결을 허용하고, ufw를 실행한다. 이제 서버 컴퓨터가 아닌 외부 컴퓨터에서 웹 브라우저를 열고, 서버 컴퓨터의 공용 IP 주소에 접속하여 \figref{fig:nginx-root-page}\와 같은 응답을 받는지 확인한다.
 
 \figures{fig:nginx-root-page}{nginx Root Page}{
-    \fig{images/implementing-web-application/nginx-root-page.png}{.6}
+    \fig{nginx-root-page.png}{.6}
 }
 
 \subsection*{nginx Configuration}
@@ -83,9 +83,9 @@ server {
 
 \figures{fig:proxy-servers}{Proxy Servers}{
     \subfig{fig:forward-proxy}{Forward Proxy}
-        {images/implementing-web-application/forward-proxy.png}{.45}
+        {forward-proxy.png}{.45}
     \subfig{fig:reverse-proxy}{Reverse Proxy}
-        {images/implementing-web-application/reverse-proxy.png}{.45}
+        {reverse-proxy.png}{.45}
 }
 
 클라이언트와 서버 사이에 위치하여 한 쪽의 실제 위치를 감추는 서버를 프록시 서버(\figref{fig:proxy-servers})라고 하며, nginx와 같이 서버의 실제 위치를 감추는 서버를 리버스 프록시 서버(\figref{fig:reverse-proxy})라고 한다. 이러한 리버스 프록시 서버를 이용하면 서버의 실제 위치가 직접적으로 노출되지 않아 외부의 공격으로부터 훨씬 안전하다.

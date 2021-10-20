@@ -15,7 +15,7 @@ git은 프로젝트를 저장소(repository)에 저장하여 관리한다. 특�
 이렇게 생성된 commit들은 \cd{push} 명령을 통해 원격 저장소(remote repository)에 업로드되어 반영된다. 반대로 \cd{pull} 명령은 원격 저장소에 반영된 변경사항을 다운로드하여 로컬 저장소에 반영하며, \cd{clone} 명령은 원격 저장소를 복사하여 로컬 디렉토리에 저장하는 명령이다.
 
 \figures{fig:how-git-works}{How git works}{
-    \fig{images/introduction-to-back-end/how-git-works.png}{.6}
+    \fig{how-git-works.png}{.6}
 }
 
 \subsection*{gitignore}
@@ -59,9 +59,9 @@ GitHub은 대표적인 git 원격 저장소 무료 호스팅 사이트로, git�
 
 \figures{fig:github-start}{Starting GitHub}{
     \subfig{fig:create-new-repo}{Create New Repository}
-        {images/introduction-to-back-end/create-new-repo.png}{.3746}
+        {create-new-repo.png}{.3746}
     \subfig{fig:copying-remote-repo-url}{Copy Remote Repository URL}
-        {images/introduction-to-back-end/copying-remote-repo-url.png}{.4254}
+        {copying-remote-repo-url.png}{.4254}
 }
 
 이제 이 프로젝트를 \cd{clone} 명령어를 통해 로컬 환경에 다운로드 받을 수 있다. 프로젝트를 다운받고자 하는 디렉토리에서 shell을 실행하고, \shellref{shell:git-clone}에서 \cd{<repo-url>} 부분에 원격 저장소 주소를 입력하여 실행한다. 이후 프로젝트가 원하는 디렉토리에 정상적으로 clone 되었는지 확인한다.

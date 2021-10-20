@@ -22,7 +22,7 @@ CRUD 기능은 데이터를 다루는 프로그램이 기본적으로 갖추고 
 Relational DB, 즉 관계형 데이터베이스(이하 RDB) 모델은 체계화된 DB가 개발된 이래 오늘날까지도 가장 널리 쓰이고 있는 DB 모델로, key와 value들로 이루어진 데이터의 형태를 테이블로 나타내고, row와 column의 형태로 관리하는 모델이다. Row는 각각의 데이터를 나타내며, record라고도 한다. Column은 각 데이터를 구성하는 속성값으로, attribute나 field라고도 하며, 각 데이터의 이름은 column 이름이라고 한다.
 
 \figures{fig:rdb-model-table-example}{Example of RDB Model Table}{
-    \fig{images/database-designing/rdb-model-table-example.PNG}{.6}
+    \fig{rdb-model-table-example.PNG}{.6}
 }
 
 \figref{fig:rdb-model-table-example}\은 컴퓨터학과의 전공과목 목록의 일부를 RDB 모델로 나타낸 것이다. 각 전공과목의 정보는 row 단위로 기록되어 있고, 각 row의 이수구분, 학수번호, 교과목명, 학점 등의 정보가 각 column에 저장되어 있어 모든 row의 데이터 형태가 일정하다. 이러한 row와 column의 집합을 table이라고 하고, 하나의 DB는 다수의 table을 가질 수 있다.

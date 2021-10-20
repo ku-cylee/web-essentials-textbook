@@ -120,7 +120,7 @@ src/env.js에서는 .env 파일을 분석하여 각 값을 \cd{process.env} 객�
 이렇게 model(DAO), view(pug 템플릿), controller의 세 부분으로 나누어 소프트웨어를 설계하는 방식을 MVC 패턴(\figref{fig:mvc-pattern})이라고 한다. Model에 해당하는 DAO에서는 오로지 특정 조건을 만족하는 데이터를 DB에서 가져오거나 데이터를 조작하는 역할을 하고, view에 해당하는 pug 템플릿은 오로지 사용자에게 보여지는 영역, 즉 front-end 역할만 한다. 그리고 controller는 model을 적절히 활용하여 HTTP 요청을 처리하고, 그 결과를 view를 통해 클라이언트에 전달한다.
 
 \figures{fig:mvc-pattern}{MVC Pattern}{
-    \fig{images/implementing-web-application/mvc-pattern.png}{.7}
+    \fig{mvc-pattern.png}{.7}
 }
 
 이러한 MVC 패턴과 같은 디자인 패턴은 프로젝트에서 각 코드의 역할을 명확히 구분하고 분류하여 생산성의 향상을 가져오고, 추상화 수준을 높여 코드의 재사용성을 높이고 유지 및 보수를 용이하게 한다. 따라서 프로젝트의 성격에 따라 적절한 디자인 패턴을 정하고 그 패턴을 준수하는 것은 중요하다.
