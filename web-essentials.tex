@@ -1,11 +1,15 @@
 \input{settings/index}
 
 \begin{document}
-    \def\booktitle{\huge\bfseries 2021 Web Application Essentials}
+    \def\mode{both}
     \def\version{October 20, 2021}
+    \def\booktitle{\huge\bfseries 2021 Web Application Essentials}
     \include{header}
     \part{Frontend}\label{part:frontend}
     \subimport*{frontend/}{index}
     \part{Backend}\label{part:backend}
     \subimport*{backend/}{index}
+    \appendix
+    \part{Appendix}\label{part:appendix}
+    \subimport*{appendix/}{\mode}
 \end{document}
