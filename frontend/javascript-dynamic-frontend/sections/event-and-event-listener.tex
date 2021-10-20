@@ -1,0 +1,115 @@
+\section{Event and Event Listener}\label{sect:event-and-event-listener}
+
+프로그램에서 \textbf{이벤트(event)}란 개념은 어떠한 사건을 의미하며, front-end에서 발생할 수 있는 이벤트에는 요소를 클릭하는 행위, 키보드를 이용하여 키를 입력하는 행위, 드래그하는 행위 등이 있다. 이러한 사건이 일어나면 ``이벤트가 발생했다''라고 표현한다.
+
+이벤트를 이용하면 버튼을 눌러 원하는 함수를 작동시키고, 키보드를 이용하여 게임 오브젝트를 컨트롤 하는 등 사용자에 의해 동적으로 작동하는 웹 페이지를 구현할 수 있다. 이러한 기능은 특정 이벤트가 발생하였을 때 실행되어야 하는 작업을 명시하여 구현하며, 이렇게 특정 요소에서 특정 이벤트가 발생하였을 때 실행될 함수를 \textbf{이벤트 리스너(event listener)}라고 한다.
+
+이번 절에서는 이벤트와 이벤트 리스너를 이용하여 웹 페이지를 구현하는 방법을 다룬다.
+
+\subsection*{Events}
+
+웹 페이지에서 발생할 수 있는 이벤트의 종류는 다양하며, 본 교재에서는 자주 쓰이는 몇 가지만 소개한다. 먼저 마우스 동작과 관련된 이벤트이다.
+
+\begin{itemize}
+    \item \cd{click}: 요소가 좌클릭되었을 때 발생하는 이벤트
+    \item \cd{mousedown}: 요소 위에 커서를 대고 마우스를 눌렀을 때 발생하는 이벤트
+    \item \cd{mouseenter}: 마우스 커서가 요소 안으로 들어올 때 발생하는 이벤트
+    \item \cd{mouseleave}: 마우스 커서가 요소 밖으로 나갈 때 발생하는 이벤트
+\end{itemize}
+
+다음은 키보드를 이용한 키 입력과 관련된 이벤트이다.
+
+\begin{itemize}
+    \item \cd{keydown}: 키보드의 키를 눌렀을 때 발생하는 이벤트
+    \item \cd{keyup}: 키보드의 키를 떼었을 때 발생하는 이벤트
+    \item \cd{keypress}: 키보드의 키를 눌렀을 때 발생하는 이벤트; Ctrl, Alt 등의 기능키에는 작동하지 않음
+\end{itemize}
+
+소개된 이벤트 외의 이벤트의 종류는 매우 많으므로 필요에 따라 찾아서 사용하는 것이 좋다. 웹 페이지에서 발생할 수 있는 이벤트는 아래의 링크에서 확인해볼 수 있다.
+
+\begin{itemize}
+    \item https://www.w3schools.com/jsref/dom\_obj\_event.asp
+\end{itemize}
+
+\subsection*{Event Listener}
+
+특정 요소에서 이벤트가 발생했을 때 이벤트 리스너를 실행시키기 위해서는 해당 요소와 이벤트 리스너를 등록해야 하며, 그 방법은 크게 세 가지가 있다.
+
+먼저, HTML 요소의 속성과 속성값으로 직접 명시하는 방법이다. 먼저 속성의 이름은 이벤트의 이름 앞에 접두사 \cd{on}을 붙인다. 예를 들어 \cd{click} 이벤트에 대응하는 속성은 \cd{onclick}, \cd{keypress} 이벤트에 대응하는 속성은 \cd{onkeypress}이다. 이후 속성값에 이벤트가 발생했을 때 수행될 JS 코드를 작성한다. 이러한 방식으로 이벤트 리스너를 연동하면 특정 요소에서 특정 이벤트가 발생하였을 때 어떤 작업이 수행되는지 직관적으로 파악할 수 있으나, \sectref{sect:basic-structure-of-css}에서 다룬 CSS의 inline style의 단점과 마찬가지로 HTML 문서의 목적에 위배되며, 유지 및 보수의 관점에서 매우 비효율적이다.
+
+\begin{codeenv}{code:event-listener-inline}{Event Listener - Inline Method}\begin{verbatim}
+<button id="btn" onclick="console.log('Clicked!');">Click Button</button>
+\end{verbatim}
+\end{codeenv}
+
+두 번째 방법은 HTML 요소 객체에 이벤트 리스너를 메서드로 할당하는 방법이다. 메서드의 이름은 앞의 방식과 마찬가지로 접두사 \cd{on}을 붙여 작성하고, 메서드의 값에 이벤트 리스너를 할당한다. 이 방식은 JS 파일에 작성할 수 있어 HTML의 목적에 위배되지 않고, IE 8 이전 버전의 브라우저에서도 호환되며, 간결하다는 장점을 갖는다. 그러나 IE 8\footnote{2009년 3월에 발표되었다} 이전의 브라우저는 지나치게 오래되어 지원할 필요성이 너무 적고, 한 요소의 한 이벤트에 하나의 이벤트 리스너만 등록할 수 있다는 단점이 있다.
+
+\begin{codeenv}{code:event-listener-method-override}{Event Listener – Overriding Method}\begin{verbatim}
+document.getElementById('btn').onclick = () => {
+    console.log('Clicked!');
+};
+\end{verbatim}
+\end{codeenv}
+
+마지막 방법은 요소의 \cd{addEventListener} 메서드를 사용하는 방법으로, \cd{addEventListener} 메서드는 이벤트의 이름과 이벤트 리스너를 인자로 받아, 이벤트 리스너를 추가하는 메서드이다. 이렇게 \cd{addEventListener} 메서드를 이용한 방법이 가장 권장되는 방법이다.
+
+\begin{codeenv}{code:event-listener-addeventlistener}{Event Listener – Using \cd{addEventListener}}\begin{verbatim}
+document.getElementById('btn').addEventListener('click', () => {
+    console.log('Clicked!');
+});
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Event Object}
+
+지금까지 이벤트의 종류와 이벤트 리스너를 등록하는 방법에 대해 다루었다. 그런데 지금까지 학습한 방법으로는 이벤트 리스너에서 발생한 이벤트에 대한 정보를 얻을 수 없다는 문제가 발생한다. 예를 들어 \cd{keypress} 이벤트가 발생했을 때 사용자가 어느 키를 눌렀는지, \cd{mousedown} 이벤트가 발생했을 때 사용자가 좌클릭했는지 우클릭했는지, 어느 위치에 커서를 대고 눌렀는지 등에 대한 정보를 얻지 못한다.
+
+이러한 문제는 이벤트 리스너가 이벤트 객체를 받음으로써 해결된다. 발생한 이벤트에 대한 여러 정보를 담은 이벤트 객체가 생성되어 이벤트 리스너에 전달되며, 이 이벤트 객체를 인자로 받아서 사용할 수 있다. JS의 함수의 특성상 이벤트 리스너에서 이벤트 객체가 필요하지 않다면 앞의 \coderef{code:event-listener-addeventlistener}\와 같이 인자를 아예 받지 않을 수도 있다.
+
+
+\begin{codeenv}{code:event-object}{Event Listener with Event Object}\begin{verbatim}
+document.addEventListener('mousedown', event => {
+    console.log(event);
+});
+\end{verbatim}
+\end{codeenv}
+
+이벤트 객체의 속성 중 자주 쓰이는 속성을 몇 가지 소개한다.
+
+\begin{itemize}
+    \item \cd{target}: 이벤트가 발생한 요소 객체를 값으로 갖는 속성
+    \item \cd{button}: 마우스 이벤트를 발생시킨 마우스의 버튼 번호를 값으로 갖는 속성; \cd{0}, \cd{1}, \cd{2}, \cd{3}, \cd{4}는 각각 왼쪽 버튼, 휠 버튼, 오른쪽 버튼, 뒤로 가기 버튼, 앞으로 가기 버튼을 뜻한다.
+    \item \cd{clientX}, \cd{clientY}: 뷰포트를 기준으로 마우스 이벤트가 발생한 위치를 값으로 갖는 속성
+    \item \cd{offsetX}, \cd{offsetY}: 이벤트가 발생한 요소를 기준으로 마우스 이벤트가 발생한 위치를 값으로 갖는 속성
+    \item \cd{screenX}, \cd{screenY}: 웹 페이지가 존재하는 화면을 기준으로 마우스 이벤트가 발생한 위치를 값으로 갖는 속성
+    \item \cd{code}: 키 입력과 관련된 이벤트를 발생시킨 키를 문자열\footnote{https://keycode.info/에서 확인할 수 있다.}로 나타낸 속성
+\end{itemize}
+
+\coderef{code:event-example}\은 이벤트 객체를 이용하여 \cd{\#panel} 요소를 좌클릭 또는 우클릭하였을 때 \cd{\#panel} 요소의 위쪽 테두리와 왼쪽 테두리에 내린 수선을 표시되며, 좌클릭하였을 때는 빨간색, 우클릭하였을 때는 파란색 수선이 표시되는 예제이다. (편의상 CSS와 JS를 모두 HTML 문서에 작성하였다.)
+
+\begin{codeenv}{code:event-example}{Event Object Example}\begin{verbatim}
+<div id="panel">
+    <div id="offset"></div>
+</div>
+
+<style>
+    #panel {
+        width: 800px;
+        height: 400px;
+        border: 3px solid black;
+    }
+</style>
+
+<script>
+    document.getElementById('panel').addEventListener('mousedown', event => {
+        if (event.button !== 0 && event.button !== 2) return;
+        const fooElmt = document.getElementById('offset');
+        const borderColor = event.button === 0 ? 'red' : 'blue'
+        fooElmt.style.borderRight = '1px solid ' + borderColor;
+        fooElmt.style.borderBottom = '1px solid ' + borderColor;
+        fooElmt.style.width = event.offsetX + 'px';
+        fooElmt.style.height = event.offsetY + 'px';
+    });
+</script>
+\end{verbatim}
+\end{codeenv}

@@ -1,0 +1,47 @@
+\section{Basics of JS Exercise Answers} \label{sect:basic-js-exercise-answers}
+
+\subsection*{Exercise 1}
+
+\begin{codeenv}{code:basic-js-1-answer}{Exercise 1 Answer}\begin{verbatim}
+const isValidNumber = num => {
+    const parsedNumber = parseInt(num);
+    if (!isFinite(parsedNumber) || isNaN(parsedNumber)) return false;
+    if (parsedNumber != num) return false;
+    if (parsedNumber < 1 || parsedNumber > 9) return false;
+    return true;
+}
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 2}
+
+\begin{codeenv}{code:basic-js-2-answer}{Exercise 2 Answer}\begin{verbatim}
+const getDivisors = num => {
+    const divisors = [];
+    for (let i = 1; i <= Math.sqrt(num); i++) {
+        if (i * i === num) divisors.push(i);
+        else if (num % i === 0) divisors.push(i, num / i);
+    }
+    return divisors.sort((first, second) => first - second);
+}
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{Exercise 3}
+
+\begin{codeenv}{code:basic-js-3-answer}{Exercise 3 Answer}\begin{verbatim}
+const ellipse = {
+    width: 10,
+    height: 5,
+    getArea() {
+        return Math.PI * this.width * this.height;
+    },
+    getPerimeter() {
+        return 2 * Math.PI * Math.sqrt((this.height ** 2 + this.width ** 2) / 2);
+    },
+    getEccentricity() {
+        return Math.sqrt(1 - (this.height / this.width) ** 2);
+    },
+};
+\end{verbatim}
+\end{codeenv}
