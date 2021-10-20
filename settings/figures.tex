@@ -1,14 +1,19 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 
+\def\imgdir{./}
+\newcommand{\setimgdir}{
+    \def\imgdir{\currfiledir/../images/}
+}
+
 \newcommand{\figures}[3]
     {\vspace{15pt}\begin{figure}[htb]\centering#3\caption{#2}\label{#1}\end{figure}\vspace{10pt}}
 
-\newcommand{\fig}[2]{\includegraphics[width=#2\textwidth]{#1}}
+\newcommand{\fig}[2]{\includegraphics[width=#2\textwidth]{\imgdir #1}}
 
 \newcommand{\subfig}[4]{
     \begin{subfigure}{#4\textwidth}\centering
-        \includegraphics[width=\textwidth]{#3}
+        \includegraphics[width=\textwidth]{\imgdir #3}
         \caption{#2}\label{#1}
     \end{subfigure}
 }

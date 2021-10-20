@@ -8,9 +8,9 @@
 \figures{fig:devtools-layout}{Checking layout of HTML element using DevTools}
     {
         \subfig{fig:devtools-chrome}{Chrome}
-            {images/css-designing-html/chrome-devtools-layout.png}{.47}
+            {chrome-devtools-layout.png}{.47}
         \subfig{fig:devtools-firefox}{Firefox}
-            {images/css-designing-html/firefox-devtools-layout.png}{.47}
+            {firefox-devtools-layout.png}{.47}
     }
 
 다행히도, 웹 브라우저의 개발자 도구는 특정한 HTML 요소가 웹 페이지 내에서 영역을 어떻게 차지하고 있으며, 어떻게 배치되었는지 확인할 수 있는 기능을 제공한다. Chrome과 Firefox에서 F12를 눌러 개발자 도구를 열고, Chrome은 Elements 탭을, Firefox는 검사기 탭을 눌러 열려있는 HTML 문서의 코드를 띄운다. 그리고 레이아웃을 확인하고자 하는 요소 위에 마우스를 hover하면 해당 요소의 레이아웃이 \figref{fig:devtools-layout}\과 같이 나타난다. 반대로, 웹 페이지에서 HTML 코드를 확인하고 싶은 부분을 우클릭한 후 [검사]를 누르면 해당 요소의 코드를 찾아준다. 이렇게 HTML 문서를 작성할 때 개발자 도구를 이용하면 특정 요소가 어떠한 레이아웃을 갖는지, 어떻게 수정해야 할지 등의 정보를 보다 쉽게 얻을 수 있다.
@@ -32,7 +32,7 @@ HTML의 각 요소는 \textbf{사각형 형태}의 레이아웃을 가지며, �
 \end{itemize}
 
 \figures{fig:box-model}{Box Model}
-    {\fig{images/css-designing-html/box-model.png}{.6}}
+    {\fig{box-model.png}{.6}}
 
 이 box model은 HTML 요소 배치의 기본이 되기 때문에 제대로 이해하는 것이 매우 중요하다. 앞으로 나오는 예제 코드를 직접 작성해보고, 브라우저의 개발자 도구를 이용하여 padding과 border, margin이 어떻게 나타나는지 각각 살펴보자.
 
@@ -123,9 +123,9 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 
 \figures{fig:margin-collapsing}{Margin Collapsing}{
     \subfig{fig:margin-collapsing-upper}{Upper Box}
-        {images/css-designing-html/margin-collapsing-upper-box.png}{.42}
+        {margin-collapsing-upper-box.png}{.42}
     \subfig{fig:margin-collapsing-lower}{Lower Box}
-        {images/css-designing-html/margin-collapsing-lower-box.png}{.42}
+        {margin-collapsing-lower-box.png}{.42}
 }
 
 \subsection*{Inline-level and Block-level Elements}
