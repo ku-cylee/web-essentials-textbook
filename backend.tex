@@ -1,0 +1,10 @@
+\documentclass[a4paper,10pt,hidelinks]{book}
+
+\input{settings/index}
+
+\begin{document}
+    \include{title}
+    \dominitoc
+    \tableofcontents
+    \subimport*{backend/}{index}
+\end{document}
