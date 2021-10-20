@@ -1,9 +1,9 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 
-\newcommand\imgdir{./}
+\def\imgdir{./}
 \newcommand{\setimgdir}{
-    \renewcommand\imgdir{\currfiledir/../images/}
+    \def\imgdir{\currfiledir/../images/}
 }
 
 \newcommand{\figures}[3]
