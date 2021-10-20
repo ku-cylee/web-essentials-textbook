@@ -1,10 +1,10 @@
-\section{Querying in Express.js}\label{sect:querying-in-express-js}
+\section{Querying in Node.js}\label{sect:querying-in-node-js}
 
-이번 장에서는 Express.js 서버에서 DB에 CRUD SQL문을 보내어 데이터를 조작하고 읽는 방법에 대해 학습한다. Production 단계에서는 ORM(Object Relational Mapping)을 사용하여 raw SQL문을 사용하지 않고도 DB에서 데이터를 조작하고 읽는 작업을 수행하는 것이 일반적이며, Node.js에서는 Sequelize, TypeORM 등의 ORM이 있다. 그러나 SQL을 다룰 줄 알아야 ORM도 효과적으로 다룰 수 있으므로, 본 교재에서는 raw SQL문을 이용하여 DB에서 데이터를 조작하고 읽는 방법을 학습한다.
+이번 장에서는 Node.js 서버에서 DB에 CRUD SQL문을 보내어 데이터를 조작하고 읽는 방법에 대해 학습한다. Production 단계에서는 ORM(Object Relational Mapping)을 사용하여 raw SQL문을 사용하지 않고도 DB에서 데이터를 조작하고 읽는 작업을 수행하는 것이 일반적이며, Node.js에서는 Sequelize, TypeORM 등의 ORM이 있다. 그러나 SQL을 다룰 줄 알아야 ORM도 효과적으로 다룰 수 있으므로, 본 교재에서는 raw SQL문을 이용하여 DB에서 데이터를 조작하고 읽는 방법을 학습한다.
 
-\subsection*{DB Querying in Express.js App}
+\subsection*{DB Querying in Node.js App}
 
-mysql2 모듈은 Express.js에서 MariaDB(MySQL) DBMS에 접속하고 SQL문을 실행하는 메서드를 제공한다. Node.js 프로젝트를 생성하고 npm을 이용하여 mysql2를 설치한 뒤, database.js를 생성하여 \coderef{code:runquery-function}\과 같이 작성한다.
+mysql2 모듈은 Node.js에서 MariaDB(MySQL) DBMS에 접속하고 SQL문을 실행하는 메서드를 제공한다. Node.js 프로젝트를 생성하고 npm을 이용하여 mysql2를 설치한 뒤, database.js를 생성하여 \coderef{code:runquery-function}\과 같이 작성한다.
 
 \begin{codeenv}{code:runquery-function}{Implementation of \cd{runQuery} Function}\begin{verbatim}
 const mysql = require('mysql2/promise');
