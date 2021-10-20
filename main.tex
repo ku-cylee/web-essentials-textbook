@@ -1,86 +1,21 @@
 \documentclass[a4paper,10pt,hidelinks]{book}
 
-\usepackage{kotex}
-\usepackage[open,openlevel=1,numbered]{bookmark}
-\usepackage[fleqn]{amsmath}
-\usepackage{xcolor}
-
-\input{settings/subtoc}
-\input{settings/title-styles}
-\input{settings/page-settings}
-\input{settings/table-env}
-\input{settings/figures}
-\input{settings/code-env}
-\input{settings/counters}
-\input{settings/captions}
-\input{settings/itemlist}
+\input{settings/index}
 
 \begin{document}
     \include{title}
     \dominitoc
     \tableofcontents
 
-    \chapter{Introduction to Back-end}\label{ch:introduction-to-back-end}
-    \minitoc
-    \include{chapters/introduction-to-back-end/introducing-web}
-    \include{chapters/introduction-to-back-end/2021-study-schedule}
-    \include{chapters/introduction-to-back-end/hypertext-transfer-protocol}
-    \include{chapters/introduction-to-back-end/node-js-platform}
-    \include{chapters/introduction-to-back-end/git-and-github}
-
-    \chapter{Advanced Javascript}\label{ch:advanced-javascript}
-    \minitoc
-    \include{chapters/advanced-javascript/advanced-javascript-syntaxes}
-    \include{chapters/advanced-javascript/modules}
-    \include{chapters/advanced-javascript/asynchronous-programming}
-    \include{chapters/advanced-javascript/advanced-javascript-exercises}
-
-    \chapter{Express.js and View Engine}\label{ch:express-js-and-view-engine}
-    \minitoc
-    \include{chapters/express-js-and-view-engine/express-js}
-    \include{chapters/express-js-and-view-engine/view-engine}
-    \include{chapters/express-js-and-view-engine/form-tag}
-    \include{chapters/express-js-and-view-engine/express-js-and-view-engine-exercises}
-
-    \chapter{Database Designing}\label{ch:database-designing}
-    \minitoc
-    \include{chapters/database-designing/intro-to-database}
-    \include{chapters/database-designing/maria-db}
-    \include{chapters/database-designing/basics-of-designing}
-    \include{chapters/database-designing/relational-designing}
-    \include{chapters/database-designing/database-designing-exercises}
-
-    \chapter{Database Querying}\label{ch:database-querying}
-    \minitoc
-    \include{chapters/database-querying/crud-functions}
-    \include{chapters/database-querying/advanced-querying}
-    \include{chapters/database-querying/join-operations}
-    \include{chapters/database-querying/querying-in-node-js}
-    \include{chapters/database-querying/database-querying-exercises}
-
-    \chapter{Authentication}\label{ch:authentication}
-    \minitoc
-    \include{chapters/authentication/hash-functions-and-encryption}
-    \include{chapters/authentication/http-cookie-and-session}
-
-    \chapter{Web Application Implementation}\label{ch:web-application-implementation}
-    \minitoc
-    \include{chapters/web-application-implementation/application-summary-and-structure}
-    \include{chapters/web-application-implementation/db-design-and-dao-implementation}
-    \include{chapters/web-application-implementation/routing-and-controller-implementation}
-    \include{chapters/web-application-implementation/deploying-web-application}
+    \subimport*{chapters/introduction-to-back-end/}{index}
+    \subimport*{chapters/advanced-javascript/}{index}
+    \subimport*{chapters/express-js-and-view-engine}{index}
+    \subimport*{chapters/database-designing/}{index}
+    \subimport*{chapters/database-querying/}{index}
+    \subimport*{chapters/authentication/}{index}
+    \subimport*{chapters/web-application-implementation/}{index}
 
     \appendix
-
-    \chapter{Source Codes}\label{ch:source-codes}
-    \minitoc
-    \include{chapters/source-codes/database-querying-codes}
-    \include{chapters/source-codes/web-application-implementation-source-codes}
-
-    \chapter{Exercise Answers}\label{ch:exercise-answers}
-    \minitoc
-    \include{chapters/exercise-answers/advanced-javascript-answers}
-    \include{chapters/exercise-answers/express-js-and-view-engine-answers}
-    \include{chapters/exercise-answers/database-designing-answers}
-    \include{chapters/exercise-answers/database-querying-answers}
+    \subimport*{chapters/source-codes/}{index}
+    \subimport*{chapters/exercise-answers/}{index}
 \end{document}
