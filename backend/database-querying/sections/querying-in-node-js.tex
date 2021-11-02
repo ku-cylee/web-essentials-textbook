@@ -1,6 +1,6 @@
 \section{Querying in Node.js}\label{sect:querying-in-node-js}
 
-이번 장에서는 Node.js 서버에서 DB에 CRUD SQL문을 보내어 데이터를 조작하고 읽는 방법에 대해 학습한다. Production 단계에서는 ORM(Object Relational Mapping)을 사용하여 raw SQL문을 사용하지 않고도 DB에서 데이터를 조작하고 읽는 작업을 수행하는 것이 일반적이며, Node.js에서는 Sequelize, TypeORM 등의 ORM이 있다. 그러나 SQL을 다룰 줄 알아야 ORM도 효과적으로 다룰 수 있으므로, 본 교재에서는 raw SQL문을 이용하여 DB에서 데이터를 조작하고 읽는 방법을 학습한다.
+이번 장에서는 Node.js에서 DB에 CRUD SQL문을 보내어 데이터를 조작하고 읽는 방법에 대해 학습한다. Production 단계에서는 ORM(Object Relational Mapping)을 사용하여 raw SQL문을 사용하지 않고도 DB에서 데이터를 조작하고 읽는 작업을 수행하는 것이 일반적이며, Node.js에서는 Sequelize, TypeORM 등의 ORM이 있다. 그러나 SQL을 다룰 줄 알아야 ORM도 효과적으로 다룰 수 있으므로, 본 교재에서는 raw SQL문을 이용하여 DB에서 데이터를 조작하고 읽는 방법을 학습한다.
 
 \subsection*{DB Querying in Node.js App}
 
@@ -39,8 +39,8 @@ Connection pool은 미리 DB와의 연결들을 생성하여 pool에 저장해�
 const { runQuery } = require('./database');
 
 const getScoreStats = async () => {
-    const sql = 'SELECT course, Count(*) AS cnt, Avg(score) AS avg,' +
-                'Stddev(score) AS stddev FROM scores GROUP BY course';
+    const sql = 'SELECT course, Count(*) AS cnt, Avg(final) AS avg, ' +
+                'Stddev(final) AS stddev FROM scores GROUP BY course';
     const results = await runQuery(sql);
     return results;
 };
@@ -51,8 +51,9 @@ const getScoreByIdName = async (id, name) => {
     return results[0];
 };
 
-const createScore = async (name, course, score) => {
-    const sql = `INSERT INTO scores VALUES (DEFAULT, '${name}', '${course}', ${score})`;
+const createScore = async (name, course, midterm, final) => {
+    const sql = 'INSERT INTO scores ' +
+                `VALUES (DEFAULT, '${name}', '${course}', ${midterm}, ${final})`;
     const result = await runQuery(sql);
     return result;
 };
@@ -65,11 +66,11 @@ const createScore = async (name, course, score) => {
     });
 
     const scoreData = await getScoreByIdName(2, 'Joe');
-    const { course, score } = scoreData;
-    console.log(`Course: ${course} / Score: ${score}`);
+    const { course, final } = scoreData;
+    console.log(`Course: ${course} / Final score: ${final}`);
 
     console.dir(await getScoreByIdName(9, 'Barack'));
-    const newScore = await createScore('Barack', 'Operating Systems', 83);
+    const newScore = await createScore('Barack', 'Operating Systems', 83, 62);
     console.dir(await getScoreByIdName(9, 'Barack'));
     console.dir(await getScoreByIdName(newScore.insertId, 'Barack'));
 })();
@@ -82,7 +83,7 @@ const createScore = async (name, course, score) => {
 
 \cd{getScoreByIdName} 메서드는 \cd{id}와 \cd{name}을 인자로 받아 \cd{id} column의 값이 \cd{id}, \cd{student} column의 값이 \cd{name}인 row를 반환한다. 조회 결과는 언제나 row들의 배열 형태이므로 \cd{results[0]}의 값은 row 객체거나 \cd{undefined}이다.
 
-\cd{createScore} 메서드는 \cd{name}, \cd{course}, \cd{score}를 인자로 받아 \cd{student}, \cd{course}, \cd{score} column의 값이 각각 \cd{name}, \cd{course}, \cd{score}인 row를 새로 생성하는 메서드이다. 이때 \cd{runQuery} 함수는 새로 생성된 row의 \cd{id} 값(\cd{insertId})이나 영향받은 row의 수(\cd{affectedRows}) 등 SQL문 수행 결과를 반환한다.
+\cd{createScore} 메서드는 \cd{name}, \cd{course}, \cd{midterm}, \cd{final}을 인자로 받아 \cd{student}, \cd{course}, \cd{midterm}, \cd{final} column의 값이 각각 \cd{name}, \cd{course}, \cd{midterm}, \cd{final}인 row를 새로 생성하는 메서드이다. 이때 \cd{runQuery} 함수는 새로 생성된 row의 \cd{id} 값(\cd{insertId})이나 영향받은 row의 수(\cd{affectedRows}) 등 SQL문 수행 결과를 반환한다.
 
 이렇게 mysql2 모듈을 이용하여 DB의 데이터를 조작하거나 읽을 수 있다. \cd{runQuery} 함수에서 \cd{result}의 값을 \cd{console.dir} 메서드를 이용하여 출력하면서 결과 객체의 형태를 익혀보자.
 
@@ -108,10 +109,10 @@ const scoreData = await getScoreByIdName(3, "abc' OR '1'='1");
 
 \begin{codeenv}{code:sql-injection-example-drop-table}{SQL Injection Example - Drop Table}
 \begin{Verbatim}[commandchars=\\\{\}]
-const newScore = await createScore('n', "c'); DROP TABLE scores;", 0);
+const newScore = await createScore('n', "c'); DROP TABLE scores;", 0, 0);
 
-// (1) INSERT INTO scores VALUES (DEFAULT, '\textbf{\textcolor{blue}{n}}', '\textbf{\textcolor{blue}{c'); DROP TABLE scores;}}', 0);
-// (2) INSERT INTO scores VALUES (DEFAULT, 'n', 'c'); \textbf{\textcolor{red}{DROP TABLE scores;}}', 0);
+// (1) INSERT INTO scores VALUES (DEFAULT, '\textbf{\textcolor{blue}{n}}', '\textbf{\textcolor{blue}{c'); DROP TABLE scores;}}', \textbf{\textcolor{blue}{0}}, \textbf{\textcolor{blue}{0}});
+// (2) INSERT INTO scores VALUES (DEFAULT, 'n', 'c'); \textbf{\textcolor{red}{DROP TABLE scores;}}', 0, 0);
 \end{Verbatim}
 \end{codeenv}
 
@@ -144,9 +145,9 @@ const getScoreByIdName = async (id, name) => {
     return results[0];
 };
 
-const createScore = async (name, course, score) => {
-    const sql = 'INSERT INTO scores VALUES (DEFAULT, ?, ?, ?)';
-    const result = await runQuery(sql, [name, course, score]);
+const createScore = async (name, course, midterm, final) => {
+    const sql = 'INSERT INTO scores VALUES (DEFAULT, ?, ?, ?, ?)';
+    const result = await runQuery(sql, [name, course, midterm, final]);
     return result;
 };
 \end{verbatim}
