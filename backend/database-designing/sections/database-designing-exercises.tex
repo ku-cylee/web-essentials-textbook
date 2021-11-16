@@ -10,7 +10,7 @@
     \item[Step 3] Step 2에서 설계한 테이블을 실제 DB에 생성하는 SQL문을 작성하여라.
 \end{description}
 
-이때 누적 이수학점의 기본값을 0, 재학 여부의 기본값을 참으로 설정하여라. Column의 기본값은 \cd{DEFAULT} 키워드를 이용하여 설정할 수 있다. 예를 들어, \coderef{code:sql-default-example}\은 \cd{title} column의 값을 빈 문자열(\cd{''}), \cd{level} column의 값을 1로 설정하는 예제이다.
+이때 누적 이수학점, 평균 평점, 재학 여부의 기본값을 각각 0, 0.0, 참으로 설정하여라. Column의 기본값은 \cd{DEFAULT} 키워드를 이용하여 설정할 수 있다. 예를 들어, \coderef{code:sql-default-example}\은 \cd{title} column의 값을 빈 문자열(\cd{''}), \cd{level} column의 값을 1로 설정하는 예제이다.
 
 \begin{codeenv}{code:sql-default-example}{\cd{DEFAULT} Keyword Example}\begin{verbatim}
 `title` VARCHAR(20) DEFAULT '',
