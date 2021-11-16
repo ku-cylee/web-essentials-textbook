@@ -2,7 +2,7 @@
 
 \subsection*{Database Tables Design}
 
-게시판 웹 애플리케이션의 DB를 설계해보자. 사용자와 관련된 데이터에는 어떠한 것이 있겠는가? 사용자 인증을 위한 아이디(\cd{username})와 암호화된 비밀번호(\cd{password})가 필요하며, 닉네임과 같이 다른 사용자들이 보는 이름인 \cd{displayName}이 필요하다. 이때 \cd{username}과 \cd{displayName}은 \cd{UNIQUE} 키워드를 넣어 중복을 방지한다. 또한 가입 날짜(\cd{date\_joined}), 탈퇴 여부(\cd{is\_active}), 관리자 여부(\cd{is\_staff}) 등이 필요하며, 각각 row 생성 시의 시각, 1, 0이 기본값이 되어야 한다. \coderef{code:users-table-schema}\는 이러한 \cd{users} 테이블을 생성하는 SQL문이다.
+게시판 웹 애플리케이션의 DB를 설계해보자. 사용자와 관련된 데이터에는 어떠한 것이 있겠는가? 사용자 인증을 위한 아이디(\cd{username})와 암호화된 비밀번호(\cd{password})가 필요하며, 닉네임과 같이 다른 사용자들이 보는 이름인 \cd{display\_name}이 필요하다. 이때 \cd{username}과 \cd{display\_name}은 \cd{UNIQUE} 키워드를 넣어 중복을 방지한다. 또한 가입 날짜(\cd{date\_joined}), 탈퇴 여부(\cd{is\_active}), 관리자 여부(\cd{is\_staff}) 등이 필요하며, 각각 row 생성 시의 시각, 1, 0이 기본값이 되어야 한다. \coderef{code:users-table-schema}\는 이러한 \cd{users} 테이블을 생성하는 SQL문이다.
 
 \begin{codeenv}{code:users-table-schema}{\cd{users} Table Schema}\begin{verbatim}
 CREATE TABLE `users` (
@@ -43,7 +43,6 @@ CREATE TABLE `articles` (
 
 src/DAO/user.js를 생성하고, src/lib/database.js의 \cd{runQuery} 함수를 import한다. 그리고 다음 두 함수를 구현하고, 구현한 두 함수를 export 하여라. 구현 결과는 \coderef{code:user-dao}\를 참고하여라.
 
-
 \subsubsection*{\cd{getByUsername}}
 \begin{itemize}
     \item 인자: 사용자의 \cd{username}
@@ -79,14 +78,14 @@ src/DAO/article.js를 생성하고, src/lib/database.js의 \cd{runQuery} 함수�
 \begin{itemize}
     \item 인자: 게시물의 \cd{id}
     \item 반환값: \cd{id}, \cd{title}, \cd{content}, \cd{createdAt}, \cd{lastUpdated}, \cd{author}, \cd{author}의 \cd{displayName} 속성을 갖는 게시물 객체
-    \item \cd{id}의 값이 인자로 받은 \cd{id}인 게시물 객체 반환
+    \item \cd{id}의 값이 인자로 받은 \cd{id}, \cd{is\_active}가 1, \cd{is\_deleted}가 0인 게시물 객체 반환
 \end{itemize}
 
 \subsubsection*{\cd{getByIdAndAuthor}}
 \begin{itemize}
     \item 인자: 게시물의 \cd{id}, \cd{author} (사용자 객체)
     \item 반환값: \cd{title}, \cd{content}, \cd{author}, \cd{createdAt}, \cd{lastUpdated} 속성을 갖는 게시물 객체
-    \item \cd{id}와 \cd{author}의 값이 인자로 받은 \cd{id}와 \cd{author.id}인 게시물 객체 반환
+    \item \cd{id}가 인자로 받은 \cd{id}, \cd{author}이 인자로 받은 \cd{author.id}, \cd{is\_active}가 1, \cd{is\_deleted}가 0인 게시물 객체 반환
 \end{itemize}
 
 \subsubsection*{\cd{create}}
