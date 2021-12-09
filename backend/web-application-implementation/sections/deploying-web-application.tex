@@ -23,7 +23,7 @@ $ vim .env
 \end{verbatim}
 \end{shellenv}
 
-\shellref{shell:project-config}\와 같이 git을 이용해 프로젝트를 clone하고, package.json에서 \cd{dependencies} 항목의 패키지를 설치한 뒤, schema/0000.sql 파일을 DB에 import한다. 이후 Vim을 이용하여 .env 파일을 생성하는데, \cd{MODE}의 값을 \cd{prod}로 설정한다.
+\shellref{shell:project-config}\와 같이 git을 이용해 프로젝트를 clone하고, package.json에서 \cd{dependencies} 항목의 패키지를 설치한 뒤, schema/0000.sql 파일을 DB에 import한다. 이후 Vim을 이용하여 .env 파일을 작성하는데, \cd{MODE}의 값을 \cd{prod}로 설정한다.
 
 \begin{shellenv}{shell:install-deploy-packages}{Install Deploy Packages}\begin{verbatim}
 $ sudo apt update
@@ -90,7 +90,7 @@ server {
 
 클라이언트와 서버 사이에 위치하여 한 쪽의 실제 위치를 감추는 서버를 프록시 서버(\figref{fig:proxy-servers})라고 하며, nginx와 같이 서버의 실제 위치를 감추는 서버를 리버스 프록시 서버(\figref{fig:reverse-proxy})라고 한다. 이러한 리버스 프록시 서버를 이용하면 서버의 실제 위치가 직접적으로 노출되지 않아 외부의 공격으로부터 훨씬 안전하다.
 
-또한, 이러한 server block을 여러 개 만들어서 HTTP 요청을 여러 서버에서 나누어 처리하게끔 할 수도 있다.
+이러한 리버스 프록시 서버를 여러 번 중첩시키므로써 해킹 등을 더 안전하게 방어할 수 있고, DDoS 공격 등을 보다 효율적으로 방어할 수 있다. 또한, 이러한 server block을 여러 개 만들어서 HTTP 요청을 여러 서버에서 나누어 처리하게끔 할 수도 있고, 서버 애플리케이션과 가장 바깥쪽 프록시 서버 사이에 캐시 서버를 넣어 성능을 향상시킬 수도 있다.
 
 \begin{shellenv}{shell:symbolic-link-and-restart}{Create Symbolic Link and Restart nginx}\begin{verbatim}
 $ sudo ln -s /etc/nginx/sites-available/node-simple-board \
