@@ -174,8 +174,8 @@ src/controller/index.js를 생성하고, \coderef{code:index-routing}\과 같이
 \begin{Verbatim}[commandchars=\\\{\}]
 // omit
 
-const controller = require('./controller');
-\textbf{const \{ errorHandler \} = require('./lib/error-handler');}
+\textbf{const controller = require('./controller');}
+const { errorHandler } = require('./lib/error-handler');
 
 // omit
 
