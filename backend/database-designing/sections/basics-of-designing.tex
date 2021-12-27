@@ -45,7 +45,7 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
     캡스톤디자인 & COSE489 & 전공선택 & 3 & 6\tabularnewline
     \thickhline
 \end{tblenv}
-\newpage
+\clearpage
 
 먼저 \tblref{tab:courses-table-basic}의 각 column에 자료형을 부여해보자. \cd{name} column은 문자열로 표현되고 매우 긴 텍스트가 아니므로 VARCHAR형을 사용할 수 있으며, 과목명의 최대 길이가 20자라고 한다면 VARCHAR(20)형으로 정할 수 있다. 유사하게 \cd{code}와 \cd{classification} column은 VARCHAR(8)로 정하면 적당한 길이가 될 것이다. \cd{credit}과 \cd{period}는 각각 정수이므로 INT형이 적당하다. 이렇게 부여한 자료형을 반영하여 \tblref{tab:courses-table-types}\와 같이 나타낼 수 있다.
 
@@ -110,7 +110,7 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
     무기화학II & 화학과 & CHEM308 & 전공필수 & 3 & 3\tabularnewline
     \thickhline
 \end{tblenv}
-\newpage
+\clearpage
 
 \tblref{tab:courses-table-categories}의 테이블에서 \cd{classification} column을 주목해보자. 이 column의 데이터에는 ``교양'', ``전공필수'', ``전공선택'' 등이 있는데, 이들 데이터는 전공 여부와 필수 여부로 나누어질 수 있다. 예를 들어, ``교양''은 전공도 아니고 필수도 아니며, ``전공선택''은 전공이지만 필수는 아니다. 이러한 데이터는 상황에 따라 유의미한 데이터가 될 수 있으며, 이렇게 column의 값을 최대한 유의미한 단위로 나누어 저장하면 중복을 최소화하고 데이터를 편리하게 조회할 수 있다.
 

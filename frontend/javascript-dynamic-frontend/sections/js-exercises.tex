@@ -1,8 +1,8 @@
-\section{JS Exercises} \label{sect:js-exercises}
+\section{JS Exercises}\label{sect:js-exercises}
 
 \subsection*{Exercise 1}
 
-\coderef{code:exercise-dom-1}\을 참고하여 버튼을 클릭하면 \cd{\#color-box}의 배경색을 랜덤하게 바꾸는 함수를 script.5.1.js의 \cd{setRandomBgColor} 함수에 작성하여라. 색상은 R, G, B의 값으로 표현될 수 있고, 각 값은 0 이상 255 이하의 정수임을 이용하여라.
+\coderef{code:exercise-dom-1}\을 참고하여 버튼을 클릭하면 \cd{\#color-box}의 배경색을 랜덤하게 바꾸는 \cd{setRandomBgColor} 함수를 script.5.1.js에 작성하여라. 색상은 R, G, B의 값으로 표현될 수 있고, 각 값은 0 이상 255 이하의 정수임을 이용하여라.
 
 \begin{codeenv}{code:exercise-dom-1}{Exercise 1}\begin{verbatim}
 <!doctype html>
@@ -94,7 +94,7 @@
 \begin{itemize}
     \item Step 1: 레벨업 성공 확률을 \% 단위, number형의 배열로 저장한다.
     \item Step 2: 레벨, 시도 횟수 등 필요한 값을 변수와 상수로 선언한다.
-    \item Step 3: \% 단위의 확률을 인자로 받아, 확률에 따라 무작위로 성공 여부를 판별하여 반환하는 함수 \cd{getRandomBinaryResult}를 구현한다.
+    \item Step 3: \% 단위의 확률값을 인자로 받아, 해당 확률에 따라 무작위로 성공 여부를 판별하여 반환하는 함수 \cd{getRandomBinaryResult}를 구현한다.
     \begin{itemize}
         \item 예: \cd{getRandomBinaryResult(32)}의 반환값은 32\%의 확률로 \cd{true}, 68\%의 확률로 \cd{false}이다.
         \item Hint: 0 이상 20 미만의 정수 중 하나를 무작위로 뽑았을 때 13 미만의 정수는 65\% 확률로 뽑힌다.

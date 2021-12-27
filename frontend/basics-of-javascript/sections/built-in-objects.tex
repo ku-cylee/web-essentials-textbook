@@ -1,8 +1,8 @@
-\section{Built-in Objects} \label{sect:built-in-objects}
+\section{Built-in Objects}\label{sect:built-in-objects}
 
 이번 절에서는 \sectref{sect:data-types}에서 다룬 객체에 대해 더 자세히 알아본다. JS에서 number형이나 string형의 식별자, 배열, 함수 등은 모두 객체\footnote{object형은 아니다.}이고, 그러므로 객체라는 개념을 정확히 이해하기 위해 객체 지향형 프로그래밍(Object-Oriented Programming)을 공부해야 하지만, 본 교재에서 다루는 내용과는 다소 거리가 있으므로 이번 절에서는 클래스와 메서드 등의 기초 개념만 다룬다. 또한, JS에서 기본적으로 제공되는 객체(built-in objects)의 종류와 속성과 메서드 등의 사용 방법에 대해 학습한다.
 
-\subsection*{Property와 Method}
+\subsection*{Property and Method}
 
 \coderef{code:object-type}(\pageref{code:object-type}쪽)에서 \cd{person}이라는 객체에 \cd{age}, \cd{name}, \cd{height}, \cd{isMale}의 네 속성과 그 값을 부여하였다. 이때 \cd{person} 객체의 속성의 값을 이용하여 수행하는 작업을 생각해보자. 예를 들어 새해가 되어 나이를 증가시켜주는 작업은 \cd{age}의 값을 \cd{1}만큼 증가시키는 작업이다. 이 작업은 매우 간단하지만, 복잡하고 긴 과정을 거쳐야 하는 작업일 수도 있으므로 \cd{increaseAge}라는 함수를 만들어 사용하는 상황을 가정하자.
 
@@ -47,7 +47,7 @@ ES6의 축약 메서드 표현법에 따라 \coderef{code:object-simple-method}\
 
 인스턴스를 생성하려면 클래스라는 설계도를 이용하여 객체를 생성하는 매개체가 필요하다. 이 매개체를 \textbf{생성자(constructor)}라고 부르며, 생성자는 인스턴스를 생성할 때 필요한 정보를 받아, 설계도에 따라 객체의 속성이나 메서드를 정한다. 예를 들어, 앞의 \cd{Person} 클래스의 생성자는 나이, 이름, 키, 성별 등의 정보를 받아 \cd{age}, \cd{name}, \cd{height}, \cd{isMale}의 속성값에 저장할 것이다. 또한, 생성자는 여러 유의미한 정보가 응집되어 있는 정보를 나누어 서로 다른 속성에 저장하기도 한다. 예를 들어, 학생의 학번을 받아서 입학 연도, 소속 학과, 개인 일련번호 등의 정보를 저장하는 \cd{Student}라는 클래스를 가정하면 이 클래스의 생성자는 학번을 분석하여 \cd{admissionYear}, \cd{department}, \cd{serialNumber} 등의 속성에 분석한 값들을 저장할 수 있다.
 
-본 교재에서는 생성자를 직접 작성하는 것은 다루지 않고, 생성자를 이용하여 인스턴스를 생성할 때는 \cd{new} 키워드를 사용한다. 예를 들어 \cd{Person} 클래스는 \cd{age}, \cd{name}, \cd{height}, \cd{isMale} 값을 인자로 받아 인스턴스를 생성한다면 \cd{jennie}라는 인스턴스는 \cd{jennie = new Person(24, 'Jennie', 163, false);}와 같이 생성할 수 있다. 또한, 어떤 속성이나 메서드는 생성자에 의해 할당되는 속성이나 메서드가 필요하지 않을 수 있는데, 이러한 메서드를 정적(static) 속성 및 메서드라고 하며, 생성자를 사용하지 않고 클래스에서 직접 속성이나 메서드를 호출할 수 있다.
+본 교재에서는 생성자를 직접 작성하는 것은 다루지 않고, 생성자를 이용하여 인스턴스를 생성할 때는 \cd{new} 키워드를 사용한다. 예를 들어 \cd{Person} 클래스는 \cd{age}, \cd{name}, \cd{height}, \cd{isMale} 값을 인자로 받아 인스턴스를 생성한다면 \cd{jennie}라는 인스턴스는 \cd{jennie = new Person(24, 'Jennie', 163, false);}와 같이 생성할 수 있다. 또한, 어떤 속성이나 메서드는 생성자에 의해 할당되는 속성이나 메서드가 필요하지 않을 수 있는데, 이러한 메서드를 정적(static) 속성 및 메서드라고 하며, 클래스에서 직접 속성이나 메서드를 호출할 수 있다.
 
 여담으로, 객체는 \cd{const} 키워드로 선언되어도 그 속성이나 메서드는 재할당될 수 있다.
 
@@ -56,7 +56,7 @@ ES6의 축약 메서드 표현법에 따라 \coderef{code:object-simple-method}\
 다음 메서드들은 객체를 명시하지 않고 함수 형태로 사용할 수 있는 메서드들이다. 이 함수들은 사실 전역 객체(global object)의 메서드이므로 함수처럼 사용할 수 있는 것이다.
 
 \begin{itemize}
-    \item \cd{isFinite(testValue) => boolean}: 주어진 값이 유한한지 판별하는 메서드; \cd{testValue}를 인자로 받아 \cd{Infinity}, \cd{NaN}, \cd{undefined}이면 \cd{false}, 아니면 \cd{true}를 반환한다.
+    \item \cd{isFinite(testValue) => boolean}: 주어진 값이 유한한지 판별하는 메서드; \cd{testValue}를 인자로 받아 \cd{NaN}, \cd{Infinity}, \cd{undefined}이면 \cd{false}, 아니면 \cd{true}를 반환한다.
     \item \cd{isNaN(testValue) => boolean}: 주어진 값이 \cd{NaN}인지 판별하는 메서드; \cd{testValue}를 인자로 받아 \cd{NaN}이면 \cd{false}, 아니면 \cd{true}를 반환한다.
     \item \cd{parseInt(string[, radix]) => number}: 주어진 문자열을 숫자로 변환하여 반환하는 메서드; \cd{string}과 \cd{radix}를 인자로 받아, \cd{string}을 \cd{radix}진법의 정수로 변환하여 반환한다. 주어진 값을 정수로 변환할 수 없다면 \cd{NaN}을 반환하며, \cd{radix}가 주어지지 않을 때는 \cd{string}이 \cd{0x}나 \cd{0X}로 시작하면 16진수로, 그 외에는 10진수로 변환한다.
 \end{itemize}
@@ -83,7 +83,7 @@ string형 식별자, 즉 \cd{String} 객체의 자주 쓰이는 속성이나 메
     \item \cd{replace(substr, newSubstr) => string}: 문자열의 일부분을 다른 문자열로 대치(代置)하여 반환하는 메서드; 원래 문자열에서 처음으로 나오는 \cd{substr} 문자열 부분을 \cd{newSubstr}로 대치한다. \cd{substr}은 정규식 형태로 주어질 수도 있다.
     \item \cd{replaceAll(substr, newSubstr) => string}: 문자열의 일부분을 모두 다른 문자열로 대치하여 반환하는 메서드; \cd{replace} 메서드와 유사하게 동작하나 \cd{substr} 문자열 부분을 모두 \cd{newSubstr}로 대치한다.
     \item \cd{split([separator, limit]) => Array<string>}: 문자열을 주어진 문자열을 기준으로 분리하여 문자열의 배열로 반환하는 메서드; 원래 문자열에서 \cd{separator}를 기준으로 분리하여 최대 \cd{limit}개의 문자열을 반환한다. \cd{separator}가 주어지지 않으면 분리되지 않으며, \cd{limit}이 주어지지 않으면 반환하는 문자열 배열의 길이에 제한이 없다.
-    \item \cd{substring(indexStart[, indexEnd]) => string}: 문자열의 일부분을 추출하는 메서드; \cd{indexStart}번째 문자부터 \cd{indexEnd}번째 문자 직전까지의 문자열을 추출하여 반환하며, \cd{indexEnd}의 기본값은 \cd{length} 속성값이다.
+    \item \cd{substring(indexStart[, indexEnd]) => string}: 문자열의 일부분을 추출하는 메서드; \cd{indexStart}번째 문자부터 \cd{indexEnd}번째 문자 직전까지의 문자열을 추출하여 반환하며, \cd{indexEnd}의 기본값은 \cd{length} 값이다.
     \item \cd{toLowerCase() => string}: 문자열 중 알파벳을 모두 소문자로 바꾸어 반환하는 메서드
     \item \cd{toUpperCase() => string}: 문자열 중 알파벳을 모두 대문자로 바꾸어 반환하는 메서드
     \item \cd{trim() => string}: 문자열의 앞뒤 whitespace를 모두 제거하여 반환하는 메서드
@@ -119,7 +119,7 @@ true
     \item \cd{find(fn(element[, index, array]) => boolean) => Any}: 배열의 원소 중 주어진 함수를 만족하는 첫 번째 원소를 반환하는 메서드
     \item \cd{findIndex(fn(element[, index, array]) => boolean) => number}: 배열의 원소 중 주어진 함수를 만족하는 첫 번째 원소의 index를 반환하는 메서드
     \item \cd{forEach(fn(element[, index, array]))}: 배열의 각 원소에 대해 주어진 함수를 실행하는 메서드
-    \item \cd{includes(searchElement[, fromIndex]) => boolean}: 배열의 원소에 주어진 원소가 있는지 판별하는 메서드; 배열의 \cd{fromIndex}번째 원소 이후에 \cd{searchElement}가 있으면 \cd{true}를 반환한다. \cd{fromIndex}의 기본값은 \cd{0}이다.
+    \item \cd{includes(searchElement[, fromIndex]) => boolean}: 배열의 원소에 주어진 원소가 있는지 판별하는 메서드; 배열의 \cd{fromIndex}(기본값 \cd{0})번째 원소 이후에 \cd{searchElement}가 있으면 \cd{true}를 반환한다.
     \item \cd{join([separator]) => string}: 배열의 모든 원소를 주어진 문자열로 이어붙인 문자열을 반환하는 메서드
     \item \cd{map(fn(element[, index, array]) => Any) => Array}: 배열의 각 원소에 대한 주어진 함수의 반환값의 배열을 반환하는 메서드
     \item \cd{pop() => Any}: 배열의 마지막 원소를 제거하고, 마지막 원소의 값을 반환하는 메서드

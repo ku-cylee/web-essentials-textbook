@@ -1,11 +1,11 @@
-\section{Basic Structure of CSS} \label{sect:basic-structure-of-css}
+\section{Basic Structure of CSS}\label{sect:basic-structure-of-css}
 
-\subsection*{CSS의 기본적인 구조}
+\subsection*{Basic Structure of CSS}
 
 CSS는 문서의 구조를 체계적으로 서술하는 언어인 HTML과 유사하게 스타일이나 레이아웃을 체계적으로 서술하는 컴퓨터 언어이므로 지켜서 작성해야 하는 규칙이 있다.
 
 \figures{fig:css-basic-struct}{Basic Structure of CSS}
-    {\fig{css-basic-struct.png}{.7}}
+    {\fig{css-basic-struct.png}{.65}}
 
 CSS의 구조는 \figref{fig:css-basic-struct}\와 같이 표현될 수 있다. \textbf{선택자(selector)}는 HTML 요소를 태그 이름, 클래스 이름, 아이디, 상태, 속성 등을 기준으로 선택하는 방법을 서술하는 문자열이며, 선택자에 의해 선택된 요소들에 일괄적으로 적용할 스타일을 중괄호(\cd{\{\}}) 내부에 작성한다.
 
@@ -79,7 +79,7 @@ CSS의 구조는 \figref{fig:css-basic-struct}\와 같이 표현될 수 있다. 
 \end{codeenv}
 
 
-마지막 방법은 \textbf{external style sheet}으로, HTML 문서와 CSS 문서를 서로 다른 파일에 작성하고, HTML 문서의 \cd{head} 태그 내부에 \cd{link} 태그를 이용하여 CSS 파일을 연동한다. \cd{link} 태그에는 다음과 같은 속성을 지정해주어야 한다.
+마지막 방법은 \textbf{external style sheet}으로, HTML 문서와 CSS 문서를 서로 다른 파일에 작성하고, HTML 문서의 \cd{head} 태그 내부에 \cd{link} 태그를 이용하여 CSS 파일을 연동한다. \cd{link}에는 다음과 같은 속성을 지정하여야 한다.
 
 \begin{itemize}
     \item \cd{type="text/css"} - 연결하고자 하는 문서가 CSS 형태임을 명시한다.

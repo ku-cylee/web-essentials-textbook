@@ -121,7 +121,7 @@ const generatePassword = async password => {
 \end{codeenv}
 
 \coderef{code:generating-password}의 \cd{generatePassword} 함수는 암호화 인자들과 해시값을 콜론(\cd{:})으로 구분한 문자열을 생성하여 반환하는 함수이다. 비밀번호는 이러한 형태로 DB에 저장된다.
-\newpage
+\clearpage
 
 \begin{codeenv}{code:verifying-password}{Password Verification (Derived from \coderef{code:generating-password})}\begin{verbatim}
 const verifyPassword = async (password, hashedPassword) => {
