@@ -2,7 +2,7 @@ SRC_DIR=src
 DST_DIR=bin
 
 ENGINE=latexmk
-FLAGS=-synctex=1 --interaction=nonstopmode -file-line-error -xelatex -cd -quiet -outdir=../$(DST_DIR)
+FLAGS=-synctex=1 --interaction=nonstopmode -file-line-error -xelatex -cd -outdir=../$(DST_DIR)
 
 all:
 	$(ENGINE) $(FLAGS) $(SRC_DIR)/web-essentials.tex
