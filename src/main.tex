@@ -1,0 +1,34 @@
+\documentclass[a4paper,10pt,hidelinks]{book}
+
+% \def\isfrontend{0}
+% \def\isbackend{0}
+\input{settings/index}
+
+\begin{document}
+    \def\version{December 9, 2021}
+    \def\booktitle{\huge\bfseries 2021 Web Application Essentials}
+
+    \include{header}
+
+    \importfile{preface/}{index}
+
+    \begin{fullstack}
+        \part{Frontend}\label{part:frontend}
+    \end{fullstack}
+    \begin{notbackend}
+        \importfile{frontend/}{index}
+    \end{notbackend}
+
+    \begin{fullstack}
+        \part{Backend}\label{part:backend}
+    \end{fullstack}
+    \begin{notfrontend}
+        \importfile{backend/}{index}
+    \end{notfrontend}
+
+    \appendix
+    \begin{fullstack}
+        \part{Appendix}\label{part:appendix}
+    \end{fullstack}
+    \importfile{appendix/}{index}
+\end{document}
