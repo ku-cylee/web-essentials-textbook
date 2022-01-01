@@ -20,9 +20,9 @@
 
 \newcommand\recipeoptioncmd[4]{\ifthenelse{\recipecond{#1}{#2}{#3}=1}{#4}{}}
 
-\NewEnviron{iffront}{\recipeoptioncmd{1}{0}{0}{\BODY}}
-\NewEnviron{ifback}{\recipeoptioncmd{0}{1}{0}{\BODY}}
-\NewEnviron{ifboth}{\recipeoptioncmd{0}{0}{1}{\BODY}}
-\NewEnviron{ifnotfront}{\recipeoptioncmd{0}{1}{1}{\BODY}}
-\NewEnviron{ifnotback}{\recipeoptioncmd{1}{0}{1}{\BODY}}
-\NewEnviron{ifnotboth}{\recipeoptioncmd{1}{1}{0}{\BODY}}
+\NewEnviron{frontend}{\recipeoptioncmd{1}{0}{0}{\BODY}}
+\NewEnviron{backend}{\recipeoptioncmd{0}{1}{0}{\BODY}}
+\NewEnviron{fullstack}{\recipeoptioncmd{0}{0}{1}{\BODY}}
+\NewEnviron{notfrontend}{\recipeoptioncmd{0}{1}{1}{\BODY}}
+\NewEnviron{notbackend}{\recipeoptioncmd{1}{0}{1}{\BODY}}
+\NewEnviron{notfullstack}{\recipeoptioncmd{1}{1}{0}{\BODY}}
