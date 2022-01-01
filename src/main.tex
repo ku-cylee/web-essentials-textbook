@@ -4,10 +4,19 @@
 % \def\isbackend{0}
 \input{settings/index}
 
-\begin{document}
-    \def\version{December 9, 2021}
-    \def\booktitle{\huge\bfseries 2021 Web Application Essentials}
+\def\version{
+    \begin{frontend}
+        May 17, 2021
+    \end{frontend}
+    \begin{backend}
+        December 9, 2021
+    \end{backend}
+    \begin{fullstack}
+        December 9, 2021
+    \end{fullstack}
+}
 
+\begin{document}
     \include{header}
 
     \importfile{preface/}{index}
