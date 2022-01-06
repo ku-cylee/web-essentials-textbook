@@ -1,21 +1,20 @@
-\section{Basics of JS Exercise Answers} \label{sect:basic-js-exercise-answers}
+\section{Basics of JS Exercise Answers}\label{sect:basic-js-exercise-answers}
 
-\subsection*{Exercise 1}
+\subsection*{\excref{exc:validity-of-number}}
 
-\begin{codeenv}{code:basic-js-1-answer}{Exercise 1 Answer}\begin{verbatim}
+\begin{codeenv}{code:validity-of-number-answer}{\excref{exc:validity-of-number} Answer}\begin{verbatim}
 const isValidNumber = num => {
     const parsedNumber = parseInt(num);
     if (!isFinite(parsedNumber) || isNaN(parsedNumber)) return false;
     if (parsedNumber != num) return false;
-    if (parsedNumber < 1 || parsedNumber > 9) return false;
-    return true;
-}
+    return parsedNumber >= 1 && parsedNumber <= 9;
+};
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Exercise 2}
+\subsection*{\excref{exc:divisors}}
 
-\begin{codeenv}{code:basic-js-2-answer}{Exercise 2 Answer}\begin{verbatim}
+\begin{codeenv}{code:divisors-answer}{\excref{exc:divisors} Answer}\begin{verbatim}
 const getDivisors = num => {
     const divisors = [];
     for (let i = 1; i <= Math.sqrt(num); i++) {
@@ -23,13 +22,13 @@ const getDivisors = num => {
         else if (num % i === 0) divisors.push(i, num / i);
     }
     return divisors.sort((first, second) => first - second);
-}
+};
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Exercise 3}
+\subsection*{\excref{exc:ellipse-object}}
 
-\begin{codeenv}{code:basic-js-3-answer}{Exercise 3 Answer}\begin{verbatim}
+\begin{codeenv}{code:ellipse-object-answer}{\excref{exc:ellipse-object} Answer}\begin{verbatim}
 const ellipse = {
     width: 10,
     height: 5,
