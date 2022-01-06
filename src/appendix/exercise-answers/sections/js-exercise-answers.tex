@@ -1,8 +1,9 @@
-\section{JS Exercise Answers} \label{sect:js-exercise-answers}
+\section{JS Exercise Answers}\label{sect:js-exercise-answers}
 
-\subsection*{Exercise 1}
+\subsection*{\excref{exc:random-color-box}}
 
-\begin{codeenv}{code:dom-1-answer}{Exercise 1 Answer}\begin{verbatim}
+\begin{codeenv}{code:random-color-box-answer}{\excref{exc:random-color-box} Answer}
+\begin{verbatim}
 const setRandomBgColor = () => {
     const red = Math.floor(Math.random() * 256);
     const blue = Math.floor(Math.random() * 256);
@@ -13,25 +14,21 @@ const setRandomBgColor = () => {
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Exercise 2}
+\subsection*{\excref{exc:times-table}}
 
-\begin{codeenv}{code:dom-2-answer}{Exercise 2 Answer}\begin{verbatim}
+\begin{codeenv}{code:times-table-answer}{\excref{exc:times-table} Answer}\begin{verbatim}
+const setErrorText = element => element.innerText = 'Input Error!';
+
 const displayTimes = () => {
     const number = document.getElementById('number').value;
     const parsedNumber = parseInt(number);
     const timesResult = document.getElementById('times-result');
 
-    if (!isFinite(parsedNumber) || isNaN(parsedNumber)) {
-        return timesResult.innerText = 'Input Error!';
-    }
+    if (!isFinite(parsedNumber) || isNaN(parsedNumber)) return setErrorText(timesResult);
 
-    if (parsedNumber != number) {
-        return timesResult.innerText = 'Input Error!';
-    }
+    if (parsedNumber != number) return setErrorText(timesResult);
 
-    if (parsedNumber < 1 || parsedNumber > 9) {
-        return timesResult.innerText = 'Input Error!';
-    }
+    if (parsedNumber < 1 || parsedNumber > 9) return setErrorText(timesResult);
 
     const result = [];
     for (let i = 1; i <= 9; i++) {
@@ -42,9 +39,10 @@ const displayTimes = () => {
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Exercise 3}
+\subsection*{\excref{exc:box-color-btn}}
 
-\begin{codeenv}{code:dom-3-answer}{Exercise 3 Answer}\begin{verbatim}
+\begin{codeenv}{code:box-color-btn-answer}{\excref{exc:box-color-btn} Answer}
+\begin{verbatim}
 const changeBoxColor = () => {
     const box = document.getElementsByClassName('box')[1];
     box.style.backgroundColor = 'blue';
@@ -52,10 +50,10 @@ const changeBoxColor = () => {
 \end{verbatim}
 \end{codeenv}
 
+\subsection*{\excref{exc:random-level-up}}
 
-\subsection*{Exercise 4}
-
-\begin{codeenv}{code:bom-1-answer}{Exercise 4 Answer}\begin{verbatim}
+\begin{codeenv}{code:random-level-up-answer}{\excref{exc:random-level-up} Answer}
+\begin{verbatim}
 const probs = [ 100, 60, 36, 22, 13, 8, 5, 3, 2, 1 ];
 
 let attempts = 0;
@@ -82,9 +80,10 @@ const tryLevelUp = () => {
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Exercise 5}
+\subsection*{\excref{exc:online-shopping-cart}}
 
-\begin{codeenv}{code:event-1-answer}{Exercise 5 Answer}\begin{verbatim}
+\begin{codeenv}{code:online-shopping-cart-answer}{\excref{exc:online-shopping-cart} Answer}
+\begin{verbatim}
 const itemPrice = {
     apple: 700,
     orange: 800,
@@ -101,11 +100,12 @@ for (const buttonEl of document.getElementsByClassName('add-to-cart')) {
 }
 \end{verbatim}
 \end{codeenv}
+\clearpage
 
+\subsection*{\excref{exc:maze-escaping-game}}
 
-\subsection*{Exercise 6}
-
-\begin{codeenv}{code:event-2-answer}{Exercise 6}\begin{verbatim}
+\begin{codeenv}{code:maze-escaping-game-answer}{\excref{exc:maze-escaping-game} Answer}
+\begin{verbatim}
 const ROW_MIN = 0;
 const ROW_MAX = 6;
 const COL_MIN = 0;
