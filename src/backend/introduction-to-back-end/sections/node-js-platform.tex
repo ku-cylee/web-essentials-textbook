@@ -2,17 +2,17 @@
 
 \subsection*{Node.js}
 
-Back-end는 client가 보낸 요청을 분석하여 그에 맞게 응답하는 로직을 수행하는 애플리케이션으로, front-end와는 달리 Java, Python, C\#, JS 등 (이론상) 어떤 언어로든 구현할 수 있다. 본 교재에서는 front-end 과정에서 다룬 바 있고, 이미 널리 사용되고 있는 Javascript를 활용하여 웹 서버를 구현한다.
+Back-end는 client가 보낸 요청을 분석하여 그에 맞게 응답하는 로직을 수행하는 애플리케이션이므로, front-end와는 달리 Java, Python, C\#, JS 등 (이론상) 어떤 언어로든 구현할 수 있다. 본 교재에서는 front-end 과정에서 다룬 바 있고, 이미 널리 사용되고 있는 Javascript를 활용하여 웹 서버를 구현한다.
 
-원래 JS는 웹 브라우저에서만 동작하게끔 설계된 언어이기 때문에 크롬, 파이어폭스 등 웹 브라우저에서만 실행할 수 있었다. 그러나 2009년 Ryan Dahl에 의해 브라우저 밖에서도 JS를 실행할 수 있는 Node.js 플랫폼이 개발되었고, 이를 이용하여 JS로 웹 서버를 구현할 수 있게 되었다.
+원래 JS는 웹 브라우저에서만 동작하게끔 설계된 언어이기 때문에 JS 프로그램은 크롬, 파이어폭스 등 웹 브라우저에서만 실행될 수 있었다. 그러나 2009년 Ryan Dahl에 의해 브라우저 밖에서도 JS를 실행할 수 있는 Node.js 플랫폼이 개발되었고, 이를 이용하여 JS로 웹 서버를 구현할 수 있게 되었다.
 
 Node.js는 JS가 갖는 대중성과 유연함으로 인해 유지 및 보수가 용이하다는 장점이 있으며, 동시에 가볍고 성능이 비교적 우수하다는 장점을 가지고 있다. 이러한 장점에 힘입어 최근 웹 서버의 구현을 위해 Node.js를 사용하는 사례가 빠르게 늘어나고 있으며, 관련 생태계가 활발하게 돌아가고 있다. 또한, Javascript에 명시적인 자료형을 추가한 Typescript를 이용한 개발도 매우 광범위하게 이루어지고 있다.
 
 \subsection*{Installing Node.js}
 
-Node.js 플랫폼은 홈페이지(https://nodejs.org/)에서 제공된다. 홈페이지에서는 LTS 버전과 Current 버전을 비롯해 현재까지 release된 모든 버전의 Node.js 플랫폼을 다운로드받을 수 있다. LTS 버전은 Long Time Support 버전, 즉 개발이 완료되어 안정적이며 신뢰도가 높아 장기간 지원되는 버전으로 실제 서비스를 위한 애플리케이션을 구현하기에 적합한 버전이다. 반면 Current 버전은 가장 최근에 release된 버전으로, 개발이 완료되지 않은 버전이기 때문에 신뢰도가 보장되지 않고 버그가 발생할 수 있어 Node.js의 최신 기능을 사용해볼 수는 있으나 실제 서비스를 목적으로 한 프로젝트에서는 적합하지 않다. 본 교재에서는 LTS 버전을 기준으로 작성되었으며, 2021년 9월 기준 LTS 버전은 14.17.6 버전이다.
+Node.js 플랫폼은 홈페이지(https://nodejs.org/)에서 제공된다. 홈페이지에서는 LTS 버전과 Current 버전을 비롯해 현재까지 release된 모든 버전의 Node.js 플랫폼을 다운로드받을 수 있다. LTS 버전은 Long Time Support 버전, 즉 개발이 완료되어 안정적이며 신뢰도가 높아 장기간 지원되는 버전으로 실제 서비스를 위한 애플리케이션을 구현하기에 적합한 버전이다. 반면 Current 버전은 가장 최근에 release된 버전으로, 개발이 완료되지 않은 버전이기 때문에 신뢰도가 보장되지 않고 버그가 발생할 수 있어 Node.js의 최신 기능을 사용해볼 수는 있으나 실제 서비스를 목적으로 한 프로젝트에서는 적합하지 않다. 본 교재에서는 LTS 버전을 기준으로 작성되었으며, 2022년 9월 기준 LTS 버전은 16.17.0 버전이다.
 
-Windows와 macOS에서는 홈페이지에서 LTS 버전 설치 파일을 다운로드한 후, 설치 파일을 실행해 추가 옵션 없이 설치한다. Linux 계열 운영체제는 Terminal\footnote{Shell에서 \cd{\$} 문자는 입력란을 뜻하므로 \cd{\$ } 부분은 입력하지 않는다.}을 열고 \shellref{shell:nodejs-linux-install}\을 따라 설치 파일을 다운로드한 후 설치한다. 이때 \cd{<major-version>} 부분에 다운로드 하고자 하는 버전의 major 번호\footnote{14.17.6 버전의 경우 14}를 대입한다.
+Windows와 macOS에서는 홈페이지에서 LTS 버전 설치 파일을 다운로드한 후, 설치 파일을 실행해 추가 옵션 없이 설치한다. Linux 계열 운영체제는 Terminal\footnote{Shell에서 \cd{\$} 문자는 입력란을 뜻하므로 \cd{\$ } 부분은 입력하지 않는다.}을 열고 \shellref{shell:nodejs-linux-install}\을 따라 설치 파일을 다운로드한 후 설치한다. 이때 \cd{<major-version>} 부분에 다운로드 하고자 하는 버전의 major 번호\footnote{16.17.0 버전의 경우 16}를 대입한다.
 
 \begin{shellenv}{shell:nodejs-linux-install}{Installing Node.js on Linux}\begin{verbatim}
 $ curl -sL https://deb.nodesource.com/setup_<major-version>.x | sudo bash -
@@ -22,11 +22,11 @@ $ sudo apt install -y nodejs
 
 설치가 완료되면 Windows에서는 cmd, UNIX 계열 운영체제에서는 Terminal 등의 shell을 실행하여 \shellref{shell:nodejs-version}\과 같이 Node.js와 npm의 버전을 확인한다.
 
-\begin{shellenv}{shell:nodejs-version}{Confirming Node.js Version for v14.17.6}\begin{verbatim}
+\begin{shellenv}{shell:nodejs-version}{Confirming Node.js Version for v16.17.0}\begin{verbatim}
 $ node -v
-v14.17.6
+v16.17.0
 $ npm -v
-6.14.15
+8.19.2
 \end{verbatim}
 \end{shellenv}
 
@@ -34,7 +34,7 @@ $ npm -v
 
 \subsection*{Running Simple Node.js Application}
 
-Node.js 홈페이지에는 Node.js 상에서 구현한 아주 간단한 형태의 웹 서버 애플리케이션이 제시되어 있다. 프로젝트 디렉토리를 생성하고, index.js 파일을 생성하여 \coderef{code:nodejs-simple-web-server}\와 같이 작성한다.
+Node.js 홈페이지에는 JS로 구현된 아주 간단한 웹 서버 애플리케이션이 제시되어 있다. 프로젝트 디렉토리를 생성하고, index.js 파일을 생성하여 \coderef{code:nodejs-simple-web-server}\와 같이 작성한다.
 
 \begin{codeenv}{code:nodejs-simple-web-server}{Simple Web Server: index.js}\begin{verbatim}
 const http = require('http');
