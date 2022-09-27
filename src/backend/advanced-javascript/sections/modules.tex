@@ -2,19 +2,19 @@
 
 \subsection*{Necessity of Modules}
 
-모듈(module)이란 외부의 영향을 받지 않는 독립적이고, 재사용이 가능한 코드의 묶음으로, 대체로 하나의 모듈에는 유사한 목적을 가진 상수, 클래스, 메서드, 하위 모듈 등이 모여있다. 예를 들어, C에는 \cd{strlen}, \cd{strcat}, \cd{strcpy} 등 문자열을 간편하게 다룰 수 있는 함수들을 모아둔 string.h라는 헤더가 있고, Python에는 \cd{listdir}, \cd{mkdir}, \cd{rename} 등 운영체제와 관련된 메서드를 모아둔 os라는 모듈이 있다. 마찬가지로 Node.js에도 유사한 목적을 가진 코드들의 집합인 모듈이 존재한다.
+모듈(module)이란 외부의 영향을 받지 않는 독립적이고, 재사용이 가능한 코드의 묶음으로, 대체로 하나의 모듈에는 유사한 목적을 가진 상수, 클래스, 메서드, 하위 모듈 등이 모여있다. 예를 들어, C에는 \cd{strlen}, \cd{strcat}, \cd{strcpy} 등 문자열을 간편하게 다룰 수 있는 함수들을 모아둔 string.h라는 헤더가 있고, Python에는 \cd{listdir}, \cd{mkdir}, \cd{rename} 등 운영체제와 관련된 메서드를 모아둔 os라는 라이브러리가 있다. 마찬가지로 Node.js에도 유사한 목적을 가진 코드들의 집합인 모듈이 존재한다.
 
 Node.js는 파일 시스템을 다루기 위한 모듈인 fs, HTTP 요청을 보내고 응답을 받는 모듈인 http 등을 내장 모듈의 형태로 기본적으로 제공하며, 내장 모듈의 API 문서는 Node.js 홈페이지에서 확인할 수 있다. 특히 http 모듈은 \coderef{code:nodejs-simple-web-server}(\pageref{code:nodejs-simple-web-server}쪽)에서 사용한 바 있다.
 
 내장 모듈 이외에도 인터넷 상에 배포된 외장 모듈을 npm이나 yarn과 같은 패키지 매니저를 통해 설치하여 사용할 수도 있고, 자신의 코드를 모듈화하고 분류하여 프로젝트를 구조화하거나, 자신이 원하는 기능을 모아둔 모듈을 제작할 수 있다.
 
-소프트웨어 개발 과정에서 모듈을 적절히 도입하여 활용하는 것은 고수준(high-level) 애플리케이션의 개발자에게 필수적으로 요구되는 능력이다. 이론적으로 소프트웨어에서 사용되는 모든 기능을 직접 구현하는 것이 가능하긴 하지만, 구현하고자 하는 기능에 비해 요구되는 비용이 지나치게 많고 유지 및 보수가 매우 어렵기 때문에 지양되는 방법이다. 또한 모듈은 앞서 설명한 프로젝트의 구조화에서도 매우 중요한 역할을 한다. 이번 절에서는 이러한 모듈을 설치하고, 사용하고, 제작하는 방법을 다룬다.
+소프트웨어 개발 과정에서 모듈을 적절히 도입하여 활용하는 것은 고수준(high-level) 애플리케이션의 개발자에게 필수적으로 요구되는 능력이다. 이론적으로 소프트웨어에서 사용되는 모든 기능을 직접 구현하는 것이 가능하긴 하지만, 구현하고자 하는 기능에 비해 요구되는 비용이 지나치게 많고 유지 및 보수가 매우 어렵기 때문에 지양되는 방법이다. 또한 모듈은 앞서 설명한 프로젝트의 구조화에서도 매우 중요한 역할을 한다. 이번 절에서는 이러한 모듈을 설치하고, 사용하고, 작성하는 방법을 다룬다.
 
 \subsection*{Installing External Module}
 
 외장 모듈은 패키지 매니저를 통해 설치할 수 있으며, 본 교재에서는 \sectref{sect:node-js-platform}에서 설치한 npm을 이용한다. 프로젝트마다 사용하는 모듈의 버전이 달라 호환성 문제가 발생할 수 있기 때문에 모듈은 프로젝트마다 따로 설치하는 것이 원칙이다.
 
-\shellref{shell:external-module-install}\은 JS에서 배열, 객체 등 필수적인 자료형을 다루는 여러 유용한 메서드를 제공하는 lodash 모듈을 설치하는 방법이다. 설치가 완료되면 프로젝트 디렉토리 내에 ``node\_modules''라는 디렉토리가 생성되고, 그 안에 lodash 디렉토리가 생성된 것을 확인할 수 있다.
+\shellref{shell:external-module-install}\은 JS에서 배열, 객체 등 필수적인 자료형을 간편하게 다루는 여러 유용한 메서드를 제공하는 lodash 모듈을 설치하는 방법이다. 설치가 완료되면 프로젝트 디렉토리 내에 ``node\_modules''라는 디렉토리가 생성되고, 그 안에 lodash 디렉토리가 생성된 것을 확인할 수 있다.\footnote{설치 과정에서 보듯, 외장 모듈들은 인터넷에서 다운로드하여 설치할 수 있으므로 git에 의해 추적되지 않아야 한다.}
 
 \begin{shellenv}{shell:external-module-install}{Installing External Module}\begin{verbatim}
 $ npm install lodash
@@ -24,7 +24,7 @@ $ npm install lodash
 
 \subsection*{Generating Module}
 
-모듈은 하나의 파일이 하나의 모듈로 간주된다. \cd{module.exports}에 모듈 밖에서 사용할 상수, 함수, 객체 등의 값을 속성값으로 할당하여 export 하면, 다른 파일에서 이 모듈을 import하여 모듈 내의 상수, 함수, 객체 등을 사용할 수 있다. \coderef{code:creating-module}은 둥근 도형들의 넓이, 부피 등을 계산하는 모듈을 생성하는 예제이다.
+모듈은 하나의 파일이 하나의 모듈로 간주된다. \cd{module.exports}에 모듈 밖에서 사용할 상수, 함수, 객체 등의 값을 할당하여 export 하면, 다른 파일에서 이 모듈을 import하여 모듈 내의 상수, 함수, 객체 등을 사용할 수 있다. \coderef{code:creating-module}은 둥근 도형들의 넓이, 부피 등을 계산하는 모듈을 생성하는 예제이다.
 
 \begin{codeenv}{code:creating-module}{Creating Module (circular-shapes.js)}\begin{verbatim}
 const PI = 3.14159265358;
@@ -62,7 +62,7 @@ module.exports = {
 \end{verbatim}
 \end{codeenv}
 
-\coderef{code:creating-module}에서 \cd{getCircleArea} 등과 같이 객체의 속성의 이름과 값에 할당되는 변수의 이름이 같을 경우 \coderef{code:property-shorthand}\와 같이 줄여쓸 수 있다.
+참고로, \coderef{code:creating-module}에서 \cd{getCircleArea} 등과 같이 객체의 속성의 이름과 값에 할당되는 변수의 이름이 같을 경우 \coderef{code:property-shorthand}\와 같이 줄여쓸 수 있다.
 \clearpage
 
 \subsection*{Importing and Using Module}

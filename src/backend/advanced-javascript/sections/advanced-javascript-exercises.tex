@@ -36,7 +36,7 @@ Multi Combination: 120
 
 \subsection*{\excstref{exc:directory-search}: Directory Search}
 
-프로젝트 내의 test 디렉토리 내부를 모두 탐색하여 확장자가 js인 파일의 목록을 출력하고, 탐색 과정에서 에러가 발생하면 \cd{console.error} 메서드를 이용하여 에러를 출력하는 프로그램을 내장 모듈인 fs와 path 모듈의 다음 메서드들을 활용하여 구현하여라. 두 모듈의 API 문서\footnote{14.17.6 버전의 경우 https://nodejs.org/dist/latest-v14.x/docs/api}는 Node.js 홈페이지에서 확인할 수 있으며, 필요에 따라 \coderef{code:file-read-async-await}\과 같이 \cd{util.promisify} 메서드를 사용해야 한다.
+프로젝트 내의 test 디렉토리 내부를 모두 탐색하여 확장자가 js인 파일의 목록을 출력하고, 탐색 과정에서 에러가 발생하면 \cd{console.error} 메서드를 이용하여 에러를 출력하는 프로그램을 내장 모듈인 fs와 path 모듈의 다음 메서드들을 활용하여 구현하여라. 두 모듈의 API 문서\footnote{16.17.0 버전의 경우 https://nodejs.org/dist/latest-v16.x/docs/api}는 Node.js 홈페이지에서 확인할 수 있으며, 필요에 따라 \coderef{code:file-read-async-await}\과 같이 \cd{util.promisify} 메서드를 사용해야 한다.
 
 \begin{itemize}
     \item fs (File System): \cd{readdir}, \cd{stat}, \cd{stats.isDirectory}
@@ -50,19 +50,19 @@ test
 ├── 01.py
 ├── 02.js
 ├── test1
-│   ├── 11.c
-│   ├── 11.js
-│   ├── 11.py
-│   └── 12.js
+│   ├── 11.c
+│   ├── 11.js
+│   ├── 11.py
+│   └── 12.js
 ├── test2
-│   ├── 21.js
-│   └── 21.ts
+│   ├── 21.js
+│   └── 21.ts
 ├── test3
-│   ├── 31.cs
-│   └── 31.java
+│   ├── 31.cs
+│   └── 31.java
 ├── test4
-│   ├── 41.js
-│   └── 41.py
+│   ├── 41.js
+│   └── 41.py
 └── test5
     └── test51
         ├── 511.js
