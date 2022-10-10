@@ -54,6 +54,7 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 \end{itemize}
 
 Express.js는 이러한 라우팅을 간편하게 할 수 있는 라우팅 메서드를 제공한다. \cd{app} 객체의 \cd{get}, \cd{post} 메서드 등은 GET, POST 메서드 요청을 처리하고, \cd{put}, \cd{delete} 등의 메서드 역시 유사한 기능을 수행한다. 라우팅 메서드는 첫 번째 인자로 매칭하고자 하는 경로를 정규표현식 형태로 받고, 이후 라우트에 매칭되었을 때 실행할 함수, 즉 controller 함수를 순서대로 인자로 받는다. 예를 들어, \coderef{code:simple-express-server}에서 \cd{app.get('/', ...)} 코드는 GET 메서드, / 경로로 들어온 요청을 처리하는 코드이다.
+\clearpage
 
 \subsection*{Request and Response Objects}
 
