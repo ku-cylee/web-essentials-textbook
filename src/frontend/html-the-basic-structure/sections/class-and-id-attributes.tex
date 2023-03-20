@@ -1,31 +1,31 @@
 \section{Class and Id Attributes}\label{sect:class-and-id-attributes}
 
-\sectref{sect:commonly-used-html-tags}에서 HTML 문서를 작성하는 기본적인 방법에 대하여 학습하였다. \chapref{ch:css-designing-html}부터는 CSS와 JS를 배우면서 HTML에 적용하는 과정을 다루는데, CSS에서는 각 요소에 원하는 디자인을 적용할 수 있고, JS에서는 각 요소를 추가 및 삭제하거나, 그 속성을 수정하는 등의 작업을 할 수 있다. 이러한 CSS와 JS를 HTML 문서에 적용할 때, 특정 요소 혹은 특정 분류의 모든 요소에 CSS나 JS를 적용하게 된다.
+\sectref{sect:commonly-used-html-tags}에서 HTML 문서를 작성하는 기본적인 방법에 대하여 학습하였다. \chapref{ch:css-designing-html}부터는 CSS와 JS를 HTML에 적용하는 과정을 다루는데, CSS에서는 각 요소에 원하는 디자인을 적용할 수 있고, JS에서는 각 요소를 추가 및 삭제하거나, 그 속성을 수정하는 등의 작업을 할 수 있다. 이러한 CSS와 JS를 HTML 문서에 적용할 때, 특정 요소 혹은 특정 분류의 모든 요소에 CSS나 JS를 적용하게 된다.
 
-\sectref{sect:commonly-used-html-tags}에서 HTML 문서를 구조화하기 위해 \cd{div}나 \cd{span} 태그의 쓰임새에 대해 학습하였다. 그러나 태그만으로는 기능이나 역할 등 개발자가 원하는 분류 기준에 따라 HTML 요소들을 분류하는 것은 어려우며, HTML 문서가 매우 길어진다면 단순히 태그 이름만으로 요소들을 구분하는 것은 불가능하다.
+\sectref{sect:commonly-used-html-tags}에서 HTML 문서를 구조화하기 위해 \cd{div}나 \cd{span} 태그의 쓰임새에 대해 다루었다. 그러나 태그만으로는 기능이나 역할 등 개발자가 원하는 기준에 따라 HTML 요소들을 분류하는 것은 어려우며, HTML 문서가 매우 길어진다면 단순히 태그 이름만으로 요소들을 구분하는 것은 불가능하다.
 
-이렇게 특정 기준에 따라 요소들을 분류하거나, 특정 HTML 요소를 지정할 때 필요한 속성이 \textbf{class}와 \textbf{id}이다. Class와 id는 모든 HTML 요소에 적용할 수 있으며, CSS, JS를 HTML과 연동할 때 매우 중요한 역할을 한다.
+이렇게 특정 기준에 따라 요소들을 분류하거나, 특정 HTML 요소를 지정할 때 필요한 속성이 \textbf{class}와 \textbf{ID}이다. Class와 ID는 모든 HTML 요소에 적용할 수 있으며, CSS, JS를 HTML과 연동할 때 매우 중요한 역할을 한다.
 
 \subsection*{Class Attribute}
 먼저, class 속성은 HTML 요소들을 \textbf{특정한 기준에 따라 분류(classify)}할 때 사용되는 속성이며, class 속성의 값을 class name이라고 한다. 특정한 기준으로 분류하였을 때 하나의 묶음으로 묶이는 요소들에는 각각 같은 이름의 class를 사용한다. 하나의 HTML 요소는 여러 class를 가질 수 있고, 각 class name은 공백을 이용하여 구분한다. \coderef{code:class-attr-ex}\은 class 속성을 활용한 예제이다.
 
-\begin{codeenv}{code:class-attr-ex}{Class Attributes Example}\begin{verbatim}
+\begin{codeenv}{code:class-attr-ex}{Example of class attribute}\begin{verbatim}
 <div class="page-thumbnail new">
     <img src="/resources/week2_handout.jpg">
     <span class="page-title">
-        <a href="/study/201R/3">Week 2 Handout</a>
+        <a href="/study/frontend/3">Week 2 Handout</a>
     </span>
 </div>
 <div class="page-thumbnail">
     <img src="/resources/week1_asgmt.jpg">
     <span class="page-title">
-        <a href="/study/201R/2">Week 1 Assignment</a>
+        <a href="/study/frontend/2">Week 1 Assignment</a>
     </span>
 </div>
 <div class="page-thumbnail">
     <img src="/resources/week1_handout.jpg">
     <span class="page-title">
-        <a href="/study/201R/1">Week 1 Assignment</a>
+        <a href="/study/frontend/1">Week 1 Assignment</a>
     </span>
 </div>
 \end{verbatim}
@@ -33,9 +33,9 @@
 \clearpage
 
 \subsection*{Id Attribute}
-Id 속성은 \textbf{특정한 HTML 요소 하나를 식별(identification)}하기 위해 사용되는 속성이다. 하나의 요소는 여러 id를 가질 수 없고, 특정 id의 값을 갖는 HTML 요소가 여러 개가 될 수 없다.\footnote{이 규칙을 위반하더라도 HTML 문서는 정상적으로 렌더링된다.} 다만, 각 HTML 요소는 class와 id를 동시에 가질 수 있다. \coderef{code:id-attr-ex}\은 id 속성을 활용한 예제이다.
+ID 속성은 \textbf{특정한 HTML 요소 하나를 식별(identification)}하기 위해 사용되는 속성이다. 하나의 요소는 여러 ID를 가질 수 없고, 특정 ID의 값을 갖는 HTML 요소가 여러 개가 될 수 없다.\footnote{이 규칙을 위반하더라도 HTML 문서는 정상적으로 렌더링된다.} 다만, 각 HTML 요소는 class와 ID를 동시에 가질 수 있다. \coderef{code:id-attr-ex}\은 ID 속성을 활용한 예제이다.
 
-\begin{codeenv}{code:id-attr-ex}{Id Attributes Example}\begin{verbatim}
+\begin{codeenv}{code:id-attr-ex}{Example of ID attribute}\begin{verbatim}
 <div id="article-form">
     <input id="article-title" name="title">
     <textarea id="article-content" name="content"></textarea>
@@ -49,6 +49,6 @@ Class name이나 id를 작성할 때 반드시 준수해야 하는 작명 규칙
 
 \begin{itemize}
     \item 대문자의 사용은 지양하고, 소문자로만 구성한다. 숫자로 시작하지 않는다.
-    \item 이름은 class나 id의 의미에 잘 부합하여 어떠한 기준으로 지어진 이름인지 알기 쉽게 작명한다.
+    \item 이름은 class나 ID의 의미에 잘 부합하여 어떠한 기준으로 지어진 이름인지 알기 쉽게 작명한다.
     \item 여러 단어의 조합은 하이픈(\cd{-})으로 연결하여 작명한다. (예: \cd{multiple-words})
 \end{itemize}
