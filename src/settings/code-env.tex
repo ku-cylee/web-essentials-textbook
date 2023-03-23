@@ -45,3 +45,52 @@
 \newenvironment{sqlenv}[2]
     {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{sql}[#2]\label{#1}\linespread{1.1}{\ }}
     {\end{sql}\end{mdframed}\vspace{6pt}}
+
+\usepackage{listings}
+
+\definecolor{codebg}{HTML}{f2f2f2}
+\definecolor{codecomment}{HTML}{245724}
+\definecolor{codekeyword}{HTML}{00158c}
+\definecolor{codestring}{HTML}{8f1111}
+\definecolor{codelinenumber}{HTML}{707070}
+
+\lstdefinelanguage{js}{
+    keywords={
+        async, await, break, case, catch, class, const, continue, debugger,
+        default, delete, do, else, enum, export, extends, finally, for,
+        function, if, import, implements, in, instanceof, interface, let,
+        new, package, private, protected, public, return, static, super,
+        switch, this, throw, try, typeof, var, void, while, with, yield,
+    },
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]',
+    morestring=[b]",
+    morestring=[b]`,
+    sensitive=true,
+}
+
+\lstdefinestyle{cdst}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codecomment},
+    basicstyle=\ttfamily\normalsize\singlespacing,
+    keywordstyle=\color{codekeyword},
+    stringstyle=\color{codestring},
+    numberstyle=\ttfamily\small\color{codelinenumber},
+    captionpos=t,
+}
+
+\lstset{
+    style=cdst,
+    aboveskip=5pt,
+    belowskip=15pt,
+    belowcaptionskip=-5pt,
+    xleftmargin=27pt,
+    xrightmargin=10pt,
+    frame=single,
+    framesep=10pt,
+    framerule=0pt,
+    framexleftmargin=17pt,
+    numbers=left,
+    numbersep=10pt,
+}
