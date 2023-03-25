@@ -73,13 +73,13 @@
 \lstdefinestyle{numlesscdst}{
     backgroundcolor=\color{codebg},
     commentstyle=\color{codecomment},
-    basicstyle=\ttfamily\normalsize\singlespacing,
+    basicstyle=\ttfamily\normalsize\setstretch{1.15},
     keywordstyle=\color{codekeyword},
     stringstyle=\color{codestring},
     captionpos=t,
     aboveskip=5pt,
-    belowskip=15pt,
-    belowcaptionskip=-5pt,
+    belowskip=13pt,
+    belowcaptionskip=5pt,
     xleftmargin=10pt,
     xrightmargin=10pt,
     frame=single,
@@ -101,9 +101,9 @@
         \renewcommand\lstlistingname{Code}
         \setcounter{lstlisting}{\value{thecode}}
         \lstset{
-            style=numcdst,
             language=#1,
             label=#2,
+            style=numcdst,
             caption={\raggedright #3}}
     }
     {\addtocounter{thecode}{1}}
