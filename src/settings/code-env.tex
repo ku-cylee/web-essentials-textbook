@@ -31,17 +31,112 @@
     {}% Manually specify head
 \theoremstyle{codestyle}
 
-\newtheorem{code}{Code}[chapter]
+\newtheorem{codethm}{Code}[chapter]
 \newenvironment{codeenv}[2]
-    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{code}[#2]\label{#1}\linespread{1.1}{\ }}
-    {\end{code}\end{mdframed}\vspace{6pt}}
+    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{codethm}[#2]\label{#1}\linespread{1.1}{\ }}
+    {\end{codethm}\end{mdframed}\vspace{6pt}}
 
-\newtheorem{shell}{Shell}[chapter]
+\newtheorem{shellthm}{Shell}[chapter]
 \newenvironment{shellenv}[2]
-    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{shell}[#2]\label{#1}\linespread{1.1}{\ }}
-    {\end{shell}\end{mdframed}\vspace{6pt}}
+    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{shellthm}[#2]\label{#1}\linespread{1.1}{\ }}
+    {\end{shellthm}\end{mdframed}\vspace{6pt}}
 
-\newtheorem{sql}{SQL}[chapter]
+\newtheorem{sqlthm}{SQL}[chapter]
 \newenvironment{sqlenv}[2]
-    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{sql}[#2]\label{#1}\linespread{1.1}{\ }}
-    {\end{sql}\end{mdframed}\vspace{6pt}}
+    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{sqlthm}[#2]\label{#1}\linespread{1.1}{\ }}
+    {\end{sqlthm}\end{mdframed}\vspace{6pt}}
+
+\usepackage{listings}
+
+\definecolor{codebg}{HTML}{f2f2f2}
+\definecolor{codecomment}{HTML}{245724}
+\definecolor{codekeyword}{HTML}{00158c}
+\definecolor{codestring}{HTML}{8f1111}
+\definecolor{codelinenumber}{HTML}{707070}
+
+\lstdefinelanguage{css}{}
+% TODO
+
+\lstdefinelanguage{js}{
+    keywords={
+        async, await, break, case, catch, class, const, continue, debugger,
+        default, delete, do, else, enum, export, extends, finally, for,
+        function, if, import, implements, in, instanceof, interface, let,
+        new, package, private, protected, public, return, static, super,
+        switch, this, throw, try, typeof, var, void, while, with, yield,
+    },
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]',
+    morestring=[b]",
+    morestring=[b]`,
+    sensitive=true,
+}
+% TODO: Template Literal
+
+\lstdefinelanguage{pug}{}
+% TODO
+
+\lstdefinestyle{numlesscdst}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codecomment},
+    basicstyle=\ttfamily\normalsize\setstretch{1.15},
+    keywordstyle=\color{codekeyword},
+    stringstyle=\color{codestring},
+    captionpos=t,
+    aboveskip=5pt,
+    belowskip=13pt,
+    belowcaptionskip=5pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    frame=single,
+    framesep=10pt,
+    framerule=0pt,
+}
+
+\lstdefinestyle{numcdst}{
+    style=numlesscdst,
+    xleftmargin=27pt,
+    framexleftmargin=17pt,
+    numbers=left,
+    numbersep=10pt,
+    numberstyle=\ttfamily\small\color{codelinenumber},
+}
+
+\lstnewenvironment{code}[3]
+    {
+        \renewcommand\lstlistingname{Code}
+        \setcounter{lstlisting}{\value{thecode}}
+        \lstset{
+            language=#1,
+            label=#2,
+            style=numcdst,
+            caption={\raggedright #3}}
+    }
+    {\addtocounter{thecode}{1}}
+
+\lstnewenvironment{shell}[2]
+    {
+        \renewcommand\lstlistingname{Shell}
+        \setcounter{lstlisting}{\value{theshell}}
+        \lstset{
+            style=numlesscdst,
+            language=sh,
+            label=#1,
+            caption={\raggedright #2}}
+    }
+    {\addtocounter{theshell}{1}}
+
+\lstnewenvironment{sql}[2]
+    {
+        \renewcommand\lstlistingname{SQL}
+        \setcounter{lstlisting}{\value{thesql}}
+        \lstset{
+            style=numlesscdst,
+            language=sql,
+            label=#1,
+            caption={\raggedright #2}}
+    }
+    {\addtocounter{thesql}{1}}
+
+% TODO: How to add alsolanguage?
