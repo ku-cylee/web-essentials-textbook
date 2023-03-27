@@ -8,7 +8,7 @@
 
 JS 파일에 이러한 함수를 만들어두고 사용하면 어떤 부작용이 있겠는가? 객체가 많은 프로그램의 경우는 함수의 수가 지나치게 많아져 가독성이 저하되고, 개발자가 헷갈리기 쉬워지고 코드 분석도 어려워지는 등 효율성이 저하될 수 있다. 또한, 다른 객체에 대해 유사한 작업을 수행하는 함수가 있다면 함수 이름이 겹쳐 namespace 오염이 일어날 수 있고, 함수 이름을 비효율적으로 짓게 된다. 따라서 객체의 속성값을 이용하는 함수는 객체 내부에 정의하여 namespace 오염과 부작용을 방지하고, 이를 \textbf{메서드(method)}라고 한다.
 
-\begin{codeenv}{code:object-method}{Method of Object}\begin{verbatim}
+\begin{codeenv}{code:object-method}{Method of object}\begin{verbatim}
 > const person = {
       age: 21,
       name: 'Frank',
@@ -24,7 +24,7 @@ JS 파일에 이러한 함수를 만들어두고 사용하면 어떤 부작용�
 
 메서드는 \coderef{code:object-method}\와 같이 key에 메서드 이름을 작성하고 value에 메서드가 수행할 작업을 함수의 형태로 할당한다. 앞의 \cd{increaseAge} 메서드는 자신이 속한 \cd{person} 객체의 \cd{age} 값을 \cd{1}만큼 증가시켜야 하는데, 함수 내에 \cd{age}가 선언되어 있지 않아 직접 접근할 수 없다. 이때 \cd{this} 키워드를 사용하면 자기 자신이 속한 객체에 접근할 수 있다.\footnote{\cd{this}는 자기 자신의 객체 외에도 다른 종류의 객체를 가리킬 수도 있다.} 즉 \cd{increaseAge} 메서드 내부의 \cd{this}는 \cd{person}을 가리키고, \cd{increaseAge}는 자신의 속성 \cd{age}의 값을 \cd{1}만큼 증가시킨다.
 
-\begin{codeenv}{code:object-simple-method}{Simple Method Syntax}\begin{verbatim}
+\begin{codeenv}{code:object-simple-method}{Simple method syntax}\begin{verbatim}
 > const person = {
       age: 21,
       increaseAge() { this.age++ },
@@ -61,7 +61,7 @@ ES6의 축약 메서드 표현법에 따라 \coderef{code:object-simple-method}\
     \item \cd{parseInt(string[, radix]) => number}: 주어진 문자열을 숫자로 변환하여 반환하는 메서드; \cd{string}과 \cd{radix}를 인자로 받아, \cd{string}을 \cd{radix}진법의 정수로 변환하여 반환한다. 주어진 값을 정수로 변환할 수 없다면 \cd{NaN}을 반환하며, \cd{radix}가 주어지지 않을 때는 \cd{string}이 \cd{0x}나 \cd{0X}로 시작하면 16진수로, 그 외에는 10진수로 변환한다.
 \end{itemize}
 
-\begin{codeenv}{code:global-methods}{Global Methods}\begin{verbatim}
+\begin{codeenv}{code:global-methods}{Global methods}\begin{verbatim}
 > isFinite(3/0);
 false
 > isNaN(0/0);
@@ -89,7 +89,7 @@ string형 식별자, 즉 \cd{String} 객체의 자주 쓰이는 속성이나 메
     \item \cd{trim() => string}: 문자열의 앞뒤 whitespace를 모두 제거하여 반환하는 메서드
 \end{itemize}
 
-\begin{codeenv}{code:string-methods}{String Object Methods}\begin{verbatim}
+\begin{codeenv}{code:string-methods}{String object methods}\begin{verbatim}
 > const str = '  Hello World!\t';
 > str.length;
 15
@@ -129,7 +129,7 @@ true
     \item \cd{sort([compareFn(firstEl, secondEl) => number])}: 배열의 원소들을 주어진 함수에 따라 정렬하여 반환하는 메서드; \cd{compareFn}은 두 비교 대상 원소를 인자로 받으며, 반환값이 음수인 경우 \cd{firstEl}이, 양수인 경우 \cd{secondEl}이 앞에 정렬된다. \cd{compareFn}이 주어지지 않은 경우 알파벳 순서대로 정렬된다. 원본 배열도 정렬된다는 점을 주의하여야 한다.
 \end{itemize}
 
-\begin{codeenv}{code:array-methods}{Array Methods}\begin{verbatim}
+\begin{codeenv}{code:array-methods}{Array methods}\begin{verbatim}
 > const arr = ['apple', 'orange', 'banana'];
 > arr.length;
 3
@@ -185,7 +185,7 @@ false
     \item \cd{toLocaleString() => string}: \cd{Date} 객체의 날짜/시각을 현재 지역에서 나타내는 형태의 문자열로 변환하여 반환하는 메서드
 \end{itemize}
 
-\begin{codeenv}{code:date-methods}{Date Object Methods}\begin{verbatim}
+\begin{codeenv}{code:date-methods}{Date object methods}\begin{verbatim}
 > const date = new Date(2021, 6, 19);
 undefined
 > date;
@@ -233,7 +233,7 @@ undefined
     \item \cd{sqrt(x) => number}: 주어진 값의 square root값($\sqrt{x}$)을 반환하는 메서드
 \end{itemize}
 
-\begin{codeenv}{code:math-methods}{Math Object Methods}\begin{verbatim}
+\begin{codeenv}{code:math-methods}{Math object methods}\begin{verbatim}
 > Math.SQRT2;
 1.4142135623730951
 > Math.max(3, 4, 5);

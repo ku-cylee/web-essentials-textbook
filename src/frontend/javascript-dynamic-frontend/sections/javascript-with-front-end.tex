@@ -6,7 +6,7 @@
 
 Front-end에서 JS는 HTML 문서를 제어하고 수정하기 위해 존재하는 언어이므로 CSS와 마찬가지로 HTML 문서에 연동되어야 한다. JS 코드를 HTML 문서에 대해 실행하는 방법은 두 가지가 있는데, 첫 번째 방법은 HTML 문서에서 \cd{script} 태그를 만들어 내부에 JS 코드를 작성하는 것이다. \coderef{code:js-internal}\을 웹 브라우저에서 열면 개발자 도구의 Console 탭에서 \cd{Hello World!} 문구가 출력된 것을 확인할 수 있다.
 
-\begin{codeenv}{code:js-internal}{Internal Application of JS}\begin{verbatim}
+\begin{codeenv}{code:js-internal}{Internal application of JS}\begin{verbatim}
 <script>
     console.log('Hello World!');
 </script>
@@ -17,7 +17,7 @@ Front-end에서 JS는 HTML 문서를 제어하고 수정하기 위해 존재하�
 
 두 번째 방법은 별도의 JS 파일을 만들어, JS 파일에는 JS 스크립트만 작성하고, HTML 파일에는 웹페이지의 구조만 작성하는 방법이다. HTML 파일에는 \coderef{code:js-external-html}\과 같이 \cd{script} 태그의 \cd{src} 속성에 JS 파일의 주소를 작성한다.
 
-\begin{codeenv}{code:js-external-html}{External Application of JS - HTML}\begin{verbatim}
+\begin{codeenv}{code:js-external-html}{External application of JS - HTML}\begin{verbatim}
 <script type="text/javascript" src="./script.js"></script>
 
 <h1>HTML and JS</h1>
@@ -26,7 +26,7 @@ Front-end에서 JS는 HTML 문서를 제어하고 수정하기 위해 존재하�
 
 script.js 파일을 \coderef{code:js-external-js}\와 같이 작성한다.
 
-\begin{codeenv}{code:js-external-js}{External Application of JS - JS}\begin{verbatim}
+\begin{codeenv}{code:js-external-js}{External application of JS - JS}\begin{verbatim}
 console.log('Hello World!');
 \end{verbatim}
 \end{codeenv}

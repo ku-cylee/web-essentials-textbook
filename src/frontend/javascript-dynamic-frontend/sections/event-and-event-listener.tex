@@ -37,14 +37,14 @@
 
 먼저, HTML 요소의 속성과 속성값으로 직접 명시하는 방법이다. 먼저 속성의 이름은 이벤트의 이름 앞에 접두사 \cd{on}을 붙인다. 예를 들어 \cd{click} 이벤트에 대응하는 속성은 \cd{onclick}, \cd{keypress} 이벤트에 대응하는 속성은 \cd{onkeypress}이다. 이후 속성값에 이벤트가 발생했을 때 수행될 JS 코드를 작성한다. 이러한 방식으로 이벤트 리스너를 연동하면 특정 요소에서 특정 이벤트가 발생하였을 때 어떤 작업이 수행되는지 직관적으로 파악할 수 있으나, \sectref{sect:basic-structure-of-css}에서 다룬 CSS의 inline style의 단점과 마찬가지로 HTML 문서의 목적에 위배되며, 유지 및 보수의 관점에서 매우 비효율적이다.
 
-\begin{codeenv}{code:event-listener-inline}{Event Listener - Inline Method}\begin{verbatim}
+\begin{codeenv}{code:event-listener-inline}{Event listener - Inline method}\begin{verbatim}
 <button id="btn" onclick="console.log('Clicked!');">Click Button</button>
 \end{verbatim}
 \end{codeenv}
 
 두 번째 방법은 HTML 요소 객체에 이벤트 리스너를 메서드로 할당하는 방법이다. 메서드의 이름은 앞의 방식과 마찬가지로 접두사 \cd{on}을 붙여 작성하고, 메서드의 값에 이벤트 리스너를 할당한다. 이 방식은 JS 파일에 작성할 수 있어 HTML의 목적에 위배되지 않고, IE 8 이전 버전의 브라우저에서도 호환되며, 간결하다는 장점을 갖는다. 그러나 IE 8\footnote{2009년 3월에 발표되었다} 이전의 브라우저는 지나치게 오래되어 지원할 필요성이 너무 적고, 한 요소의 한 이벤트에 하나의 이벤트 리스너만 등록할 수 있다는 단점이 있다.
 
-\begin{codeenv}{code:event-listener-method-override}{Event Listener – Overriding Method}\begin{verbatim}
+\begin{codeenv}{code:event-listener-method-override}{Event listener – Overriding method}\begin{verbatim}
 document.getElementById('btn').onclick = () => {
     console.log('Clicked!');
 };
@@ -53,7 +53,7 @@ document.getElementById('btn').onclick = () => {
 
 마지막 방법은 요소의 \cd{addEventListener} 메서드를 사용하는 방법으로, \cd{addEventListener} 메서드는 이벤트의 이름과 이벤트 리스너를 인자로 받아, 이벤트 리스너를 추가하는 메서드이다. 이렇게 \cd{addEventListener} 메서드를 이용한 방법이 가장 권장되는 방법이다.
 
-\begin{codeenv}{code:event-listener-addeventlistener}{Event Listener – Using \cd{addEventListener}}\begin{verbatim}
+\begin{codeenv}{code:event-listener-addeventlistener}{Event listener – Using \cd{addEventListener}}\begin{verbatim}
 document.getElementById('btn').addEventListener('click', () => {
     console.log('Clicked!');
 });
@@ -67,7 +67,7 @@ document.getElementById('btn').addEventListener('click', () => {
 이러한 문제는 이벤트 리스너가 이벤트 객체를 받음으로써 해결된다. 발생한 이벤트에 대한 여러 정보를 담은 이벤트 객체가 생성되어 이벤트 리스너에 전달되며, 이 이벤트 객체를 인자로 받아서 사용할 수 있다. JS의 함수의 특성상 이벤트 리스너에서 이벤트 객체가 필요하지 않다면 앞의 \coderef{code:event-listener-addeventlistener}\와 같이 인자를 아예 받지 않을 수도 있다.
 
 
-\begin{codeenv}{code:event-object}{Event Listener with Event Object}\begin{verbatim}
+\begin{codeenv}{code:event-object}{Event listener with event object}\begin{verbatim}
 document.addEventListener('mousedown', event => {
     console.log(event);
 });
@@ -87,7 +87,7 @@ document.addEventListener('mousedown', event => {
 
 \coderef{code:event-example}\은 이벤트 객체를 이용하여 \cd{\#panel} 요소를 좌클릭 또는 우클릭하였을 때 \cd{\#panel} 요소의 위쪽 테두리와 왼쪽 테두리에 내린 수선을 표시되며, 좌클릭하였을 때는 빨간색, 우클릭하였을 때는 파란색 수선이 표시되는 예제이다. (편의상 CSS와 JS를 모두 HTML 문서에 작성하였다.)
 
-\begin{codeenv}{code:event-example}{Event Object Example}\begin{verbatim}
+\begin{codeenv}{code:event-example}{Event object example}\begin{verbatim}
 <div id="panel">
     <div id="offset"></div>
 </div>

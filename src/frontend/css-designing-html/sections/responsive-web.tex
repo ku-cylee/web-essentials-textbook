@@ -2,7 +2,7 @@
 
 지금까지 CSS를 이용하여 문서를 디자인할 때 주로 가로 폭이 넓은, PC의 웹 브라우저를 기준으로 작업해왔다. 그러나 모든 사용자가 항상 웹 페이지를 PC와 같이 가로 폭이 넓은 디바이스에서 열람하는 것은 아니다. 휴대폰과 같은 모바일 디바이스는 가로 폭이 좁아서 PC를 기준으로 설계한 웹 페이지는 모바일에서 열람했을 때 가독성이 심각하게 저하될 수 있다. HTML 요소들이 의도와는 다르게 배치될 수 있고, 이를 방지하고자 요소의 너비 등을 정해진 값으로 딱딱하게 정하면 모바일 디바이스에서는 좌우로 스크롤하면서 웹 페이지를 읽어야 한다. 웹 페이지는 가급적 좌우 방향으로는 움직이지 않고, 상하 방향으로만 움직여 정보를 전달하게끔 설계하였을 때 가독성이 좋은데, 위와 같이 PC를 기준으로 웹 페이지를 설계하면 가독성이 매우 떨어진다. 따라서, 웹 페이지가 렌더링되는 화면의 크기에 따라 디자인이 바뀌는, \textbf{반응형 웹 페이지(Responsive Web)}를 디자인할 필요가 있다.
 
-\figures{fig:github-responsive}{Webpage view of GitHub Homepage}{
+\figures{fig:github-responsive}{Webpage view of GitHub homepage}{
     \subfig{fig:github-responsive-desktop}{Desktop Browser}
         {github-responsive-desktop.png}{.757}
     \subfig{fig:github-responsive-mobile}{Mobile Browser}
@@ -12,7 +12,7 @@
 \subsection*{Viewport}
 반응형 웹 페이지는 웹 페이지가 렌더링되는 화면, 즉 뷰포트에 따라 디자인이 바뀌므로 먼저 뷰포트를 설정해주어야 한다. 뷰포트의 크기는 \coderef{code:viewport-setting}\과 같이 HTML 문서의 \cd{meta} 태그에서 설정한다.
 
-\begin{codeenv}{code:viewport-setting}{Viewport Setting}\begin{verbatim}
+\begin{codeenv}{code:viewport-setting}{Viewport setting}\begin{verbatim}
 <meta name="viewport" content="width=device-width, initial-scale=1" >
 \end{verbatim}
 \end{codeenv}
@@ -25,7 +25,7 @@
 \subsection*{Media Query}
 이제 CSS를 이용하여 웹 페이지를 반응형으로 디자인해보자. 반응형 웹페이지를 디자인하기 위해서 \cd{@media query}라는 구문을 사용한다.
 
-\begin{codeenv}{code:media-query-stmt}{Media Query Statement}\begin{verbatim}
+\begin{codeenv}{code:media-query-stmt}{Media query statement}\begin{verbatim}
 @media only screen and (min-width: 800px) {
     /* CSS code goes here */
 }

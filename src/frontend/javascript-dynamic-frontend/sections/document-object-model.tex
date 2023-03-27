@@ -6,7 +6,7 @@
 
 HTML은 원소들의 계층(hierarchial) 구조로 되어 있어 객체로 나타내기 적합하므로 DOM은 HTML 문서를 객체 형태로 표현한다.
 
-\begin{codeenv}{code:html-tree-struct-html}{HTML Tree Structure - HTML}\begin{verbatim}
+\begin{codeenv}{code:html-tree-struct-html}{HTML tree structure - HTML}\begin{verbatim}
 <!doctype html>
 <html>
 <head>
@@ -28,7 +28,7 @@ HTML은 원소들의 계층(hierarchial) 구조로 되어 있어 객체로 나�
 
 간단한 형태의 HTML 문서인 \coderef{code:html-tree-struct-html}\을 객체의 형태로 나타낼 수 있겠는가?
 
-\begin{codeenv}{code:html-tree-struct-object}{HTML Tree Structure - Object}\begin{verbatim}
+\begin{codeenv}{code:html-tree-struct-object}{HTML tree structure - Object}\begin{verbatim}
 const htmlDocument = [
   {
     tag: 'html',
@@ -78,7 +78,7 @@ const htmlDocument = [
 
 \coderef{code:html-tree-struct-object}\는 \coderef{code:html-tree-struct-html}\을 간단한 객체 형태로 나타낸 예시이다. (절대 DOM의 구조는 아니다.)
 
-\figures{fig:html-tree-struct}{Tree Structure of HTML Elements}
+\figures{fig:html-tree-struct}{Tree structure of HTML elements}
     {\fig{html-tree-struct.png}{.8}}
 
 \coderef{code:html-tree-struct-html}\은 \figref{fig:html-tree-struct}\와 같은 구조로 표현될 수도 있다. 즉 HTML 문서는 tree로 표현될 수 있고, 모든 HTML 요소는 tree의 node로 표현될 수 있으며, \cd{document} 객체에 접근하여 tree의 root node에 접근할 수 있다. DOM은 root node를 비롯한 모든 node, 즉 HTML 요소에 대해 어떤 요소의 정보에 접근하는 메서드, 어떤 요소를 기준으로 다른 요소를 선택할 수 있는 메서드 등을 제공한다.
@@ -89,7 +89,7 @@ const htmlDocument = [
 
 DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할 수 있다. \coderef{code:dom-example-html}\을 웹 브라우저에서 열고, 개발자 도구의 REPL Shell을 이용하여 DOM에서 제공하는 메서드를 사용해보며 HTML 문서가 어떻게 수정되는지 확인해보자.
 
-\begin{codeenv}{code:dom-example-html}{DOM Example HTML}\begin{verbatim}
+\begin{codeenv}{code:dom-example-html}{DOM example HTML}\begin{verbatim}
 <div id="container">
     <h1>Articles List</h1>
     <div class="article-title">
@@ -125,7 +125,7 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 
 \coderef{code:dom-query-descendents}\를 실행해보며 결과를 확인해보자. 각 표현식의 결과값은 생략한다.
 
-\begin{codeenv}{code:dom-query-descendents}{DOM Query Descendents Examples}\begin{verbatim}
+\begin{codeenv}{code:dom-query-descendents}{DOM query descendents examples}\begin{verbatim}
 > document.getElementById('container');
 > document.getElementsByClassName('article-title');
 > const aTagsList1 = document.getElementsByTagName('a');
@@ -152,7 +152,7 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 
 \coderef{code:dom-query-adjacents}\를 실행해보며 결과를 확인해보자. 각 표현식의 결과값은 생략한다.
 
-\begin{codeenv}{code:dom-query-adjacents}{DOM Query Adjacents Examples}\begin{verbatim}
+\begin{codeenv}{code:dom-query-adjacents}{DOM query adjacents examples}\begin{verbatim}
 > const container = document.getElementById('container');
 > const title = container.children[1];
 > title.parentElement;
@@ -187,7 +187,7 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
     \end{itemize}
 \end{itemize}
 
-\begin{codeenv}{code:html-elmt-attrs}{Accessing Attributes of HTML Elements}\begin{verbatim}
+\begin{codeenv}{code:html-elmt-attrs}{Accessing attributes of HTML elements}\begin{verbatim}
 > const title = document.getElementsByClassName('article-title')[1];
 > const link = title.getElementsByTagName('a')[0];
 > link.innerText = 'JS Grammar';
@@ -213,7 +213,7 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
     \item \cd{removeChild(element) => element}: 주어진 요소를 요소의 자식 요소에서 제거하고, 제거된 요소를 반환하는 메서드
 \end{itemize}
 
-\begin{codeenv}{code:child-elmts-modify}{Modifying Child Elements}\begin{verbatim}
+\begin{codeenv}{code:child-elmts-modify}{Modifying child elements}\begin{verbatim}
 > const container = document.getElementById('container');
 > const newButton = document.createElement('button');
 > newButton.type = 'submit';

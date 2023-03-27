@@ -6,7 +6,7 @@
 
 DOM에서 HTML 문서의 구조와 관련된 모든 객체가 포함된 \cd{document} 객체와 유사하게, BOM에서 브라우저와 관련된 객체들은 모두 \cd{window} 객체에 포함되어 있다. 예를 들어, \coderef{code:js-simple-example}에서 보았던 \cd{alert} 역시 \cd{window} 객체의 메서드이며, \cd{document} 객체 역시 \cd{window} 객체의 하위 객체이다.
 
-\begin{codeenv}{code:bom-example}{BOM Example}\begin{verbatim}
+\begin{codeenv}{code:bom-example}{BOM example}\begin{verbatim}
 > window.alert('This is alert 1');
 > alert('This is alert 2');
 \end{verbatim}
@@ -23,7 +23,7 @@ DOM에서 HTML 문서의 구조와 관련된 모든 객체가 포함된 \cd{docu
     \item \cd{close()}: 현재 창을 닫는 메서드
 \end{itemize}
 
-\begin{codeenv}{code:window-methods}{\cd{window} Object Methods}\begin{verbatim}
+\begin{codeenv}{code:window-methods}{\cd{window} object methods}\begin{verbatim}
 > confirm('Cancel order?');
 > open('https://www.google.com', 'Window Name', 'width=500, height=400');
 > close();
@@ -72,7 +72,7 @@ DOM에서 HTML 문서의 구조와 관련된 모든 객체가 포함된 \cd{docu
 
 먼저, \cd{setTimeout} 메서드는 함수 \cd{fn}과 시간 \cd{delay}를 인자로 받아, 이 로직을 제어할 수 있는 값 \cd{timeoutId}를 반환하고, 메서드 호출 \cd{delay} 밀리초 후 함수 \cd{fn}을 실행하는 메서드이다. \cd{clearTimeout} 메서드는 \cd{timeoutId}를 인자로 받아 해당 로직을 중단하는 메서드이다.
 
-\begin{codeenv}{code:timeout-methods}{Timeout Methods}\begin{verbatim}
+\begin{codeenv}{code:timeout-methods}{Timeout methods}\begin{verbatim}
 > const timeoutId = setTimeout(() => {
       console.log('setTimeout 3000');
   }, 3000);
@@ -82,7 +82,7 @@ DOM에서 HTML 문서의 구조와 관련된 모든 객체가 포함된 \cd{docu
 
 또한, \cd{setInterval} 메서드는 함수 \cd{fn}과 시간 \cd{delay}를 인자로 받아, 이 로직을 제어할 수 있는 값 \cd{intervalId}를 반환하고, 메서드 호출 \cd{delay} 밀리초 이후부터 함수 \cd{fn}을 \cd{delay} 밀리초마다 반복적으로 실행하는 메서드이다. \cd{clearInterval} 메서드는 \cd{intervalId}를 인자로 받아 해당 로직을 중단하는 메서드이다.
 
-\begin{codeenv}{code:interval-methods}{Interval Methods}\begin{verbatim}
+\begin{codeenv}{code:interval-methods}{Interval methods}\begin{verbatim}
 > const helloLoopId = setInterval(() => {
       console.log('Hello');
   }, 400);

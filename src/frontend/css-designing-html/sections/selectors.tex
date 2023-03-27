@@ -6,15 +6,15 @@
 
 전체 선택자(universal selector)는 HTML 문서의 모든 요소를 선택하며, \cd{*}로 작성한다.
 
-\begin{codeenv}{code:universal-selector}{Universal Selector}\begin{verbatim}
+\begin{codeenv}{code:universal-selector}{Universal selector}\begin{verbatim}
 * { width: 80% }
 \end{verbatim}
 \end{codeenv}
 
-\subsection*{Tag, Class, Id Selector}
+\subsection*{Tag, Class, ID Selector}
 태그 이름, 클래스 이름, 아이디를 기준으로 요소를 선택하는 선택자로, 태그 이름은 \cd{tag-name}, 클래스 이름은 \cd{.class-name}, 아이디는 \cd{\#id}의 형태로 작성한다. 또한, 태그 이름, 클래스 이름, 아이디 등으로 표현된 선택자 \cd{element}로 선택되는 요소 중 클래스 이름이 \cd{class-name}인 요소를 선택하는 선택자는 \cd{element.class-name}의 형태로 작성한다.
 
-\begin{codeenv}{code:tag-class-id-selector}{Examples of Tag, Class, Id Selector}\begin{verbatim}
+\begin{codeenv}{code:tag-class-id-selector}{Examples of tag, class, ID selector}\begin{verbatim}
 ul { list-style: none }
 .title { font-size: 20px }
 #article-list { padding: 0 }
@@ -23,9 +23,10 @@ ul { list-style: none }
 \end{codeenv}
 
 \subsection*{Child Selector and Descendants Selector}
+
 자식 선택자(child selector)와 자손 선택자(descendants selector)는 두 개 이상의 선택자를 이용하여 요소를 선택하는 선택자이다. 자식 선택자는 \cd{parent > child}의 형태로 쓰며, \cd{parent} 선택자로 선택된 각 요소의 바로 밑에 있는 자식 요소 중 \cd{child} 선택자를 기준으로 선택한다. 반면, 자손 선택자는 \cd{parent child}의 형태로 쓰며, \cd{parent} 선택자로 선택된 요소들의 밑에 있는 모든 자식 요소 중 \cd{child} 선택자를 기준으로 선택한다.
 
-\begin{codeenv}{code:child-desc-selector}{Understanding Child Selector and Descendants Selector}\begin{verbatim}
+\begin{codeenv}{code:child-desc-selector}{Understanding child selector and descendants selector}\begin{verbatim}
 <div class="class1"><span id="span1"></span></div>
 <div class="class2"><span id="span2"></span></div>
 <div class="class1">
@@ -38,9 +39,10 @@ ul { list-style: none }
 \coderef{code:child-desc-selector}\를 통해 이해해보자. 자식 선택자인 \cd{.class1 > span}은 \cd{\#span1}만 선택하나, 자손 선택자인 \cd{.class1 span}은 \cd{\#span1}과 \cd{\#span3}를 선택한다.
 
 \subsection*{Pseudo-class Selector}
+
 가상 클래스 선택자(pseudo-class selector)는 특정한 상태에 놓여있는 요소들을 선택하는 선택자이다. 예를 들어 \cd{button} 태그로 구현한 버튼에 일반적인 상태, 호버된 상태(\cd{:hover}), 비활성화된 상태(\cd{:disabled}) 등의 상태를 클래스의 형태로 나타낸 것을 가상 클래스(pseudo-class)라고 하며, 각각 다른 스타일을 적용할 수 있다. 이러한 가상 클래스 선택자는 \cd{:pseudo-class}의 형태로 쓰고, \cd{element:pseudo-class}로 표현된 선택자는 \cd{element} 선택자로 선택된 요소 중 \cd{pseudo-class}에 해당하는 요소들을 선택한다. \cd{a} 태그는 \cd{:link}, \cd{:visited}, \cd{:hover}, \cd{:active} 등의 가상 클래스를 가질 수 있다.
 
-\begin{codeenv}{code:pseudo-class-selector-1}{Example of Pseudo-class Selector (1)}\begin{verbatim}
+\begin{codeenv}{code:pseudo-class-selector-1}{Example of pseudo-class selector (1)}\begin{verbatim}
 <style>
     button { color: black }
     button:hover { color: red }
@@ -62,7 +64,7 @@ ul { list-style: none }
 
 이 외에도, \cd{:not(selector)}은 \cd{selector}에 의해 선택되지 않는 요소들만 선택하는 가상 클래스이다.
 
-\begin{codeenv}{code:pseudo-class-selector-2}{Example of Pseudo-class Selector (2)}\begin{verbatim}
+\begin{codeenv}{code:pseudo-class-selector-2}{Example of pseudo-class selector (2)}\begin{verbatim}
 <style>
     li:first-child { color: red }
     li:last-child { color: blue }
