@@ -92,6 +92,7 @@
     frame=single,
     framesep=10pt,
     framerule=0pt,
+    escapeinside={|@}{@|},
 }
 
 \lstdefinestyle{numcdst}{
@@ -120,9 +121,9 @@
         \renewcommand\lstlistingname{Shell}
         \setcounter{lstlisting}{\value{theshell}}
         \lstset{
-            style=numlesscdst,
             language=sh,
             label=#1,
+            style=numlesscdst,
             caption={\raggedright #2}}
     }
     {\addtocounter{theshell}{1}}
@@ -132,9 +133,9 @@
         \renewcommand\lstlistingname{SQL}
         \setcounter{lstlisting}{\value{thesql}}
         \lstset{
-            style=numlesscdst,
             language=sql,
             label=#1,
+            style=numlesscdst,
             caption={\raggedright #2}}
     }
     {\addtocounter{thesql}{1}}
