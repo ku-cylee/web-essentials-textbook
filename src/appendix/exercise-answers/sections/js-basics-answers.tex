@@ -1,0 +1,46 @@
+\section{Basics of JS Exercise Answers}\label{sect:js-basics-answers}
+
+\subsection*{\excref{exc:validity-of-number}}
+
+\begin{codeenv}{code:validity-of-number-answer}{\excref{exc:validity-of-number} answer}\begin{verbatim}
+const isValidNumber = num => {
+    const parsedNumber = parseInt(num);
+    if (!isFinite(parsedNumber) || isNaN(parsedNumber)) return false;
+    if (parsedNumber != num) return false;
+    return parsedNumber >= 1 && parsedNumber <= 9;
+};
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{\excref{exc:divisors}}
+
+\begin{codeenv}{code:divisors-answer}{\excref{exc:divisors} answer}\begin{verbatim}
+const getDivisors = num => {
+    const divisors = [];
+    for (let i = 1; i <= Math.sqrt(num); i++) {
+        if (i * i === num) divisors.push(i);
+        else if (num % i === 0) divisors.push(i, num / i);
+    }
+    return divisors.sort((first, second) => first - second);
+};
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{\excref{exc:ellipse-object}}
+
+\begin{codeenv}{code:ellipse-object-answer}{\excref{exc:ellipse-object} answer}\begin{verbatim}
+const ellipse = {
+    width: 10,
+    height: 5,
+    getArea() {
+        return Math.PI * this.width * this.height;
+    },
+    getPerimeter() {
+        return 2 * Math.PI * Math.sqrt((this.height ** 2 + this.width ** 2) / 2);
+    },
+    getEccentricity() {
+        return Math.sqrt(1 - (this.height / this.width) ** 2);
+    },
+};
+\end{verbatim}
+\end{codeenv}

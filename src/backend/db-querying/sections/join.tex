@@ -1,0 +1,310 @@
+\section{Join Operations}\label{sect:join}
+
+\subsection*{Join Operation}
+
+집합 $A=\{1,2,4\}$, $B=\{1,3,4\}$에 대해 두 집합의 곱집합 $A\times B$는 다음과 같이 정의된다.
+
+$$ A\times B=\{(x,y)~|~x\in A,~y\in B\}=\{(1,1),(2,1),(4,1),(1,3),(2,3),(4,3),(1,4),(2,4),(4,4)\} $$
+
+유사하게, join 연산은 두 개 이상의 테이블을 데카르트 곱(Cartesian Product), 즉 곱집합 하는 연산이다. \tblref{tab:join-example-tables}\와 같은 테이블 \cd{A}와 \cd{B}를 가정해보자.
+
+\begin{table}[htb]
+    \centering\caption{Table \cd{A} (left) and Table \cd{B} (right)\label{tab:join-example-tables}}\small
+    \begin{subtable}[h]{.2\tw}\centering
+        \begin{tabular}{?>{\colc}m{.2\tw}|>{\colc}m{.4\tw}?}
+            \thickhline
+            \rowcolor{tblheadcolor}
+            \cd{id} & \cd{data}\tabularnewline
+            \hline
+            1 & A1\tabularnewline
+            \hline
+            2 & A2\tabularnewline
+            \hline
+            4 & A4\tabularnewline
+            \thickhline
+        \end{tabular}
+    \end{subtable}
+    \hspace{15pt}
+    \begin{subtable}[h]{.2\tw}\centering
+        \begin{tabular}{?>{\colc}m{.2\tw}|>{\colc}m{.4\tw}?}
+            \thickhline
+            \rowcolor{tblheadcolor}
+            \cd{id} & \cd{data}\tabularnewline
+            \hline
+            1 & B1\tabularnewline
+            \hline
+            3 & B3\tabularnewline
+            \hline
+            4 & B4\tabularnewline
+            \thickhline
+        \end{tabular}
+    \end{subtable}
+\end{table}
+
+두 테이블 \cd{A}와 \cd{B}를 join한 테이블은 \tblref{tab:join-example}\과 같다.
+
+\begin{tblenv}
+    {tab:join-example}
+    {Table \cd{A} and \cd{B} Joined}
+    {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
+    \thickhline
+    \rowcolor{tblheadcolor}
+    \cd{A.id} & \cd{A.data} & \cd{B.id} & \cd{B.data}\tabularnewline
+    \hline
+    1 & A1 & 1 & B1\tabularnewline
+    \hline
+    2 & A2 & 1 & B1\tabularnewline
+    \hline
+    4 & A4 & 1 & B1\tabularnewline
+    \hline
+    1 & A1 & 3 & B3\tabularnewline
+    \hline
+    2 & A2 & 3 & B3\tabularnewline
+    \hline
+    4 & A4 & 3 & B3\tabularnewline
+    \hline
+    1 & A1 & 4 & B4\tabularnewline
+    \hline
+    2 & A2 & 4 & B4\tabularnewline
+    \hline
+    4 & A4 & 4 & B4\tabularnewline
+    \thickhline
+\end{tblenv}
+
+다만, DB에서는 두 테이블을 단순히 join하여 사용하기보다는 특정 조건을 만족하는 row들만 join하여 사용하는 경우가 대부분이다.
+
+\subsection*{Inner Join and Outer Join}
+
+DB에서 두 테이블을 join할 때 T1 테이블에 T2 테이블을 join한다는 표현을 사용한다. 이때 편의상 T1 테이블을 왼쪽 테이블, T2 테이블을 오른쪽 테이블이라고 하자.
+
+먼저 inner join은 양 테이블에서 join 조건을 만족하는 row들만 join하는 방식으로, \tblref{tab:inner-join-example}\은 \cd{A} 테이블에 \cd{B} 테이블을 \cd{A.id = B.id} 조건 하에 inner join한 결과이다. \cd{A} 테이블의 2번 row는 \cd{B} 테이블에 \cd{id}가 2인 row가 없어 join에 참여하지 못했고, \cd{B} 테이블에서도 3번 row가 같은 이유로 join에 참여하지 못했다. \cd{A} 테이블에 \cd{B} 테이블을 inner join한 결과는 \cd{B} 테이블에 \cd{A} 테이블을 inner join한 결과와 같음을 알 수 있다.
+
+\begin{tblenv}
+    {tab:inner-join-example}
+    {Table \cd{A} Inner Join Table \cd{B}}
+    {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
+    \thickhline
+    \rowcolor{tblheadcolor}
+    \cd{A.id} & \cd{A.data} & \cd{B.id} & \cd{B.data}\tabularnewline
+    \hline
+    1 & A1 & 1 & B1\tabularnewline
+    \hline
+    4 & A4 & 4 & B4\tabularnewline
+    \thickhline
+\end{tblenv}
+
+Outer join은 특정 테이블의 모든 row를 강제로 join에 참여시키고 대응되는 row가 없어 값이 정해지지 않는 column은 NULL로 채우는 join 방식이다. Outer join에는 left, right, full의 세 종류가 있다.
+
+\begin{tblenv}
+    {tab:left-outer-join-example}
+    {Table \cd{A} Left Outer Join Table \cd{B}}
+    {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
+    \thickhline
+    \rowcolor{tblheadcolor}
+    \cd{A.id} & \cd{A.data} & \cd{B.id} & \cd{B.data}\tabularnewline
+    \hline
+    1 & A1 & 1 & B1\tabularnewline
+    \hline
+    2 & A2 & NULL & NULL\tabularnewline
+    \hline
+    4 & A4 & 4 & B4\tabularnewline
+    \thickhline
+\end{tblenv}
+
+먼저 left outer join은 왼쪽 테이블의 모든 row를 join에 강제로 참여시키는 방식으로, \tblref{tab:left-outer-join-example}\은 \cd{A} 테이블에 \cd{B} 테이블을 \cd{A.id = B.id} 조건 하에 left outer join한 결과이다. \cd{B} 테이블에 2번 row가 없음에도 불구하고 \cd{A} 테이블의 2번 row는 join에 참여하였고, \cd{B.id}와 \cd{B.data}의 값이 NULL임을 확인할 수 있다.
+
+\begin{tblenv}
+    {tab:right-outer-join-example}
+    {Table \cd{A} Right Outer Join Table \cd{B}}
+    {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
+    \thickhline
+    \rowcolor{tblheadcolor}
+    \cd{A.id} & \cd{A.data} & \cd{B.id} & \cd{B.data}\tabularnewline
+    \hline
+    1 & A1 & 1 & B1\tabularnewline
+    \hline
+    NULL & NULL & 3 & B3\tabularnewline
+    \hline
+    4 & A4 & 4 & B4\tabularnewline
+    \thickhline
+\end{tblenv}
+\clearpage
+
+Right outer join은 left outer join과 정반대로 오른쪽 테이블의 모든 row를 join에 강제로 참여시키는 방식으로, \tblref{tab:right-outer-join-example}\은 \cd{A} 테이블에 \cd{B} 테이블을 \cd{A.id = B.id} 조건 하에 right outer join한 결과이다. Outer join의 join 방식에서 알 수 있듯, \cd{A} 테이블에 \cd{B} 테이블을 left outer join한 결과는 \cd{B} 테이블에 \cd{A} 테이블을 right outer join한 결과와 동일하다. (반대도 성립)
+
+\begin{tblenv}
+    {tab:full-outer-join-example}
+    {Table \cd{A} Full Outer Join Table \cd{B}}
+    {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
+    \thickhline
+    \rowcolor{tblheadcolor}
+    \cd{A.id} & \cd{A.data} & \cd{B.id} & \cd{B.data}\tabularnewline
+    \hline
+    1 & A1 & 1 & B1\tabularnewline
+    \hline
+    2 & A2 & NULL & NULL\tabularnewline
+    \hline
+    NULL & NULL & 3 & B3\tabularnewline
+    \hline
+    4 & A4 & 4 & B4\tabularnewline
+    \thickhline
+\end{tblenv}
+
+Full outer join은 양쪽 테이블의 모든 row를 join에 강제로 참여시키는 방식으로, \tblref{tab:full-outer-join-example}\은 \cd{A} 테이블에 \cd{B} 테이블을 \cd{A.id = B.id} 조건 하에 full outer join한 결과이다. 이 방식은 inner join과 마찬가지로 교환법칙이 성립한다.
+
+\figures{fig:join-venn-diagram}{Join Operations as Venn Diagrams}{
+    \subfig{fig:inner-join}{Inner Join}
+        {inner-join.png}{.23}
+    \subfig{fig:left-outer-join}{Left Outer Join}
+        {left-outer-join.png}{.23}
+    \subfig{fig:right-outer-join}{Right Outer Join}
+        {right-outer-join.png}{.23}
+    \subfig{fig:full-outer-join}{Full Outer Join}
+        {full-outer-join.png}{.23}
+}
+
+\figref{fig:join-venn-diagram}\은 네 개의 join 연산을 벤 다이어그램 형태로 나타낸 것이다.
+
+\subsection*{Join Operation in SQL}
+
+Join 연산은 관계가 있는 테이블에서 데이터를 가져올 때 매우 유용하게 사용되어 관계형 DB의 꽃과 같은 연산이다. 따라서 SQL문을 이용하여 조건에 따라 join operation을 수행하는 방법을 예시 데이터와 함께 알아본다.
+
+\begin{shellenv}{shell:import-sql-file}{Import SQL File}\begin{verbatim}
+$ mysql –u<username> -p<password> -D<db-name> < <sql-file-path>
+\end{verbatim}
+\end{shellenv}
+
+\shellref{shell:import-sql-file}\은 \cd{sql-file-path} 경로에 위치한 SQL 파일을 \cd{db-name} DB에 import하는 명령어로, 이를 이용하여 \coderef{code:join-example-sql}\을 DB에 import한다. 이때 \cd{username} 계정은 \cd{db-name} DB에 권한을 갖고 있어야 한다. \cd{tb1} 테이블은 \cd{id}와 \cd{data1} column을, \cd{tb2} 테이블은 \cd{id}와 \cd{data2} column을 가지며, 각 테이블에는 10개의 데이터가 삽입되어 있다.
+
+\begin{sqlenv}{sql:join}{\cd{SELECT} with Join Operation Syntax}\begin{verbatim}
+SELECT <columns> FROM <left-table>
+    (INNER/LEFT OUTER/RIGHT OUTER) JOIN <right-table> ON <join-condition>
+    WHERE <condition>
+\end{verbatim}
+\end{sqlenv}
+
+\sqlref{sql:join}\은 \cd{left-table} 테이블에 \cd{right-table} 테이블을 \cd{join-condition}을 만족하며 join\footnote{MariaDB(MySQL)에서 full outer join 연산은 각 테이블에서 데이터를 조회한 뒤 합집합을 생성하여야 한다. 그러나 full outer join은 자주 쓰이는 연산이 아니므로 본 교재에서는 생략한다.}한 테이블을 생성하고, 그 테이블에서 \cd{condition} 조건을 만족하는 데이터를 \cd{SELECT} 키워드를 이용해 조회하는 SQL문이다.
+
+\begin{shellenv}{shell:sql-join-operations}{Join Operations Using SQL}\begin{verbatim}
+> SELECT `tb1`.`data1`, `tb2`.`data2` FROM `tb1`
+      INNER JOIN `tb2` ON `tb1`.`id` = `tb2`.`id`;
+> SELECT `tb1`.`data1`, `tb2`.`data2` FROM `tb1`
+      LEFT OUTER JOIN `tb2` ON `tb1`.`id` = `tb2`.`id`;
+> SELECT `tb1`.`data1`, `tb2`.`data2` FROM `tb1`
+      RIGHT OUTER JOIN `tb2` ON `tb1`.`id` = `tb2`.`id`;
+\end{verbatim}
+\end{shellenv}
+
+\shellref{shell:sql-join-operations}\는 \cd{tb1} 테이블에 \cd{tb2} 테이블을 \cd{tb1.id = tb2.id} 조건 하에 join하는 예제이다. 각 join 방식에 따라 조회 결과가 어떻게 달라지는지 확인해본다.
+
+이제 실제로 one-to-many 관계에 있는 테이블들의 데이터를 join하여 조회해보자. \coderef{code:university-system}\을 import하여 \sectref{sect:relational-designing}에서 설계한 세 테이블(약간의 변화가 있다)을 생성하고 데이터를 추가할 수 있다.
+
+먼저 \cd{courses} 테이블에서 강의가 속한 학과 이름, 강의 코드, 학점, 시간을 조회하는 SQL문을 작성해보자.
+
+\begin{shellenv}{shell:join-with-ambiguity}{Join with Ambiguity}\begin{verbatim}
+> SELECT `name`, `code`, `credit`, `period` FROM `courses`
+    INNER JOIN `departments` on `courses`.`department` = `departments`.`id`;
+ERROR 1052 (23000): Column 'name' in field list is ambiguous
+\end{verbatim}
+\end{shellenv}
+
+\shellref{shell:join-with-ambiguity}\를 실행하면 \cd{name}이라는 column이 모호하다(ambiguous)는 에러가 발생한다. 이 에러는 \cd{courses}와 \cd{departments} 테이블에 모두 \cd{name} column이 있어 DBMS는 어떤 \cd{name} column을 조회해야 하는지 알 수 없기 때문에 발생한다.
+
+\begin{shellenv}{shell:join-without-ambiguity}{Join without Ambiguity}\begin{verbatim}
+> SELECT `departments`.`name`, `code`, `credit`, `period` FROM `courses`
+      INNER JOIN `departments` on `courses`.`department` = `departments`.`id`;
+\end{verbatim}
+\end{shellenv}
+
+따라서 join에 참여하는 테이블에 중복된 column 이름이 있다면 모호함을 피하기 위해 \shellref{shell:join-without-ambiguity}\와 같이 테이블 이름까지 명시해주어야 한다.
+
+\begin{tblenv}
+    {tab:university-table-joined}
+    {University Table Joined}
+    {?>{\colc}m{0.2\tw}|>{\colc}m{0.07\tw}|>{\colc}m{0.05\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.05\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.06\tw}?}
+    \thickhline
+    \rowcolor{tblheadcolor}
+    \multicolumn{3}{?c|}{\cd{departments}} & \multicolumn{6}{c?}{\cd{courses}}\tabularnewline
+    \hline
+    \rowcolor{tblheadcolor}
+    \cd{name} & \cd{college} & \cd{id} & \cd{department} & \cd{id} & \cd{code} & \cd{credit} & \cd{period} & others\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & 3 & 1 & 1 & 1 & COSE156 & 3 & 4 & \ldots\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & 3 & 1 & 1 & 2 & COSE211 & 3 & 3 & \ldots\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & 3 & 1 & 1 & 3 & COSE341 & 3 & 3 & \ldots\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & 3 & 1 & 1 & 4 & COSE362 & 3 & 3 & \ldots\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & 3 & 1 & 1 & 5 & COSE489 & 3 & 6 & \ldots\tabularnewline
+    \hline
+    Chemistry & 2 & 2 & 2 & 6 & CHEM214 & 2 & 4 & \ldots\tabularnewline
+    \hline
+    Physics & 2 & 3 & 3 & 7 & PHYS482 & 3 & 3 & \ldots\tabularnewline
+    \hline
+    Chemistry & 2 & 2 & 2 & 8 & CHEM308 & 3 & 3 & \ldots\tabularnewline
+    \thickhline
+\end{tblenv}
+
+\tblref{tab:university-table-joined}\는 \cd{courses} 테이블에 \cd{departments} 테이블을 \cd{courses.department = departments.id} 조건 하에 inner join한 결과의 일부이다.
+
+\begin{tblenv}
+    {tab:university-table-joined-columns-selected}
+    {University Table Joined with Columns Selected}
+    {?>{\colc}m{0.2\tw}|>{\colc}m{0.14\tw}|>{\colc}m{0.08\tw}|>{\colc}m{0.08\tw}?}
+    \thickhline
+    \rowcolor{tblheadcolor}
+    \cd{name} & \cd{code} & \cd{credit} & \cd{period}\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & COSE156 & 3 & 4\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & COSE211 & 3 & 3\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & COSE341 & 3 & 3\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & COSE362 & 3 & 3\tabularnewline
+    \hline
+    Comp. Sci. \& Engr. & COSE489 & 3 & 6\tabularnewline
+    \hline
+    Chemistry & CHEM214 & 2 & 4\tabularnewline
+    \hline
+    Physics & PHYS482 & 3 & 3\tabularnewline
+    \hline
+    Chemistry & CHEM308 & 3 & 3\tabularnewline
+    \thickhline
+\end{tblenv}
+
+\tblref{tab:university-table-joined-columns-selected}\는 \tblref{tab:university-table-joined}에서 특정 column들만 선택하여 조회한 결과로, \shellref{shell:join-without-ambiguity}의 실행 결과와 동일하다. 이렇게 참조하는 column(\cd{courses.department})과 참조되는 column(\cd{departments.id})이 같은 조건 하에 join하여 관계가 있는 테이블들의 데이터를 편리하게 조회할 수 있다.
+\clearpage
+
+\begin{shellenv}{shell:multiple-joins}{Multiple Join Operation}
+\begin{verbatim}
+> SELECT `courses`.`id`, `colleges`.`name` AS `college`, `dept`.`name` AS `department`,
+      `courses`.`name` AS `course`, `courses`.`code`, `credit`, `period` FROM `courses`
+      INNER JOIN `departments` AS `dept` ON `courses`.`department` = `dept`.`id`
+      INNER JOIN `colleges` ON `dept`.`college` = `colleges`.`id`;
+\end{verbatim}
+\end{shellenv}
+
+하나의 테이블에 여러 테이블을 join할 수도 있고, join된 테이블에 또 다른 테이블을 다시 join할 수도 있다. \shellref{shell:multiple-joins}\는 모든 강의의 ID(\cd{id}), 단과대명(\cd{college}), 학과명(\cd{department}), 강의명(\cd{course}), 강의 코드, 학점, 시간을 조회하는 SQL문으로, \cd{courses} 테이블에 \cd{departments} 테이블을 join한 뒤, \cd{departments} 테이블에 \cd{colleges} 테이블을 다시 join한다.
+
+\cd{AS} 키워드를 사용하면 \cd{departments} 테이블의 이름을 \cd{dept}로 줄인 것과 같이 테이블 이름을 바꾸어 SQL문이 지나치게 길어지는 것을 방지할 수 있다. 또한, 서로 다른 column이 같은 테이블을 참조하여 하나의 테이블이 두 번 이상 join에 참여하게 되어 테이블 이름에 모호함이 발생할 때 \cd{AS} 키워드는 반드시 필요하다.
+
+\begin{shellenv}{shell:university-where}{Condition on \cd{WHERE} Clause}\begin{verbatim}
+> SELECT `courses`.`name`, `courses`.`code` FROM `courses`
+      INNER JOIN `departments` ON `courses`.`department` = `departments`.`id`
+      WHERE `departments`.`name` = 'Chemistry';
+\end{verbatim}
+\end{shellenv}
+
+\shellref{shell:university-where}\는 \cd{WHERE} 키워드를 이용하여 화학과(Dept. of Chemistry)에 속한 강의의 이름(\cd{name})과 코드(\cd{code})를 조회하는 SQL문이다.
+
+\begin{shellenv}{shell:university-join-condition}{Condition on Join Condition}\begin{verbatim}
+> SELECT `courses`.`name`, `courses`.`code` FROM `courses`
+      INNER JOIN `departments` AS `dept`
+      ON `courses`.`department` = `dept`.`id` AND `dept`.`name` = 'Chemistry';
+\end{verbatim}
+\end{shellenv}
+
+\shellref{shell:university-where}에서는 \cd{departments.name}의 값이 ``Chemistry''인 조건이 \cd{WHERE} clause에 명시되었지만, 특정 조건들은 \shellref{shell:university-join-condition}\과 같이 join 조건에 명시될 수도 있으며, 결과는 동일하면서 조회 속도가 훨씬 빨라질 수 있다. 다만, 다른 테이블의 column 값과 \cd{OR}로 연결된 조건 등을 \cd{WHERE} clause가 아닌 join 조건에 명시하면 전혀 다른 결과가 나올 수 있으므로 주의하여 사용하여야 한다.

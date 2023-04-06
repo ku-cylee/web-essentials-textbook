@@ -1,0 +1,127 @@
+\section{Basic Structure of CSS}\label{sect:css-basic-struct}
+
+\subsection*{Basic Structure of CSS}
+
+CSS는 문서의 구조를 체계적으로 서술하는 언어인 HTML과 유사하게 스타일이나 레이아웃을 체계적으로 서술하는 컴퓨터 언어이므로 지켜서 작성해야 하는 규칙이 있다.
+
+\figures{fig:css-basic-struct}{Basic Structure of CSS}
+    {\fig{css-basic-struct.png}{.65}}
+
+CSS의 구조는 \figref{fig:css-basic-struct}\와 같이 표현될 수 있다. \textbf{선택자(selector)}는 HTML 요소를 태그 이름, 클래스 이름, 아이디, 상태, 속성 등을 기준으로 선택하는 방법을 서술하는 문자열이며, 선택자에 의해 선택된 요소들에 일괄적으로 적용할 스타일을 중괄호(\cd{\{\}}) 내부에 작성한다.
+
+스타일은 key-value pair의 형태인 속성과 속성값의 집합으로 표현한다. \textbf{속성(property)}은 HTML 요소에 적용하고자 하는 디자인 요소로, 너비, 높이, 글자의 색, 폰트의 크기 및 굵기 등 250가지가 넘는 다양한 속성들이 존재하며, 각 속성에는 그에 대응하는 \textbf{속성값(value)}을 지정할 수 있다. 예를 들어, 글자의 색상과 관련된 속성은 \cd{color}이며, 속성값으로는 \cd{red}나 \cd{blue}와 같은 색상 이름을 지정할 수 있다. 속성과 속성값 pair를 \cd{property: value}의 형태로 쓰고, 각 pair를 세미콜론(\cd{;})으로 구분하여 나열한다.
+
+\begin{codeenv}{code:css-simple-example}{Simple example of CSS}\begin{verbatim}
+.main-panel {
+    width: 800px;
+    height: 450px;
+    border: 1px solid black;
+}
+
+.ball {
+    width: 80px;
+    height: 80px;
+    border: 1px solid red;
+    border-radius: 40px;
+    position: absolute;
+}
+\end{verbatim}
+\end{codeenv}
+
+하나의 요소는 여러 선택자에 의해 선택될 수 있으며, 이러한 선택자들에 의해 속성값의 충돌(conflict)이 일어날 수 있다. 이때 실제로 적용되는 속성값은 아래의 우선순위 규칙에 따라 우선순위가 가장 높은 선택자에 의해 적용되는 속성값이 적용된다.
+
+\begin{enumerate}
+    \item 속성값의 뒤에 \cd{!important}가 붙은 속성
+    \item HTML에서 \cd{style} 속성을 사용하여 정의한 속성
+    \item ID {\textgreater} 클래스나 추상클래스의 이름 {\textgreater} 태그 이름 선택자의 속성
+    \item 상위 요소에 의해 상속된 속성
+\end{enumerate}
+
+우선순위가 같은 경우, 부모-자식의 관계가 많을수록 우선순위가 높고, 그 다음으로는 나중에 작성된 속성이 적용된다.
+
+\subsection*{Application of CSS on HTML}
+
+먼저 HTML 문서에 CSS 문서를 적용하는 세 가지 방법을 알아보자.
+
+첫 번째 방법은 inline style으로, HTML 요소에 \cd{style} 속성의 값으로 property-value pair를 직접 열거하는 방법이며, HTML 요소에 개별적으로 디자인을 적용하는 방식이기 때문에 선택자를 쓰지 않는다. 이 방법은 각 요소가 어떠한 디자인을 가지는지 쉽게 알 수는 있으나, 웹 페이지의 구조를 표현한다는 HTML의 목적에 위배되며, 요소마다 스타일을 작성해주어야 하므로 동일한 스타일을 적용하고자 하는 HTML 요소가 많아지면 문서가 불필요하게 길어지며 유지 및 보수 역시 번거로워진다. 따라서 inline style은 지양되는 스타일이지만, 예외적으로 서식이 있는 텍스트(rich text)를 표현할 때에는 자주 사용된다.
+
+\begin{codeenv}{code:css-app-inline}{Applying CSS with inline style}\begin{verbatim}
+<div>
+    Already member? <span style="font-weight: bold">Sign In</span>
+</div>
+<div>
+    <span style="color: red">Sign Up</span>
+</div>
+\end{verbatim}
+\end{codeenv}
+
+두 번째 방법은 internal style sheet으로, \cd{head} 태그 내부에 \cd{<style type="text/css">} 요소를 삽입하고, 그 내부에 CSS 코드를 작성한다. 선택자를 사용할 수 있으므로 inline style보다는 효율적으로 작성할 수 있으나, HTML 본연의 목적에는 여전히 위배되며, 여러 HTML 문서에 동일한 CSS 문서를 적용할 때에는 여전히 번거롭고 비효율적이다.
+
+\begin{codeenv}{code:css-app-internal}{Applying CSS with internal style sheet}\begin{verbatim}
+<style type="text/css">
+    .title {
+        font-weight: bold;
+        font-size: 16px;
+    }
+    #article-list {
+        list-style-type: none;
+        font-size: 12px;
+    }
+</style>
+<div class="title">KWEB Front-end Study: </div>
+<ul id="article-list">
+    <li>Ch 1. Introduction to Front-end</li>
+    <li>Ch 2. HTML: The Basic Structure</li>
+    <li>Ch 3. CSS: Designing HTML</li>
+    <li>Ch 4. Basics of JavaScript</li>
+    <li>Ch 5. JavaScript: Dynamic Frontend</li>
+</ul>
+\end{verbatim}
+\end{codeenv}
+
+
+마지막 방법은 \textbf{external style sheet}으로, HTML 문서와 CSS 문서를 서로 다른 파일에 작성하고, HTML 문서의 \cd{head} 태그 내부에 \cd{link} 태그를 이용하여 CSS 파일을 연동한다. \cd{link}에는 다음과 같은 속성을 지정하여야 한다.
+
+\begin{itemize}
+    \item \cd{type="text/css"} - 연결하고자 하는 문서가 CSS 형태임을 명시한다.
+    \item \cd{rel="stylesheet"} - 연결하고자 하는 문서가 HTML 문서의 stylesheet임을 명시한다.
+    \item \cd{href} - 연결하고자 하는 CSS 문서의 주소를 명시한다.
+\end{itemize}
+
+먼저 index.html과 style.css를 같은 폴더 내에 생성하고, \coderef{code:css-app-ext-css}\와 같이 style.css를 작성한다.
+
+\begin{codeenv}{code:css-app-ext-css}{Applying CSS with external style sheet - style.css}\begin{verbatim}
+.title {
+    font-size: 16px;
+    font-weight: bold
+}
+
+#article-list {
+    padding: 0;
+    list-style-type: none
+}
+
+#article-list > li {
+    font-size: 12px
+}
+\end{verbatim}
+\end{codeenv}
+
+이후, index.html을 \coderef{code:css-app-ext-html}\과 같이 작성한다. \cd{link} 태그의 구조를 확인해보자.
+
+\begin{codeenv}{code:css-app-ext-html}{Applying CSS with external style sheet - index.html}\begin{verbatim}
+<head>
+    <link type="text/css" rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="title">KWEB Study So Far: </div>
+    <ul id="article-list">
+        <li>Ch 0. Introduction to Front-end</li>
+        <li>Ch 1. HTML: The Basic Structure</li>
+        <li>Ch 2. CSS: Designing HTML</li>
+    </ul>
+</body>
+\end{verbatim}
+\end{codeenv}
+
+이제 index.html 파일을 웹 브라우저에 열어서 확인해보면, CSS 파일에 작성된 디자인이 적용되었음을 확인할 수 있다. 이처럼 external style sheet 방식은 웹 페이지의 구조를 표현하고, 스타일을 표현한다는 HTML과 CSS 각각의 목적을 모두 달성하면서도 유지 및 보수가 용이하다는 장점이 있다.

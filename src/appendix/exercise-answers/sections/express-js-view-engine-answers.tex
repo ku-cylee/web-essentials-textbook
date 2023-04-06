@@ -1,0 +1,113 @@
+\section{Express.js and View Engine Exercise Answers}\label{sect:express-js-view-engine-answers}
+
+\subsection*{\excref{exc:express-query-body}}
+
+\begin{codeenv}{code:express-query-body-answer}{\excref{exc:express-query-body} Answer}\begin{verbatim}
+const express = require('express');
+
+const app = express();
+const port = 3000;
+
+app.use(express.urlencoded({ extended: true }));
+
+const objectToString = obj =>
+    Object.keys(obj).map(k => `${k}: ${obj[k]}`).join('\n');
+
+app.get('/', (req, res) => res.send(objectToString(req.query)));
+
+app.post('/', (req, res) => res.send(objectToString(req.body)));
+
+app.put('/', (req, res) => res.send(objectToString(req.body)));
+
+app.delete('/', (req, res) => res.send(objectToString(req.body)));
+
+app.listen(port, () => console.log(`Server listening on port ${port}!`));
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{\excref{exc:express-params}}
+
+\begin{codeenv}{code:express-params-answer}{\excref{exc:express-params} Answer}\begin{verbatim}
+const express = require('express');
+
+const app = express();
+const port = 3000;
+
+app.get('/board/page/:page', (req, res) => {
+    const { page } = req.params;
+    res.send(`This is page #${page}`);
+})
+
+app.listen(port, () => console.log(`Server listening on port ${port}!`));
+\end{verbatim}
+\end{codeenv}
+\clearpage
+
+\subsection*{\excref{exc:express-factorial}}
+
+\begin{codeenv}{code:express-factorial-answer}{\excref{exc:express-factorial} Answer}\begin{verbatim}
+const express = require('express');
+
+const app = express();
+const port = 3000;
+
+app.get('/factorial', (req, res) => {
+    const { number } = req.query;
+    return res.redirect(`/factorial/${number}`);
+});
+
+app.get('/factorial/:number', (req, res) => {
+    const { number } = req.params;
+    const parsedNumber = parseInt(number, 10);
+    let result = 1;
+    for (let i = 0; i < parsedNumber; i++) result *= (i + 1);
+    return res.send(`${parsedNumber}! = ${result}`);
+});
+
+app.listen(port, () => console.log(`Server listening on port ${port}!`));
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{\excref{exc:form-login}}
+
+\begin{codeenv}{code:form-login-answer-index-js}{\excref{exc:form-login} Answer (index.js)}\begin{verbatim}
+const express = require('express');
+
+const app = express();
+const port = 3000;
+
+app.set('views', `${__dirname}/views`);
+app.set('view engine', 'pug');
+
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => res.render('login.pug'));
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    return res.send(`Username: ${username} / Password: ${password}`);
+});
+
+app.listen(port, () => console.log(`Server listening on port ${port}!`));
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:form-login-answer-login-pug}{\excref{exc:form-login} Answer (views/login.pug)}\begin{verbatim}
+doctype html
+html
+    head
+        title Login Page
+    body
+        form(method='post', action='/login')
+            div
+                label Username:
+                input#username-input(name='username', type='text')
+            div
+                label Password:
+                input#password-input(name='password', type='password')
+            div
+                div Introduce yourself
+                textarea#introduction-input(name='introduction')
+            button(type='submit') Submit
+\end{verbatim}
+\end{codeenv}

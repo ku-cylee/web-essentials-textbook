@@ -1,0 +1,56 @@
+\section{HTML Exercise Answers}\label{sect:html-answers}
+
+\subsection*{\excref{exc:simple-survey-page}}
+
+\begin{codeenv}{code:simple-survey-page-answer}{\excref{exc:simple-survey-page} answer}\begin{verbatim}
+<!doctype html>
+<html>
+<head>
+    <title>KWEB Survey Page</title>
+</head>
+<body>
+    <div id="survey-header">
+        <h2>KWEB Survey Page</h2>
+        <div id="kweb-logo">
+            <img src="https://i.imgur.com/hSSFVSw.png" alt="KWEB Logo" width=250>
+        </div>
+        <a href="https://kwebofficial.com/">KWEB Homepage</a>
+    </div>
+    <div id="survey-body">
+        <div class="survey-question">
+            <h3>1. Write your name.</h3>
+            <input type="text" name="name">
+        </div>
+        <div class="survey-question">
+            <h3>2. Write your student number.</h3>
+            <input type="text" name="studentNumber">
+        </div>
+        <div class="survey-question">
+            <h3>3. Select your member level.</h3>
+            <input type="radio" name="level" value="admin">Admin
+            <input type="radio" name="level" value="intern">Intern
+            <input type="radio" name="level" value="qualified">Qualified
+        </div>
+        <div class="survey-question">
+            <h3>4. Select all fields you are interested in.</h3>
+            <input type="checkbox" name="field" value="frontend">Front-end
+            <input type="checkbox" name="field" value="backend">Back-end
+            <input type="checkbox" name="field" value="crawling">Web crawling
+            <input type="checkbox" name="field" value="security">Web security
+            <input type="checkbox" name="field" value="etc">Etcetera
+            <input type="text" name="fieldText">
+        </div>
+        <div class="survey-question">
+            <h3>
+                5. Give us your overall evaluation and feedback about the previous study.
+            </h3>
+            <textarea name="feedbacks" cols="100" rows="20"></textarea>
+        </div>
+    </div>
+    <div id="survey-footer">
+        <button type="submit">Submit your answers</button>
+    </div>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}

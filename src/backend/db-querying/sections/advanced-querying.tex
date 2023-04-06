@@ -30,7 +30,7 @@
 
 \subsection*{Arithmetic Calculations Among Columns}
 
-\cd{scores} 테이블의 모든 과목은 중간고사 성적(\cd{midterm})에 45\%, 기말고사 성적(\cd{final})에 55\%의 비중을 주어 최종 성적을 계산할 때, 최종 성적을 계산하는 상황을 가정해보자. 앞의 \sectref{sect:crud-functions}에서 공부한 \cd{SELECT} 키워드를 이용하여 모든 row를 조회한 다음, 각 row의 \cd{midterm}과 \cd{final} column의 값에 0.45와 0.55를 곱한 뒤 더하여 산출하여야 한다. 그러나 SQL은 이러한 column 간, column과 상수 간 간단한 연산 기능을 제공한다.
+\cd{scores} 테이블의 모든 과목은 중간고사 성적(\cd{midterm})에 45\%, 기말고사 성적(\cd{final})에 55\%의 비중을 주어 최종 성적을 계산할 때, 최종 성적을 계산하는 상황을 가정해보자. 앞의 \sectref{sect:crud}에서 공부한 \cd{SELECT} 키워드를 이용하여 모든 row를 조회한 다음, 각 row의 \cd{midterm}과 \cd{final} column의 값에 0.45와 0.55를 곱한 뒤 더하여 산출하여야 한다. 그러나 SQL은 이러한 column 간, column과 상수 간 간단한 연산 기능을 제공한다.
 
 \begin{shellenv}{shell:arithmetic-calculation}{Arithmetic Calculation Example}\begin{verbatim}
 > SELECT *, .45 * `midterm` + .55 * `final` FROM `scores`;

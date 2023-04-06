@@ -1,0 +1,156 @@
+\section{CSS: Designing HTML Source Codes}\label{sect:css-codes}
+
+\begin{codeenv}{code:text-styling-html-code}{\excref{exc:text-styling} - HTML code}
+\begin{verbatim}
+<!doctype html>
+<html>
+<head>
+    <title>CSS Exercise: Text Styling</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" text="type/css" href="./text-styling.css">
+</head>
+<body>
+    <h1>Chapters</h1>
+    <div class="horizontal-lists">
+        Ch 2. HTML: The Basic Structure / Ch 3. CSS: Desiging HTML
+        / Ch 4. Basics of JavaScript
+    </div><br>
+    <div class="chapter">
+        <div class="chapter-name">Ch 2. HTML: The Basic Structure</div>
+        <div class="horizontal-lists">
+            Introducing HTML / Basic Structure of HTML / Commonly Used HTML Tags
+        </div>
+    </div><br>
+    <div class="chapter" id="current-chapter">
+        <div class="chapter-name">Ch 3. CSS: Desiging HTML</div>
+        <div class="horizontal-lists">
+            Introducing CSS / Basic Structure of CSS / Selectors
+        </div>
+    </div><br>
+    <div class="chapter">
+        <div class="chapter-name">Ch 4. Basics of JavaScript</div>
+        <div class="horizontal-lists">
+            Introducing JavaScript / Declaration of Variables / Data Types
+        </div>
+    </div>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:ars-buttons-html-code}{\excref{exc:ars-buttons} - HTML code}
+\begin{verbatim}
+<!doctype html>
+<html>
+<head>
+    <title>CSS Exercise: ARS Buttons</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" text="type/css" href="./ars-buttons.css">
+</head>
+<body>
+    <div class="container" style="width: 500px">
+        <div class="header">
+            Click button you heard from ARS, then press submit button.
+        </div>
+        <div class="numbers">
+            <div class="number">52</div>
+            <div class="number">15</div>
+            <div class="number">73</div>
+            <div class="number">09</div>
+            <div class="number">36</div>
+        </div>
+        <div class="footer">
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:scroll-button-html-code}{\excref{exc:scroll-button} HTML code}
+\begin{verbatim}
+<!doctype html>
+<html>
+<head>
+    <title>CSS Exercise: Scroll Button</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" text="type/css" href="./scroll-button.css">
+    <style> #content { padding: 30px 100px; margin: 0 auto }
+        #scroll-button a { text-decoration: none; }
+        ul { margin: 20px 0 } li { margin: 10px 0 } </style>
+</head>
+<body>
+    <div id="page-top"></div>
+    <div id="content"><ul>
+        <li>1 Introduction to Front-end</li>
+        <ul><li>1.1 Introducing WEB</li><li>1.2 2021 Study Schedule</li>
+            <li>1.3 Setting Development Environment</li></ul>
+        <li>2 HTML: The Basic Structure</li>
+        <ul><li>2.1 Introducing HTML</li><li>2.2 Basic Structure of HTML</li>
+            <li>2.3 Commonly Used HTML Tags</li><li>2.4 Class and Id Attributes</li>
+            <li>2.5 HTML Exercises</li></ul>
+        <li>3 CSS: Desinging HTML</li>
+        <ul><li>3.1 Introducing CSS</li><li>3.2 Basic Structure of CSS</li>
+            <li>3.3 Style Properties</li><li>3.4 Selectors</li> <li>3.5 Layouts</li>
+            <li>3.6 Responsive Web</li><li>3.7 CSS Exercises</li></ul>
+        <li>4 Basics of JavaScript</li>
+        <ul><li>4.1 Introducing JavaScript</li><li>4.2 Declaration of Variables</li>
+            <li>4.3 Data Types</li><li>4.4 Statements and Functions</li>
+            <li>4.5 Built-in Objects</li><li>4.6 Basics of JS Exercises</li></ul>
+        <li>5 JavaScript: Dynamic Frontend</li>
+        <ul><li>5.1 JavaScript with Front-end</li> <li>5.2 Document Object Model</li>
+            <li>5.3 Browser Object Model</li><li>5.4 Event and Event Listener</li>
+            <li>5.5 JS Exercises</li></ul>
+        <li>A Exercise Answers</li>
+        <ul><li>A.1 HTML Exercise Answers</li><li>A.2 CSS Exercise Answers</li>
+            <li>A.3 Basics of JavaScript Exercise Answers</li>
+            <li>A.4 JS Exercise Answers</li></ul>
+    </ul></div>
+    <div id="page-bottom"></div>
+    <div id="scroll-button">
+        <!-- Your code here -->
+    </div>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:responsive-color-page-html-code}{\excref{exc:responsive-color-page} - HTML code}
+\begin{verbatim}
+<!doctype html>
+<html>
+<head>
+    <title>CSS Exercise: Responsive Color Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" text="type/css" href="./responsive-color-page.css">
+</head>
+<body>
+    <h1>Responsive Web</h1>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:responsive-layout-html-code}{\excref{exc:responsive-layout} - HTML code}
+\begin{verbatim}
+<!doctype html>
+<html>
+<head>
+    <title>CSS Exercise: Responsive Layout</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <link rel="stylesheet" text="type/css" href="./responsive-layout.css">
+</head>
+<body>
+    <div class="header"></div>
+    <div class="body">
+        <div class="navbar"></div>
+        <div class="content"></div>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>
+\end{verbatim}
+\end{codeenv}

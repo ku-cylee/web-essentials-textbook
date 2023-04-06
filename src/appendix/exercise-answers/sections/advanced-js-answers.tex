@@ -1,0 +1,59 @@
+\section{Advanced JavaScript Exercise Answers}\label{sect:advanced-js-answers}
+
+\subsection*{\excref{exc:cases-module}}
+
+\begin{codeenv}{code:cases-module-answer}{\excref{exc:cases-module} Answer}\begin{verbatim}
+const factorial = number => {
+    let result = 1;
+    for (let i = 0; i < number; i++) result *= (i + 1);
+    return result;
+};
+
+const permutation = (n, r) => factorial(n) / factorial(n - r);
+
+const combination = (n, r) => permutation(n, r) / factorial(r);
+
+const multiPermutation = (n, r) => n ** r;
+
+const multiCombination = (n, r) => combination(n + r - 1, r);
+
+module.exports = {
+    combination,
+    permutation,
+    multiCombination,
+    multiPermutation,
+};
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{\excref{exc:directory-search}}
+
+\begin{codeenv}{code:directory-search-answer}{\excref{exc:directory-search} Answer}\begin{verbatim}
+const fs = require('fs');
+const path = require('path');
+const util = require('util');
+
+const getDirList = util.promisify(fs.readdir);
+const getFileStat = util.promisify(fs.stat);
+
+const PATH = './test';
+
+const searchDirectory = async directory => {
+    const files = await getDirList(directory);
+    files.forEach(async file => {
+        const filePath = path.join(directory, file);
+        const stat = await getFileStat(filePath);
+        if (stat.isDirectory()) await searchDirectory(filePath);
+        else if (path.extname(filePath) === '.js') console.log(filePath);
+    });
+};
+
+(async () => {
+    try {
+        await searchDirectory(PATH);
+    } catch (err) {
+        console.error(err);
+    }
+})();
+\end{verbatim}
+\end{codeenv}

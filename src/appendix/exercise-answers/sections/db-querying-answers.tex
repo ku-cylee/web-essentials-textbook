@@ -1,0 +1,127 @@
+\section{Database Querying Exercise Answers}\label{sect:db-querying-answers}
+
+\subsection*{\excref{exc:simple-crud}}
+
+\begin{codeenv}{code:simple-crud-answer}{\excref{exc:simple-crud} Answer}\begin{verbatim}
+SELECT `id`, `c3`, `c5` FROM `crud` WHERE `c1` = 11 AND `c2` = 2;
+SELECT * FROM `crud` WHERE `c1` > 18 OR `c2` < 2;
+INSERT INTO `crud` (`c1`, `c2`, `c3`, `c5`) VALUES (7, 4, 'col101', 0);
+INSERT INTO `crud` VALUES (103, 3, 3, 'col103', DEFAULT, 1);
+SELECT * FROM `crud` WHERE `id` > 100;
+UPDATE `crud` SET `c3` = 'col0', `c5` = 0 WHERE `c1` > 4 AND `c1` < 9 AND `c2` = 1;
+SELECT * FROM `crud` WHERE `c1` > 4 AND `c1` < 9 AND `c2` = 1;
+DELETE FROM `crud` WHERE `c5` = 0;
+SELECT * FROM `crud` WHERE `c5` = 0;
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{\excref{exc:train-system-sql}}
+
+\begin{codeenv}{code:train-system-sql-answer}{\excref{exc:train-system-sql} Answer}\begin{verbatim}
+-- (1)
+SELECT `users`.`id`, `users`.`name`, `tickets`.`seat_number` FROM `tickets`
+INNER JOIN `users` ON `users`.`id` = `tickets`.`user` AND `tickets`.`train` = 11
+ORDER BY `tickets`.`seat_number`;
+
+-- (2)
+SELECT `users`.`id`, `users`.`name`, Count(*) AS `trains_count`,
+       Sum(`trains`.`distance`) / 10 AS `total_distance`
+FROM   `tickets`
+       INNER JOIN `trains` ON `trains`.`id` = `tickets`.`train`
+       INNER JOIN `users` ON `users`.`id` = `tickets`.`user`
+GROUP  BY `users`.`id`
+ORDER  BY `total_distance` DESC
+LIMIT  6;
+
+-- (3)
+SELECT `trains`.`id`, `types`.`name` AS `type`, `src`.`name` AS `src_stn`,
+       `dst`.`name` AS `dst_stn`, Timediff(`arrival`, `departure`) AS `travel_time`
+FROM   `trains`
+       INNER JOIN `types` ON `types`.`id` = `trains`.`type`
+       INNER JOIN `stations` AS `src` ON `src`.`id` = `trains`.`source`
+       INNER JOIN `stations` AS `dst` ON `dst`.`id` = `trains`.`destination`
+ORDER  BY `travel_time` DESC
+LIMIT  6;
+
+-- (4)
+SELECT `types`.`name` AS `type`, `src`.`name` AS `src_stn`,
+       `dst`.`name` AS `dst_stn`, `trains`.`departure`, `trains`.`arrival`,
+       Round(`types`.`fare_rate` * `trains`.`distance` / 1000, -2) as `fare`
+FROM   `trains`
+       INNER JOIN `types` ON `types`.`id` = `trains`.`type`
+       INNER JOIN `stations` AS `src` ON `src`.`id` = `trains`.`source`
+       INNER JOIN `stations` AS `dst` ON `dst`.`id` = `trains`.`destination`
+ORDER  BY `departure`;
+
+-- (5)
+SELECT `trains`.`id`, `types`.`name` AS `type`,
+       `src`.`name` AS `src_stn`, `dst`.`name` AS `dst_stn`,
+       Count(*) AS `occupied`, `types`.`max_seats` AS `maximum`
+FROM   `tickets`
+       INNER JOIN `trains` ON `trains`.`id` = `tickets`.`train`
+       INNER JOIN `types` ON `types`.`id` = `trains`.`type`
+       INNER JOIN `stations` AS `src` ON `src`.`id` = `trains`.`source`
+       INNER JOIN `stations` AS `dst` ON `dst`.`id` = `trains`.`destination`
+GROUP  BY `tickets`.`train`
+ORDER  BY `trains`.`id`;
+
+-- (6)
+SELECT `trains`.`id`, `types`.`name` AS `type`,
+       `src`.`name` AS `src_stn`, `dst`.`name` AS `dst_stn`,
+       Count(`tickets`.`id`) AS `occupied`, `types`.`max_seats` AS `maximum`
+FROM   `tickets`
+       RIGHT JOIN `trains` ON `trains`.`id` = `tickets`.`train`
+       INNER JOIN `types` ON `types`.`id` = `trains`.`type`
+       INNER JOIN `stations` AS `src` ON `src`.`id` = `trains`.`source`
+       INNER JOIN `stations` AS `dst` ON `dst`.`id` = `trains`.`destination`
+GROUP  BY `tickets`.`train`
+ORDER  BY `trains`.`id`;
+\end{verbatim}
+\end{codeenv}
+
+\subsection*{\excref{exc:train-system-server}}
+
+\begin{codeenv}{code:train-system-server-answer}{\excref{exc:train-system-server} Answer}\begin{verbatim}
+const express = require('express');
+const { runQuery } = require('./database');
+
+const app = express();
+const port = 3000;
+
+app.get('/fare', async (req, res, next) => {
+    try {
+        const { uid } = req.query;
+        const sql = 'SELECT users.name, ' +
+            'Sum(Round(types.fare_rate * trains.distance / 1000, -2)) AS totalFare ' +
+            'FROM tickets ' +
+            'INNER JOIN users ON tickets.user = users.id AND users.id = ? ' +
+            'INNER JOIN trains ON tickets.train = trains.id ' +
+            'INNER JOIN types ON trains.type = types.id';
+        const { name, totalFare } = (await runQuery(sql, [uid]))[0];
+        return res.send(`Total fare of ${name} is ${totalFare} KRW.`);
+    } catch (err) {
+        console.error(err);
+        return res.sendStatus(500);
+    }
+});
+
+app.get('/train/status', async (req, res, next) => {
+    try {
+        const { tid } = req.query;
+        const sql = 'SELECT Count(*) AS occupied, max_seats AS maximum FROM tickets ' +
+            'INNER JOIN trains ON trains.id = tickets.train AND trains.id = ? ' +
+            'INNER JOIN types ON trains.type = types.id';
+        const { occupied, maximum } = (await runQuery(sql, [tid]))[0];
+        const isSeatsLeft = occupied < maximum;
+        return res.send(`Train ${tid} is ${isSeatsLeft ? 'not ' : ''}sold out`);
+    } catch (err) {
+        console.error(err);
+        return res.sendStatus(500);
+    }
+});
+
+app.listen(port, () => console.log(`Server listening on port ${port}!`));
+\end{verbatim}
+\end{codeenv}
+
+database.js 모듈은 \coderef{code:runquery-function}\과 \coderef{code:runquery-prepared-statement}\를 참고하여라.

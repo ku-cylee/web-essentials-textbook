@@ -1,0 +1,52 @@
+\section{Express.js and View Engine Exercises}\label{sect:express-js-view-engine-exercises}
+
+\subsection*{\excstref{exc:express-query-body}: Access to Query and Body}
+
+GET 요청을 보낼 때는 query를 통해 서버에 데이터를 보내고, POST, PUT, DELETE 등의 요청을 보낼 때는 body를 통해 데이터를 보낸다.
+
+\begin{codeenv}{code:express-urlencoded}{Express \cd{urlencoded} Config}\begin{verbatim}
+app.use(express.urlencoded({ extended: true }));
+\end{verbatim}
+\end{codeenv}
+
+Express.js에서는 요청 객체를 통해 body 데이터를 정상적으로 받기 위해서는 \coderef{code:express-urlencoded}\와 같이 미들웨어 설정을 해야 한다.
+
+\begin{codeenv}{code:stringfy-mappable-object}{Stringify Mappable Object}\begin{verbatim}
+Object.keys(obj).map(k => `${k}: ${obj[k]}`).join('\n');
+\end{verbatim}
+\end{codeenv}
+
+GET / 요청을 받으면 query 데이터를, POST /, PUT /, DELETE / 요청을 받으면 body 데이터를 문자열 형태로 변환하여 응답으로 반환하는 웹 서버를 구현하여라. 객체 \cd{obj}는 \coderef{code:stringfy-mappable-object}\와 같이 문자열로 변환될 수 있다.
+
+\figures{fig:query-body-exercise}{Example Results of \excref{exc:express-query-body}}{
+    \subfig{fig:query-body-exercise-get}{GET Method}
+        {query-body-exercise-get.png}{.31}
+    \subfig{fig:query-body-exercise-post}{POST Method}
+        {query-body-exercise-post.png}{.31}
+    \subfig{fig:query-body-exercise-put}{PUT Method}
+        {query-body-exercise-put.png}{.31}
+}
+
+Insomnia를 이용하여 \figref{fig:query-body-exercise}\와 같이 잘 동작하는지 확인해본다. Body 데이터는 [Body] 탭에서 ``Form URL Encoded''를 선택한 뒤 데이터를 입력하여 보낼 수 있다.
+\clearpage
+
+\subsection*{\excstref{exc:express-params}: Access to URL Parameters}
+
+웹 서버는 필요에 따라 데이터를 query와 body가 아닌 경로에 직접 받을 수도 있다. 예를 들어 게시판의 10번째 페이지를 GET /board?page=10 라우트를 통해 요청받을 수도 있지만, GET /board/page/10 라우트로 요청받도록 할 수도 있다. 이러한 형태의 URL을 semantic URL이라고 하고, semantic URL 경로의 가변적인 부분은 변수로 받을 수 있다.
+
+위에서 제시된 예시 경로 /board/page/10는 /board/page/:page의 형태로 경로를 제시하면 match됩니다. 앞에 콜론(\cd{:})이 붙은 부분은 그 부분이 가변적인 부분이라는 뜻이며, 정규표현식으로 원하는 형태의 변수만 허용할 수 있다.\footnote{\chapref{ch:web-app-impl}에서 다룰 예정} 이러한 변수의 값은 요청 객체의 \cd{params} 속성에 저장되어 있으며, 예시 경로에서 10이라는 값은 \cd{req.params.page}에 할당되어 있다. 이를 이용하여 GET /board/page/:page 라우트로 요청을 받았을 때 페이지 번호를 표시하는 문자열을 생성하여 응답하는 Express.js 서버 애플리케이션을 구현하여라.
+
+\figures{fig:params-exercise}{Example Results of \excref{exc:express-params}}{
+    \subfig{fig:params-exercise-get}{Case 1}
+        {params-exercise-1.png}{.4}
+    \subfig{fig:params-exercise-post}{Case 2}
+        {params-exercise-2.png}{.4}
+}
+
+\subsection*{\excstref{exc:express-factorial}: Factorial Server with Redirection}
+
+\cd{number} 값을 받아 그 값의 팩토리얼 값을 텍스트로 응답하는 GET /factorial 라우트와 GET /factorial/:number 라우트를 구현하여라. 이때 GET /factorial은 \cd{number} 값을 query 형태로 받아 GET /factorial/:number 라우트로 리다이렉트한다. 예를 들어, GET /factorial?number=10으로 들어온 요청은 GET /factorial/10으로 리다이렉트되어야 한다.
+
+\subsection*{\excstref{exc:form-login}: Login Server with \cd{form} Tag}
+
+\pageref{code:form-tag}쪽의 \coderef{code:form-tag}\를 참고하여 로그인할 수 있는 웹 페이지를 응답하는 GET / 라우트와 로그인 페이지에서 받은 \cd{username}과 \cd{password} 값을 텍스트로 응답하는 POST /login 라우트의 controller를 구현하여라. 이때 사용자로부터 body 데이터를 제대로 받기 위해서 \coderef{code:express-urlencoded}\와 같이 미들웨어를 설정하여라.

@@ -1,0 +1,350 @@
+\section{Web Application Implementation Source Codes}\label{sect:web-app-impl-codes}
+
+\begin{codeenv}{code:user-dao}{User DAO (src/DAO/user.js)}\begin{verbatim}
+const { runQuery } = require('../lib/database');
+
+const getByUsername = async username => {
+    const sql = 'SELECT id, display_name AS displayName, password, ' +
+                'is_active AS isActive, is_staff as isStaff FROM users ' +
+                'WHERE username = ?';
+    const result = await runQuery(sql, [username]);
+    return result[0];
+};
+
+const create = async (username, password, displayName) => {
+    const sql = 'INSERT INTO users (username, password, display_name) VALUES (?, ?, ?)';
+    await runQuery(sql, [username, password, displayName]);
+};
+
+module.exports = {
+    getByUsername,
+    create,
+};
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:article-dao}{Article DAO (src/DAO/article.js)}\begin{verbatim}
+const { runQuery } = require('../lib/database');
+
+// formatDate, replaceDate
+
+const getList = async (start, count) => {
+    const sql = 'SELECT a.id, a.title, a.created_at AS createdAt,' +
+                'a.last_updated AS lastUpdated, u.display_name AS displayName ' +
+                'FROM articles AS a INNER JOIN users AS u ' +
+                'ON a.author = u.id AND a.is_active = 1 AND a.is_deleted = 0 ' +
+                'ORDER BY a.id DESC LIMIT ?, ?';
+    const articles = await runQuery(sql, [start, count]);
+    return articles.map(replaceDate);
+};
+
+const getTotalCount = async () => {
+    const sql = 'SELECT Count(*) AS articleCount FROM articles ' +
+                'WHERE is_active = 1 AND is_deleted = 0';
+    const { articleCount } = (await runQuery(sql))[0];
+    return articleCount;
+};
+
+const getById = async id => {
+    const sql = 'SELECT a.id, a.title, a.content, a.created_at AS createdAt, ' +
+                'a.last_updated AS lastUpdated, a.author, ' +
+                'u.display_name AS displayName FROM articles AS a '  +
+                'INNER JOIN users AS u ON a.author = u.id AND ' +
+                'a.id = ? AND a.is_active = 1 AND a.is_deleted = 0';
+    const articles = await runQuery(sql, [id]);
+    return replaceDate(articles[0]);
+};
+
+const getByIdAndAuthor = async (id, author) => {
+    const sql = 'SELECT title, content, author, created_at AS createdAt, ' +
+                'last_updated AS lastUpdated FROM articles ' +
+                'WHERE id = ? AND author = ? AND is_active = 1 AND is_deleted = 0';
+    const articles = await runQuery(sql, [id, author.id]);
+    return replaceDate(articles[0]);
+};
+
+const create = async (title, content, author) => {
+    const sql = 'INSERT INTO articles (title, content, author) VALUES (?, ?, ?)'
+    const { insertId } = await runQuery(sql, [title, content, author.id]);
+    return insertId;
+};
+
+const update = async (id, title, content) => {
+    const sql = 'UPDATE articles SET title = ?, content = ? WHERE id = ?';
+    await runQuery(sql, [title, content, id]);
+};
+
+const remove = async id => {
+    const sql = 'UPDATE articles SET is_deleted = 1 WHERE id = ?';
+    await runQuery(sql, [id]);
+};
+
+module.exports = {
+    getList,
+    getTotalCount,
+    getById,
+    getByIdAndAuthor,
+    create,
+    update,
+    remove,
+};
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:index-ctrl}{Index Controller (src/controller/ctrl.js)}\begin{verbatim}
+// GET /
+const indexPage = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        return res.render('index.pug', { user });
+    } catch (err) {
+        return next(err);
+    }
+};
+module.exports = { indexPage };
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:auth-ctrl}{Auth Controller (src/controller/auth/ctrl.js)}\begin{verbatim}
+const { UserDAO } = require('../../DAO');
+const { generatePassword, verifyPassword } = require('../../lib/authentication');
+
+// GET /auth/sign_in
+const signInForm = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        if (user) return res.redirect('/');
+        else return res.render('auth/sign-in.pug', { user });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// POST /auth/sign_in
+const signIn = async (req, res, next) => {
+    try {
+        const { username, password } = req.body;
+        if (!username || !password) throw new Error('BAD_REQUEST');
+
+        const user = await UserDAO.getByUsername(username);
+        if (!user) throw new Error('UNAUTHORIZED');
+        const isValid = await verifyPassword(password, user.password);
+        if (!isValid) throw new Error('UNAUTHORIZED');
+
+        const { id, displayName, isActive, isStaff } = user;
+        req.session.user = { id, username, displayName, isActive, isStaff };
+        return res.redirect('/');
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /auth/sign_up
+const signUpForm = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        return res.render('auth/sign-up.pug', { user });
+    } catch {
+        return next(err);
+    }
+};
+
+// POST /auth/sign_up
+const signUp = async (req, res, next) => {
+    try {
+        const { username, password, displayName } = req.body;
+        if (
+            !username ||
+            username.length > 16 ||
+            !password ||
+            !displayName ||
+            displayName.length > 32
+        )
+            throw new Error('BAD_REQUEST');
+
+        const hashedPassword = await generatePassword(password);
+        await UserDAO.create(username, hashedPassword, displayName);
+
+        return res.redirect('/auth/sign_in');
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /auth/sign_out
+const signOut = async (req, res, next) => {
+    try {
+        req.session.destroy(err => {
+            if (err) throw err;
+            else return res.redirect('/');
+        });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+module.exports = {
+    signInForm,
+    signIn,
+    signUpForm,
+    signUp,
+    signOut,
+};
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:article-ctrl}{Article Controller (src/controller/article/ctrl.js)}\begin{verbatim}
+const { ArticleDAO } = require('../../DAO');
+
+// GET /article/:articleId(\\d+)
+const readArticle = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const { articleId } = req.params;
+
+        const article = await ArticleDAO.getById(articleId);
+        if (!article) throw new Error('NOT_FOUND');
+
+        return res.render('articles/details.pug', { user, article });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /article/compose
+const writeArticleForm = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        return res.render('articles/editor.pug', { user });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// POST /article/compose
+const writeArticle = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const title = req.body.title.trim();
+        const content = req.body.content.trim();
+        if (!title || title.length > 50 || !content || content.length > 65535)
+            throw new Error('BAD_REQUEST');
+
+        const newArticleId = await ArticleDAO.create(title, content, user);
+        return res.redirect(`/article/${newArticleId}`);
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /article/edit/:articleId(\\d+)
+const editArticleForm = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const { articleId } = req.params;
+
+        const article = await ArticleDAO.getByIdAndAuthor(articleId, user);
+        if (!article) throw new Error('NOT_FOUND');
+
+        return res.render('articles/editor.pug', { user, article });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// POST /article/edit/:articleId(\\d+)
+const editArticle = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const { articleId } = req.params;
+
+        const article = await ArticleDAO.getByIdAndAuthor(articleId, user);
+        if (!article) throw new Error('NOT_FOUND');
+
+        const title = req.body.title.trim();
+        const content = req.body.content.trim();
+        if (!title || title.length > 50 || !content || content.length > 65535)
+            throw new Error('BAD_REQUEST');
+
+        await ArticleDAO.update(articleId, title, content);
+        return res.redirect(`/article/${articleId}`);
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /article/delete/:articleId(\\d+)
+const deleteArticle = async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        const { articleId } = req.params;
+
+        const article = await ArticleDAO.getByIdAndAuthor(articleId, user);
+        if (!article) throw new Error('NOT_FOUND');
+
+        await ArticleDAO.remove(articleId, user);
+        return res.redirect('/articles/page/1');
+    } catch (err) {
+        return next(err);
+    }
+};
+
+module.exports = {
+    readArticle,
+    writeArticleForm,
+    writeArticle,
+    editArticleForm,
+    editArticle,
+    deleteArticle,
+};
+\end{verbatim}
+\end{codeenv}
+
+\begin{codeenv}{code:articles-ctrl}{Articles Controller (Added to \coderef{code:index-ctrl})}\begin{verbatim}
+const { ArticleDAO } = require('../DAO');
+
+// indexPage
+
+// GET /articles/page/:page(\\d+)
+const listArticles = async (req, res, next) => {
+    try {
+        const { page } = req.params;
+        const { user } = req.session;
+        const pageNum = parseInt(page, 10);
+        if (pageNum <= 0) throw new Error('BAD_REQUEST');
+
+        const ARTICLES_PER_PAGE = 10;
+        const startIndex = (pageNum - 1) * ARTICLES_PER_PAGE;
+
+        const articles = await ArticleDAO.getList(startIndex, ARTICLES_PER_PAGE);
+        const articleCount = await ArticleDAO.getTotalCount();
+        const pageCount = Math.ceil(articleCount / ARTICLES_PER_PAGE);
+
+        return res.render('articles/index.pug', {
+            user,
+            articles,
+            page: pageNum,
+            hasPrev: pageNum > 1,
+            hasNext: pageNum < pageCount,
+        });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+// GET /articles
+const latestArticles = async (req, res, next) => {
+    try {
+        return res.redirect('/articles/page/1');
+    } catch (err) {
+        return next(err);
+    }
+};
+
+module.exports = {
+    indexPage,
+    listArticles,
+    latestArticles,
+};
+\end{verbatim}
+\end{codeenv}

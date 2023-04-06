@@ -104,7 +104,7 @@ html
 \end{verbatim}
 \end{codeenv}
 
-views/board.pug를 생성하여 \coderef{code:pug-example-board-pug}\와 같이 작성한다. \sectref{sect:advanced-javascript-syntaxes}에서 다룬 template literal과 유사하게 pug에서는 \cd{\#\{\}} 표현을 이용하여 템플릿에 JS 표현식의 반환값을 삽입한다. \cd{page}와 같이 템플릿에서 사용되는 값은 객체의 형태로 \cd{render} 메서드의 두 번째 인자에 전달하면 해당 부분이 JS 표현식의 반환값으로 대체되어 render된다.
+views/board.pug를 생성하여 \coderef{code:pug-example-board-pug}\와 같이 작성한다. \sectref{sect:advanced-js-syntaxes}에서 다룬 template literal과 유사하게 pug에서는 \cd{\#\{\}} 표현을 이용하여 템플릿에 JS 표현식의 반환값을 삽입한다. \cd{page}와 같이 템플릿에서 사용되는 값은 객체의 형태로 \cd{render} 메서드의 두 번째 인자에 전달하면 해당 부분이 JS 표현식의 반환값으로 대체되어 render된다.
 
 \begin{codeenv}{code:pug-example-get-board}{pug Example Application - index.js (GET /page)}\begin{verbatim}
 app.get('/page', (req, res) => {

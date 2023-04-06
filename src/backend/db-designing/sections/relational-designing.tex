@@ -2,7 +2,7 @@
 
 \subsection*{Relation Between Tables}
 
-\sectref{sect:basics-of-designing}에서는 \cd{courses} 테이블을 설계하면서 테이블을 설계하는 가장 기본적인 방법을 배웠다. 정말 간단한 형태의 데이터를 DB에 저장할 때는 기본적인 방법으로도 충분히 데이터를 저장할 수 있으나, 실제 세상은 여러 테이블 간의 관계(relation)가 존재하여 훨씬 복잡하다.
+\sectref{sect:designing-basic}에서는 \cd{courses} 테이블을 설계하면서 테이블을 설계하는 가장 기본적인 방법을 배웠다. 정말 간단한 형태의 데이터를 DB에 저장할 때는 기본적인 방법으로도 충분히 데이터를 저장할 수 있으나, 실제 세상은 여러 테이블 간의 관계(relation)가 존재하여 훨씬 복잡하다.
 
 \cd{courses} 테이블(\tblref{tab:courses-table-subdivisions})의 \cd{department} column에는 학과 강의가 속해있는 학과 이름이 저장되어 있는데, \cd{courses} 테이블과 같이 학과 이름만 저장할 때는 이러한 방법으로도 충분하지만 각 학과에 대한 정보도 저장하고자 할때는 \cd{courses} 테이블에 온전히 저장할 수 없고, 별도의 테이블에 저장하여야 한다.
 
@@ -10,7 +10,7 @@
 
 \subsection*{Primary Key and Foreign Key}
 
-먼저 학과와 관련된 \cd{departments} 테이블을 \sectref{sect:basics-of-designing}\과 같은 방법으로 설계하면 \tblref{tab:departments-table-basic}\과 같이 나타낼 수 있다.
+먼저 학과와 관련된 \cd{departments} 테이블을 \sectref{sect:designing-basic}\과 같은 방법으로 설계하면 \tblref{tab:departments-table-basic}\과 같이 나타낼 수 있다.
 
 \begin{tblenv}
     {tab:departments-table-basic}

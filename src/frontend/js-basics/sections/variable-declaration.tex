@@ -1,0 +1,82 @@
+\section{Declaration of Variables} \label{sect:variable-declaration}
+
+\subsection*{ECMAScript}
+
+ECMAScript는 스크립트 언어에 관한 규약으로, 줄여서 ES라고 하며, JS는 ES의 표준을 따른다. ES1이 1997년 출시된 이후 2015년 ES6가 출시되며 언어의 표준에 큰 변화가 발생하였고, 이후 지속적인 업데이트를 통해 2019년 ES9가 출시되어 현재\footnote{2021년}에 이르고 있다. 본 교재에서는 ES9을 표준으로 한 JS를 다룬다.
+
+\subsection*{Declaration of Identifiers}
+
+JS는 다른 언어들과 마찬가지로 변수나 상수 등의 식별자(identifier)를 정의하고 사용할 수 있고, 모든 식별자에는 자료형이 있다. 다만 C나 Java 등과는 달리 식별자를 선언할 때 자료형을 명시해주지 않고, 인터프리터가 식별자에 할당되는 값을 분석하여 자료형을 스스로 지정한다.
+
+변수, 상수, 함수 등은 camel case(예: \cd{parsedSourceInput}), 클래스는 pascal case(예: \cd{RequestHandler}), 상수는 대문자와 underscore(\cd{\_})로 작명(예: \cd{LENGTH\_LIMIT})한다. 또한, 숫자로 시작하지 않고 가급적 알파벳으로 시작하며, 식별자가 나타내는 바를 명확하게 알 수 있도록 작명한다.
+
+식별자는 \cd{var}, \cd{let}, \cd{const} 등의 키워드를 이용하여 선언한다. 먼저, \cd{var}는 지금까지 널리 사용되어 온 키워드로, \cd{var}로 선언한 변수는 재선언할 수 있고, 값을 재할당할 수도 있다.
+
+\begin{codeenv}{code:var-keyword}{Declaring variable using \cd{var}}\begin{verbatim}
+> var num1 = 3;
+> num1;
+3
+> num1 + 5;
+8
+> num1 = 5;
+5
+> var num1 = 20;
+\end{verbatim}
+\end{codeenv}
+
+반면 \cd{let}으로 선언한 변수는 값을 재할당할 수는 있으나, 재선언은 불가능하다.\footnote{Chrome의 개발자 도구를 이용하였을 때 재선언이 가능한 버그가 보고되었다. (2021년 기준)}
+
+\begin{codeenv}{code:let-keyword}{Declaring variable using \cd{let}}\begin{verbatim}
+> let num2 = 3;
+> num2 + 5;
+8
+> num2 = 5;
+5
+> let num2 = 20;
+SyntaxError: redeclaration of let num2
+\end{verbatim}
+\end{codeenv}
+
+\cd{const}는 constant, 즉 상수(常數)의 약자로, \cd{const}로 선언한 상수는 재선언과 재할당이 모두 불가능하다.
+
+\begin{codeenv}{code:const-keyword}{Declaring constant using \cd{const}}\begin{verbatim}
+> const constNum = 3;
+undefined
+> constNum + 5;
+8
+> constNum = 5;
+TypeError: invalid assignment to const 'constNum'
+> const constNum = 20;
+Thrown:
+SyntaxError: redeclaration of const constNum
+\end{verbatim}
+\end{codeenv}
+
+\cd{var}는 JS 초창기부터 사용되어 왔던 식별자 선언 키워드인 반면, \cd{let}과 \cd{const}는 ES6 출시와 함께 추가된 식별자 선언 키워드이다. \cd{var}과 \cd{let}/\cd{const}는 재선언 가능성에서도 차이점이 있지만, 식별자에 접근할 수 있는 범위(scope)에도 차이가 있다.
+
+\begin{codeenv}{code:var-let-scope}{Scope of \cd{var} and \cd{let}}\begin{verbatim}
+> { var num1 = 1; }
+> num1;
+1
+> { let num2 = 2; }
+> num2;
+Uncaught ReferenceError: num2 is not defined
+\end{verbatim}
+\end{codeenv}
+
+\coderef{code:var-let-scope}\를 실행하면, \cd{var}로 선언된 \cd{num1}의 값은 정상적으로 출력되나, \cd{let}으로 선언된 \cd{num2}는 정의되지 않았다는 에러가 발생한다. 이렇듯 \cd{var}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 있고 함수 밖에서는 접근될 수 없는 function-scope이며, \cd{let}과 \cd{const}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 없는 block-scope이다.
+
+\begin{tblenv}
+    {tab:var-let-const-table}
+    {Differences between \cd{var}, \cd{let} and \cd{const}}
+    {>{\coll}m{0.08\tw}>{\coll}m{0.25\tw}>{\coll}m{0.25\tw}>{\coll}m{0.20\tw}}
+    \thickhline
+    키워드 & 재할당 (Reassignment) & 재선언 (Redeclaration) & 스코프 (Scope) \tabularnewline
+    \hline
+    \cd{var} & 가능 & 가능 & function-scope \tabularnewline
+    \cd{let} & 가능 & 불가능 & block-scope \tabularnewline
+    \cd{const} & 불가능 & 불가능 & block-scope \tabularnewline
+    \thickhline
+\end{tblenv}
+
+ES6 이전에는 \cd{var}를 이용하여 변수를 선언하였으나, ES6 이후에는 \cd{let}과 \cd{const}가 재선언이 불가능하고, block-scope이기 때문에 \textbf{\cd{var}의 사용은 지양}되고 \textbf{\cd{let}과 \cd{const}를 이용}하여 변수와 상수를 선언하는 것이 권장된다. \cd{var}는 function-scope이기 때문에 코드의 네임스페이스를 오염\footnote{https://stackoverflow.com/questions/22903542/what-is-namespace-pollution}시키며, run-time에서 의도치 않은 논리적 오류를 발생시킬 수 있다. 반면 \cd{let}과 \cd{const}로 선언된 식별자는 block-scope이므로 네임스페이스 오염을 최소화할 수 있고, \cd{const}로 선언된 상수는 재할당이 불가능하므로 run-time에서 상수값이 변경되어 발생하는 논리적 오류를 방지할 수 있다.
