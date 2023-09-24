@@ -2,7 +2,7 @@ SRC=src/main.tex
 DST_DIR=bin
 
 ENGINE=latexmk
-FLAGS=-synctex=1 --interaction=nonstopmode -file-line-error -xelatex -cd -outdir=../$(DST_DIR)
+FLAGS=-synctex=1 --interaction=nonstopmode -file-line-error -xelatex -shell-escape -cd -outdir=../$(DST_DIR)
 
 all:
 	$(ENGINE) $(FLAGS) -usepretex="\def\isfrontend{1}\def\isbackend{1}" -jobname="web-essentials" $(SRC)

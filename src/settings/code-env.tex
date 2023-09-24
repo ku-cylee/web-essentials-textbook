@@ -47,97 +47,42 @@
     {\end{sqlthm}\end{mdframed}\vspace{6pt}}
 
 \usepackage{listings}
+\usepackage[newfloat,outputdir=../bin]{minted}
 
 \definecolor{codebg}{HTML}{f2f2f2}
-\definecolor{codecomment}{HTML}{245724}
-\definecolor{codekeyword}{HTML}{00158c}
-\definecolor{codestring}{HTML}{8f1111}
 \definecolor{codelinenumber}{HTML}{707070}
 
-\lstdefinelanguage{css}{}
-% TODO
+\usemintedstyle{sas}
 
-\lstdefinelanguage{js}{
-    keywords={
-        async, await, break, case, catch, class, const, continue, debugger,
-        default, delete, do, else, enum, export, extends, finally, for,
-        function, if, import, implements, in, instanceof, interface, let,
-        new, package, private, protected, public, return, static, super,
-        switch, this, throw, try, typeof, var, void, while, with, yield,
-    },
-    morecomment=[l]{//},
-    morecomment=[s]{/*}{*/},
-    morestring=[b]',
-    morestring=[b]",
-    morestring=[b]`,
-    sensitive=true,
-}
-% TODO: Template Literal
-
-\lstdefinelanguage{pug}{}
-% TODO
-
-\lstdefinestyle{numlesscdst}{
-    backgroundcolor=\color{codebg},
-    commentstyle=\color{codecomment},
-    basicstyle=\ttfamily\normalsize\setstretch{1.15},
-    keywordstyle=\color{codekeyword},
-    stringstyle=\color{codestring},
-    captionpos=t,
-    aboveskip=5pt,
-    belowskip=13pt,
-    belowcaptionskip=5pt,
-    xleftmargin=10pt,
-    xrightmargin=10pt,
+\setminted{
+    linenos,
+    bgcolor=codebg,
+    baselinestretch=1,
     frame=single,
     framesep=10pt,
     framerule=0pt,
-    escapeinside={|@}{@|},
+    numbersep=-5pt,
+    xleftmargin=20pt,
+    xrightmargin=2pt,
+    escapeinside=@@
 }
 
-\lstdefinestyle{numcdst}{
-    style=numlesscdst,
-    xleftmargin=27pt,
-    framexleftmargin=17pt,
-    numbers=left,
-    numbersep=10pt,
-    numberstyle=\ttfamily\small\color{codelinenumber},
-}
+\renewcommand{\theFancyVerbLine}{\textcolor[HTML]{707070}{\small\arabic{FancyVerbLine}}}
 
-\lstnewenvironment{code}[3]
-    {
-        \renewcommand\lstlistingname{Code}
-        \setcounter{lstlisting}{\value{thecode}}
-        \lstset{
-            language=#1,
-            label=#2,
-            style=numcdst,
-            caption={\raggedright #3}}
-    }
-    {\addtocounter{thecode}{1}}
+\DeclareFloatingEnvironment[name=Code, within=chapter]{codefloat}
+\newenvironment{code}[2]{
+    \captionsetup{type=codefloat, font=normalsize}
+    \caption{#2}\label{#1}
+}{}
 
-\lstnewenvironment{shell}[2]
-    {
-        \renewcommand\lstlistingname{Shell}
-        \setcounter{lstlisting}{\value{theshell}}
-        \lstset{
-            language=sh,
-            label=#1,
-            style=numlesscdst,
-            caption={\raggedright #2}}
-    }
-    {\addtocounter{theshell}{1}}
+\DeclareFloatingEnvironment[name=Shell, within=chapter]{shellfloat}
+\newenvironment{shell}[2]{
+    \captionsetup{type=shellfloat, font=normalsize}
+    \caption{#2}\label{#1}
+}{}
 
-\lstnewenvironment{sql}[2]
-    {
-        \renewcommand\lstlistingname{SQL}
-        \setcounter{lstlisting}{\value{thesql}}
-        \lstset{
-            language=sql,
-            label=#1,
-            style=numlesscdst,
-            caption={\raggedright #2}}
-    }
-    {\addtocounter{thesql}{1}}
-
-% TODO: How to add alsolanguage?
+\DeclareFloatingEnvironment[name=SQL, within=chapter]{sqlfloat}
+\newenvironment{sql}[2]{
+    \captionsetup{type=sqlfloat, font=normalsize}
+    \caption{#2}\label{#1}
+}{}
