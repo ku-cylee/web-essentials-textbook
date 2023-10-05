@@ -12,11 +12,12 @@
 
 이때 누적 이수학점, 평균 평점, 재학 여부의 기본값을 각각 0, 0.0, 참으로 설정하여라. Column의 기본값은 \cd{DEFAULT} 키워드를 이용하여 설정할 수 있다. 예를 들어, \coderef{code:sql-default-example}\은 \cd{title} column의 값을 빈 문자열(\cd{''}), \cd{level} column의 값을 1로 설정하는 예제이다.
 
-\begin{codeenv}{code:sql-default-example}{\cd{DEFAULT} Keyword Example}\begin{verbatim}
+\begin{code}{code:sql-default-example}{\cd{DEFAULT} Keyword Example}
+\begin{minted}{sql}
 `title` VARCHAR(20) DEFAULT '',
 `level` INT DEFAULT 1,
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excstref{exc:messenger-db-design}: Messenger DB Design}
 
@@ -74,7 +75,8 @@
 
 각 테이블의 SQL문을 모두 \coderef{code:messenger-db-design-example}\과 같이 messenger.sql 파일에 작성하여라. SQL문을 DB에서 실행시켜 잘 작동시켜 확인해보고, \cd{DESC} 키워드를 이용해 의도한 바와 같이 설계되었는지 확인해본다.
 
-\begin{codeenv}{code:messenger-db-design-example}{\excref{exc:messenger-db-design} Example}\begin{verbatim}
+\begin{code}{code:messenger-db-design-example}{\excref{exc:messenger-db-design} Example}
+\begin{minted}{sql}
 CREATE TABLE `users` (
     -- Your code here
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -88,5 +90,5 @@ CREATE TABLE `channels` (
 CREATE TABLE `follows` (
     -- Your code here
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}

@@ -2,7 +2,8 @@
 
 \subsection*{\excref{exc:cases-module}}
 
-\begin{codeenv}{code:cases-module-answer}{\excref{exc:cases-module} Answer}\begin{verbatim}
+\begin{code}{code:cases-module-answer}{\excref{exc:cases-module} Answer}
+\begin{minted}{js}
 const factorial = number => {
     let result = 1;
     for (let i = 0; i < number; i++) result *= (i + 1);
@@ -23,12 +24,13 @@ module.exports = {
     multiCombination,
     multiPermutation,
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:directory-search}}
 
-\begin{codeenv}{code:directory-search-answer}{\excref{exc:directory-search} Answer}\begin{verbatim}
+\begin{code}{code:directory-search-answer}{\excref{exc:directory-search} Answer}
+\begin{minted}{js}
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
@@ -55,5 +57,5 @@ const searchDirectory = async directory => {
         console.error(err);
     }
 })();
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}

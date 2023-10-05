@@ -1,6 +1,7 @@
 \section{Database Querying Source Codes}\label{sect:db-querying-codes}
 
-\begin{codeenv}{code:scores-table-sql}{\cd{scores} Table SQL}\begin{verbatim}
+\begin{code}{code:scores-table-sql}{\cd{scores} Table SQL}
+\begin{minted}{sql}
 CREATE TABLE `scores` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `student` VARCHAR(32) NOT NULL,
@@ -15,10 +16,11 @@ INSERT INTO `scores` VALUES (1,'Barack','Discrete Mathematics',61,87),
 (4,'Donald','Operating Systems',58,98),(5,'Joe','Machine Learning',63,78),
 (6,'Donald','Discrete Mathematics',91,58),(7,'Donald','Machine Learning',68,82),
 (8,'Joe','Operating Systems',72,66);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
-\begin{codeenv}{code:join-example-sql}{SQL Join Example Data}\begin{verbatim}
+\begin{code}{code:join-example-sql}{SQL Join Example Data}
+\begin{minted}{sql}
 CREATE TABLE `tb1` (`id` INT, `data1` VARCHAR(4), PRIMARY KEY (`id`)) ENGINE=InnoDB;
 CREATE TABLE `tb2` (`id` INT, `data2` VARCHAR(4), PRIMARY KEY (`id`)) ENGINE=InnoDB;
 
@@ -26,10 +28,11 @@ INSERT INTO `tb1` VALUES (1,'1-1'),(6,'1-6'),(7,'1-7'),(8,'1-8'),(10,'1-10'),
 (11,'1-11'),(12,'1-12'),(13,'1-13'),(14,'1-14'),(15,'1-15');
 INSERT INTO `tb2` VALUES (2,'2-2'),(3,'2-3'),(4,'2-4'),(5,'2-5'),(7,'2-7'),(8,'2-8'),
 (9,'2-9'),(11,'2-11'),(13,'2-13'),(14,'2-14');
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
-\begin{codeenv}{code:university-system}{University System SQL}\begin{verbatim}
+\begin{code}{code:university-system}{University System SQL}
+\begin{minted}{sql}
 CREATE TABLE `colleges` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL,
@@ -68,10 +71,11 @@ INSERT INTO `courses` VALUES (1,'Python for Everybody',1,'COSE156',0,0,3,4),
 (6,'Organic Chemistry Laboratory',2,'CHEM214',1,1,2,4),
 (7,'Solid State Physics',3,'PHYS482',1,0,3,3),
 (8,'Inorganic Chemistry II',2,'CHEM308',1,1,3,3);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
-\begin{codeenv}{code:crud-table-sql}{\cd{crud} Table SQL}\begin{verbatim}
+\begin{code}{code:crud-table-sql}{\cd{crud} Table SQL}
+\begin{minted}{sql}
 CREATE TABLE `crud` (
     `id` INT NOT NULL AUTO_INCREMENT, `c1` INT NOT NULL, `c2` INT NOT NULL,
     `c3` VARCHAR(8) NOT NULL, `c4` TIMESTAMP NOT NULL DEFAULT current_timestamp(),
@@ -99,11 +103,12 @@ INSERT INTO `crud` (c1,c2,c3,c5) VALUES (5,5,'col1',1),(17,3,'col2',1),
 (5,5,'col88',0),(2,1,'col89',1),(6,4,'col90',0),(14,2,'col91',1),(3,2,'col92',1),
 (18,2,'col93',1),(14,3,'col94',1),(3,1,'col95',1),(1,3,'col96',1),(12,4,'col97',0),
 (10,3,'col98',1),(11,3,'col99',1),(9,3,'col100',1);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
-\begin{codeenv}{code:train-system-tables}{Train System Tables SQL}\begin{verbatim}
+\begin{code}{code:train-system-tables}{Train System Tables SQL}
+\begin{minted}{sql}
 CREATE TABLE `stations` (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(20) NOT NULL
@@ -142,11 +147,12 @@ CREATE TABLE `tickets` (
     FOREIGN KEY (`train`) REFERENCES `trains`(`id`) ON DELETE CASCADE,
     FOREIGN KEY (`user`) REFERENCES `users`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
-\begin{codeenv}{code:train-system-data}{Train System Data SQL}\begin{verbatim}
+\begin{code}{code:train-system-data}{Train System Data SQL}
+\begin{minted}{sql}
 INSERT INTO `stations` VALUES (1,'Seoul'),(2,'Busan'),(3,'GwangjuSongjeong'),
 (4,'Gangneung'),(5,'Suseo'),(6,'Yeosu EXPO');
 
@@ -188,5 +194,5 @@ INSERT INTO `tickets` VALUES (1,17,1,8),(2,14,2,4),(3,4,3,3),(4,2,3,5),(5,4,4,2)
 (66,7,41,2),(67,15,42,6),(68,10,43,3),(69,7,43,6),(70,14,44,2),(71,1,45,2),(72,9,46,7),
 (73,17,46,4),(74,4,47,5),(75,2,47,8),(76,8,48,6),(77,14,49,3),(78,13,49,1),(79,10,50,1),
 (80,7,50,7);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}

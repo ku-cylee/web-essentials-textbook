@@ -6,7 +6,8 @@
 
 mysql2 모듈은 Node.js에서 MariaDB(MySQL) DBMS에 접속하고 SQL문을 실행하는 메서드를 제공한다. Node.js 프로젝트를 생성하고 npm을 이용하여 mysql2를 설치한 뒤, database.js를 생성하여 \coderef{code:runquery-function}\과 같이 작성한다.
 
-\begin{codeenv}{code:runquery-function}{Implementation of \cd{runQuery} Function}\begin{verbatim}
+\begin{code}{code:runquery-function}{Implementation of \cd{runQuery} Function}
+\begin{minted}{js}
 const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
@@ -28,14 +29,15 @@ const runQuery = async sql => {
 };
 
 module.exports = { runQuery };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:runquery-function}\은 mysql2 모듈의 \cd{createPool} 메서드에 연결하고자 하는 DB의 host, port, 사용자 이름과 비밀번호, DB 이름 등을 인자로 넘겨주어 connection pool을 생성하고, SQL문을 인자로 받아 실행시켜 그 결과를 반환하는 \cd{runQuery} 함수를 구현한 코드이다.
 
 Connection pool은 미리 DB와의 연결들을 생성하여 pool에 저장해둔 후, 필요할 때마다 연결을 가져가서 사용하고  pool에 반납(release)하도록 설계된 연결 방식이다. 이 방식은 DB에서 SQL문을 실행할 때마다 DB 연결에 필요한 여러 정보를 이용해 연결하고 SQL문을 실행한 뒤 연결을 닫는 과정에 비해 높은 성능을 보인다.
 
-\begin{codeenv}{code:runquery-function-usage}{Usage of \cd{runQuery} Function}\begin{verbatim}
+\begin{code}{code:runquery-function-usage}{Usage of \cd{runQuery} Function}
+\begin{minted}{js}
 const { runQuery } = require('./database');
 
 const getScoreStats = async () => {
@@ -74,8 +76,8 @@ const createScore = async (name, course, midterm, final) => {
     console.dir(await getScoreByIdName(9, 'Barack'));
     console.dir(await getScoreByIdName(newScore.insertId, 'Barack'));
 })();
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:runquery-function-usage}\는 \cd{runQuery} 함수를 이용하여 \tblref{tab:scores-table}의 \cd{scores} 테이블 데이터를 조회한 결과이다. 조회 결과 데이터는 항상 row들의 배열 형태로 반환되며, 각 row는 column 이름이 key, column 값이 value인 객체의 형태로 반환된다.\footnote{엄밀히는 \cd{TextRow}, \cd{ResultSetHeader} 등 클래스의 인스턴스가 반환된다.}
 
@@ -91,15 +93,15 @@ const createScore = async (name, course, midterm, final) => {
 
 \coderef{code:runquery-function}의 \cd{runQuery} 함수는 DB의 데이터를 조작하는 기능을 잘 수행하지만, 보안상의 문제점이 존재한다.
 
-\begin{codeenv}{code:sql-injection-example-true-condition}{SQL Injection Example - Force True Condition}
-\begin{Verbatim}[commandchars=\\\{\}]
+\begin{code}{code:sql-injection-example-true-condition}{SQL Injection Example - Force True Condition}
+\begin{minted}[escapeinside=||]{js}
 const scoreData = await getScoreByIdName(3, "abc' OR '1'='1");
 
-// (1) SELECT * FROM scores WHERE id = \textbf{\textcolor{blue}{3}} AND student = '\textbf{\textcolor{blue}{abc' OR '1'='1}}'
-// (2) SELECT * FROM scores WHERE id = 3 AND student = 'abc' \textbf{\textcolor{red}{OR '1'='1'}}
+|\PYG{c+c1}{\slash\slash (1) SELECT * FROM scores WHERE id = \textbf{\textcolor{blue}{3}} AND student = \PYGZsq{}\textbf{\textcolor{blue}{abc\PYGZsq{} OR \PYGZsq{}1\PYGZsq{}=\PYGZsq{}1}}\PYGZsq{}}|
+|\PYG{c+c1}{\slash\slash (2) SELECT * FROM scores WHERE id = 3 AND student = \PYGZsq{}abc\PYGZsq{} \textbf{\textcolor{red}{OR \PYGZsq{}1\PYGZsq{}=\PYGZsq{}1\PYGZsq{}}}}|
 // (3) SELECT * FROM scores
-\end{Verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \cd{scores} 테이블에서 성적을 조회하기 위해서는 \cd{id}와 \cd{student} 값을 알아야 하고, \cd{id} 값은 본인 이외의 다른 사람은 모르는 값이라고 가정하자. 즉, \cd{id} 값이 비밀번호인 셈이다. 그렇다면 자신의 성적을 조회하고자 하는 학생은 \coderef{code:runquery-function-usage}에서 \cd{getScoreByIdName} 메서드에 적절한 \cd{id}와 \cd{name} 값을 제시해야만 본인의 성적을 확인할 수 있다.
 
@@ -107,14 +109,14 @@ const scoreData = await getScoreByIdName(3, "abc' OR '1'='1");
 
 이렇게 변수를 이용하여 SQL문을 생성하는 과정에 의도적으로 조작된 변수를 넘겨 DB를 공격하는 방식을 SQL Injection이라고 한다. SQL Injection은 예제와 같이 공격 난이도가 높지 않으면서도 공격당했을 때 치명적인 문제를 초래할 수 있는 보안 취약점이다.
 
-\begin{codeenv}{code:sql-injection-example-drop-table}{SQL Injection Example - Drop Table}
-\begin{Verbatim}[commandchars=\\\{\}]
+\begin{code}{code:sql-injection-example-drop-table}{SQL Injection Example - Drop Table}
+\begin{minted}[escapeinside=||]{js}
 const newScore = await createScore('n', "c'); DROP TABLE scores;", 0, 0);
 
-// (1) INSERT INTO scores VALUES (DEFAULT, '\textbf{\textcolor{blue}{n}}', '\textbf{\textcolor{blue}{c'); DROP TABLE scores;}}', \textbf{\textcolor{blue}{0}}, \textbf{\textcolor{blue}{0}});
-// (2) INSERT INTO scores VALUES (DEFAULT, 'n', 'c'); \textbf{\textcolor{red}{DROP TABLE scores;}}', 0, 0);
-\end{Verbatim}
-\end{codeenv}
+|\PYG{c+c1}{\slash\slash (1) INSERT INTO scores VALUES (DEFAULT, \PYGZsq{}\textbf{\textcolor{blue}{n}}\PYGZsq{}, \PYGZsq{}\textbf{\textcolor{blue}{c\PYGZsq{}); DROP TABLE scores;}}\PYGZsq{}, \textbf{\textcolor{blue}{0}}, \textbf{\textcolor{blue}{0}});}|
+|\PYG{c+c1}{\slash\slash (2) INSERT INTO scores VALUES (DEFAULT, \PYGZsq{}n\PYGZsq{}, \PYGZsq{}c\PYGZsq{}); \textbf{\textcolor{red}{DROP TABLE scores;}}\PYGZsq{}, 0, 0);}|
+\end{minted}
+\end{code}
 
 database.js의 \cd{createPool} 메서드의 인자 객체에 \cd{multipleStatements: true}를 추가\footnote{실제 서비스에서는 반드시 \cd{false}로 설정해야 한다. (명시하지 않으면 기본값이 \cd{false})}하고 \coderef{code:sql-injection-example-drop-table}\을 실행하면 \cd{scores} 테이블이 \cd{DROP TABLE} 키워드로 인해 삭제된다. 이렇게 SQL Injection이 발생하면 모든 데이터가 삭제되는 불상사가 발생할 수 있다.
 
@@ -122,7 +124,8 @@ SQL Injection은 매우 기본적이고 대중적이면서도 치명적인 문�
 
 Prepared statement의 변수 부분을 작성하는 방식은 애플리케이션의 언어, 모듈, DBMS마다 조금씩 다르지만 대부분은 물음표(\cd{?}) 문자를 사용하여 변수 부분을 표시한다. mysql2 모듈 역시 prepared statement에 \cd{?} 문자를 사용하여 SQL Injection을 방지할 수 있도록 한다.
 
-\begin{codeenv}{code:runquery-prepared-statement}{\cd{runQuery} Function with Prepared Statement}\begin{verbatim}
+\begin{code}{code:runquery-prepared-statement}{\cd{runQuery} Function with Prepared Statement}
+\begin{minted}{js}
 const runQuery = async (pstmt, data) => {
     const conn = await pool.getConnection();
     try {
@@ -133,12 +136,13 @@ const runQuery = async (pstmt, data) => {
         conn.release();
     }
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:runquery-prepared-statement}\는 \cd{runQuery} 함수를 수정한 코드로, 인자로 prepared statement(\cd{pstmt})와 \cd{?} 문자 자리에 들어갈 값들이 순서대로 할당된 배열(\cd{data})을 전달받아 SQL문을 생성(\cd{sql})한 뒤 DB에 전달하여 데이터를 받는다.
 
-\begin{codeenv}{code:using-prepared-statement}{Using Prepared Statement}\begin{verbatim}
+\begin{code}{code:using-prepared-statement}{Using Prepared Statement}
+\begin{minted}{js}
 const getScoreByIdName = async (id, name) => {
     const sql = 'SELECT * FROM scores WHERE id = ? AND student = ?';
     const results = await runQuery(sql, [id, name]);
@@ -150,7 +154,7 @@ const createScore = async (name, course, midterm, final) => {
     const result = await runQuery(sql, [name, course, midterm, final]);
     return result;
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \cd{runQuery} 함수의 형태가 수정되었으므로 \coderef{code:runquery-function-usage}에서 SQL문에 변수가 들어가는 함수들은 \coderef{code:using-prepared-statement}\와 같이 수정되어야 한다. \coderef{code:sql-injection-example-true-condition}\과 \coderef{code:sql-injection-example-drop-table}\을 실행해보면 SQL Injection이 방어됨을 확인할 수 있으며, \cd{runQuery} 함수에서 \cd{sql} 값을 확인해보면 조작된 변수가 잘 escape된 것을 확인할 수 있다.

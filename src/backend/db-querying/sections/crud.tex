@@ -6,31 +6,35 @@
 
 CRUD 기능 중 Create(생성)에 해당하는 기능은 \cd{INSERT} 키워드를 통해 수행된다.
 
-\begin{sqlenv}{sql:insert}{SQL \cd{INSERT} syntax}\begin{verbatim}
+\begin{sql}{sql:insert}{SQL \cd{INSERT} syntax}
+\begin{minted}{sql}
 INSERT INTO <table-name> (<c1>, <c2>, ..., <cn>) VALUES (<v1>, <v2>, ..., <vn>)
-\end{verbatim}
-\end{sqlenv}
+\end{minted}
+\end{sql}
 
 \sqlref{sql:insert}\는 \cd{INSERT} 키워드를 사용한 SQL문의 기본적인 형태로, \cd{table-name} 테이블에 \cd{c1} column의 값이 \cd{v1}, \cd{c2} column의 값이 \cd{v2}, \ldots, \cd{cn} column의 값이 \cd{vn}인 row를 생성하는 SQL문이다.
 
-\begin{shellenv}{shell:sql-insert-example}{\cd{INSERT} Example}\begin{verbatim}
+\begin{shell}{shell:sql-insert-example}{\cd{INSERT} Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > INSERT INTO `departments` (`name`, `code`) VALUES ('Liberal Arts', 13);
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \shellref{shell:sql-insert-example}\은 \cd{INSERT} 키워드를 이용하여 \cd{departments} 테이블에 \cd{name}은 ``Liberal Arts'', \cd{code}는 13인 row를 삽입하는 예제이다. 이때 \cd{id}는 \cd{AUTO\_INCREMENT} 옵션이 있어 값을 명시하지 않아도 그 값이 자동으로 추가된다. 이렇게 기본값이 존재하는 column에는 값을 명시하지 않으면 기본값이 생성된다.
 
-\begin{shellenv}{shell:insert-without-column-names}{\cd{INSERT} Without Column Names Example}\begin{verbatim}
+\begin{shell}{shell:insert-without-column-names}{\cd{INSERT} Without Column Names Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > INSERT INTO `departments` VALUES (4, 'Liberal Arts', 13);
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 모든 column의 값을 명시하여 row를 생성하는 경우 \shellref{shell:insert-without-column-names}\와 같이 column 이름을 작성하지 않고 column의 순서대로 값을 나열하여 생성할 수 있다.
 
-\begin{shellenv}{shell:insert-with-default-values}{\cd{INSERT} With Default Values Example}\begin{verbatim}
+\begin{shell}{shell:insert-with-default-values}{\cd{INSERT} With Default Values Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > INSERT INTO `departments` VALUES (DEFAULT, 'Liberal Arts', 13);
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 기본값이 있는 column에 column 이름과 값을 생략할 때는 \shellref{shell:insert-with-default-values}\와 같이 \cd{DEFAULT} 키워드를 이용하여 생성할 수 있다.
 \clearpage
@@ -39,31 +43,35 @@ INSERT INTO <table-name> (<c1>, <c2>, ..., <cn>) VALUES (<v1>, <v2>, ..., <vn>)
 
 CRUD 기능 중 Read(조회)에 해당하는 기능은 \cd{SELECT} 키워드를 통해 수행된다.
 
-\begin{sqlenv}{sql:select}{SQL \cd{SELECT} Syntax}\begin{verbatim}
+\begin{sql}{sql:select}{SQL \cd{SELECT} Syntax}
+\begin{minted}{sql}
 SELECT <c1>, <c2>, ..., <cn> FROM <table-name> WHERE <condition>
-\end{verbatim}
-\end{sqlenv}
+\end{minted}
+\end{sql}
 
 \sqlref{sql:select}\는 \cd{SELECT} 키워드를 사용한 SQL문의 기본적인 형태로, \cd{table-name} 테이블에서 \cd{condition}을 만족하는 row들의 \cd{c1}, \cd{c2}, ..., \cd{cn} column의 값을 조회하는 SQL문이다.
 
-\begin{shellenv}{shell:sql-select-example}{\cd{SELECT} Example}\begin{verbatim}
+\begin{shell}{shell:sql-select-example}{\cd{SELECT} Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT `stdnt_num`, `name` FROM `students` WHERE `grade` = 'A' AND `credits` > 52;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \shellref{shell:sql-select-example}\은 \cd{SELECT} 키워드를 이용하여 \cd{students} 테이블에서 \cd{grade} 값이 ``A''이고, \cd{credits}의 값이 52보다 큰 row 중 \cd{stdtn\_num}과 \cd{name} column의 값을 조회하는 예제이다. 이렇게 조건(condition) 부분은 column 이름과 값의 비교 형태로 작성될 수 있고, 그러한 조건들의 조합으로 작성될 수 있다.
 
-\begin{shellenv}{shell:sql-select-all-columns}{\cd{SELECT} All Columns Example}\begin{verbatim}
+\begin{shell}{shell:sql-select-all-columns}{\cd{SELECT} All Columns Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT * FROM `students` WHERE `grade` = 'A' AND `credits` > 52;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 주어진 조건을 만족하는 row의 모든 column 값을 조회할 때는 \shellref{shell:sql-select-all-columns}\와 같이 column 이름을 모두 작성하지 않고 \cd{*} 문자로 대신할 수 있다.
 
-\begin{shellenv}{shell:sql-select-without-condition}{\cd{SELECT} Without Condition Example}\begin{verbatim}
+\begin{shell}{shell:sql-select-without-condition}{\cd{SELECT} Without Condition Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT * FROM `students`;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 테이블 내 모든 데이터를 조회할 때는 \shellref{shell:sql-select-without-condition}\과 같이 \cd{WHERE} clause를 생략할 수 있다.
 
@@ -71,17 +79,19 @@ SELECT <c1>, <c2>, ..., <cn> FROM <table-name> WHERE <condition>
 
 CRUD 기능 중 Update(수정)에 해당하는 기능은 \cd{UPDATE} 키워드를 통해 수행된다.
 
-\begin{sqlenv}{sql:update}{SQL \cd{UPDATE} sytnax}\begin{verbatim}
+\begin{sql}{sql:update}{SQL \cd{UPDATE} sytnax}
+\begin{minted}{sql}
 UPDATE <table-name> SET <c1>=<v1>, <c2>=<v2>, ..., <cn>=<vn> WHERE <condition>
-\end{verbatim}
-\end{sqlenv}
+\end{minted}
+\end{sql}
 
 \sqlref{sql:update}\는 \cd{UPDATE} 키워드를 사용한 SQL문의 기본적인 형태로, \cd{table-name} 테이블에서 \cd{condition}을 만족하는 row들의 column 중 \cd{c1} column의 값을 \cd{v1}, \cd{c2} column의 값을 \cd{v2}, ..., \cd{cn} column의 값을 \cd{vn}으로 수정하는 SQL문이다.
 
-\begin{shellenv}{shell:sql-update-example}{\cd{UPDATE} Example}\begin{verbatim}
+\begin{shell}{shell:sql-update-example}{\cd{UPDATE} Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > UPDATE `students` SET `credits` = 73, `is_attending` = 0 WHERE `dptmt` = 32;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \shellref{shell:sql-update-example}\은 \cd{UPDATE} 키워드를 이용하여 \cd{students} 테이블에서 \cd{dptmt}의 값이 32인 모든 row의 \cd{credits} 값을 73, \cd{is\_attending} 값을 0으로 수정하는 예제이다.
 
@@ -91,17 +101,19 @@ UPDATE <table-name> SET <c1>=<v1>, <c2>=<v2>, ..., <cn>=<vn> WHERE <condition>
 
 CRUD 기능 중 Delete(삭제)에 해당하는 기능은 \cd{DELETE} 키워드를 통해 수행된다.
 
-\begin{sqlenv}{sql:delete}{SQL \cd{DELETE} Syntax}\begin{verbatim}
+\begin{sql}{sql:delete}{SQL \cd{DELETE} Syntax}
+\begin{minted}{sql}
 DELETE FROM <table-name> WHERE <condition>
-\end{verbatim}
-\end{sqlenv}
+\end{minted}
+\end{sql}
 
 \sqlref{sql:delete}\는 \cd{DELETE} 키워드를 사용한 SQL문의 기본적인 형태로, \cd{table-name} 테이블에서 \cd{condition}을 만족하는 모든 row를 삭제하는 SQL문이다.
 
-\begin{shellenv}{shell:sql-delete-example}{\cd{DELETE} Example}\begin{verbatim}
+\begin{shell}{shell:sql-delete-example}{\cd{DELETE} Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > DELETE FROM `students` WHERE `dptmt` = 13;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \shellref{shell:sql-delete-example}\은 \cd{DELETE} 키워드를 이용하여 \cd{students} 테이블에서 \cd{dptmt}의 값이 13인 row를 모두 삭제하는 SQL문이다. \cd{DELETE} 키워드를 사용할 때 \cd{WHERE} clause를 생략하면 테이블 내의 모든 데이터가 삭제되므로 주의하여야 한다.
 
@@ -109,10 +121,11 @@ DELETE FROM <table-name> WHERE <condition>
 
 이번 장에서는 CRUD 기능을 수행하는 SQL문을 작성하는 방법에 대해 학습하였다.
 
-\begin{sqlenv}{sql:crud-operations}{SQL CRUD Operations Syntaxes}\begin{verbatim}
+\begin{sql}{sql:crud-operations}{SQL CRUD Operations Syntaxes}
+\begin{minted}{sql}
 INSERT INTO <table-name> (<c1>, <c2>, ..., <cn>) VALUES (<v1>, <v2>, ..., <vn>)
 SELECT <c1>, <c2>, ..., <cn> FROM <table-name> WHERE <condition>
 UPDATE <table-name> SET <c1>=<v1>, <c2>=<v2>, ..., <cn>=<vn> WHERE <condition>
 DELETE FROM <table-name> WHERE <condition>
-\end{verbatim}
-\end{sqlenv}
+\end{minted}
+\end{sql}

@@ -2,7 +2,8 @@
 
 \subsection*{\excref{exc:simple-crud}}
 
-\begin{codeenv}{code:simple-crud-answer}{\excref{exc:simple-crud} Answer}\begin{verbatim}
+\begin{code}{code:simple-crud-answer}{\excref{exc:simple-crud} Answer}
+\begin{minted}{sql}
 SELECT `id`, `c3`, `c5` FROM `crud` WHERE `c1` = 11 AND `c2` = 2;
 SELECT * FROM `crud` WHERE `c1` > 18 OR `c2` < 2;
 INSERT INTO `crud` (`c1`, `c2`, `c3`, `c5`) VALUES (7, 4, 'col101', 0);
@@ -12,12 +13,13 @@ UPDATE `crud` SET `c3` = 'col0', `c5` = 0 WHERE `c1` > 4 AND `c1` < 9 AND `c2` =
 SELECT * FROM `crud` WHERE `c1` > 4 AND `c1` < 9 AND `c2` = 1;
 DELETE FROM `crud` WHERE `c5` = 0;
 SELECT * FROM `crud` WHERE `c5` = 0;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:train-system-sql}}
 
-\begin{codeenv}{code:train-system-sql-answer}{\excref{exc:train-system-sql} Answer}\begin{verbatim}
+\begin{code}{code:train-system-sql-answer}{\excref{exc:train-system-sql} Answer}
+\begin{minted}{sql}
 -- (1)
 SELECT `users`.`id`, `users`.`name`, `tickets`.`seat_number` FROM `tickets`
 INNER JOIN `users` ON `users`.`id` = `tickets`.`user` AND `tickets`.`train` = 11
@@ -76,12 +78,13 @@ FROM   `tickets`
        INNER JOIN `stations` AS `dst` ON `dst`.`id` = `trains`.`destination`
 GROUP  BY `tickets`.`train`
 ORDER  BY `trains`.`id`;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:train-system-server}}
 
-\begin{codeenv}{code:train-system-server-answer}{\excref{exc:train-system-server} Answer}\begin{verbatim}
+\begin{code}{code:train-system-server-answer}{\excref{exc:train-system-server} Answer}
+\begin{minted}{js}
 const express = require('express');
 const { runQuery } = require('./database');
 
@@ -121,7 +124,7 @@ app.get('/train/status', async (req, res, next) => {
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 database.js 모듈은 \coderef{code:runquery-function}\과 \coderef{code:runquery-prepared-statement}\를 참고하여라.

@@ -28,7 +28,8 @@
 
 crypto는 입력값을 암호화하여 해시값을 반환하는 해시 함수를 제공하는 Node.js 내장 모듈이다.
 
-\begin{codeenv}{code:simple-sha512-hashing}{Simple Example of SHA-512 Hashing}\begin{verbatim}
+\begin{code}{code:simple-sha512-hashing}{Simple Example of SHA-512 Hashing}
+\begin{minted}{js}
 const util = require('util');
 const crypto = require('crypto');
 
@@ -42,21 +43,21 @@ const encrypt = async text => {
 };
 
 (async () => await encrypt('samplepassword'))();
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:simple-sha512-hashing}의 \cd{encrypt} 함수는 인자로 받은 문자열을 crypto 모듈의 \cd{pbkdf2} 메서드를 이용하여 SHA-512 알고리즘으로 암호화한 후, 암호화된 데이터(\cd{digest})를 Base64 방식\footnote{6bits의 이진 데이터를 하나의 ASCII 문자로 표현하기 위한 인코딩 방식. 0-63의 값이 A-Z, a-z, 0-9, +, /의 64개 문자에 대응되며, 맨 끝에 빈 부분을 = 문자로 채우기도 한다.}으로 인코딩하여 출력하는 함수이다. \cd{KEY\_LEN}은 해시값 중 사용할 바이트 수를 나타내는 인자로, 예제에서는 64B(=512bits)를 사용한다.
 
 코드 실행 결과 ``samplepassword'' 텍스트는 88자(= 문자를 제외하면 $86=\left\lceil\frac{512}{6}\right\rceil$자)의 문자열로 변환되었음을 확인할 수 있고, 코드를 여러 번 실행하여도 항상 같은 결과가 도출되어 결정론적으로 작동한다는 것을 알 수 있다.
 
-\begin{codeenv}{code:avalanche-effect}{Avalanche Effect (Derived from \coderef{code:simple-sha512-hashing})}
-\begin{Verbatim}[commandchars=\\\{\}]
-(async () => \{
-    await encrypt('samplepasswordsamplepas\textbf{\textcolor{red}{s}}wordsamplepasswordsamplepasswordsample');
-    await encrypt('samplepasswordsamplepas\textbf{\textcolor{red}{t}}wordsamplepasswordsamplepasswordsample');
-\})();
-\end{Verbatim}
-\end{codeenv}
+\begin{code}{code:avalanche-effect}{Avalanche Effect (Derived from \coderef{code:simple-sha512-hashing})}
+\begin{minted}[escapeinside=||]{js}
+(async () => {
+    await encrypt(|\PYG{l+s}{\PYGZsq{}samplepasswordsamplepas\textbf{\textcolor{red}{s}}wordsamplepasswordsamplepasswordsample\PYGZsq{}}|);
+    await encrypt(|\PYG{l+s}{\PYGZsq{}samplepasswordsamplepas\textbf{\textcolor{red}{t}}wordsamplepastwordsamplepasswordsample\PYGZsq{}}|);
+})();
+\end{minted}
+\end{code}
 
 \coderef{code:avalanche-effect}\는 \coderef{code:simple-sha512-hashing}에서 \cd{encrypt} 함수의 인자를 바꾼 것이다. 62자의 문자로 이루어진 두 문자열은 단 한 자만 다르지만 코드를 실행해보면 두 문자열의 해시값이 전혀 다르다는 것, 즉 눈사태 효과를 확인할 수 있다. 이렇게 해시 함수는 매우 큰 데이터에서 매우 작은 차이를 탐지하는데 유용하며, 실제로 크기가 큰 파일이 전송 과정에서 손상되었는지 확인하기 위해 사용되는 체크섬(checksum)을 계산하기 위해 널리 사용된다.
 
@@ -66,19 +67,29 @@ const encrypt = async text => {
 
 레인보우 테이블 사용을 어렵게 하는 첫 번째 방법은 salt를 이용하는 것이다. Salt란 랜덤하게 생성된 충분히 긴 길이의 문자열이며, salt를 이용하여 암호화하고자 하는 텍스트를 변조(salting)한 뒤 해시 함수의 입력값으로 사용하는 것이다. 이렇게 얻은 해시값을 salt와 함께 저장하면 검증하고자 하는 비밀번호를 salting하여 도출된 해시값과 저장되어 있는 해시값을 비교하여 검증할 수 있다. 공격자 입장에서는 입력될 수 있는 경우의 수가 매우 많아져 레인보우 테이블을 통해 입력값을 유추하는 것이 거의 불가능하다.
 
-\begin{codeenv}{code:salting}{Salting Input Text (Derived from \coderef{code:simple-sha512-hashing})}
-\begin{Verbatim}[commandchars=\\\[\]]
-\textbf[const randomBytes = util.promisify(crypto.randomBytes);]
+\begin{code}{code:salting}{Salting Input Text (Derived from \coderef{code:simple-sha512-hashing})}
+\begin{minted}[escapeinside=||]{js}
+|\textbf{\PYG{k+kr}{const} \PYG{n+nx}{randomBytes} \PYG{o}{=} \PYG{n+nx}{util}\PYG{p}{.}\PYG{n+nx}{promisify}\PYG{p}{(}\PYG{n+nx}{crypto}\PYG{p}{.}\PYG{n+nx}{randomBytes}\PYG{p}{)}\PYG{p}{;}}|
 
 const encrypt = async text => {
     const ALGO = 'sha512';
     const KEY_LEN = 64;
-    \textbf[const salt = await randomBytes(32);]
-    const digest = await pbkdf2(text, \textbf[salt], 1, KEY_LEN, ALGO);
+    |\textbf{\PYG{k+kr}{const} \PYG{n+nx}{salt} \PYG{o}{=} \PYG{n+nx}{await} \PYG{n+nx}{randomBytes}\PYG{p}{(}\PYG{l+m+mi}{32}\PYG{p}{)}\PYG{p}{;}}|
+    const digest = await pbkdf2(text, |\textbf{salt}|, 1, KEY_LEN, ALGO);
     console.log(`${text} | ${salt.toString('base64')} | ${digest.toString('base64')}`);
 };
-\end{Verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
+
+% const randomBytes = util.promisify(crypto.randomBytes);
+
+% const encrypt = async text => {
+%     const ALGO = 'sha512';
+%     const KEY_LEN = 64;
+%     const salt = await randomBytes(32);
+%     const digest = await pbkdf2(text, salt, 1, KEY_LEN, ALGO);
+%     console.log(`${text} | ${salt.toString('base64')} | ${digest.toString('base64')}`);
+% };
 
 \coderef{code:salting}\은 \coderef{code:simple-sha512-hashing}\을 수정한 코드로, crypto 모듈의 \cd{randomBytes} 메서드를 이용하여 32B의 salt를 생성한 후, 이를 이용하여 입력값을 salting한 뒤 암호화한 코드이다.
 
@@ -86,18 +97,27 @@ const encrypt = async text => {
 
 레인보우 테이블 사용을 어렵게 하는 두 번째 방법은 암호화를 여러 번 수행하는 것이다. 해시 함수를 통해 salting한 입력값의 해시값을 얻은 후, 이 해시값을 다시 salting한 값의 해시값을 얻는다. 이를 정해진 횟수만큼 반복하여 최종적으로 도출된 해시값을 저장하며, 반복 횟수는 10만 회 이상, 랜덤하게 결정하는 것이 권장된다. 검증 단계에서는 동일한 횟수만큼 반복하여 얻은 해시값과 저장된 해시값을 비교한다.
 
-\begin{codeenv}{code:hashing-key-stretching}{Key Stretching of Hashing (Derived from \coderef{code:salting})}
-\begin{Verbatim}[commandchars=\\\[\]]
+\begin{code}{code:hashing-key-stretching}{Key Stretching of Hashing (Derived from \coderef{code:salting})}
+\begin{minted}[escapeinside=||]{js}
 const encrypt = async text => {
     const ALGO = 'sha512';
     const KEY_LEN = 64;
     const salt = await randomBytes(32);
-    \textbf[const iter = Math.floor(Math.random() * 20000) + 200000;]
-    const digest = await pbkdf2(text, salt, \textbf[iter], KEY_LEN, ALGO);
+    |\textbf{\PYG{k+kr}{const} \PYG{n+nx}{iter} \PYG{o}{=} \PYG{n+nb}{Math}\PYG{p}{.}\PYG{n+nx}{floor}\PYG{p}{(}\PYG{n+nb}{Math}\PYG{p}{.}\PYG{n+nx}{random}\PYG{p}{(}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{20000}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{200000}\PYG{p}{;}}|
+    const digest = await pbkdf2(text, salt, |\textbf{\PYG{n+nx}{iter}}|, KEY_LEN, ALGO);
     console.log(`${text} | ${iter} | ${digest.toString('base64')}`);
 };
-\end{Verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
+
+% const encrypt = async text => {
+%     const ALGO = 'sha512';
+%     const KEY_LEN = 64;
+%     const salt = await randomBytes(32);
+%     const iter = Math.floor(Math.random() * 20000) + 200000;
+%     const digest = await pbkdf2(text, salt, iter, KEY_LEN, ALGO);
+%     console.log(`${text} | ${iter} | ${digest.toString('base64')}`);
+% };
 
 \coderef{code:hashing-key-stretching}\은 \coderef{code:salting}\을 수정한 코드로, 암호화를 20만 이상, 22만 미만의 랜덤 횟수만큼 반복적으로 수행하는 코드이다.
 
@@ -105,25 +125,37 @@ const encrypt = async text => {
 
 이제까지 비밀번호 등의 민감한 정보를 적절히 암호화하는 방법에 대해 학습하였다. 이러한 해시값은 암호화 과정에서 사용된 암호화 알고리즘, 해시값의 길이, salt, 반복 횟수 등의 인자들과 함께 저장되어야 한다.
 
-\begin{codeenv}{code:generating-password}{Password Generation (Derived from \coderef{code:hashing-key-stretching})}
-\begin{Verbatim}[commandchars=\\\[\]]
+\begin{code}{code:generating-password}{Password Generation (Derived from \coderef{code:hashing-key-stretching})}
+\begin{minted}[escapeinside=||]{js}
 const generatePassword = async password => {
     const ALGO = 'sha512';
     const KEY_LEN = 64;
     const salt = await randomBytes(32);
     const iter = Math.floor(Math.random() * 20000) + 200000;
     const digest = await pbkdf2(password, salt, iter, KEY_LEN, ALGO);
-    \textbf[return `${ALGO}:${salt.toString(]
-        \textbf['base64',]
-    \textbf[)}:${iter}:${KEY_LEN}:${digest.toString('base64')}`;]
+    |\textbf{\PYG{k}{return} \PYG{l+s+sb}{\textasciigrave}\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nx}{ALGO}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+sb}{:}\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nx}{salt}\PYG{p}{.}\PYG{n+nx}{toString}\PYG{p}{(}}|
+        |\textbf{\PYG{l+s+s1}{\PYGZsq{}base64\PYGZsq{}}\PYG{p}{,}}|
+    |\textbf{\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+sb}{:}\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nx}{iter}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+sb}{:}\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nx}{KEY\PYGZus{}LEN}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+sb}{:}\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nx}{digest}\PYG{p}{.}\PYG{n+nx}{toString}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}base64\PYGZsq{}}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+sb}{\textasciigrave}\PYG{p}{;}}|
 };
-\end{Verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
+
+% const generatePassword = async password => {
+%     const ALGO = 'sha512';
+%     const KEY_LEN = 64;
+%     const salt = await randomBytes(32);
+%     const iter = Math.floor(Math.random() * 20000) + 200000;
+%     const digest = await pbkdf2(password, salt, iter, KEY_LEN, ALGO);
+%     return `${ALGO}:${salt.toString(
+%         'base64',
+%     )}:${iter}:${KEY_LEN}:${digest.toString('base64')}`;
+% };
 
 \coderef{code:generating-password}의 \cd{generatePassword} 함수는 암호화 인자들과 해시값을 콜론(\cd{:})으로 구분한 문자열을 생성하여 반환하는 함수이다. 비밀번호는 이러한 형태로 DB에 저장된다.
 \clearpage
 
-\begin{codeenv}{code:verifying-password}{Password Verification (Derived from \coderef{code:generating-password})}\begin{verbatim}
+\begin{code}{code:verifying-password}{Password Verification (Derived from \coderef{code:generating-password})}
+\begin{minted}{js}
 const verifyPassword = async (password, hashedPassword) => {
     const [algo, encodedSalt, iterStr, keyLenStr, encodedDigest] =
         hashedPassword.split(':');
@@ -134,12 +166,13 @@ const verifyPassword = async (password, hashedPassword) => {
     const digest = await pbkdf2(password, salt, iter, keyLen, algo);
     return Buffer.compare(digest, storedDigest) === 0;
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:verifying-password}의 \cd{verifyPassword} 함수는 저장된 비밀번호를 이용하여 입력값을 검증하는 함수이다. 저장된 비밀번호로부터 알고리즘, salt, 반복 횟수, 해시값 길이 등 암호화 과정에 사용된 인자들과 해시값을 도출하고, 암호화 과정의 인자들을 이용하여 입력값을 똑같이 암호화한다. 그 결과 도출된 해시값과 저장된 비밀번호의 해시값이 동일하면 옳은 비밀번호로, 다르면 틀린 비밀번호로 판별한다.
 
-\begin{codeenv}{code:password-example}{Example of Password Generation and Verification (Derived from \coderef{code:verifying-password})}\begin{verbatim}
+\begin{code}{code:password-example}{Example of Password Generation and Verification (Derived from \coderef{code:verifying-password})}
+\begin{minted}{js}
 (async () => {
     const hashedPassword = await generatePassword('password');
     const result1 = await verifyPassword('password', hashedPassword);
@@ -147,7 +180,7 @@ const verifyPassword = async (password, hashedPassword) => {
     console.log(`hashed: ${hashedPassword}`);
     console.log(`password: ${result1} / passsword: ${result2}`);
 })();
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:password-example}\은 \cd{generatePassword} 함수를 이용하여 ``passsword'' 문자열을 암호화한 뒤, \cd{verifyPassword} 함수와 암호화된 문자열을 이용하여 두 입력값 ``password''와 ``passsword''가 옳은 비밀번호인지 판별하는 예제이다. ``password''는 옳은 문자열로, ``passsword''는 틀린 문자열로 판별되는 것을 확인할 수 있다.

@@ -32,24 +32,27 @@
 
 \cd{scores} 테이블의 모든 과목은 중간고사 성적(\cd{midterm})에 45\%, 기말고사 성적(\cd{final})에 55\%의 비중을 주어 최종 성적을 계산할 때, 최종 성적을 계산하는 상황을 가정해보자. 앞의 \sectref{sect:crud}에서 공부한 \cd{SELECT} 키워드를 이용하여 모든 row를 조회한 다음, 각 row의 \cd{midterm}과 \cd{final} column의 값에 0.45와 0.55를 곱한 뒤 더하여 산출하여야 한다. 그러나 SQL은 이러한 column 간, column과 상수 간 간단한 연산 기능을 제공한다.
 
-\begin{shellenv}{shell:arithmetic-calculation}{Arithmetic Calculation Example}\begin{verbatim}
+\begin{shell}{shell:arithmetic-calculation}{Arithmetic Calculation Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT *, .45 * `midterm` + .55 * `final` FROM `scores`;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \shellref{shell:arithmetic-calculation}\은 \cd{scores} 테이블의 모든 column과 최종 성적 값을 계산하여 조회하는 SQL문이다.
 
-\begin{shellenv}{shell:arithmetic-calculation-alias}{Arithmetic Calculation Example with \cd{AS} Keyword}\begin{verbatim}
+\begin{shell}{shell:arithmetic-calculation-alias}{Arithmetic Calculation Example with \cd{AS} Keyword}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT *, .45 * `midterm` + .55 * `final` AS `total` FROM `scores`;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \shellref{shell:arithmetic-calculation-alias}\은 \shellref{shell:arithmetic-calculation}에서 \cd{AS} 키워드를 이용하여 최종 성적 값을 \cd{total}로 명명하여 조회하는 SQL문이다. 이렇게 \cd{AS} 키워드를 이용하면 column 이름을 다른 이름으로 조회할 수 있으며, SQL문이 너무 길어지는 것을 방지할 수도 있다. 다만 \cd{AS} 키워드는 원래 column의 이름을 바꾸지 않는다.
 
-\begin{shellenv}{shell:arithmetic-calculation-round}{Rounding Column Value}\begin{verbatim}
+\begin{shell}{shell:arithmetic-calculation-round}{Rounding Column Value}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT *, Round(.45 * `midterm` + .55 * `final`, -1) AS `rough_total` FROM `scores`;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \shellref{shell:arithmetic-calculation-round}\는 \cd{Round} 함수를 이용하여 최종 성적을 10의 자리로 반올림한 값을 \cd{rough\_total}로 명명하여 조회하는 SQL문이다. \cd{Round} 함수의 두 번째 인자를 \cd{n}이라고 하면, 첫 번째 인자의 값을 $10^{-n}$의 자리로 반올림한 값을 반환하며, 기본값은 0이다.
 
@@ -67,30 +70,31 @@
     \item \cd{Sum}: 총 합계를 반환하는 함수
 \end{itemize}
 
-\begin{shellenv}{shell:avg-stddev-example}{Example of \cd{Avg} and \cd{Stddev}}\begin{verbatim}
+\begin{shell}{shell:avg-stddev-example}{Example of \cd{Avg} and \cd{Stddev}}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT Avg(`midterm`), Stddev(`midterm`) FROM `scores`
       WHERE `course` = 'Machine Learning';
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \shellref{shell:avg-stddev-example}\은 집계 함수인 \cd{Avg}와 \cd{Stddev} 함수를 이용하여 ``Machine Learning'' 강의의 중간고사 성적의 평균과 표준편차를 구하는 예제이다.
 
-\begin{shellenv}{shell:count-concat-example}{Example of \cd{Count} and \cd{Group\_concat}}
-\begin{verbatim}
+\begin{shell}{shell:count-concat-example}{Example of \cd{Count} and \cd{Group\_concat}}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT Count(*) AS `80s_count`, Group_concat(`student`) AS `students` FROM `scores`
       WHERE `final` >= 80 AND `final` < 90;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 Row의 개수가 필요한 경우에는 \cd{Count} 함수의 인자로 \cd{*}를 넘겨주면 된다. \shellref{shell:count-concat-example}\은 \cd{Count}와 \cd{Group\_concat} 함수를 이용하여 기말고사 성적이 80 이상, 90 미만인 학생의 수(\cd{80s\_count})와 명단(\cd{students})을 조회하는 예제이다.
 \clearpage
 
-\begin{shellenv}{shell:group-by-example}{Example of \cd{GROUP BY}}
-\begin{verbatim}
+\begin{shell}{shell:group-by-example}{Example of \cd{GROUP BY}}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT `course`, Count(*) AS `cnt`, Avg(`final`) AS `avg`, Stddev(`final`) AS `stddev`
       FROM `scores` GROUP BY `course`;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \cd{scores} 테이블에서 강의별 시험 결과를 조회해야 하는 경우 \cd{GROUP BY} clause를 이용하여 조회 데이터를 그룹화하고 그룹별로 집계 함수의 데이터를 얻을 수 있다. \shellref{shell:group-by-example}\은 \cd{scores} 테이블을 \cd{course} column의 값에 따라 그룹화하여 각 강의의 이름, 응시자 수, 기말고사 평균, 기말고사 표준편차를 조회하는 예제이다.
 
@@ -98,16 +102,18 @@ Row의 개수가 필요한 경우에는 \cd{Count} 함수의 인자로 \cd{*}를
 
 \cd{ORDER BY} 키워드를 이용하면 column의 값에 따라 row들을 정렬할 수 있다. \cd{ASC}는 오름차순, \cd{DESC}는 내림차순을 의미하며 기본값은 \cd{ASC}이다. \shellref{shell:order-by-example}\은 학생의 이름과 최종 성적의 평균을 평균 성적의 내림차순으로 정렬하여 조회한 예제이다.
 
-\begin{shellenv}{shell:order-by-example}{\cd{ORDER BY} Example}\begin{verbatim}
+\begin{shell}{shell:order-by-example}{\cd{ORDER BY} Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT `student`, Avg(.45 * `midterm` + .55 * `final`) AS `total_avg` FROM `scores`
       GROUP BY `student` ORDER BY `total_avg` DESC;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 \cd{LIMIT} 키워드를 이용하면 조회 결과 중 \cd{offset}번째 row부터 \cd{row\_count}개의 row만 조회할 수 있으며, 이를 \cd{LIMIT <offset>, <row\_count>}의 형태로 작성한다. 이때 \cd{offset}은 0부터 count하고, 기본값은 0이다. \shellref{shell:limit-example}\은 \cd{scores} 테이블에서 최종 성적의 내림차순으로 정렬한 row 중 2번째 row부터 4개의 row를 조회하는 예제이다.
 
-\begin{shellenv}{shell:limit-example}{\cd{LIMIT} Example}\begin{verbatim}
+\begin{shell}{shell:limit-example}{\cd{LIMIT} Example}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 > SELECT *, .45 * `midterm` + .55 * `final` AS `total` FROM `scores`
       ORDER BY `total` DESC LIMIT 2, 4;
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}

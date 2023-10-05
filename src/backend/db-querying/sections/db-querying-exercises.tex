@@ -41,10 +41,11 @@
 
 여행 시간은 출발 시각과 도착 시각의 시간 차이로 계산하며, 두 시각의 시간 차는 \cd{Timediff} 함수를 이용하여 구할 수 있다. \coderef{code:sql-timediff}\는 \cd{former} 값과 \cd{latter} 값의 시간 차 \cd{diff}를 구하는 SQL문이다.
 
-\begin{codeenv}{code:sql-timediff}{\cd{Timediff} Function Example}\begin{verbatim}
-> SELECT Timediff(`latter`, `former`) AS `diff` FROM `table`;
-\end{verbatim}
-\end{codeenv}
+\begin{code}{code:sql-timediff}{\cd{Timediff} Function Example}
+\begin{minted}{sql}
+SELECT Timediff(`latter`, `former`) AS `diff` FROM `table`;
+\end{minted}
+\end{code}
 
 각 문제의 SQL문 실행 결과는 \figref{fig:train-system-sql-result}\와 같아야 한다.
 

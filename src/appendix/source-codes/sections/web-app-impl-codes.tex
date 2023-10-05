@@ -1,6 +1,7 @@
 \section{Web Application Implementation Source Codes}\label{sect:web-app-impl-codes}
 
-\begin{codeenv}{code:user-dao}{User DAO (src/DAO/user.js)}\begin{verbatim}
+\begin{code}{code:user-dao}{User DAO (src/DAO/user.js)}
+\begin{minted}{js}
 const { runQuery } = require('../lib/database');
 
 const getByUsername = async username => {
@@ -20,10 +21,11 @@ module.exports = {
     getByUsername,
     create,
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
-\begin{codeenv}{code:article-dao}{Article DAO (src/DAO/article.js)}\begin{verbatim}
+\begin{code}{code:article-dao}{Article DAO (src/DAO/article.js)}
+\begin{minted}{js}
 const { runQuery } = require('../lib/database');
 
 // formatDate, replaceDate
@@ -88,10 +90,11 @@ module.exports = {
     update,
     remove,
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
-\begin{codeenv}{code:index-ctrl}{Index Controller (src/controller/ctrl.js)}\begin{verbatim}
+\begin{code}{code:index-ctrl}{Index Controller (src/controller/ctrl.js)}
+\begin{minted}{js}
 // GET /
 const indexPage = async (req, res, next) => {
     try {
@@ -102,10 +105,11 @@ const indexPage = async (req, res, next) => {
     }
 };
 module.exports = { indexPage };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
-\begin{codeenv}{code:auth-ctrl}{Auth Controller (src/controller/auth/ctrl.js)}\begin{verbatim}
+\begin{code}{code:auth-ctrl}{Auth Controller (src/controller/auth/ctrl.js)}
+\begin{minted}{js}
 const { UserDAO } = require('../../DAO');
 const { generatePassword, verifyPassword } = require('../../lib/authentication');
 
@@ -190,10 +194,11 @@ module.exports = {
     signUp,
     signOut,
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
-\begin{codeenv}{code:article-ctrl}{Article Controller (src/controller/article/ctrl.js)}\begin{verbatim}
+\begin{code}{code:article-ctrl}{Article Controller (src/controller/article/ctrl.js)}
+\begin{minted}{js}
 const { ArticleDAO } = require('../../DAO');
 
 // GET /article/:articleId(\\d+)
@@ -297,10 +302,11 @@ module.exports = {
     editArticle,
     deleteArticle,
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
-\begin{codeenv}{code:articles-ctrl}{Articles Controller (Added to \coderef{code:index-ctrl})}\begin{verbatim}
+\begin{code}{code:articles-ctrl}{Articles Controller (Added to \coderef{code:index-ctrl})}
+\begin{minted}{js}
 const { ArticleDAO } = require('../DAO');
 
 // indexPage
@@ -346,5 +352,5 @@ module.exports = {
     listArticles,
     latestArticles,
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}

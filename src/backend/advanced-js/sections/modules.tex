@@ -16,17 +16,19 @@ Node.js는 파일 시스템을 다루기 위한 모듈인 fs, HTTP 요청을 보
 
 \shellref{shell:external-module-install}\은 JS에서 배열, 객체 등 필수적인 자료형을 간편하게 다루는 여러 유용한 메서드를 제공하는 lodash 모듈을 설치하는 방법이다. 설치가 완료되면 프로젝트 디렉토리 내에 ``node\_modules''라는 디렉토리가 생성되고, 그 안에 lodash 디렉토리가 생성된 것을 확인할 수 있다.\footnote{설치 과정에서 보듯, 외장 모듈들은 인터넷에서 다운로드하여 설치할 수 있으므로 git에 의해 추적되지 않아야 한다.}
 
-\begin{shellenv}{shell:external-module-install}{Installing External Module}\begin{verbatim}
+\begin{shell}{shell:external-module-install}{Installing external module}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ npm install lodash
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 \clearpage
 
 \subsection*{Generating Module}
 
 모듈은 하나의 파일이 하나의 모듈로 간주된다. \cd{module.exports}에 모듈 밖에서 사용할 상수, 함수, 객체 등의 값을 할당하여 export 하면, 다른 파일에서 이 모듈을 import하여 모듈 내의 상수, 함수, 객체 등을 사용할 수 있다. \coderef{code:creating-module}은 둥근 도형들의 넓이, 부피 등을 계산하는 모듈을 생성하는 예제이다.
 
-\begin{codeenv}{code:creating-module}{Creating Module (circular-shapes.js)}\begin{verbatim}
+\begin{code}{code:creating-module}{Creating module (circular-shapes.js)}
+\begin{minted}{js}
 const PI = 3.14159265358;
 
 const round = number => Math.round(number * 100) / 100;
@@ -47,20 +49,21 @@ module.exports = {
     getCylinderSurfaceArea: getCylinderSurfaceArea,
     getSphereVolume: radius => round(4 * PI * radius ** 3 / 3),
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 다른 파일에서는 \coderef{code:creating-module}의 모듈의 변수, 상수, 함수 중 \cd{PI}와 \cd{round}에는 접근할 수 없고, \cd{getCircumference}, \cd{getCircleArea}, \cd{getCylinderSurfaceArea}, \cd{getSphereVolume}에는 접근할 수 있다.
 
-\begin{codeenv}{code:property-shorthand}{Property Shorthand}\begin{verbatim}
+\begin{code}{code:property-shorthand}{Property shorthand}
+\begin{minted}{js}
 module.exports = {
     getCircumference,
     getCircleArea,
     getCylinderSurfaceArea,
     getSphereVolume: radius => round(4 * PI * radius ** 3 / 3),
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 참고로, \coderef{code:creating-module}에서 \cd{getCircleArea} 등과 같이 객체의 속성의 이름과 값에 할당되는 변수의 이름이 같을 경우 \coderef{code:property-shorthand}\와 같이 줄여쓸 수 있다.
 \clearpage
@@ -71,7 +74,8 @@ module.exports = {
 
 먼저, \coderef{code:import-internal-module}\은 내장 모듈인 \cd{path}를 \cd{require} 함수를 이용해 import하여 \cd{path}라는 상수에 할당하고, 이를 사용하는 코드이다.
 
-\begin{codeenv}{code:import-internal-module}{Import Internal Module}\begin{verbatim}
+\begin{code}{code:import-internal-module}{Import internal module}
+\begin{minted}{js}
 const path = require('path');
 
 const myFile = '/home/ubuntu/kuniv/kweb/example.js';
@@ -82,12 +86,13 @@ const extname = path.extname(myFile);
 console.log(`path.dirname = ${dirname}`);
 console.log(`path.basename = ${basename}`);
 console.log(`path.extname = ${extname}`);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:import-custom-module}\은 앞서 작성한 circular-shapes.js 모듈을 파일의 상대 경로를 \cd{require} 함수의 인자로 전달하여 import하고 사용하는 코드이다. 이때 circular-shapes.js 파일은 \coderef{code:import-custom-module} 파일과 같은 디렉토리에 있다.
 
-\begin{codeenv}{code:import-custom-module}{Import Custom Module \cd{circularShapes}}\begin{verbatim}
+\begin{code}{code:import-custom-module}{Import custom module \cd{circularShapes}}
+\begin{minted}{js}
 const circularShapes = require('./circular-shapes');
 
 const r = 10;
@@ -96,18 +101,20 @@ const h = 20;
 console.log(`Circumference = ${circularShapes.getCircumference(r)}`);
 console.log(`Circle Area = ${circularShapes.getCircleArea(r)}`);
 console.log(`Sphere Volume = ${circularShapes.getSphereVolume(r)}`);
-console.log(`Cylinder Surface Area = ${circularShapes.getCylinderSurfaceArea(r, h)}`);
-\end{verbatim}
-\end{codeenv}
+console.log(`Cylinder Surface Area = ${
+    circularShapes.getCylinderSurfaceArea(r, h)}`);
+\end{minted}
+\end{code}
 
 모듈 전체를 import한 \coderef{code:import-custom-module}\과는 달리 비구조화 할당을 이용하면 \coderef{code:import-part-module}\과 같이 모듈의 일부분만 import하여 사용할 수 있다.
 
-\begin{codeenv}{code:import-part-module}{Import Part of Module}\begin{verbatim}
+\begin{code}{code:import-part-module}{Import part of module}
+\begin{minted}{js}
 const { getCylinderSurfaceArea } = require('./circular-shapes');
 
 const r = 10;
 const h = 20;
 
 console.log(`Surface Area of Cylinder = ${getCylinderSurfaceArea(r, h)}`);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}

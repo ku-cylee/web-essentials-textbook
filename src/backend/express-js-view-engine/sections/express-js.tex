@@ -14,17 +14,19 @@ Node.js에서 동작하는 JS의 웹 프레임워크에는 대표적으로 Expre
 
 Express.js 프레임워크를 이용하여 간단한 웹 서버를 구현해보자.
 
-\begin{shellenv}{shell:create-express-server}{Create Express Server}\begin{verbatim}
+\begin{shell}{shell:create-express-server}{Create Express Server}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ npm init -y
 $ npm install express
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 먼저 \shellref{shell:create-express-server}\와 같이 Node.js 프로젝트를 생성하고, express 모듈을 설치한 뒤, 적절한 gitignore 파일을 생성한다. \cd{npm init} 명령은 Node.js 프로젝트에 관한 정보를 담은 package.json 파일이 생성되며, \cd{-y} 옵션을 붙이면 기본 설정을 그대로 사용한다. 프로젝트에서 사용하는 모듈을 npm을 이용하여 설치하면 모듈들의 이름과 버전이 package.json 파일의 \cd{dependencies} 속성에 기록되어 다른 개발 환경에서 프로젝트를 실행할 때 모듈 파일들을 직접 복사하지 않고도 모듈을 설치할 수 있고, 그렇기 때문에 모듈들이 저장된 node\_modules 디렉토리는 gitignore 파일에 의해 추적되지 않아야 한다.
 
 이제 index.js를 생성하고, \coderef{code:simple-express-server}의 코드를 작성한 후 실행한다.
 
-\begin{codeenv}{code:simple-express-server}{Simple Express Server}\begin{verbatim}
+\begin{code}{code:simple-express-server}{Simple Express Server}
+\begin{minted}{js}
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -32,8 +34,8 @@ const port = 3000;
 app.get('/', (req, res) => res.send('Hello World!'));
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:simple-express-server}\는 \coderef{code:nodejs-simple-web-server}(\pageref{code:nodejs-simple-web-server}쪽)\를 Express.js로 다시 작성한 코드로, 거의 같은 기능을 수행하면서 코드는 매우 간결해진 것을 확인할 수 있다.
 
@@ -66,7 +68,8 @@ Express.js는 이러한 라우팅을 간편하게 할 수 있는 라우팅 메�
 
 Express.js로 생성된 애플리케이션은 일련의 미들웨어를 순차적으로 실행하는 애플리케이션이라고 요약할 수 있다. 여기에서 미들웨어(middleware)란, 요청 객체와 응답 객체, 그리고 요청 - 응답 처리 과정 중 그 다음 미들웨어 함수에 대한 접근 권한을 갖는 함수이다.
 
-\begin{codeenv}{code:middleware-example}{Middleware Example}\begin{verbatim}
+\begin{code}{code:middleware-example}{Middleware Example}
+\begin{minted}{js}
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -89,8 +92,8 @@ app.get('/', (req, res) => res.send('GET /'));
 app.post('/', (req, res) => res.send('POST /'));
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:middleware-example}\은 두 미들웨어를 \cd{use} 메서드를 이용하여 웹 서버 애플리케이션에 bind하는 코드이다. 첫 번째 미들웨어는 0 이상 10 미만 랜덤 정수 \cd{randomNumber}를 뽑아 출력하고, \cd{randomNumber}가 3의 배수이면 403 Forbidden 에러를 HTTP 응답으로 보내고, 3의 배수가 아니면 다음 함수(\cd{next})를 호출한다. 두 번째 미들웨어는 요청 객체(\cd{req})에서 요청의 메서드와 경로를 가져와 라우트를 출력하고, 다음 함수를(\cd{next})를 호출한다. 그 이후 라우팅을 통해 각 요청에 맞는 응답을 보낸다.
 
@@ -106,7 +109,8 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 
 라우팅은 express 모듈의 \cd{Router} 객체를 이용하여 미들웨어 형태로 작성될 수 있다. router.js를 생성하고 \coderef{code:middleware-routing-router}\와 같이 작성한다.
 
-\begin{codeenv}{code:middleware-routing-router}{Routing with Middleware - router.js}\begin{verbatim}
+\begin{code}{code:middleware-routing-router}{Routing with Middleware - router.js}
+\begin{minted}{js}
 const { Router } = require('express');
 
 const router = Router();
@@ -115,13 +119,14 @@ router.get('/', (req, res) => res.send('GET /'));
 router.post('/', (req, res) => res.send('POST /'));
 
 module.exports = router;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
 이후 index.js를 \coderef{code:middleware-routing-index}\와 같이 작성한다.
 
-\begin{codeenv}{code:middleware-routing-index}{Routing with Middleware - index.js}\begin{verbatim}
+\begin{code}{code:middleware-routing-index}{Routing with Middleware - index.js}
+\begin{minted}{js}
 const express = require('express');
 const router = require('./router');
 const port = 3000;
@@ -131,8 +136,8 @@ const app = express();
 app.use('/', router);
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 이 프로그램은 라우팅 기능을 미들웨어 형태로 router.js에 구현하고, 이를 index.js에서 모듈 형태로 import하여 \cd{app} 객체에 추가하여 구현되었다. 이렇게 \cd{Router} 객체와 모듈을 이용하면 라우팅과 관련된 코드를 분리하여 프로젝트를 구조화할 수 있다.
 

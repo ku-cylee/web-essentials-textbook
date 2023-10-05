@@ -52,8 +52,6 @@
 \definecolor{codebg}{HTML}{f2f2f2}
 \definecolor{codelinenumber}{HTML}{707070}
 
-\usemintedstyle{sas}
-
 \setminted{
     linenos,
     bgcolor=codebg,
@@ -62,27 +60,34 @@
     framesep=10pt,
     framerule=0pt,
     numbersep=-5pt,
-    xleftmargin=20pt,
+    xleftmargin=16pt,
     xrightmargin=2pt,
-    escapeinside=@@
 }
+
+\usemintedstyle{sas}
 
 \renewcommand{\theFancyVerbLine}{\textcolor[HTML]{707070}{\small\arabic{FancyVerbLine}}}
 
 \DeclareFloatingEnvironment[name=Code, within=chapter]{codefloat}
 \newenvironment{code}[2]{
+    \vspace{8pt}
     \captionsetup{type=codefloat, font=normalsize}
     \caption{#2}\label{#1}
+    \vspace{-10pt}
 }{}
 
 \DeclareFloatingEnvironment[name=Shell, within=chapter]{shellfloat}
 \newenvironment{shell}[2]{
+    \vspace{8pt}
     \captionsetup{type=shellfloat, font=normalsize}
     \caption{#2}\label{#1}
+    \vspace{-10pt}
 }{}
 
 \DeclareFloatingEnvironment[name=SQL, within=chapter]{sqlfloat}
 \newenvironment{sql}[2]{
+    \vspace{8pt}
     \captionsetup{type=sqlfloat, font=normalsize}
     \caption{#2}\label{#1}
+    \vspace{-10pt}
 }{}

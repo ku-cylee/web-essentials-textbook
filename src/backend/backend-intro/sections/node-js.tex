@@ -14,21 +14,23 @@ Node.js 플랫폼은 홈페이지(https://nodejs.org/)에서 제공된다. 홈�
 
 Windows와 macOS에서는 홈페이지에서 LTS 버전 설치 파일을 다운로드한 후, 설치 파일을 실행해 추가 옵션 없이 설치한다. Linux 계열 운영체제는 Terminal\footnote{Shell에서 \cd{\$} 문자는 입력란을 뜻하므로 \cd{\$ } 부분은 입력하지 않는다.}을 열고 \shellref{shell:nodejs-linux-install}\을 따라 설치 파일을 다운로드한 후 설치한다. 이때 \cd{<major-version>} 부분에 다운로드 하고자 하는 버전의 major 번호\footnote{18.18.0 버전의 경우 18}를 대입한다.
 
-\begin{shellenv}{shell:nodejs-linux-install}{Installing Node.js on Linux}\begin{verbatim}
+\begin{shell}{shell:nodejs-linux-install}{Installing Node.js on Linux}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ curl -sL https://deb.nodesource.com/setup_<major-version>.x | sudo bash -
 $ sudo apt install -y nodejs
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 설치가 완료되면 Windows에서는 cmd, UNIX 계열 운영체제에서는 Terminal 등의 shell을 실행하여 \shellref{shell:nodejs-version}\과 같이 Node.js와 npm의 버전을 확인한다.
 
-\begin{shellenv}{shell:nodejs-version}{Confirming Node.js Version for v16.17.0}\begin{verbatim}
+\begin{shell}{shell:nodejs-version}{Confirming Node.js Version for v18.18.0}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ node -v
 v18.18.0
 $ npm -v
 9.8.1
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 여담으로, \cd{node} 명령어를 실행하면 웹 브라우저의 개발자 도구의 Console과 같은 REPL shell을 사용할 수 있다.
 
@@ -36,7 +38,8 @@ $ npm -v
 
 Node.js 홈페이지에는 JS로 구현된 아주 간단한 웹 서버 애플리케이션이 제시되어 있다. 프로젝트 디렉토리를 생성하고, index.js 파일을 생성하여 \coderef{code:nodejs-simple-web-server}\와 같이 작성한다.
 
-\begin{codeenv}{code:nodejs-simple-web-server}{Simple Web Server: index.js}\begin{verbatim}
+\begin{code}{code:nodejs-simple-web-server}{Simple Web Server: index.js}
+\begin{minted}{js}
 const http = require('http');
 
 const hostname = '127.0.0.1';
@@ -51,14 +54,15 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 이제 shell에서 \shellref{shell:running-simple-web-server}\와 같이 index.js를 실행하고, 브라우저를 실행하여 http://127.0.0.1:3000/\footnote{127.0.0.1은 localhost이므로 http://localhost:3000/에 접속하여도 된다.}에 접속하여 응답 결과를 확인한다.
 
-\begin{shellenv}{shell:running-simple-web-server}{Running index.js}\begin{verbatim}
+\begin{shell}{shell:running-simple-web-server}{Running index.js}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ node index.js
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 Insomnia에서도 GET http://127.0.0.1:3000/로 요청을 보내보고, 메서드와 URL을 바꾸어서도 요청을 보내본다.

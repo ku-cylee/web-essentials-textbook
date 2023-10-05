@@ -8,7 +8,8 @@
 
 이때 \cd{form} 요소의 body는 요소 내부의 모든 입력 요소(\cd{input} 또는 \cd{textarea} 태그)의 데이터를 보내게 되는데, 입력 요소의 \cd{name} 속성의 값이 key, \cd{value} 속성의 값이 value가 된다.
 
-\begin{codeenv}{code:form-tag}{form Tag Example}\begin{verbatim}
+\begin{code}{code:form-tag}{form Tag Example}
+\begin{minted}{html}
 <form method="post" action="/login">
     <div>
         <label>Username:</label>
@@ -24,8 +25,8 @@
     </div>
     <button type="submit">Submit</button>
 </form>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:form-tag}\는 \cd{form} 요소를 작성한 예제로, 사용자가 ``Submit'' 버튼을 클릭하면 \cd{\#username-input}, \cd{\#password-input}, \cd{\#introduce-input} 요소의 \cd{value} 값이 각각 HTTP 요청의 body(GET 요청일 경우 query)에 \cd{username}, \cd{password}, \cd{introduction} 속성의 값이 되고, 이 요청이 POST /login으로 보내지게 된다.
 

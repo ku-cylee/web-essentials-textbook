@@ -2,7 +2,8 @@
 
 \subsection*{\excref{exc:express-query-body}}
 
-\begin{codeenv}{code:express-query-body-answer}{\excref{exc:express-query-body} Answer}\begin{verbatim}
+\begin{code}{code:express-query-body-answer}{\excref{exc:express-query-body} Answer}
+\begin{minted}{js}
 const express = require('express');
 
 const app = express();
@@ -22,12 +23,13 @@ app.put('/', (req, res) => res.send(objectToString(req.body)));
 app.delete('/', (req, res) => res.send(objectToString(req.body)));
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:express-params}}
 
-\begin{codeenv}{code:express-params-answer}{\excref{exc:express-params} Answer}\begin{verbatim}
+\begin{code}{code:express-params-answer}{\excref{exc:express-params} Answer}
+\begin{minted}{js}
 const express = require('express');
 
 const app = express();
@@ -39,13 +41,14 @@ app.get('/board/page/:page', (req, res) => {
 })
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
 \subsection*{\excref{exc:express-factorial}}
 
-\begin{codeenv}{code:express-factorial-answer}{\excref{exc:express-factorial} Answer}\begin{verbatim}
+\begin{code}{code:express-factorial-answer}{\excref{exc:express-factorial} Answer}
+\begin{minted}{js}
 const express = require('express');
 
 const app = express();
@@ -65,12 +68,13 @@ app.get('/factorial/:number', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:form-login}}
 
-\begin{codeenv}{code:form-login-answer-index-js}{\excref{exc:form-login} Answer (index.js)}\begin{verbatim}
+\begin{code}{code:form-login-answer-index-js}{\excref{exc:form-login} Answer (index.js)}
+\begin{minted}{js}
 const express = require('express');
 
 const app = express();
@@ -89,25 +93,43 @@ app.post('/login', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
-\begin{codeenv}{code:form-login-answer-login-pug}{\excref{exc:form-login} Answer (views/login.pug)}\begin{verbatim}
+\begin{code}{code:form-login-answer-login-pug}{\excref{exc:form-login} Answer (views/login.pug)}
+\begin{minted}[escapeinside=||]{pug}
 doctype html
 html
     head
         title Login Page
     body
-        form(method='post', action='/login')
+    |\PYG{n+nt}{form}(\PYG{n+na}{method=}\PYG{l+s}{\PYGZsq{}post\PYGZsq{}}\PYG{n+nt}{, action}=\PYG{l+s}{\PYGZsq{}/login\PYGZsq{}}\PYG{n+nt}{)}|
             div
                 label Username:
-                input#username-input(name='username', type='text')
+                |\PYG{n+nt}{input}\PYG{n+nf}{\PYGZsh{}username\PYGZhy{}input}(\PYG{n+na}{name=}\PYG{l+s}{\PYGZsq{}username\PYGZsq{}}\PYG{n+nt}{, type}=\PYG{l+s}{\PYGZsq{}text\PYGZsq{}}\PYG{n+nt}{)}|
             div
                 label Password:
-                input#password-input(name='password', type='password')
+                |\PYG{n+nt}{input}\PYG{n+nf}{\PYGZsh{}password\PYGZhy{}input}(\PYG{n+na}{name=}\PYG{l+s}{\PYGZsq{}password\PYGZsq{}}\PYG{n+nt}{, type}=\PYG{l+s}{\PYGZsq{}password\PYGZsq{}}\PYG{n+nt}{)}|
             div
                 div Introduce yourself
-                textarea#introduction-input(name='introduction')
-            button(type='submit') Submit
-\end{verbatim}
-\end{codeenv}
+                |\PYG{n+nt}{textarea}\PYG{n+nf}{\PYGZsh{}introduction\PYGZhy{}input}(\PYG{n+na}{name=}\PYG{l+s}{\PYGZsq{}introduction\PYGZsq{}}\PYG{n+nt}{)}|
+            |\PYG{n+nt}{button}(\PYG{n+na}{type=}\PYG{l+s}{\PYGZsq{}submit\PYGZsq{}}\PYG{n+nt}{) }\PYG{n+nt}{Submit}|
+\end{minted}
+\end{code}
+
+% doctype html
+% html
+%     head
+%         title Login Page
+%     body
+%         form(method='post', action='/login')
+%             div
+%                 label Username:
+%                 input#username-input(name='username', type='text')
+%             div
+%                 label Password:
+%                 input#password-input(name='password', type='password')
+%             div
+%                 div Introduce yourself
+%                 textarea#introduction-input(name='introduction')
+%             button(type='submit') Submit

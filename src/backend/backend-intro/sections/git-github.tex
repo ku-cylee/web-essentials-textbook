@@ -34,17 +34,19 @@ git은 프로젝트를 저장소(repository)에 저장하여 관리한다. 특�
 
 git은 소프트웨어 개발에서 거의 빠지지 않고 사용되기 때문에 미리 설치되어 있는 경우가 종종 있다. macOS에서는 Xcode를 설치할 때 같이 설치되며, Linux 계열의 운영체제에는 사전에 설치되어 있는 경우가 많다. \shellref{shell:git-version}\과 같이 git이 설치되어 있는지 확인할 수 있다.
 
-\begin{shellenv}{shell:git-version}{Checking git version}\begin{verbatim}
+\begin{shell}{shell:git-version}{Checking git version}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ git --version
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 Windows와 macOS에서는 git 홈페이지(https://git-scm.com/downloads)에서 자신의 운영체제에 맞는 설치파일을 다운받고, 실행하여 추가 옵션 없이 설치한다. Ubuntu와 같은 Linux 계열의 OS에서는 \shellref{shell:git-install-ubuntu}과 같이 설치한다.
 
-\begin{shellenv}{shell:git-install-ubuntu}{git Installation (Ubuntu)}\begin{verbatim}
+\begin{shell}{shell:git-install-ubuntu}{git Installation (Ubuntu)}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ sudo apt install -y git
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 이후 설치가 완료되면 \shellref{shell:git-version}\과 같은 방법으로 설치가 잘 되었는지 확인한다.
 \clearpage
@@ -66,28 +68,31 @@ GitHub은 대표적인 git 원격 저장소 무료 호스팅 사이트로, git�
 
 이제 이 프로젝트를 \cd{clone} 명령어를 통해 로컬 환경에 다운로드 받을 수 있다. 프로젝트를 다운받고자 하는 디렉토리에서 shell을 실행하고, \shellref{shell:git-clone}에서 \cd{<repo-url>} 부분에 원격 저장소 주소를 입력하여 실행한다. 이후 프로젝트가 원하는 디렉토리에 정상적으로 clone 되었는지 확인한다.
 
-\begin{shellenv}{shell:git-clone}{Clone remote repository to local}\begin{verbatim}
+\begin{shell}{shell:git-clone}{Clone remote repository to local}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ git clone <repo-url>
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 \clearpage
 
 \subsection*{Commit Project Updates}
 
 이제 \sectref{sect:node-js}에서 작성한 코드를 활용하여 로컬 환경에 clone된 프로젝트를 수정하고, 수정한 내역을 commit 해본다. 먼저 프로젝트 내에 .gitignore 파일을 생성\footnote{파일 시스템은 . 으로 시작하는 파일을 만드는 것을 그다지 좋아하지 않으므로, VS Code 등의 IDE를 이용하여 만드는 것을 추천한다.}하고, \coderef{code:gitignore-example}\과 같이 작성하여 확장자가 txt인 모든 파일을 추적하지 않도록 한다.
 
-\begin{codeenv}{code:gitignore-example}{.gitignore}\begin{verbatim}
+\begin{code}{code:gitignore-example}{.gitignore}
+\begin{minted}{text}
 *.txt
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 프로젝트 디렉토리에 index.js를 생성하고, \coderef{code:nodejs-simple-web-server}(\pageref{code:nodejs-simple-web-server}쪽)의 코드를 작성한다. 이후 \shellref{shell:commit-and-push}\와 같은 과정을 통해 변경 사항을 commit하고, 이를 원격 저장소에 push한다. 이때 \cd{git add .} 명령어는 프로젝트 내 모든 파일의 변경 사항을 추적하여 staging area로 올린다는 뜻이다. 이후 원격 저장소에서 commit 내역을 확인하여, 변경 사항이 정상적으로 반영되었는지 확인한다.
 
-\begin{shellenv}{shell:commit-and-push}{Commit Changes and Push Commits}\begin{verbatim}
+\begin{shell}{shell:commit-and-push}{Commit Changes and Push Commits}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ git add .
 $ git commit -m <commit-message>
 $ git push
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 이제 index.js에서 \cd{port}의 값을 4000으로 바꾸고, config.txt 파일을 생성하여 아무 내용이나 입력해보자. 그러면 index.js에서는 \cd{port}가 선언된 네 번째 줄에서 변경이 발생하였고, config.txt는 .gitignore에 의해 추적되지 않으므로 변경 사항으로 간주되지 않을 것임을 예상할 수 있다. \shellref{shell:commit-and-push} 과정을 통해 변경사항을 다시 commit 및 push하고, 원격 저장소에서 commit 내역을 확인하여 이와 같은 예상이 맞는지 확인해본다.

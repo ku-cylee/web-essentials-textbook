@@ -7,7 +7,8 @@
 $$ \mathrm{Permutation}:~{}_n\mathrm{P}_r = \frac{n!}{(n-r)!}~~/~~\mathrm{Multiset~Permutation}:~n^r $$
 $$ \mathrm{Combination}:~\binom{n}{r} = \frac{n!}{(n-r)!~r!}~~/~~\mathrm{Multiset~Combination}:~\left(\kern-.3em\binom{n}{r}\kern-.3em\right) = \binom{n+r-1}{r} $$
 
-\begin{codeenv}{code:cases-module-example}{\excref{exc:cases-module} Example}\begin{verbatim}
+\begin{code}{code:cases-module-example}{\excref{exc:cases-module} Example}
+\begin{minted}{js}
 const cases = require('./cases');
 
 const n = 8;
@@ -18,20 +19,21 @@ console.log(`Permutation: ${cases.permutation(n, r)}`);
 console.log(`Combination: ${cases.combination(n, r)}`);
 console.log(`Multi Permutation: ${cases.multiPermutation(n, r)}`);
 console.log(`Multi Combination: ${cases.multiCombination(n, r)}`);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:cases-module-example}\은 cases 모듈을 이용하여 작성한 예시 코드이다. 이 코드를 실행하였을 때 결과는 \shellref{shell:cases-module-example-result}\와 같아야 한다.
 
-\begin{shellenv}{shell:cases-module-example-result}{\excref{exc:cases-module} Example Result}\begin{verbatim}
+\begin{shell}{shell:cases-module-example-result}{\excref{exc:cases-module} Example result}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ node index.2.1.js
 n = 8, r = 3
 Permutation: 336
 Combination: 56
 Multi Permutation: 512
 Multi Combination: 120
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 \clearpage
 
 \subsection*{\excstref{exc:directory-search}: Directory Search}
@@ -43,7 +45,8 @@ Multi Combination: 120
     \item path: \cd{extname}, \cd{join}
 \end{itemize}
 
-\begin{shellenv}{shell:directory-search-example}{\excref{exc:directory-search} Example (On Linux)}\begin{verbatim}
+\begin{shell}{shell:directory-search-example}{\excref{exc:directory-search} Example (On Linux)}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ tree test
 test
 ├── 01.js
@@ -67,12 +70,13 @@ test
     └── test51
         ├── 511.js
         └── 511.py
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}
 
 예를 들어 test 디렉토리의 내부 구조가 \shellref{shell:directory-search-example}\과 같을 때, 프로그램의 실행 결과는 \shellref{shell:directory-search-example-result}\와 같아야 한다.
 
-\begin{shellenv}{shell:directory-search-example-result}{\excref{exc:directory-search} Example Result}\begin{verbatim}
+\begin{shell}{shell:directory-search-example-result}{\excref{exc:directory-search} Example result}
+\begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ node index.2.2.js
 test\01.js
 test\02.js
@@ -81,5 +85,5 @@ test\test1\12.js
 test\test2\21.js
 test\test4\41.js
 test\test5\test51\511.js
-\end{verbatim}
-\end{shellenv}
+\end{minted}
+\end{shell}

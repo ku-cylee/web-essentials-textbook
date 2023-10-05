@@ -44,7 +44,8 @@
 
 각 라우트에 대한 컨트롤러를 구현해보자. 모든 컨트롤러는 \coderef{code:controller-format}\와 같은 형태를 가지며, 컨트롤러에서 에러가 발생하면 \cd{next} 함수에 에러 객체 \cd{err}를 전달하여 호출한다.
 
-\begin{codeenv}{code:controller-format}{Controller Format}\begin{verbatim}
+\begin{code}{code:controller-format}{Controller Format}
+\begin{minted}{js}
 const controllerName = async (req, res, next) => {
     try {
         // Controller function
@@ -52,8 +53,8 @@ const controllerName = async (req, res, next) => {
         return next(err);
     }
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 src/controller/ctrl.js를 생성하고, 다음 controller를 구현한 뒤 export하여라. 결과는 \coderef{code:index-ctrl}\를 참고하여라.
 
@@ -131,7 +132,8 @@ src/controller/auth/ctrl.js를 생성하고, 다음 controller를 구현한 뒤 
     \item Hint: 세션을 삭제하는 방법은 \sectref{sect:cookie-session} 참고
 \end{itemize}
 
-\begin{codeenv}{code:auth-routing}{Auth Routing}\begin{verbatim}
+\begin{code}{code:auth-routing}{Auth Routing}
+\begin{minted}{js}
 const { Router } = require('express');
 
 const ctrl = require('./ctrl');
@@ -147,12 +149,13 @@ router.post('/sign_up', ctrl.signUp);
 router.get('/sign_out', ctrl.signOut);
 
 module.exports = router;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 이제 각 controller 함수를 각 라우트에 연결하는 라우팅을 해보자. src/controller/auth/index.js를 생성하고, \coderef{code:auth-routing}\과 같이 작성한다. \coderef{code:auth-routing}\은 express의 \cd{Router} 객체를 이용하여 경로가 /auth로 시작하는 라우트만 라우팅하며, 각 라우트의 경로에서 /auth는 생략한다. 그리고 이 \cd{Router} 객체를 export한다.
 
-\begin{codeenv}{code:index-routing}{Index Routing}\begin{verbatim}
+\begin{code}{code:index-routing}{Index Routing}
+\begin{minted}{js}
 const { Router } = require('express');
 
 const ctrl = require('./ctrl');
@@ -165,27 +168,41 @@ router.get('/', ctrl.indexPage);
 router.use('/auth', auth);
 
 module.exports = router;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 src/controller/index.js를 생성하고, \coderef{code:index-routing}\과 같이 작성한다. \coderef{code:index-routing}에서는 express의 \cd{Router} 객체에 GET / 라우트의 controller 함수를 등록하고, \coderef{code:auth-routing}에서 작성한 \cd{Router} 객체를 /auth로 시작하는 경로에 대해서만 실행되는 미들웨어로 bind한다. 이러한 구조는 인증(auth)과 관련된 라우트를 따로 분리하여 작성할 수 있도록 해준다.
 
-\begin{codeenv}{code:bind-controller}{Bind Controller Module on \cd{app}}
-\begin{Verbatim}[commandchars=\\\{\}]
+\begin{code}{code:bind-controller}{Bind Controller Module on \cd{app}}
+\begin{minted}[escapeinside=||]{js}
 // omit
 
-\textbf{const controller = require('./controller');}
+|\textbf{\PYG{k+kr}{const} \PYG{n+nx}{controller} \PYG{o}{=} \PYG{n+nx}{require}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./controller\PYGZsq{}}\PYG{p}{);}}|
 const { errorHandler } = require('./lib/error-handler');
 
 // omit
 
-\textbf{app.use('/', controller);}
+|\textbf{\PYG{n+nx}{app}\PYG{p}{.}\PYG{n+nx}{use}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}/\PYGZsq{}}\PYG{p}{,} \PYG{n+nx}{controller}\PYG{p}{);}}|
 
 app.use(errorHandler);
 
 module.exports = app;
-\end{Verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
+
+% // omit
+
+% const controller = require('./controller');
+% const { errorHandler } = require('./lib/error-handler');
+
+% // omit
+
+% app.use('/', controller);
+
+% app.use(errorHandler);
+
+% module.exports = app;
+% \end{minted}
 
 src/app.js를 \coderef{code:bind-controller}\와 같이 수정하여 /로 시작하는 경로에 대해 src/controller 모듈이 실행될 수 있도록 한다. 이제 \shellref{shell:npm-run-script}\와 같이 서버를 실행하고, 지금까지 작성한 기능들을 직접 테스트 해보자.
 \clearpage
@@ -266,7 +283,8 @@ src/controller/article/ctrl.js를 생성하고, 다음 controller를 구현한 �
 
 게시물 작성, 수정, 삭제 기능을 수행할 때 모두 요청한 사용자의 정보가 필요하므로 이러한 기능에 관여하는 5개 라우트는 모두 로그인하지 않은 사용자에게 404 Not Found 상태를 응답하여야 한다. 이 로직은 5개 라우트에 각각 구현하여도 되지만, 미들웨어를 이용하여 이 로직을 구현해보자.
 
-\begin{codeenv}{code:auth-middleware}{Auth Middleware}\begin{verbatim}
+\begin{code}{code:auth-middleware}{Auth Middleware}
+\begin{minted}{js}
 const authRequired = async (req, res, next) => {
     try {
         if (req.session.user) return next();
@@ -277,12 +295,13 @@ const authRequired = async (req, res, next) => {
 };
 
 module.exports = { authRequired };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 src/controller/auth/middleware.js를 생성하고, \coderef{code:auth-middleware}\와 같이 작성한다. \cd{authRequired}는 세션 객체에 \cd{user} 객체가 있으면 다음 미들웨어를 실행하고, 없으면 로그인 페이지로 redirect하는 미들웨어이다.
 
-\begin{codeenv}{code:article-routing}{Article Routing}\begin{verbatim}
+\begin{code}{code:article-routing}{Article Routing}
+\begin{minted}{js}
 const { Router } = require('express');
 
 const ctrl = require('./ctrl');
@@ -301,8 +320,8 @@ router.post('/edit/:articleId(\\d+)', authRequired, ctrl.editArticle);
 router.get('/delete/:articleId(\\d+)', authRequired, ctrl.deleteArticle);
 
 module.exports = router;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
 이제 게시물 controller 함수를 라우팅하자. src/controller/article/index.js를 생성하고, \coderef{code:article-routing}\과 같이 작성한다. 여기에서 로그인이 필요한 5개 라우트에 대해 컨트롤러 미들웨어 직전에 \cd{authRequired} 미들웨어가 실행되게 함으로써 로그인하지 않은 사용자로부터 온 요청은 미리 걸러내도록 한다.
@@ -336,25 +355,42 @@ src/controller/ctrl.js에 다음 controller를 추가로 구현한 뒤 export하
 
 마지막으로, 이제 src/controller/index.js를 \coderef{code:index-routing-added}\와 같이 수정하여, 게시물과 관련된 기능을 담당하는 컨트롤러 함수들의 라우팅을 완료한다.
 
-\begin{codeenv}{code:index-routing-added}{Index Routing (Added)}
-\begin{Verbatim}[commandchars=\\\{\}]
-const \{ Router \} = require('express');
+\begin{code}{code:index-routing-added}{Index Routing (Added)}
+\begin{minted}[escapeinside=||]{js}
+const { Router } = require('express');
 
 const ctrl = require('./ctrl');
-\textbf{const article = require('./article');}
+|\textbf{\PYG{k+kr}{const} \PYG{n+nx}{article} \PYG{o}{=} \PYG{n+nx}{require}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./article\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}}|
 const auth = require('./auth');
 
 const router = Router();
 
 router.get('/', ctrl.indexPage);
-\textbf{router.get('/articles/page/:page(\textbackslash{}\textbackslash{}d+)', ctrl.listArticles);}
-\textbf{router.get('/articles', ctrl.latestArticles);}
+|\textbf{\PYG{n+nx}{router}\PYG{p}{.}\PYG{n+nx}{get}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}/articles/page/:page(\PYGZbs{}\PYGZbs{}d+)\PYGZsq{}}\PYG{p}{,} \PYG{n+nx}{ctrl}\PYG{p}{.}\PYG{n+nx}{listArticles}\PYG{p}{)}\PYG{p}{;}}|
+|\textbf{\PYG{n+nx}{router}\PYG{p}{.}\PYG{n+nx}{get}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}/articles\PYGZsq{}}\PYG{p}{,} \PYG{n+nx}{ctrl}\PYG{p}{.}\PYG{n+nx}{latestArticles}\PYG{p}{)}\PYG{p}{;}}|
 
-\textbf{router.use('/article', article);}
+|\textbf{\PYG{n+nx}{router}\PYG{p}{.}\PYG{n+nx}{use}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}/article\PYGZsq{}}\PYG{p}{,} \PYG{n+nx}{article}\PYG{p}{)}\PYG{p}{;}}|
 router.use('/auth', auth);
 
 module.exports = router;
-\end{Verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
+
+% const { Router } = require('express');
+
+% const ctrl = require('./ctrl');
+% const article = require('./article');
+% const auth = require('./auth');
+
+% const router = Router();
+
+% router.get('/', ctrl.indexPage);
+% router.get('/articles/page/:page(\\d+)', ctrl.listArticles);
+% router.get('/articles', ctrl.latestArticles);
+
+% router.use('/article', article);
+% router.use('/auth', auth);
+
+% module.exports = router;
 
 이제 \shellref{shell:npm-run-script}\와 같이 서버를 실행하고, 지금까지 작성한 기능들을 직접 테스트 해보자.

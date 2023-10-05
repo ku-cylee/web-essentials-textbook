@@ -10,7 +10,8 @@ HTTP는 헤드와 본문으로 이루어져 있고, 헤드(HTTP head)는 요청/
 
 HTTP 요청(request)은 클라이언트가 서버에 전송하는 메시지이다.
 
-\begin{codeenv}{code:http-request-example}{Head of HTTP Request Example}\begin{verbatim}
+\begin{code}{code:http-request-example}{Head of HTTP Request Example}
+\begin{minted}{text}
 GET /api/articles?bid=12&page=3&count=10 HTTP/1.1
 Host: kweb.korea.ac.kr
 Connection: keep-alive
@@ -19,9 +20,9 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Firefox/79.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Encoding: gzip, deflate
 Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
-Cookie: sid=s%3A_2uUdS9bmos5wPmQmMuHvVXHrcdIYHmk.%2F3FX1NwUkH5fFK3cd7gDr8qfMHsrvfMWGSO
-\end{verbatim}
-\end{codeenv}
+Cookie: sid=s%3A_2uUdS9bmos5wPmQmMuHvVXHrcdIYHmk.%2F3FX1NwUkH5fFK3cd7gDr8qfMHsrvfMW
+\end{minted}
+\end{code}
 
 HTTP 요청의 헤더는 \coderef{code:http-request-example}\과 같은 형태로 구성되어 있다. 요청 라인에는 차례대로 요청 메서드(\cd{GET}), URL(\cd{/api/articles?bid=12\&page=3\&count=10}), HTTP 버전(\cd{HTTP/1.1})이 차례대로 나열된다. 헤더에는 Host, User-Agent, Cookie등의 여러 정보와 그에 대한 값으로 구성되어 있다. User-Agent는 사용자가 요청을 보내기 위해 사용한 애플리케이션에 대한 정보를 제시하며, 예시에서의 요청은 Mozilla Firefox 브라우저에서 보낸 요청이다. HTTP 요청에 열거되는 중요한 요소 중 하나인 쿠키(cookie)는 \sectref{sect:cookie-session}에서 다룬다.
 
@@ -62,15 +63,16 @@ URL(Uniform Resource Locator)은 인터넷 상에서 특정 리소스의 위치�
 \subsection*{HTTP Response and Response Status}
 HTTP 응답(response)은 클라이언트로부터 받은 요청에 대해 서버가 클라이언트에 전송하는 메시지이다.
 
-\begin{codeenv}{code:http-response-example}{Head of HTTP Response Example}\begin{verbatim}
+\begin{code}{code:http-response-example}{Head of HTTP Response Example}
+\begin{minted}{text}
 HTTP/1.1 200 OK
 Server: nginx
 Date: Sat, 12 Sep 2020 13:43:29 GMT
 Content-Type: text/html
 Connection: keep-alive
 Content-Length: 224
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 HTTP 응답의 헤더는 \coderef{code:http-response-example}\과 같은 형태로 구성되어 있다. 응답 라인에는 차례대로 HTTP 버전(\cd{HTTP/1.1}), 상태 코드(\cd{200}), 상태 메시지(\cd{OK})가 나열된다. 응답 상태(status)는 서버가 보낸 응답에 대한 상태를 대략적으로 나타내며, 상태 코드(status code)와 상태 메시지(status message)는 해당 상태를 각각 세 자리의 정수 형태와 문자열로 나타낸 것이다.
 

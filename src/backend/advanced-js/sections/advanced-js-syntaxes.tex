@@ -4,15 +4,16 @@
 
 문자열을 생성할 때 문자열 내에 변수값을 삽입하여 특정 부분의 값이 변수의 값에 따라 바뀌도록 생성하는 경우가 많다. 지금까지는 이러한 변수들을 문자열 연결(concatenation)을 통해 연결하여 문자열을 생성하곤 했다. 예를 들어 \coderef{code:string-format-without-template-literal}\은 두 인자 \cd{x}, \cd{y}를 받아 \cd{x}의 \cd{y} 제곱 값을 출력하는 함수가 구현된 코드이다.
 
-\begin{codeenv}{code:string-format-without-template-literal}{String Formatting without Template Literal}\begin{verbatim}
+\begin{code}{code:string-format-without-template-literal}{String formatting without template literal}
+\begin{minted}{js}
 const printPower = (x, y) => {
     const msg = 'Value of ' + x + ' to the power ' + y + ' is ' + x ** y + '.';
     console.log(msg);
 };
 
 printPower(3, 4);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:string-format-without-template-literal}\은 의도한 기능은 잘 수행하지만, 두 가지 부수적인 문제점을 갖는다. 먼저 \cd{msg} 문자열에서 변하지 않는 부분과 변하는 부분이 분리되어 있어, 실제 문자열의 형태가 직관적으로 표현되지 않는다. 또한, 문자열을 감싸는 문자(\cd{'}), 덧셈 기호(\cd{+}) 등으로 인해 코드가 불필요하게 길어져 가독성을 저해시킨다. 이러한 문제점을 해결하여 문자열 생성을 더 쉽게 할 수 있도록 ES6 이후의 JS에서는 template literal이라는 문법을 제공한다.
 
@@ -20,15 +21,16 @@ Template literal을 이용하여 문자열을 생성하기 위해서는 먼저 �
 
 \coderef{code:string-format-with-template-literal}\은 \coderef{code:string-format-without-template-literal}의 함수를 template literal을 이용하여 표현한 코드로, 기존에 비해 매우 직관적이고 깔끔해진 것을 확인할 수 있다.
 
-\begin{codeenv}{code:string-format-with-template-literal}{String Formatting with Template Literal}\begin{verbatim}
+\begin{code}{code:string-format-with-template-literal}{String formatting with template literal}
+\begin{minted}{js}
 const printPower = (x, y) => {
     const msg = `Value of ${x} to the power ${y} is ${x ** y}.`;
     console.log(msg);
 };
 
 printPower(3, 4);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 여담으로, \cd{\$\{\}} 부분을 표현식이 아닌 일반 문자열로 사용하고 싶은 경우 역슬래시(\cd\textbackslash)를 이용하여 escape 해주면 된다.
 \clearpage
@@ -37,14 +39,15 @@ printPower(3, 4);
 
 비구조화 할당(destructuring assignment)은 배열의 각 요소나 객체의 각 값을 서로 다른 변수에 편리하게 저장할 수 있게 하는 문법이다.
 
-\begin{codeenv}{code:array-destructuring}{Array Destructuring}\begin{verbatim}
+\begin{code}{code:array-destructuring}{Array destructuring}
+\begin{minted}{js}
 const arr = [1, 2, 3, 4];
 
 const [a1, a2, a3, a4] = arr;
 const [b1, , b3] = arr;
 const [, , , c4, c5, c6 = 10] = arr;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:array-destructuring}\은 배열의 비구조화를 나타낸 예제이다. 구문에 대한 간단한 설명은 다음과 같다.
 
@@ -56,12 +59,13 @@ const [, , , c4, c5, c6 = 10] = arr;
     \item 좌변에서 특정 변수의 기본값을 설정해주면, 비구조화의 결과 해당 변수의 값이 \cd{undefined}일 때, 그 변수에는 설정한 기본값이 할당된다.
 \end{itemize}
 
-\begin{codeenv}{code:object-destructuring}{Object Destructuring}\begin{verbatim}
+\begin{code}{code:object-destructuring}{Object destructuring}
+\begin{minted}{js}
 const obj = { x: 1, y: 2, z: 3 };
 const { x, z, u, v = 10 } = obj;
 const { y: y1 } = obj;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:object-destructuring}\은 객체의 비구조화를 나타낸 예제이다. 배열의 비구조화와 전체적으로 유사하며, 차이점은 다음과 같다.
 
@@ -85,7 +89,8 @@ JS의 모든 값은 암묵적으로(implicitly) \cd{true}나 \cd{false}로 변�
 
 Truthy, falsy 표현식은 \coderef{code:truthy-and-falsy}\와 같이 사용될 수 있다.
 
-\begin{codeenv}{code:truthy-and-falsy}{Truthy and Falsy Expressions}\begin{verbatim}
+\begin{code}{code:truthy-and-falsy}{Truthy and falsy expressions}
+\begin{minted}{js}
 if (arr.length > 0) { ... }
 // can be converted to
 if (arr.length) { ... }
@@ -93,24 +98,26 @@ if (arr.length) { ... }
 if (foo === undefined) { ... }
 // can be converted to
 if (!foo) { ... }
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:convert-truthy-falsy}\는 truthy/falsy한 값을 \cd{true}/\cd{false}로 변환하는 코드이다.
 
-\begin{codeenv}{code:convert-truthy-falsy}{Converting Truthy and Falsy Values}\begin{verbatim}
+\begin{code}{code:convert-truthy-falsy}{Converting truthy and falsy values}
+\begin{minted}{js}
 const emptyArray = [];
 const val1 = !!emptyArray;         // true
 const val2 = !!emptyArray.length;  // false
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 JS에서 논리적 OR를 계산하는 방식과 truthy/falsy를 이용하여 short-circuit evaluation(단축 평가)을 실시할 수 있다. 논리적 OR를 계산하는 이항 연산자 \cd{||}는 연산자 앞에 오는 피연산자가 truthy하면 앞에 오는 피연산자를 반환하고, falsy하면 뒤에 오는 피연산자를 반환한다.
 
-\begin{codeenv}{code:short-circuit-eval}{Short Circuit Evaluation}\begin{verbatim}
+\begin{code}{code:short-circuit-eval}{Short circuit evaluation}
+\begin{minted}{js}
 const port = config.port || 3000;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 Short-circuit evaluation은 \coderef{code:short-circuit-eval}\과 같이 변수의 기본값을 설정할 때 유용하게 사용된다. \cd{config.port}의 값이 truthy하면 \cd{port}의 값은 \cd{config.port}의 값이 되고, falsy하면 \cd{3000}이라는 기본값을 갖는다.
 \clearpage
@@ -119,13 +126,14 @@ Short-circuit evaluation은 \coderef{code:short-circuit-eval}\과 같이 변수�
 
 프로그램에서 에러가 발생했을 때 이를 적절히 처리하는 작업은 매우 중요하다. 코드에서 에러가 발생하면 해당 코드의 실행이 중단되는데, 실제 서비스에서는 프로그램의 일부분에서 발생한 에러로 인해 프로그램 전체가 중단될 경우 심각한 문제가 발생할 수 있다. 이러한 문제를 방지하기 위해 에러 처리(error handling)가 적절히 이루어져야 한다.
 
-\begin{codeenv}{code:function-without-error-handling}{Function Without Error Handling}\begin{verbatim}
+\begin{code}{code:function-without-error-handling}{Function without error handling}
+\begin{minted}{js}
 const getStatusCode = res => res.status.code;
 
 const code1 = getStatusCode({ status: { code: 400 } });
 const code2 = getStatusCode({});
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:function-without-error-handling}에서 \cd{getStatusCode} 함수에 의도한 형태의 인자가 들어간다면 에러가 발생하지 않고 값을 정상적으로 반환하지만, 빈 객체와 같이 의도하지 않은 형태의 인자가 들어가면 에러가 발생한다. 이렇게 함수에 의도한 형태의 인자가 들어간다는 보장이 없다면 에러가 발생할 수 있고, 이렇게 발생하는 에러가 적절히 처리되지 않았기 때문에 이 프로그램은 종료되어 버린다.
 
@@ -133,7 +141,8 @@ const code2 = getStatusCode({});
 
 \coderef{code:function-without-error-handling}\은 try-catch문을 이용하여 에러 처리를 한 코드이다. Shell에 출력되는 내용을 분석하여 코드의 실행 흐름을 파악해 보자.
 
-\begin{codeenv}{code:function-with-error-handling}{Function With Error Handling}\begin{verbatim}
+\begin{code}{code:function-with-error-handling}{Function with error handling}
+\begin{minted}{js}
 const getStatusCode = res => {
     try {
         console.log('try');
@@ -150,14 +159,15 @@ const code1 = getStatusCode({ status: { code: 400 } });
 console.log(code1);
 const code2 = getStatusCode({});
 console.log(code2);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 JS에서 기본적으로 제공되는 에러 이외에도, 새로운 에러 클래스(\cd{Error})를 이용하여 에러 객체를 생성하고, \cd{throw} 키워드를 이용하여 개발자의 필요에 따라 에러를 발생시킬 수 있다.
 
 에러 처리를 이용하면 코드의 흐름을 조절할 수 있다. A 함수에서 B 함수를 호출했을 때, B 함수에서 예외 상황이 발생한다고 가정하자. 개발자는 B 함수에서 발생한 예외 상황를 즉시 처리하지 않고, A 함수에서 처리하기를 희망할 수 있다. 에러 처리가 되어있지 않은 함수는 에러 발생 즉시 종료되므로, B 함수에서 예외 상황과 관련된 에러를 발생시키고, A 함수에서 에러를 처리할 수 있다.
 
-\begin{codeenv}{code:flow-control-with-error-handling}{Controlling Flow with Error Handling}\begin{verbatim}
+\begin{code}{code:flow-control-with-error-handling}{Controlling flow with error handling}
+\begin{minted}{js}
 const validateData = data => {
     if (!data) throw new Error(500);
     if (!data.length) throw new Error(404);
@@ -176,7 +186,7 @@ const createMessage = data => {
 console.log(createMessage());
 console.log(createMessage([]));
 console.log(createMessage([1, 2, 3]));
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:flow-control-with-error-handling}\은 try-catch문을 이용하여 코드 흐름을 조절한 예제이다. \cd{validateData} 함수에서 데이터를 검증할 때 인자의 형태에 따라 예외적인 경우 그에 맞는 에러를 발생시키면서 예외 처리를 즉시 수행하지 않는다. \cd{createMessage}에서는 \cd{validateData}에서 에러가 발생한다면 \cd{catch} 문으로 코드 흐름이 넘어가고, 그렇지 않는다면 \cd{try} 문의 코드가 실행된다. 이처럼 try-catch문을 이용하면 예외 처리를 편리하고 깔끔하게 할 수 있고, 코드가 복잡해지고 함수 호출의 단계가 깊어질수록 try-catch문을 이용하여 코드 흐름을 편리하게 조절할 수 있다.
