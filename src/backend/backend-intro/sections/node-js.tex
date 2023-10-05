@@ -14,6 +14,8 @@ Node.js 플랫폼은 홈페이지(https://nodejs.org/)에서 제공된다. 홈�
 
 Windows와 macOS에서는 홈페이지에서 LTS 버전 설치 파일을 다운로드한 후, 설치 파일을 실행해 추가 옵션 없이 설치한다. Linux 계열 운영체제는 Terminal\footnote{Shell에서 \cd{\$} 문자는 입력란을 뜻하므로 \cd{\$ } 부분은 입력하지 않는다.}을 열고 \shellref{shell:nodejs-linux-install}\을 따라 설치 파일을 다운로드한 후 설치한다. 이때 \cd{<major-version>} 부분에 다운로드 하고자 하는 버전의 major 번호\footnote{18.18.0 버전의 경우 18}를 대입한다.
 
+% TBD
+
 \begin{shell}{shell:nodejs-linux-install}{Installing Node.js on Linux}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ curl -sL https://deb.nodesource.com/setup_<major-version>.x | sudo bash -
@@ -22,8 +24,9 @@ $ sudo apt install -y nodejs
 \end{shell}
 
 설치가 완료되면 Windows에서는 cmd, UNIX 계열 운영체제에서는 Terminal 등의 shell을 실행하여 \shellref{shell:nodejs-version}\과 같이 Node.js와 npm의 버전을 확인한다.
+\clearpage
 
-\begin{shell}{shell:nodejs-version}{Confirming Node.js Version for v18.18.0}
+\begin{shell}{shell:nodejs-version}{Confirming Node.js version for v18.18.0}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ node -v
 v18.18.0
@@ -38,7 +41,7 @@ $ npm -v
 
 Node.js 홈페이지에는 JS로 구현된 아주 간단한 웹 서버 애플리케이션이 제시되어 있다. 프로젝트 디렉토리를 생성하고, index.js 파일을 생성하여 \coderef{code:nodejs-simple-web-server}\와 같이 작성한다.
 
-\begin{code}{code:nodejs-simple-web-server}{Simple Web Server: index.js}
+\begin{code}{code:nodejs-simple-web-server}{Simple web server: index.js}
 \begin{minted}{js}
 const http = require('http');
 

@@ -41,7 +41,7 @@
 
 여행 시간은 출발 시각과 도착 시각의 시간 차이로 계산하며, 두 시각의 시간 차는 \cd{Timediff} 함수를 이용하여 구할 수 있다. \coderef{code:sql-timediff}\는 \cd{former} 값과 \cd{latter} 값의 시간 차 \cd{diff}를 구하는 SQL문이다.
 
-\begin{code}{code:sql-timediff}{\cd{Timediff} Function Example}
+\begin{code}{code:sql-timediff}{\cd{Timediff} function example}
 \begin{minted}{sql}
 SELECT Timediff(`latter`, `former`) AS `diff` FROM `table`;
 \end{minted}
@@ -49,7 +49,7 @@ SELECT Timediff(`latter`, `former`) AS `diff` FROM `table`;
 
 각 문제의 SQL문 실행 결과는 \figref{fig:train-system-sql-result}\와 같아야 한다.
 
-\figures{fig:train-system-sql-result}{\excref{exc:train-system-sql} Results}{
+\figures{fig:train-system-sql-result}{\excref{exc:train-system-sql} results}{
     \subfig{fig:train-system-passenger-list}{\excref{exc:train-system-sql}.1}
         {train-system-passenger-list.png}{.2271}
     \subfig{fig:train-system-total-distance}{\excref{exc:train-system-sql}.2}
@@ -74,7 +74,7 @@ SELECT Timediff(`latter`, `former`) AS `diff` FROM `table`;
     \item GET /train/status: Query로 열차의 ID인 \cd{tid}를 받아 해당 열차가 매진되었는지 판단하여 응답하는 라우트 (Hint: 예매된 좌석 수와 최대 좌석 수를 조회하여 비교한다)
 \end{itemize}
 
-\figures{fig:train-system-server-example-result}{\excref{exc:train-system-server} Example Results}{
+\figures{fig:train-system-server-example-result}{\excref{exc:train-system-server} Example results}{
     \subfig{fig:train-system-fare-uid22}{GET /fare?uid=22}
         {train-system-fare-uid22.png}{.45}
     \subfig{fig:train-system-fare-uid36}{GET /fare?uid=36}

@@ -28,7 +28,7 @@
 
 crypto는 입력값을 암호화하여 해시값을 반환하는 해시 함수를 제공하는 Node.js 내장 모듈이다.
 
-\begin{code}{code:simple-sha512-hashing}{Simple Example of SHA-512 Hashing}
+\begin{code}{code:simple-sha512-hashing}{Simple example of SHA-512 hashing}
 \begin{minted}{js}
 const util = require('util');
 const crypto = require('crypto');
@@ -50,7 +50,7 @@ const encrypt = async text => {
 
 코드 실행 결과 ``samplepassword'' 텍스트는 88자(= 문자를 제외하면 $86=\left\lceil\frac{512}{6}\right\rceil$자)의 문자열로 변환되었음을 확인할 수 있고, 코드를 여러 번 실행하여도 항상 같은 결과가 도출되어 결정론적으로 작동한다는 것을 알 수 있다.
 
-\begin{code}{code:avalanche-effect}{Avalanche Effect (Derived from \coderef{code:simple-sha512-hashing})}
+\begin{code}{code:avalanche-effect}{Avalanche effect (Derived from \coderef{code:simple-sha512-hashing})}
 \begin{minted}[escapeinside=||]{js}
 (async () => {
     await encrypt(|\PYG{l+s}{\PYGZsq{}samplepasswordsamplepas\textbf{\textcolor{red}{s}}wordsamplepasswordsamplepasswordsample\PYGZsq{}}|);
@@ -67,7 +67,7 @@ const encrypt = async text => {
 
 레인보우 테이블 사용을 어렵게 하는 첫 번째 방법은 salt를 이용하는 것이다. Salt란 랜덤하게 생성된 충분히 긴 길이의 문자열이며, salt를 이용하여 암호화하고자 하는 텍스트를 변조(salting)한 뒤 해시 함수의 입력값으로 사용하는 것이다. 이렇게 얻은 해시값을 salt와 함께 저장하면 검증하고자 하는 비밀번호를 salting하여 도출된 해시값과 저장되어 있는 해시값을 비교하여 검증할 수 있다. 공격자 입장에서는 입력될 수 있는 경우의 수가 매우 많아져 레인보우 테이블을 통해 입력값을 유추하는 것이 거의 불가능하다.
 
-\begin{code}{code:salting}{Salting Input Text (Derived from \coderef{code:simple-sha512-hashing})}
+\begin{code}{code:salting}{Salting input text (Derived from \coderef{code:simple-sha512-hashing})}
 \begin{minted}[escapeinside=||]{js}
 |\textbf{\PYG{k+kr}{const} \PYG{n+nx}{randomBytes} \PYG{o}{=} \PYG{n+nx}{util}\PYG{p}{.}\PYG{n+nx}{promisify}\PYG{p}{(}\PYG{n+nx}{crypto}\PYG{p}{.}\PYG{n+nx}{randomBytes}\PYG{p}{)}\PYG{p}{;}}|
 
@@ -97,7 +97,7 @@ const encrypt = async text => {
 
 레인보우 테이블 사용을 어렵게 하는 두 번째 방법은 암호화를 여러 번 수행하는 것이다. 해시 함수를 통해 salting한 입력값의 해시값을 얻은 후, 이 해시값을 다시 salting한 값의 해시값을 얻는다. 이를 정해진 횟수만큼 반복하여 최종적으로 도출된 해시값을 저장하며, 반복 횟수는 10만 회 이상, 랜덤하게 결정하는 것이 권장된다. 검증 단계에서는 동일한 횟수만큼 반복하여 얻은 해시값과 저장된 해시값을 비교한다.
 
-\begin{code}{code:hashing-key-stretching}{Key Stretching of Hashing (Derived from \coderef{code:salting})}
+\begin{code}{code:hashing-key-stretching}{Key stretching of hashing (Derived from \coderef{code:salting})}
 \begin{minted}[escapeinside=||]{js}
 const encrypt = async text => {
     const ALGO = 'sha512';
@@ -125,7 +125,7 @@ const encrypt = async text => {
 
 이제까지 비밀번호 등의 민감한 정보를 적절히 암호화하는 방법에 대해 학습하였다. 이러한 해시값은 암호화 과정에서 사용된 암호화 알고리즘, 해시값의 길이, salt, 반복 횟수 등의 인자들과 함께 저장되어야 한다.
 
-\begin{code}{code:generating-password}{Password Generation (Derived from \coderef{code:hashing-key-stretching})}
+\begin{code}{code:generating-password}{Password generation (Derived from \coderef{code:hashing-key-stretching})}
 \begin{minted}[escapeinside=||]{js}
 const generatePassword = async password => {
     const ALGO = 'sha512';
@@ -154,7 +154,7 @@ const generatePassword = async password => {
 \coderef{code:generating-password}의 \cd{generatePassword} 함수는 암호화 인자들과 해시값을 콜론(\cd{:})으로 구분한 문자열을 생성하여 반환하는 함수이다. 비밀번호는 이러한 형태로 DB에 저장된다.
 \clearpage
 
-\begin{code}{code:verifying-password}{Password Verification (Derived from \coderef{code:generating-password})}
+\begin{code}{code:verifying-password}{Password verification (Derived from \coderef{code:generating-password})}
 \begin{minted}{js}
 const verifyPassword = async (password, hashedPassword) => {
     const [algo, encodedSalt, iterStr, keyLenStr, encodedDigest] =
@@ -171,7 +171,7 @@ const verifyPassword = async (password, hashedPassword) => {
 
 \coderef{code:verifying-password}의 \cd{verifyPassword} 함수는 저장된 비밀번호를 이용하여 입력값을 검증하는 함수이다. 저장된 비밀번호로부터 알고리즘, salt, 반복 횟수, 해시값 길이 등 암호화 과정에 사용된 인자들과 해시값을 도출하고, 암호화 과정의 인자들을 이용하여 입력값을 똑같이 암호화한다. 그 결과 도출된 해시값과 저장된 비밀번호의 해시값이 동일하면 옳은 비밀번호로, 다르면 틀린 비밀번호로 판별한다.
 
-\begin{code}{code:password-example}{Example of Password Generation and Verification (Derived from \coderef{code:verifying-password})}
+\begin{code}{code:password-example}{Example of password generation and verification (Derived from \coderef{code:verifying-password})}
 \begin{minted}{js}
 (async () => {
     const hashedPassword = await generatePassword('password');

@@ -4,7 +4,7 @@
 
 GET 요청을 보낼 때는 query를 통해 서버에 데이터를 보내고, POST, PUT, DELETE 등의 요청을 보낼 때는 body를 통해 데이터를 보낸다.
 
-\begin{code}{code:express-urlencoded}{Express \cd{urlencoded} Config}
+\begin{code}{code:express-urlencoded}{Express \cd{urlencoded} config}
 \begin{minted}{js}
 app.use(express.urlencoded({ extended: true }));
 \end{minted}
@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 Express.js에서는 요청 객체를 통해 body 데이터를 정상적으로 받기 위해서는 \coderef{code:express-urlencoded}\와 같이 미들웨어 설정을 해야 한다.
 
-\begin{code}{code:stringfy-mappable-object}{Stringify Mappable Object}
+\begin{code}{code:stringfy-mappable-object}{Stringify mappable object}
 \begin{minted}{js}
 Object.keys(obj).map(k => `${k}: ${obj[k]}`).join('\n');
 \end{minted}
@@ -20,7 +20,7 @@ Object.keys(obj).map(k => `${k}: ${obj[k]}`).join('\n');
 
 GET / 요청을 받으면 query 데이터를, POST /, PUT /, DELETE / 요청을 받으면 body 데이터를 문자열 형태로 변환하여 응답으로 반환하는 웹 서버를 구현하여라. 객체 \cd{obj}는 \coderef{code:stringfy-mappable-object}\와 같이 문자열로 변환될 수 있다.
 
-\figures{fig:query-body-exercise}{Example Results of \excref{exc:express-query-body}}{
+\figures{fig:query-body-exercise}{Example results of \excref{exc:express-query-body}}{
     \subfig{fig:query-body-exercise-get}{GET Method}
         {query-body-exercise-get.png}{.31}
     \subfig{fig:query-body-exercise-post}{POST Method}
@@ -38,7 +38,7 @@ Insomnia를 이용하여 \figref{fig:query-body-exercise}\와 같이 잘 동작�
 
 위에서 제시된 예시 경로 /board/page/10는 /board/page/:page의 형태로 경로를 제시하면 match됩니다. 앞에 콜론(\cd{:})이 붙은 부분은 그 부분이 가변적인 부분이라는 뜻이며, 정규표현식으로 원하는 형태의 변수만 허용할 수 있다.\footnote{\chapref{ch:web-app-impl}에서 다룰 예정} 이러한 변수의 값은 요청 객체의 \cd{params} 속성에 저장되어 있으며, 예시 경로에서 10이라는 값은 \cd{req.params.page}에 할당되어 있다. 이를 이용하여 GET /board/page/:page 라우트로 요청을 받았을 때 페이지 번호를 표시하는 문자열을 생성하여 응답하는 Express.js 서버 애플리케이션을 구현하여라.
 
-\figures{fig:params-exercise}{Example Results of \excref{exc:express-params}}{
+\figures{fig:params-exercise}{Example results of \excref{exc:express-params}}{
     \subfig{fig:params-exercise-get}{Case 1}
         {params-exercise-1.png}{.4}
     \subfig{fig:params-exercise-post}{Case 2}

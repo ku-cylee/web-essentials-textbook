@@ -14,7 +14,7 @@
 
 \begin{tblenv}
     {tab:departments-table-basic}
-    {\cd{departments} Table}
+    {\cd{departments} table}
     {?>{\colc}m{0.12\tw}|>{\colc}m{0.3\tw}|>{\colc}m{0.12\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -50,7 +50,7 @@
 
 \begin{tblenv}
     {tab:departments-table-pk}
-    {\cd{departments} Table with Primary Key}
+    {\cd{departments} table with primary key}
     {?>{\colc}m{0.05\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.3\tw}|>{\colc}m{0.12\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -71,7 +71,7 @@
 
 \tblref{tab:departments-table-pk}\는 \tblref{tab:departments-table-basic}에 기본 키인 \cd{id} column을 추가한 테이블이다.
 
-\begin{code}{code:create-table-primary-key}{Create \cd{departments} Table with Primary Key}
+\begin{code}{code:create-table-primary-key}{Create \cd{departments} table with primary key}
 \begin{minted}{sql}
 CREATE TABLE `departments` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -89,7 +89,7 @@ CREATE TABLE `departments` (
 
 \begin{tblenv}
     {tab:courses-table-pk-fk}
-    {\cd{courses} Table with Primary Key and Foreign Key}
+    {\cd{courses} table with primary key and foreign key}
     {?>{\colc}m{0.05\tw}|>{\colc}m{0.16\tw}|>{\colc}m{0.11\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.07\tw}|>{\colc}m{0.07\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -120,7 +120,7 @@ CREATE TABLE `departments` (
 
 다른 테이블로부터 참조를 받는 row가 삭제되는 경우 수행할 작업을 on delete action이라고 한다. 예를 들어 \cd{departments} 테이블에서 2번 ``화학과'' row가 삭제되면 \cd{courses} 테이블에서 이를 참조하는 8번 ``무기화학II'' 강의는 참조할 데이터가 사라진다 이렇게 row가 삭제되었을 때 이를 참조하는 row를 단계적으로 모두 삭제하는 cascade action을 수행하도록 설정할 수 있고, 이 외에도 set null, no action, set default, restrict 등이 있다.
 
-\begin{code}{code:create-table-foreign-key}{Create \cd{courses} Table with Foreign Key}
+\begin{code}{code:create-table-foreign-key}{Create \cd{courses} table with foreign key}
 \begin{minted}{sql}
 CREATE TABLE `courses` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -148,7 +148,7 @@ CREATE TABLE `courses` (
 
 \begin{tblenv}
     {tab:colleges-table}
-    {\cd{colleges} Table}
+    {\cd{colleges} table}
     {?>{\colc}m{0.05\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.25\tw}|>{\colc}m{0.08\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -169,7 +169,7 @@ CREATE TABLE `courses` (
 
 \begin{tblenv}
     {tab:departments-table-fk}
-    {\cd{departments} Table with Foreign Key}
+    {\cd{departments} table with foreign key}
     {?>{\colc}m{0.05\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.3\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}

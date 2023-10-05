@@ -4,7 +4,7 @@
 
 DBMS는 데이터베이스 관리 시스템(Database Management System)의 줄임말로, 데이터베이스를 사용하기 편리하도록 만들어진 프로그램이다. DBMS는 데이터를 다루는 작업, 데이터베이스 생성, 사용자 생성, 사용자 권한 설정 등 데이터베이스 전반을 관리하고 호스팅하는 역할을 한다.
 
-RDB형 DBMS에는 대표적으로 MySQL, Oracle, MSSQL, PostgreSQL 등이 있고, 이 중 MySQL은 오픈 소스 소프트웨어라는 점, 표준에 가까운 SQL을 사용한다는 점 등으로 인해 RDB형 DBMS 중 가장 높은 점유율을 자랑해왔다. 그러나 MySQL이 오픈 소스에 적대적인 Oracle에 인수되어 라이선스 상태가 불안정해지자 MySQL의 개발팀이 MySQL을 기반으로 MariaDB라는 DBMS를 개발하였다. MariaDB는 MySQL과 완벽히 호환되며 최근에는 MySQL의 상위호환으로 거듭나 MariaDB의 사용률이 급증하는 추세이다. 따라서 본 교재에서는 가장 최신 LTS 버전\footnote{2022년 9월 기준 10.6.10}을 이용하여 DB와 관련된 실습을 진행한다.
+RDB형 DBMS에는 대표적으로 MySQL, Oracle, MSSQL, PostgreSQL 등이 있고, 이 중 MySQL은 오픈 소스 소프트웨어라는 점, 표준에 가까운 SQL을 사용한다는 점 등으로 인해 RDB형 DBMS 중 가장 높은 점유율을 자랑해왔다. 그러나 MySQL이 오픈 소스에 적대적인 Oracle에 인수되어 라이선스 상태가 불안정해지자 MySQL의 개발팀이 MySQL을 기반으로 MariaDB라는 DBMS를 개발하였다. MariaDB는 MySQL과 완벽히 호환되며 최근에는 MySQL의 상위호환으로 거듭나 MariaDB의 사용률이 급증하는 추세이다. 따라서 본 교재에서는 가장 최신 LTS 버전\footnote{2023년 9월 기준 10.11.5}을 이용하여 DB와 관련된 실습을 진행한다.
 
 \subsection*{Installation (Windows)}
 
@@ -19,11 +19,11 @@ MariaDB 홈페이지(https://downloads.mariadb.org/)에서 자신의 OS 버전�
         {mariadb-install-windows-port.png}{.31}
 }
 
-먼저 \figref{fig:mariadb-install-windows-location}\과 같이 DBMS의 설치 경로\footnote{10.6 버전의 경우 C:\textbackslash{}Program Files\textbackslash{}MariaDB 10.6}를 미리 파악해둔다. 이후 \figref{fig:mariadb-install-windows-password}\와 같이 root 계정(관리자 계정)의 비밀번호를 설정하고 문자 집합을 UTF8로 체크하여 한글 및 기타 특수문자를 사용할 수 있도록 설정한다. root 계정은 DBMS 내의 모든 DB와 데이터를 다룰 수 있는 권한을 가지고 있고, root 비밀번호를 분실하면 DBMS를 재설치해야 하므로 신중하게 정하고 기억해야 한다.
+먼저 \figref{fig:mariadb-install-windows-location}\과 같이 DBMS의 설치 경로\footnote{10.11 버전의 경우 C:\textbackslash{}Program Files\textbackslash{}MariaDB 10.11}를 미리 파악해둔다. 이후 \figref{fig:mariadb-install-windows-password}\와 같이 root 계정(관리자 계정)의 비밀번호를 설정하고 문자 집합을 UTF8로 체크하여 한글 및 기타 특수문자를 사용할 수 있도록 설정한다. root 계정은 DBMS 내의 모든 DB와 데이터를 다룰 수 있는 권한을 가지고 있고, root 비밀번호를 분실하면 DBMS를 재설치해야 하므로 신중하게 정하고 기억해야 한다.
 
 마지막으로 \figref{fig:mariadb-install-windows-port}\와 같이 MariaDB에 접속하기 위한 port 번호를 TCP port란에 설정한다. MariaDB는 기본적으로 3306번 port를 사용하며, 여타 이유로 선점되어 있다면 3307번 등 다른 port로 변경한다.\footnote{보안을 위해 일부러 다른 port로 바꾸기도 한다.}
 
-\figures{fig:mariadb-env-variable}{Setting Environment Variable}{
+\figures{fig:mariadb-env-variable}{Setting environment variable}{
     \subfig{fig:env-var-1}{Step 1}
         {env-var-1.png}{.2940}
     \subfig{fig:env-var-2}{Step 2}
@@ -32,9 +32,9 @@ MariaDB 홈페이지(https://downloads.mariadb.org/)에서 자신의 OS 버전�
         {env-var-3.png}{.3434}
 }
 
-이제 윈도우의 shell인 cmd에서 MariaDB에 접속할 수 있도록 환경 변수를 설정한다. 먼저 윈도우 탐색기를 열고, \figref{fig:mariadb-install-windows-location}에서 파악한 설치 경로를 연다. 설치 폴더 아래의 bin 폴더에 mysql.exe 파일이 있는 것을 확인한 뒤 bin 폴더의 전체 경로\footnote{10.6 버전의 경우 C:\textbackslash{}Program Files\textbackslash{}MariaDB 10.6\textbackslash{}bin}를 복사한다. 이후 윈도우 검색을 이용해 [시스템 환경 변수 편집]을 실행하고, \figref{fig:mariadb-env-variable}\과 같이 환경 변수 편집 창에 진입한 뒤, [새로 만들기] 버튼을 클릭하여 bin 폴더의 전체 경로를 붙여넣어 추가한다.
+이제 윈도우의 shell인 cmd에서 MariaDB에 접속할 수 있도록 환경 변수를 설정한다. 먼저 윈도우 탐색기를 열고, \figref{fig:mariadb-install-windows-location}에서 파악한 설치 경로를 연다. 설치 폴더 아래의 bin 폴더에 mysql.exe 파일이 있는 것을 확인한 뒤 bin 폴더의 전체 경로\footnote{10.11 버전의 경우 C:\textbackslash{}Program Files\textbackslash{}MariaDB 10.11\textbackslash{}bin}를 복사한다. 이후 윈도우 검색을 이용해 [시스템 환경 변수 편집]을 실행하고, \figref{fig:mariadb-env-variable}\과 같이 환경 변수 편집 창에 진입한 뒤, [새로 만들기] 버튼을 클릭하여 bin 폴더의 전체 경로를 붙여넣어 추가한다.
 
-\begin{shell}{shell:mariadb-check-install}{Checking MariaDB Installation}
+\begin{shell}{shell:mariadb-check-install}{Checking MariaDB installation}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ mysql --version
 \end{minted}
@@ -66,18 +66,18 @@ Homebrew를 이용해 \shellref{shell:mariadb-installation-macos}\를 참고하�
 
 \subsection*{Installation (Ubuntu)}
 
-% TBD: \footnote{MariaDB 10.6 기준}
+% TBD: 
 
-\begin{shell}{shell:mariadb-installation-ubuntu}{Installing MariaDB (Ubuntu)}
-\begin{minted}[linenos=false, xleftmargin=2pt]{text}
-$ sudo apt install software-properties-common
+\begin{shell}{shell:mariadb-installation-ubuntu}{Installing MariaDB (Ubuntu)\protect\footnotemark}
+\begin{minted}[linenos=false, xleftmargin=2pt, breaklines]{text}
+$ sudo apt install -y software-properties-common
 $ sudo apt-key adv --recv-keys --keyserver \
     hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-$ sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] \
-    http://mariadb.mirror.liquidtelecom.com/repo/10.6/ubuntu bionic main'
-$ sudo apt install mariadb-server
+$ sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mariadb.mirror.liquidtelecom.com/repo/10.11/ubuntu bionic main'
+$ sudo apt install -y mariadb-server
 \end{minted}
 \end{shell}
+\footnotetext{MariaDB 10.11 기준}
 
 대표적인 Linux 계열의 OS인 Ubuntu에서는 먼저 \shellref{shell:mariadb-installation-ubuntu}\와 같이 MariaDB 웹 사이트에서 repository를 다운로드하고, 이를 apt를 이용하여 설치한다.
 
@@ -100,7 +100,7 @@ Thanks for using MariaDB!
 
 \subsection*{Accessing MariaDB Server}
 
-\begin{shell}{shell:mariadb-login}{Basic Command Logging In MariaDB}
+\begin{shell}{shell:mariadb-login}{Basic command logging In MariaDB}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ mysql –u<username> -p<password>
 \end{minted}
@@ -108,7 +108,7 @@ $ mysql –u<username> -p<password>
 
 이제 shell을 통해 MariaDB에 접속할 수 있다. \shellref{shell:mariadb-login}\은 MariaDB에 로그인하는 기본적인 명령어로, 현재는 root 계정만 존재하므로 root 계정으로 로그인한다. \cd{<username>} 부분을 root으로, \cd{<password>} 부분을 root 계정의 비밀번호로 바꾸어 명령어를 작성한다.
 
-\begin{shell}{shell:mariadb-sudo-login}{Accessing root User using sudo}
+\begin{shell}{shell:mariadb-sudo-login}{Accessing root user using sudo}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ sudo mysql
 \end{minted}
@@ -116,7 +116,7 @@ $ sudo mysql
 
 Unix 계열의 OS에서는 \shellref{shell:mariadb-login}의 방법으로 root 계정에 접속하지 못하는 경우가 있는데, 이때 \shellref{shell:mariadb-sudo-login}\과 같이 sudo 권한으로 실행하면 자동으로 root 계정으로 접속된다.
 
-\begin{shell}{shell:query-db-list}{Querying List of Databases}
+\begin{shell}{shell:query-db-list}{Querying list of databases}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 MariaDB [(none)]> SHOW DATABASES;
 \end{minted}
@@ -140,46 +140,46 @@ MariaDB [kweb_db]>
 
 DBMS에는 여러 DB를 생성할 수 있고, 하나의 애플리케이션은 하나의 DB를 사용하는 것이 원칙이므로 여러 애플리케이션이 하나의 DBMS에 접속할 수 있다. root 계정은 소위 관리자 계정에 해당하는 계정으로 DBMS 전체를 조작할 수 있고 모든 DB에 접근하여 데이터를 조작할 수 있다. 여러 애플리케이션에서 각자의 DB를 사용하기 위해 모두 root 계정으로 접속하면 다른 애플리케이션이 사용하는 DB의 데이터를 수정하거나 DB 자체를 없애버리는 등의 조작이 일어나는 등 보안상의 문제가 발생할 수 있다. 따라서 관리자는 애플리케이션마다 적어도 하나의 사용자 계정을 생성하고, 각 사용자의 권한을 제한하여 DB 전체가 공격받는 일이 없도록 해야한다.
 
-\begin{sql}{sql:create-user}{Create User}
-\begin{minted}{sql}
+\begin{sql}{sql:create-user}{Create user}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 CREATE USER '<username>'@'<host>' IDENTIFIED BY '<password>'
 \end{minted}
 \end{sql}
 
 먼저 root 계정으로 DB에 로그인한 후, \sqlref{sql:create-user}\과 같이 사용자 계정을 생성한다. 이때 \cd{host}는 사용자가 접속하고자 하는 host로, 생성된 계정은 host에 해당하는 컴퓨터에서만 접속할 수 있다. \cd{host} 값을 \cd{\%}로 설정하면 모든 host에서 접속할 수 있다.
 
-\begin{shell}{shell:create-kwebuser-user}{Create \cd{kwebuser} User}
-\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
+\begin{code}{code:create-kwebuser-user}{Create \cd{kwebuser} user}
+\begin{minted}{sql}
 CREATE USER 'kwebuser'@'%' IDENTIFIED BY 'kwebpw';
 \end{minted}
-\end{shell}
+\end{code}
 
-\shellref{shell:create-kwebuser-user}\는 모든 host로부터 접근할 수 있고, 비밀번호는 ``kwebpw''인 ``kwebuser'' 계정을 생성하는 예시이다.
+\coderef{code:create-kwebuser-user}\는 모든 host로부터 접근할 수 있고, 비밀번호는 ``kwebpw''인 ``kwebuser'' 계정을 생성하는 예시이다.
 
-\begin{shell}{shell:create-two-dbs}{Create Two DBs}
-\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
-> CREATE DATABASE kwebdb1;
-> CREATE DATABASE kwebdb2;
-\end{minted}
-\end{shell}
-
-\shellref{shell:create-two-dbs}\와 같이 두 DB를 생성하고, ``kwebuser'' 사용자에게 \cd{kwebdb1}의 권한만 부여해보자.
-
-\begin{sql}{sql:grant-all-privileges}{Grant All Privileges to User}
+\begin{code}{code:create-two-dbs}{Create two DBs}
 \begin{minted}{sql}
+CREATE DATABASE kwebdb1;
+CREATE DATABASE kwebdb2;
+\end{minted}
+\end{code}
+
+\coderef{code:create-two-dbs}\와 같이 두 DB를 생성하고, ``kwebuser'' 사용자에게 \cd{kwebdb1}의 권한만 부여해보자.
+
+\begin{sql}{sql:grant-all-privileges}{Grant all privileges to user}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 GRANT ALL PRIVILEGES ON <db-name>.* TO '<username>'@'<host>'
 \end{minted}
 \end{sql}
 
 \sqlref{sql:grant-all-privileges}\는 사용자에게 \cd{db-name} DB의 모든 권한을 부여하는 SQL문이다. 모든 권한 외에도 옵션에 따라 특정 권한만 부여할 수 있다.
 
-\begin{shell}{shell:grant-kwebdb1-to-kwebuser}{Grant All Privileges on \cd{kwebdb1} Table to ``kwebuser'' User}
-\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
-> GRANT ALL PRIVILEGES ON kwebdb1.* TO 'kwebuser'@'%';
+\begin{code}{code:grant-kwebdb1-to-kwebuser}{Grant all privileges on \cd{kwebdb1} table to ``kwebuser'' user}
+\begin{minted}{sql}
+GRANT ALL PRIVILEGES ON kwebdb1.* TO 'kwebuser'@'%';
 \end{minted}
-\end{shell}
+\end{code}
 
-\shellref{shell:grant-kwebdb1-to-kwebuser}\와 같이 \cd{kwebuser} 사용자에게 \cd{kwebdb1} DB의 권한만 부여한다. 이제 root 계정에서 로그아웃하고 \shellref{shell:mariadb-login}\을 참고하여 \cd{kwebuser} 사용자로 로그인해본다.
+\coderef{code:grant-kwebdb1-to-kwebuser}\와 같이 \cd{kwebuser} 사용자에게 \cd{kwebdb1} DB의 권한만 부여한다. 이제 root 계정에서 로그아웃하고 \shellref{shell:mariadb-login}\을 참고하여 \cd{kwebuser} 사용자로 로그인해본다.
 
 \begin{shell}{shell:kwebuser-access-db}{Accessing DB with ``kwebuser'' User}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}

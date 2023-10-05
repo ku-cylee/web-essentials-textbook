@@ -208,7 +208,7 @@ const readArticle = async (req, res, next) => {
         const { articleId } = req.params;
 
         const article = await ArticleDAO.getById(articleId);
-        if (!article) throw new Error('NOT_FOUND');
+        if (!article) throw new Error('NOT_EXIST');
 
         return res.render('articles/details.pug', { user, article });
     } catch (err) {
@@ -249,7 +249,7 @@ const editArticleForm = async (req, res, next) => {
         const { articleId } = req.params;
 
         const article = await ArticleDAO.getByIdAndAuthor(articleId, user);
-        if (!article) throw new Error('NOT_FOUND');
+        if (!article) throw new Error('NOT_EXIST');
 
         return res.render('articles/editor.pug', { user, article });
     } catch (err) {
@@ -264,7 +264,7 @@ const editArticle = async (req, res, next) => {
         const { articleId } = req.params;
 
         const article = await ArticleDAO.getByIdAndAuthor(articleId, user);
-        if (!article) throw new Error('NOT_FOUND');
+        if (!article) throw new Error('NOT_EXIST');
 
         const title = req.body.title.trim();
         const content = req.body.content.trim();
@@ -285,7 +285,7 @@ const deleteArticle = async (req, res, next) => {
         const { articleId } = req.params;
 
         const article = await ArticleDAO.getByIdAndAuthor(articleId, user);
-        if (!article) throw new Error('NOT_FOUND');
+        if (!article) throw new Error('NOT_EXIST');
 
         await ArticleDAO.remove(articleId, user);
         return res.redirect('/articles/page/1');

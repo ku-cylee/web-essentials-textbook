@@ -78,7 +78,7 @@ const fs = require('fs');
 fs.readFile('db.info', (err, data) => {
     const tableLocation = identifyTable(data, 'A');
     fs.readFile(tableLocation, (err, data) => {
-        const recordLocation = identifyRecord(data, 'B');
+        const recordLocation = identifyRe   cord(data, 'B');
         fs.readFile(recordLocation, (err, data) => {
             const record = parseRecord(data);
             // do something based on record's data

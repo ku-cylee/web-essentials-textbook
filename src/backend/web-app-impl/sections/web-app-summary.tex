@@ -66,7 +66,7 @@ DB_NAME=<db-name>
 
 .env 파일은 .gitignore 파일에 의해 추적되지 않으며, 이렇게 실행 환경 등에 따라 달라지는 설정 등은 .env와 같은 별도의 파일에 작성하여야 한다.
 
-\begin{shell}{shell:project-structure-root}{Project Structure (/)}
+\begin{shell}{shell:project-structure-root}{Project structure (/)}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ tree -L 1 ./
 ./
@@ -81,7 +81,7 @@ $ tree -L 1 ./
 
 \shellref{shell:project-structure-root}\는 프로젝트 최상위 디렉토리를 나타낸 것이다. public/ 디렉토리에는 프론트엔드에서 필요한 CSS와 JS 파일, schema/ 디렉토리에는 DB 테이블을 생성하는 SQL 파일, src/ 디렉토리에는 서버의 소스코드, views/ 디렉토리에는 pug로 작성된 템플릿 파일이 있다.
 
-\begin{shell}{shell:project-structure-views}{Project Structure (views/)}
+\begin{shell}{shell:project-structure-views}{Project structure (views/)}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ tree ./views/
 ./views/
@@ -100,7 +100,7 @@ $ tree ./views/
 
 views/ 디렉토리 내에는 pug 템플릿 파일이 있으며, views/layout.pug를 제외한 모든 템플릿 파일에는 첫 두줄에 템플릿 파일이 필요로 하는 인자가 주석으로 명시되어 있다.
 
-\begin{shell}{shell:project-structure-src}{Project Structure (src/)}
+\begin{shell}{shell:project-structure-src}{Project structure (src/)}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ tree ./src/
 ./src/
@@ -126,7 +126,7 @@ src/env.js에서는 .env 파일을 분석하여 각 값을 \cd{process.env} 객�
 
 이렇게 model(DAO), view(pug 템플릿), controller의 세 부분으로 나누어 소프트웨어를 설계하는 방식을 MVC 패턴(\figref{fig:mvc-pattern})이라고 한다. Model에 해당하는 DAO에서는 오로지 특정 조건을 만족하는 데이터를 DB에서 가져오거나 데이터를 조작하는 역할을 하고, view에 해당하는 pug 템플릿은 오로지 사용자에게 보여지는 영역, 즉 front-end 역할만 한다. 그리고 controller는 model을 적절히 활용하여 HTTP 요청을 처리하고, 그 결과를 view를 통해 클라이언트에 전달한다.
 
-\figures{fig:mvc-pattern}{MVC Pattern}{
+\figures{fig:mvc-pattern}{MVC pattern}{
     \fig{mvc-pattern.png}{.7}
 }
 

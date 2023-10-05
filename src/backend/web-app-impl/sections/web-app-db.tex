@@ -4,7 +4,7 @@
 
 게시판 웹 애플리케이션의 DB를 설계해보자. 사용자와 관련된 데이터에는 어떠한 것이 있겠는가? 사용자 인증을 위한 아이디(\cd{username})와 암호화된 비밀번호(\cd{password})가 필요하며, 닉네임과 같이 다른 사용자들이 보는 이름인 \cd{display\_name}이 필요하다. 이때 \cd{username}과 \cd{display\_name}은 \cd{UNIQUE} 키워드를 넣어 중복을 방지한다. 또한 가입 날짜(\cd{date\_joined}), 탈퇴 여부(\cd{is\_active}), 관리자 여부(\cd{is\_staff}) 등이 필요하며, 각각 row 생성 시의 시각, 1, 0이 기본값이 되어야 한다. \coderef{code:users-table-schema}\는 이러한 \cd{users} 테이블을 생성하는 SQL문이다.
 
-\begin{code}{code:users-table-schema}{\cd{users} Table Schema}
+\begin{code}{code:users-table-schema}{\cd{users} table schema}
 \begin{minted}{sql}
 CREATE TABLE `users` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -21,7 +21,7 @@ CREATE TABLE `users` (
 
 이번에는 게시물 데이터를 저장하는 \cd{articles} 테이블을 설계해보자. 먼저 게시물의 제목(\cd{title}), 내용(\cd{content}), 작성자(\cd{author}) 등이 필요하며, \cd{author} column은 \cd{users.id}를 참조하도록 한다. 또한 작성 시각(\cd{created\_at}), 마지막 수정 시각(\cd{last\_updated}), 삭제 여부(\cd{is\_deleted}) 등의 정보가 필요하다. \cd{created\_at}과 \cd{last\_updated}의 값은 row 생성 시각으로 설정하고, \cd{ON UPDATE} 키워드를 사용하여 column의 값이 row가 수정될 때의 시각으로 바뀌도록 한다. \cd{is\_deleted}의 기본값은 0으로 설정하고, 사용자가 게시물을 삭제하면 1로 바꾼다. \coderef{code:articles-table-schema}\는 이러한 \cd{articles} 테이블을 생성하는 SQL문이다.
 
-\begin{code}{code:articles-table-schema}{\cd{articles} Table Schema}
+\begin{code}{code:articles-table-schema}{\cd{articles} table schema}
 \begin{minted}{sql}
 CREATE TABLE `articles` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -113,7 +113,7 @@ src/DAO/article.js를 생성하고, src/lib/database.js의 \cd{runQuery} 함수�
 
 이제 src/DAO/index.js를 생성하고, 앞에서 설계한 두 DAO를 각각 \cd{UserDAO}, \cd{ArticleDAO}로 import 한 뒤, 두 객체를 그대로 export한다. (\coderef{code:dao-module}) Node.js에서 import하는 모듈의 경로가 디렉토리이면 그 아래의 index.js가 모듈 파일로 간주되어, 이제 다른 모듈에서는 src/DAO 모듈을 import 하여 두 DAO에 모두 접근할 수 있다.
 
-\begin{code}{code:dao-module}{DAO Module (src/DAO/index.js)}
+\begin{code}{code:dao-module}{DAO module (src/DAO/index.js)}
 \begin{minted}{js}
 const ArticleDAO = require('./article');
 const UserDAO = require('./user');

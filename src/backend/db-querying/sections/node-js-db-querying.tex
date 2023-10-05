@@ -6,7 +6,7 @@
 
 mysql2 모듈은 Node.js에서 MariaDB(MySQL) DBMS에 접속하고 SQL문을 실행하는 메서드를 제공한다. Node.js 프로젝트를 생성하고 npm을 이용하여 mysql2를 설치한 뒤, database.js를 생성하여 \coderef{code:runquery-function}\과 같이 작성한다.
 
-\begin{code}{code:runquery-function}{Implementation of \cd{runQuery} Function}
+\begin{code}{code:runquery-function}{Implementation of \cd{runQuery} function}
 \begin{minted}{js}
 const mysql = require('mysql2/promise');
 
@@ -35,8 +35,9 @@ module.exports = { runQuery };
 \coderef{code:runquery-function}\은 mysql2 모듈의 \cd{createPool} 메서드에 연결하고자 하는 DB의 host, port, 사용자 이름과 비밀번호, DB 이름 등을 인자로 넘겨주어 connection pool을 생성하고, SQL문을 인자로 받아 실행시켜 그 결과를 반환하는 \cd{runQuery} 함수를 구현한 코드이다.
 
 Connection pool은 미리 DB와의 연결들을 생성하여 pool에 저장해둔 후, 필요할 때마다 연결을 가져가서 사용하고  pool에 반납(release)하도록 설계된 연결 방식이다. 이 방식은 DB에서 SQL문을 실행할 때마다 DB 연결에 필요한 여러 정보를 이용해 연결하고 SQL문을 실행한 뒤 연결을 닫는 과정에 비해 높은 성능을 보인다.
+\clearpage
 
-\begin{code}{code:runquery-function-usage}{Usage of \cd{runQuery} Function}
+\begin{code}{code:runquery-function-usage}{Usage of \cd{runQuery} function}
 \begin{minted}{js}
 const { runQuery } = require('./database');
 
@@ -81,7 +82,7 @@ const createScore = async (name, course, midterm, final) => {
 
 \coderef{code:runquery-function-usage}\는 \cd{runQuery} 함수를 이용하여 \tblref{tab:scores-table}의 \cd{scores} 테이블 데이터를 조회한 결과이다. 조회 결과 데이터는 항상 row들의 배열 형태로 반환되며, 각 row는 column 이름이 key, column 값이 value인 객체의 형태로 반환된다.\footnote{엄밀히는 \cd{TextRow}, \cd{ResultSetHeader} 등 클래스의 인스턴스가 반환된다.}
 
-\cd{getScoreStats} 메서드는 \pageref{shell:group-by-example}쪽의 \shellref{shell:group-by-example}\을 실행하는 메서드로, 조회 결과는 \cd{course}, \cd{cnt}, \cd{avg}, \cd{stddev}를 속성으로 갖는 객체들의 배열 형태이다.
+\cd{getScoreStats} 메서드는 \pageref{code:group-by-example}쪽의 \coderef{code:group-by-example}\을 실행하는 메서드로, 조회 결과는 \cd{course}, \cd{cnt}, \cd{avg}, \cd{stddev}를 속성으로 갖는 객체들의 배열 형태이다.
 
 \cd{getScoreByIdName} 메서드는 \cd{id}와 \cd{name}을 인자로 받아 \cd{id} column의 값이 \cd{id}, \cd{student} column의 값이 \cd{name}인 row를 반환한다. 조회 결과는 언제나 row들의 배열 형태이므로 \cd{results[0]}의 값은 row 객체거나 \cd{undefined}이다.
 
@@ -93,7 +94,7 @@ const createScore = async (name, course, midterm, final) => {
 
 \coderef{code:runquery-function}의 \cd{runQuery} 함수는 DB의 데이터를 조작하는 기능을 잘 수행하지만, 보안상의 문제점이 존재한다.
 
-\begin{code}{code:sql-injection-example-true-condition}{SQL Injection Example - Force True Condition}
+\begin{code}{code:sql-injection-example-true-condition}{SQL injection example - Force true condition}
 \begin{minted}[escapeinside=||]{js}
 const scoreData = await getScoreByIdName(3, "abc' OR '1'='1");
 
@@ -109,7 +110,7 @@ const scoreData = await getScoreByIdName(3, "abc' OR '1'='1");
 
 이렇게 변수를 이용하여 SQL문을 생성하는 과정에 의도적으로 조작된 변수를 넘겨 DB를 공격하는 방식을 SQL Injection이라고 한다. SQL Injection은 예제와 같이 공격 난이도가 높지 않으면서도 공격당했을 때 치명적인 문제를 초래할 수 있는 보안 취약점이다.
 
-\begin{code}{code:sql-injection-example-drop-table}{SQL Injection Example - Drop Table}
+\begin{code}{code:sql-injection-example-drop-table}{SQL injection example - Drop table}
 \begin{minted}[escapeinside=||]{js}
 const newScore = await createScore('n', "c'); DROP TABLE scores;", 0, 0);
 
@@ -124,7 +125,7 @@ SQL Injection은 매우 기본적이고 대중적이면서도 치명적인 문�
 
 Prepared statement의 변수 부분을 작성하는 방식은 애플리케이션의 언어, 모듈, DBMS마다 조금씩 다르지만 대부분은 물음표(\cd{?}) 문자를 사용하여 변수 부분을 표시한다. mysql2 모듈 역시 prepared statement에 \cd{?} 문자를 사용하여 SQL Injection을 방지할 수 있도록 한다.
 
-\begin{code}{code:runquery-prepared-statement}{\cd{runQuery} Function with Prepared Statement}
+\begin{code}{code:runquery-prepared-statement}{\cd{runQuery} function with prepared statement}
 \begin{minted}{js}
 const runQuery = async (pstmt, data) => {
     const conn = await pool.getConnection();
@@ -141,7 +142,7 @@ const runQuery = async (pstmt, data) => {
 
 \coderef{code:runquery-prepared-statement}\는 \cd{runQuery} 함수를 수정한 코드로, 인자로 prepared statement(\cd{pstmt})와 \cd{?} 문자 자리에 들어갈 값들이 순서대로 할당된 배열(\cd{data})을 전달받아 SQL문을 생성(\cd{sql})한 뒤 DB에 전달하여 데이터를 받는다.
 
-\begin{code}{code:using-prepared-statement}{Using Prepared Statement}
+\begin{code}{code:using-prepared-statement}{Using prepared statement}
 \begin{minted}{js}
 const getScoreByIdName = async (id, name) => {
     const sql = 'SELECT * FROM scores WHERE id = ? AND student = ?';

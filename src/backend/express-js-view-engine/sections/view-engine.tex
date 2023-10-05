@@ -4,7 +4,7 @@
 
 \sectref{sect:express-js}에서는 Express.js를 이용하여 HTTP 요청을 받고 그 요청에 따라 plain text 형태로 적절한 HTTP 응답을 보내는 웹 서버를 구현하였다. 그러나 일반 사용자가 웹 사이트를 이용하기 위해서는 브라우저에서 응답 내용을 렌더링할 수 있도록 HTML 형태의 응답을 보내야 한다. 이러한 서버는 \coderef{code:express-server-responding-html}\과 같이 구현될 수 있다.
 
-\begin{code}{code:express-server-responding-html}{Express Server Responding HTML}
+\begin{code}{code:express-server-responding-html}{Express server responding HTML}
 \begin{minted}{js}
 const express = require('express');
 const app = express();
@@ -31,7 +31,7 @@ $ npm install express pug
 
 index.js를 생성하고 \coderef{code:pug-example-index-js}\와 같이 작성한다. \cd{app.set} 메서드를 이용하여 프로젝트 디렉토리(\cd{\_\_dirname})의 views 디렉토리를 템플릿 파일들을 모아둔 디렉토리로 설정하고, pug를 view engine으로 설정한다. 이제 GET /, GET /page/:page, GET /posts/:until의 controller 함수를 각각 구현하며 pug 문법을 알아보자.
 
-\begin{code}{code:pug-example-index-js}{pug Example Application - index.js}
+\begin{code}{code:pug-example-index-js}{pug example application - index.js}
 \begin{minted}{js}
 const express = require('express');
 
@@ -56,7 +56,7 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 먼저 views/index.pug를 생성하여 \coderef{code:pug-example-index-pug}\와 같이 작성한다.
 
 % TODO
-\begin{code}{code:pug-example-index-pug}{pug Example Application - views/index.pug}
+\begin{code}{code:pug-example-index-pug}{pug example application - views/index.pug}
 \begin{minted}{pug}
 doctype html
 html
@@ -87,7 +87,7 @@ html
     \item 태그 내부의 내용이 여러 줄이면 다음 줄부터 줄마다 pipe(\cd{|})를 삽입한 뒤 한 칸을 띄고 내용을 작성한다.
 \end{itemize}
 
-\begin{code}{code:pug-example-get-index}{pug Example Application - index.js (GET /)}
+\begin{code}{code:pug-example-get-index}{pug example application - index.js (GET /)}
 \begin{minted}{js}
 app.get('/', (req, res) => res.render('index.pug'));
 \end{minted}
@@ -99,7 +99,7 @@ app.get('/', (req, res) => res.render('index.pug'));
 
 \subsection*{Interpolation Syntaxes}
 
-\begin{code}{code:pug-example-board-pug}{pug Example Application - views/board.pug}
+\begin{code}{code:pug-example-board-pug}{pug example application - views/board.pug}
 \begin{minted}{pug}
 doctype html
 html
@@ -113,7 +113,7 @@ html
 
 views/board.pug를 생성하여 \coderef{code:pug-example-board-pug}\와 같이 작성한다. \sectref{sect:advanced-js-syntaxes}에서 다룬 template literal과 유사하게 pug에서는 \cd{\#\{\}} 표현을 이용하여 템플릿에 JS 표현식의 반환값을 삽입한다. \cd{page}와 같이 템플릿에서 사용되는 값은 객체의 형태로 \cd{render} 메서드의 두 번째 인자에 전달하면 해당 부분이 JS 표현식의 반환값으로 대체되어 render된다.
 
-\begin{code}{code:pug-example-get-board}{pug Example Application - index.js (GET /page)}
+\begin{code}{code:pug-example-get-board}{pug example application - index.js (GET /page)}
 \begin{minted}{js}
 app.get('/page', (req, res) => {
     const { page } = req.query;
@@ -127,7 +127,7 @@ app.get('/page', (req, res) => {
 
 \subsection*{Conditional and Iteration Syntaxes}
 
-\begin{code}{code:pug-example-posts-pug}{pug Example Application - views/posts.pug}
+\begin{code}{code:pug-example-posts-pug}{pug example application - views/posts.pug}
 \begin{minted}{pug}
 doctype html
 html
@@ -145,7 +145,7 @@ html
 
 views/posts.pug를 \coderef{code:pug-example-posts-pug}\와 같이 작성한다. 이처럼 pug 템플릿에서는 if-else문 등을 이용하여 조건문을, each-in문 등을 이용하여 반복문을 사용할 수 있다.
 
-\begin{code}{code:pug-example-get-posts}{pug Example Application - index.js (GET /posts)}
+\begin{code}{code:pug-example-get-posts}{pug example application - index.js (GET /posts)}
 \begin{minted}{js}
 app.get('/posts', (req, res) => {
     const { until } = req.query;

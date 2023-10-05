@@ -10,7 +10,7 @@ HTTP는 헤드와 본문으로 이루어져 있고, 헤드(HTTP head)는 요청/
 
 HTTP 요청(request)은 클라이언트가 서버에 전송하는 메시지이다.
 
-\begin{code}{code:http-request-example}{Head of HTTP Request Example}
+\begin{code}{code:http-request-example}{Example of HTTP request head}
 \begin{minted}{text}
 GET /api/articles?bid=12&page=3&count=10 HTTP/1.1
 Host: kweb.korea.ac.kr
@@ -45,7 +45,7 @@ HTTP 메서드(method)는 서버가 수행해야 할 동작의 종류를 나타�
 
 URL(Uniform Resource Locator)은 인터넷 상에서 특정 리소스의 위치를 나타내는 문자열로, 흔히 링크 혹은 주소라고 부르기도 한다. URL은 정해진 구조에 따라 리소스에 대한 위치 정보를 세부적으로 담고 있다.
 
-\figures{fig:url-structure}{Brief Structure of URL}
+\figures{fig:url-structure}{Brief structure of URL}
     {\fig{url-structure.png}{.93}}
 
 \figref{fig:url-structure}\는 간단한 URL의 구조이다. 각 요소는 다음과 같은 정보를 나타낸다.
@@ -63,7 +63,7 @@ URL(Uniform Resource Locator)은 인터넷 상에서 특정 리소스의 위치�
 \subsection*{HTTP Response and Response Status}
 HTTP 응답(response)은 클라이언트로부터 받은 요청에 대해 서버가 클라이언트에 전송하는 메시지이다.
 
-\begin{code}{code:http-response-example}{Head of HTTP Response Example}
+\begin{code}{code:http-response-example}{Example of HTTP response head}
 \begin{minted}{text}
 HTTP/1.1 200 OK
 Server: nginx

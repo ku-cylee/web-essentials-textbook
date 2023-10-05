@@ -45,7 +45,7 @@ $$ A\times B=\{(x,y)~|~x\in A,~y\in B\}=\{(1,1),(2,1),(4,1),(1,3),(2,3),(4,3),(1
 
 \begin{tblenv}
     {tab:join-example}
-    {Table \cd{A} and \cd{B} Joined}
+    {Table \cd{A} and \cd{B} joined}
     {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -81,7 +81,7 @@ DB에서 두 테이블을 join할 때 T1 테이블에 T2 테이블을 join한다
 
 \begin{tblenv}
     {tab:inner-join-example}
-    {Table \cd{A} Inner Join Table \cd{B}}
+    {Table \cd{A} inner join Table \cd{B}}
     {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -97,7 +97,7 @@ Outer join은 특정 테이블의 모든 row를 강제로 join에 참여시키�
 
 \begin{tblenv}
     {tab:left-outer-join-example}
-    {Table \cd{A} Left Outer Join Table \cd{B}}
+    {Table \cd{A} left outer join Table \cd{B}}
     {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -115,7 +115,7 @@ Outer join은 특정 테이블의 모든 row를 강제로 join에 참여시키�
 
 \begin{tblenv}
     {tab:right-outer-join-example}
-    {Table \cd{A} Right Outer Join Table \cd{B}}
+    {Table \cd{A} right outer join Table \cd{B}}
     {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -134,7 +134,7 @@ Right outer join은 left outer join과 정반대로 오른쪽 테이블의 모�
 
 \begin{tblenv}
     {tab:full-outer-join-example}
-    {Table \cd{A} Full Outer Join Table \cd{B}}
+    {Table \cd{A} full outer join Table \cd{B}}
     {?>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.12\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -152,7 +152,7 @@ Right outer join은 left outer join과 정반대로 오른쪽 테이블의 모�
 
 Full outer join은 양쪽 테이블의 모든 row를 join에 강제로 참여시키는 방식으로, \tblref{tab:full-outer-join-example}\은 \cd{A} 테이블에 \cd{B} 테이블을 \cd{A.id = B.id} 조건 하에 full outer join한 결과이다. 이 방식은 inner join과 마찬가지로 교환법칙이 성립한다.
 
-\figures{fig:join-venn-diagram}{Join Operations as Venn Diagrams}{
+\figures{fig:join-venn-diagram}{Join operations as Venn diagrams}{
     \subfig{fig:inner-join}{Inner Join}
         {inner-join.png}{.23}
     \subfig{fig:left-outer-join}{Left Outer Join}
@@ -169,7 +169,7 @@ Full outer join은 양쪽 테이블의 모든 row를 join에 강제로 참여시
 
 Join 연산은 관계가 있는 테이블에서 데이터를 가져올 때 매우 유용하게 사용되어 관계형 DB의 꽃과 같은 연산이다. 따라서 SQL문을 이용하여 조건에 따라 join operation을 수행하는 방법을 예시 데이터와 함께 알아본다.
 
-\begin{shell}{shell:import-sql-file}{Import SQL File}
+\begin{shell}{shell:import-sql-file}{Import SQL file}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ mysql –u<username> -p<password> -D<db-name> < <sql-file-path>
 \end{minted}
@@ -177,34 +177,34 @@ $ mysql –u<username> -p<password> -D<db-name> < <sql-file-path>
 
 \shellref{shell:import-sql-file}\은 \cd{sql-file-path} 경로에 위치한 SQL 파일을 \cd{db-name} DB에 import하는 명령어로, 이를 이용하여 \coderef{code:join-example-sql}\을 DB에 import한다. 이때 \cd{username} 계정은 \cd{db-name} DB에 권한을 갖고 있어야 한다. \cd{tb1} 테이블은 \cd{id}와 \cd{data1} column을, \cd{tb2} 테이블은 \cd{id}와 \cd{data2} column을 가지며, 각 테이블에는 10개의 데이터가 삽입되어 있다.
 
-\begin{sql}{sql:join}{\cd{SELECT} with Join Operation Syntax}
-\begin{minted}{sql}
+\begin{sql}{sql:join}{\cd{SELECT} with join operation syntax}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 SELECT <columns> FROM <left-table>
-    (INNER/LEFT OUTER/RIGHT OUTER) JOIN <right-table> ON <join-condition>
-    WHERE <condition>
+(INNER/LEFT OUTER/RIGHT OUTER) JOIN <right-table> ON <join-condition>
+WHERE <condition>
 \end{minted}
 \end{sql}
 
 \sqlref{sql:join}\은 \cd{left-table} 테이블에 \cd{right-table} 테이블을 \cd{join-condition}을 만족하며 join\footnote{MariaDB(MySQL)에서 full outer join 연산은 각 테이블에서 데이터를 조회한 뒤 합집합을 생성하여야 한다. 그러나 full outer join은 자주 쓰이는 연산이 아니므로 본 교재에서는 생략한다.}한 테이블을 생성하고, 그 테이블에서 \cd{condition} 조건을 만족하는 데이터를 \cd{SELECT} 키워드를 이용해 조회하는 SQL문이다.
 
-\begin{shell}{shell:sql-join-operations}{Join Operations Using SQL}
-\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
-> SELECT `tb1`.`data1`, `tb2`.`data2` FROM `tb1`
-      INNER JOIN `tb2` ON `tb1`.`id` = `tb2`.`id`;
-> SELECT `tb1`.`data1`, `tb2`.`data2` FROM `tb1`
-      LEFT OUTER JOIN `tb2` ON `tb1`.`id` = `tb2`.`id`;
-> SELECT `tb1`.`data1`, `tb2`.`data2` FROM `tb1`
-      RIGHT OUTER JOIN `tb2` ON `tb1`.`id` = `tb2`.`id`;
+\begin{code}{code:sql-join-operations}{Join operations using SQL}
+\begin{minted}{sql}
+SELECT `tb1`.`data1`, `tb2`.`data2` FROM `tb1`
+    INNER JOIN `tb2` ON `tb1`.`id` = `tb2`.`id`;
+SELECT `tb1`.`data1`, `tb2`.`data2` FROM `tb1`
+    LEFT OUTER JOIN `tb2` ON `tb1`.`id` = `tb2`.`id`;
+SELECT `tb1`.`data1`, `tb2`.`data2` FROM `tb1`
+    RIGHT OUTER JOIN `tb2` ON `tb1`.`id` = `tb2`.`id`;
 \end{minted}
-\end{shell}
+\end{code}
 
-\shellref{shell:sql-join-operations}\는 \cd{tb1} 테이블에 \cd{tb2} 테이블을 \cd{tb1.id = tb2.id} 조건 하에 join하는 예제이다. 각 join 방식에 따라 조회 결과가 어떻게 달라지는지 확인해본다.
+\coderef{code:sql-join-operations}\는 \cd{tb1} 테이블에 \cd{tb2} 테이블을 \cd{tb1.id = tb2.id} 조건 하에 join하는 예제이다. 각 join 방식에 따라 조회 결과가 어떻게 달라지는지 확인해본다.
 
 이제 실제로 one-to-many 관계에 있는 테이블들의 데이터를 join하여 조회해보자. \coderef{code:university-system}\을 import하여 \sectref{sect:relational-designing}에서 설계한 세 테이블(약간의 변화가 있다)을 생성하고 데이터를 추가할 수 있다.
 
 먼저 \cd{courses} 테이블에서 강의가 속한 학과 이름, 강의 코드, 학점, 시간을 조회하는 SQL문을 작성해보자.
 
-\begin{shell}{shell:join-with-ambiguity}{Join with Ambiguity}
+\begin{shell}{shell:join-with-ambiguity}{Join with ambiguity}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 > SELECT `name`, `code`, `credit`, `period` FROM `courses`
     INNER JOIN `departments` on `courses`.`department` = `departments`.`id`;
@@ -214,18 +214,18 @@ ERROR 1052 (23000): Column 'name' in field list is ambiguous
 
 \shellref{shell:join-with-ambiguity}\를 실행하면 \cd{name}이라는 column이 모호하다(ambiguous)는 에러가 발생한다. 이 에러는 \cd{courses}와 \cd{departments} 테이블에 모두 \cd{name} column이 있어 DBMS는 어떤 \cd{name} column을 조회해야 하는지 알 수 없기 때문에 발생한다.
 
-\begin{shell}{shell:join-without-ambiguity}{Join without Ambiguity}
-\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
-> SELECT `departments`.`name`, `code`, `credit`, `period` FROM `courses`
-      INNER JOIN `departments` on `courses`.`department` = `departments`.`id`;
+\begin{code}{code:join-without-ambiguity}{Join without Ambiguity}
+\begin{minted}{sql}
+SELECT `departments`.`name`, `code`, `credit`, `period` FROM `courses`
+INNER JOIN `departments` on `courses`.`department` = `departments`.`id`;
 \end{minted}
-\end{shell}
+\end{code}
 
-따라서 join에 참여하는 테이블에 중복된 column 이름이 있다면 모호함을 피하기 위해 \shellref{shell:join-without-ambiguity}\와 같이 테이블 이름까지 명시해주어야 한다.
+따라서 join에 참여하는 테이블에 중복된 column 이름이 있다면 모호함을 피하기 위해 \coderef{code:join-without-ambiguity}\와 같이 테이블 이름까지 명시해주어야 한다.
 
 \begin{tblenv}
     {tab:university-table-joined}
-    {University Table Joined}
+    {University table joined}
     {?>{\colc}m{0.2\tw}|>{\colc}m{0.07\tw}|>{\colc}m{0.05\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.05\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.06\tw}|>{\colc}m{0.06\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -280,38 +280,38 @@ ERROR 1052 (23000): Column 'name' in field list is ambiguous
     \thickhline
 \end{tblenv}
 
-\tblref{tab:university-table-joined-columns-selected}\는 \tblref{tab:university-table-joined}에서 특정 column들만 선택하여 조회한 결과로, \shellref{shell:join-without-ambiguity}의 실행 결과와 동일하다. 이렇게 참조하는 column(\cd{courses.department})과 참조되는 column(\cd{departments.id})이 같은 조건 하에 join하여 관계가 있는 테이블들의 데이터를 편리하게 조회할 수 있다.
+\tblref{tab:university-table-joined-columns-selected}\는 \tblref{tab:university-table-joined}에서 특정 column들만 선택하여 조회한 결과로, \coderef{code:join-without-ambiguity}의 실행 결과와 동일하다. 이렇게 참조하는 column(\cd{courses.department})과 참조되는 column(\cd{departments.id})이 같은 조건 하에 join하여 관계가 있는 테이블들의 데이터를 편리하게 조회할 수 있다.
 \clearpage
 
-\begin{shell}{shell:multiple-joins}{Multiple Join Operation}
-\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
-> SELECT `courses`.`id`, `colleges`.`name` AS `college`, `dept`.`name` AS `department`,
-      `courses`.`name` AS `course`, `courses`.`code`, `credit`, `period` FROM `courses`
-      INNER JOIN `departments` AS `dept` ON `courses`.`department` = `dept`.`id`
-      INNER JOIN `colleges` ON `dept`.`college` = `colleges`.`id`;
+\begin{code}{code:multiple-joins}{Multiple join operations}
+\begin{minted}{sql}
+SELECT `courses`.`id`, `colleges`.`name` AS `college`, `dept`.`name` AS `department`,
+`courses`.`name` AS `course`, `courses`.`code`, `credit`, `period` FROM `courses`
+INNER JOIN `departments` AS `dept` ON `courses`.`department` = `dept`.`id`
+INNER JOIN `colleges` ON `dept`.`college` = `colleges`.`id`;
 \end{minted}
-\end{shell}
+\end{code}
 
-하나의 테이블에 여러 테이블을 join할 수도 있고, join된 테이블에 또 다른 테이블을 다시 join할 수도 있다. \shellref{shell:multiple-joins}\는 모든 강의의 ID(\cd{id}), 단과대명(\cd{college}), 학과명(\cd{department}), 강의명(\cd{course}), 강의 코드, 학점, 시간을 조회하는 SQL문으로, \cd{courses} 테이블에 \cd{departments} 테이블을 join한 뒤, \cd{departments} 테이블에 \cd{colleges} 테이블을 다시 join한다.
+하나의 테이블에 여러 테이블을 join할 수도 있고, join된 테이블에 또 다른 테이블을 다시 join할 수도 있다. \coderef{code:multiple-joins}\는 모든 강의의 ID(\cd{id}), 단과대명(\cd{college}), 학과명(\cd{department}), 강의명(\cd{course}), 강의 코드, 학점, 시간을 조회하는 SQL문으로, \cd{courses} 테이블에 \cd{departments} 테이블을 join한 뒤, \cd{departments} 테이블에 \cd{colleges} 테이블을 다시 join한다.
 
 \cd{AS} 키워드를 사용하면 \cd{departments} 테이블의 이름을 \cd{dept}로 줄인 것과 같이 테이블 이름을 바꾸어 SQL문이 지나치게 길어지는 것을 방지할 수 있다. 또한, 서로 다른 column이 같은 테이블을 참조하여 하나의 테이블이 두 번 이상 join에 참여하게 되어 테이블 이름에 모호함이 발생할 때 \cd{AS} 키워드는 반드시 필요하다.
 
-\begin{shell}{shell:university-where}{Condition on \cd{WHERE} Clause}
-\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
-> SELECT `courses`.`name`, `courses`.`code` FROM `courses`
-      INNER JOIN `departments` ON `courses`.`department` = `departments`.`id`
-      WHERE `departments`.`name` = 'Chemistry';
+\begin{code}{code:university-where}{Condition on \cd{WHERE} clause}
+\begin{minted}{sql}
+SELECT `courses`.`name`, `courses`.`code` FROM `courses`
+    INNER JOIN `departments` ON `courses`.`department` = `departments`.`id`
+    WHERE `departments`.`name` = 'Chemistry';
 \end{minted}
-\end{shell}
+\end{code}
 
-\shellref{shell:university-where}\는 \cd{WHERE} 키워드를 이용하여 화학과(Dept. of Chemistry)에 속한 강의의 이름(\cd{name})과 코드(\cd{code})를 조회하는 SQL문이다.
+\coderef{code:university-where}\는 \cd{WHERE} 키워드를 이용하여 화학과(Dept. of Chemistry)에 속한 강의의 이름(\cd{name})과 코드(\cd{code})를 조회하는 SQL문이다.
 
-\begin{shell}{shell:university-join-condition}{Condition on Join Condition}
-\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
-> SELECT `courses`.`name`, `courses`.`code` FROM `courses`
-      INNER JOIN `departments` AS `dept`
-      ON `courses`.`department` = `dept`.`id` AND `dept`.`name` = 'Chemistry';
+\begin{code}{code:university-join-condition}{Condition on join condition}
+\begin{minted}{sql}
+SELECT `courses`.`name`, `courses`.`code` FROM `courses`
+    INNER JOIN `departments` AS `dept`
+    ON `courses`.`department` = `dept`.`id` AND `dept`.`name` = 'Chemistry';
 \end{minted}
-\end{shell}
+\end{code}
 
-\shellref{shell:university-where}에서는 \cd{departments.name}의 값이 ``Chemistry''인 조건이 \cd{WHERE} clause에 명시되었지만, 특정 조건들은 \shellref{shell:university-join-condition}\과 같이 join 조건에 명시될 수도 있으며, 결과는 동일하면서 조회 속도가 훨씬 빨라질 수 있다. 다만, 다른 테이블의 column 값과 \cd{OR}로 연결된 조건 등을 \cd{WHERE} clause가 아닌 join 조건에 명시하면 전혀 다른 결과가 나올 수 있으므로 주의하여 사용하여야 한다.
+\coderef{code:university-where}에서는 \cd{departments.name}의 값이 ``Chemistry''인 조건이 \cd{WHERE} clause에 명시되었지만, 특정 조건들은 \coderef{code:university-join-condition}\과 같이 join 조건에 명시될 수도 있으며, 결과는 동일하면서 조회 속도가 훨씬 빨라질 수 있다. 다만, 다른 테이블의 column 값과 \cd{OR}로 연결된 조건 등을 \cd{WHERE} clause가 아닌 join 조건에 명시하면 전혀 다른 결과가 나올 수 있으므로 주의하여 사용하여야 한다.

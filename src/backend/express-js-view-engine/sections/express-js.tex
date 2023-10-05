@@ -14,7 +14,7 @@ Node.js에서 동작하는 JS의 웹 프레임워크에는 대표적으로 Expre
 
 Express.js 프레임워크를 이용하여 간단한 웹 서버를 구현해보자.
 
-\begin{shell}{shell:create-express-server}{Create Express Server}
+\begin{shell}{shell:create-express-server}{Create Express server}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ npm init -y
 $ npm install express
@@ -25,7 +25,7 @@ $ npm install express
 
 이제 index.js를 생성하고, \coderef{code:simple-express-server}의 코드를 작성한 후 실행한다.
 
-\begin{code}{code:simple-express-server}{Simple Express Server}
+\begin{code}{code:simple-express-server}{Simple Express server}
 \begin{minted}{js}
 const express = require('express');
 const app = express();
@@ -68,7 +68,7 @@ Express.js는 이러한 라우팅을 간편하게 할 수 있는 라우팅 메�
 
 Express.js로 생성된 애플리케이션은 일련의 미들웨어를 순차적으로 실행하는 애플리케이션이라고 요약할 수 있다. 여기에서 미들웨어(middleware)란, 요청 객체와 응답 객체, 그리고 요청 - 응답 처리 과정 중 그 다음 미들웨어 함수에 대한 접근 권한을 갖는 함수이다.
 
-\begin{code}{code:middleware-example}{Middleware Example}
+\begin{code}{code:middleware-example}{Middleware example}
 \begin{minted}{js}
 const express = require('express');
 const app = express();
@@ -101,7 +101,7 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 
 이러한 미들웨어의 특징을 도식으로 나타내면 \figref{fig:middlewares-flow}\와 같다.
 
-\figures{fig:middlewares-flow}{Flow of Code using Middlewares}{
+\figures{fig:middlewares-flow}{Flow of code using middlewares}{
     \fig{middlewares-flow.png}{.75}
 }
 
@@ -109,7 +109,7 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 
 라우팅은 express 모듈의 \cd{Router} 객체를 이용하여 미들웨어 형태로 작성될 수 있다. router.js를 생성하고 \coderef{code:middleware-routing-router}\와 같이 작성한다.
 
-\begin{code}{code:middleware-routing-router}{Routing with Middleware - router.js}
+\begin{code}{code:middleware-routing-router}{Routing with middleware - router.js}
 \begin{minted}{js}
 const { Router } = require('express');
 
@@ -125,7 +125,7 @@ module.exports = router;
 
 이후 index.js를 \coderef{code:middleware-routing-index}\와 같이 작성한다.
 
-\begin{code}{code:middleware-routing-index}{Routing with Middleware - index.js}
+\begin{code}{code:middleware-routing-index}{Routing with middleware - index.js}
 \begin{minted}{js}
 const express = require('express');
 const router = require('./router');

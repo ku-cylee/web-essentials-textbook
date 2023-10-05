@@ -42,7 +42,7 @@ $ git --version
 
 Windows와 macOS에서는 git 홈페이지(https://git-scm.com/downloads)에서 자신의 운영체제에 맞는 설치파일을 다운받고, 실행하여 추가 옵션 없이 설치한다. Ubuntu와 같은 Linux 계열의 OS에서는 \shellref{shell:git-install-ubuntu}과 같이 설치한다.
 
-\begin{shell}{shell:git-install-ubuntu}{git Installation (Ubuntu)}
+\begin{shell}{shell:git-install-ubuntu}{git installation (Ubuntu)}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ sudo apt install -y git
 \end{minted}
@@ -67,13 +67,13 @@ GitHub은 대표적인 git 원격 저장소 무료 호스팅 사이트로, git�
 }
 
 이제 이 프로젝트를 \cd{clone} 명령어를 통해 로컬 환경에 다운로드 받을 수 있다. 프로젝트를 다운받고자 하는 디렉토리에서 shell을 실행하고, \shellref{shell:git-clone}에서 \cd{<repo-url>} 부분에 원격 저장소 주소를 입력하여 실행한다. 이후 프로젝트가 원하는 디렉토리에 정상적으로 clone 되었는지 확인한다.
+\clearpage
 
 \begin{shell}{shell:git-clone}{Clone remote repository to local}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ git clone <repo-url>
 \end{minted}
 \end{shell}
-\clearpage
 
 \subsection*{Commit Project Updates}
 
@@ -87,7 +87,7 @@ $ git clone <repo-url>
 
 프로젝트 디렉토리에 index.js를 생성하고, \coderef{code:nodejs-simple-web-server}(\pageref{code:nodejs-simple-web-server}쪽)의 코드를 작성한다. 이후 \shellref{shell:commit-and-push}\와 같은 과정을 통해 변경 사항을 commit하고, 이를 원격 저장소에 push한다. 이때 \cd{git add .} 명령어는 프로젝트 내 모든 파일의 변경 사항을 추적하여 staging area로 올린다는 뜻이다. 이후 원격 저장소에서 commit 내역을 확인하여, 변경 사항이 정상적으로 반영되었는지 확인한다.
 
-\begin{shell}{shell:commit-and-push}{Commit Changes and Push Commits}
+\begin{shell}{shell:commit-and-push}{Commit changes and push commits}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ git add .
 $ git commit -m <commit-message>

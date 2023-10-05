@@ -14,7 +14,7 @@
 
 Shell을 열고 git(\shellref{shell:git-install-ubuntu}, \pageref{shell:git-install-ubuntu}쪽), Node.js(\shellref{shell:nodejs-linux-install}, \pageref{shell:nodejs-linux-install}쪽), MariaDB(\shellref{shell:mariadb-installation-ubuntu}, \pageref{shell:mariadb-installation-ubuntu}쪽)를 설치한다. 먼저 MariaDB를 실행하여 웹 애플리케이션에 사용할 DB 사용자 계정과 데이터베이스를 생성하고, DB 사용자에게 데이터베이스의 모든 권한을 부여한다. (\sectref{sect:maria-db} 참고)
 
-\begin{shell}{shell:project-config}{Project Configuration}
+\begin{shell}{shell:project-config}{Project configuration}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ git clone <git-repo-url>
 $ cd <repo-directory-name>
@@ -26,7 +26,7 @@ $ vim .env
 
 \shellref{shell:project-config}\와 같이 git을 이용해 프로젝트를 clone하고, package.json에서 \cd{dependencies} 항목의 패키지를 설치한 뒤, schema/0000.sql 파일을 DB에 import한다. 이후 Vim을 이용하여 .env 파일을 작성하는데, \cd{MODE}의 값을 \cd{prod}로 설정한다.
 
-\begin{shell}{shell:install-deploy-packages}{Install Deploy Packages}
+\begin{shell}{shell:install-deploy-packages}{Install deploy packages}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ sudo apt update
 $ sudo apt upgrade -y
@@ -36,7 +36,7 @@ $ sudo apt install -y ufw nginx
 
 \shellref{shell:install-deploy-packages}\와 같이 ufw, nginx 패키지를 설치한다.
 
-\begin{shell}{shell:get-server-ip}{Get Public IP of Server Machine}
+\begin{shell}{shell:get-server-ip}{Get public IP of server machine}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ curl ifconfig.me
 \end{minted}
@@ -44,7 +44,7 @@ $ curl ifconfig.me
 
 \shellref{shell:get-server-ip}\와 같이 서버 컴퓨터의 공용(public) IP 주소를 확인한다.
 
-\begin{shell}{shell:allow-port-80}{Allow Port 80/TCP}
+\begin{shell}{shell:allow-port-80}{Allow port 80/TCP}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ sudo ufw allow 80/tcp
 $ sudo ufw enable
@@ -62,7 +62,7 @@ $ sudo ufw verbose
 
 이제 nginx 서버와 Express 웹 애플리케이션을 연동해보자.
 
-\begin{shell}{shell:open-nginx-config-file}{Open nginx Configuration File}
+\begin{shell}{shell:open-nginx-config-file}{Open nginx configuration file}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ sudo vim /etc/nginx/sites-available/node-simple-board
 \end{minted}
@@ -70,7 +70,7 @@ $ sudo vim /etc/nginx/sites-available/node-simple-board
 
 \shellref{shell:open-nginx-config-file}\과 같이 /etc/nginx/sites-available 디렉토리에 node-simple-board 파일을 Vim 편집기로 생성하며 연다.
 
-\begin{code}{code:nginx-config}{nginx Configuration}
+\begin{code}{code:nginx-config}{nginx configuration}
 \begin{minted}{text}
 server {
     listen 80;
@@ -98,7 +98,7 @@ server {
 
 이러한 리버스 프록시 서버를 여러 번 중첩시키므로써 해킹 등을 더 안전하게 방어할 수 있고, DDoS 공격 등을 보다 효율적으로 방어할 수 있다. 또한, 이러한 server block을 여러 개 만들어서 HTTP 요청을 여러 서버에서 나누어 처리하게끔 할 수도 있고, 서버 애플리케이션과 가장 바깥쪽 프록시 서버 사이에 캐시 서버를 넣어 성능을 향상시킬 수도 있다.
 
-\begin{shell}{shell:symbolic-link-and-restart}{Create Symbolic Link and Restart nginx}
+\begin{shell}{shell:symbolic-link-and-restart}{Create symbolic link and restart nginx}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ sudo ln -s /etc/nginx/sites-available/node-simple-board \
     /etc/nginx/sites-enabled/node-simple-board
@@ -108,7 +108,7 @@ $ sudo service nginx restart
 
 이제 \shellref{shell:symbolic-link-and-restart}\와 같이 /etc/nginx/sites-enabled 디렉토리 아래에 \coderef{code:nginx-config} 파일의 symbolic link\footnote{Windows의 바로가기와 비슷한 기능}를 생성하고, nginx를 재실행한다.
 
-\begin{shell}{shell:run-web-app}{Run Express Web Application}
+\begin{shell}{shell:run-web-app}{Run Express web application}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ cd <web-app-directory>
 $ node src/index.js

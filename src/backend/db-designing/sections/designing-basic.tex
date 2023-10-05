@@ -6,7 +6,7 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
 
 \begin{tblenv}
     {tab:mariadb-data-types}
-    {Data Types of MariaDB (MySQL)}
+    {Data types of MariaDB (MySQL)}
     {>{\coll}m{0.1\tw}>{\coll}m{0.65\tw}}
     \thickhline
     Category & Data Types\tabularnewline
@@ -28,7 +28,7 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
 
 \begin{tblenv}
     {tab:courses-table-basic}
-    {\cd{courses} Table}
+    {\cd{courses} table}
     {?>{\colc}m{0.16\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.15\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -51,7 +51,7 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
 
 \begin{tblenv}
     {tab:courses-table-types}
-    {\cd{courses} Table with Data Types}
+    {\cd{courses} table with data types}
     {?>{\colc}m{0.16\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.15\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -85,7 +85,7 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
 
 \begin{tblenv}
     {tab:courses-table-categories}
-    {\cd{courses} Table with Categories}
+    {\cd{courses} table with categories}
     {?>{\colc}m{0.16\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.15\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -118,7 +118,7 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
 
 \begin{tblenv}
     {tab:courses-table-subdivisions}
-    {\cd{courses} Table with \cd{classification} Subdivisions}
+    {\cd{courses} table with \cd{classification} subdivisions}
     {?>{\colc}m{0.16\tw}|>{\colc}m{0.12\tw}|>{\colc}m{0.11\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.11\tw}|>{\colc}m{0.1\tw}|>{\colc}m{0.1\tw}?}
     \thickhline
     \rowcolor{tblheadcolor}
@@ -149,7 +149,7 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
 
 앞에서 설계한 \cd{courses} 테이블(\tblref{tab:courses-table-subdivisions})을 SQL을 이용하여 DB에 생성해보자.
 
-\begin{code}{code:create-courses-table}{Create \cd{courses} Table}
+\begin{code}{code:create-courses-table}{Create \cd{courses} table}
 \begin{minted}{sql}
 CREATE TABLE `courses` (
     `name` VARCHAR(20) NOT NULL,
@@ -165,16 +165,16 @@ CREATE TABLE `courses` (
 
 \coderef{code:create-courses-table}\는 데이터베이스에 \cd{courses} 테이블을 생성하는 SQL문이다. 각 column을 정의할 때는 column의 이름, 자료형, 옵션\footnote{주어진 SQL문의 \cd{NOT NULL} 옵션은 NULL 값을 허용하지 않는다는 뜻이다.}을 공백문자(whitespace)로 구분하여 나열하고, 각 column을 쉼표(\cd{,})로 구분하여 나열한다. SQL 문법에서는 여러 공백 문자도 하나의 공백 문자로 취급(값은 제외)되므로 개행없이 한 줄에 모두 나열하여도 상관없고, \cd{CREATE}, \cd{INT}와 같은 예약어는 모두 대문자로 작성하는 것이 원칙이지만 소문자로 작성해도 차이는 없다. Table이나 column 이름 등은 백틱(\cd{`})으로 감싸는 것이 원칙이지만 예약어가 아니라면 감싸지 않아도 된다.\footnote{예를 들어 column 이름이 \cd{student}라면 감싸지 않아도 되나 \cd{order}라면 반드시 감싸야 한다.}
 
-\begin{sql}{sql:desc}{Description of Table}
-\begin{minted}{sql}
+\begin{sql}{sql:desc}{Description of table}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 DESC <table-name>
 \end{minted}
 \end{sql}
 
 \sqlref{sql:desc}\과 같이 \cd{DESC} 키워드를 사용하면 테이블의 설계 정보를 확인할 수 있다.
 
-\begin{sql}{sql:truncate-and-drop}{Truncate and Drop Table}
-\begin{minted}{sql}
+\begin{sql}{sql:truncate-and-drop}{Truncate and drop table}
+\begin{minted}[linenos=false, xleftmargin=2pt]{sql}
 TRUNCATE <table-name>
 DROP TABLE <table-name>
 \end{minted}
