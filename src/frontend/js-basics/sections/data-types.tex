@@ -11,7 +11,8 @@ JS에는 다음과 같은 8개의 자료형이 존재하며, 본 교재에서는
 
 number형은 수(數)를 저장하는 자료형으로, 정수, 유리수 등을 구별 없이 저장할 수 있고, 상호 연산이 가능하다.
 
-\begin{codeenv}{code:number-type}{Number type}\begin{verbatim}
+\begin{code}{code:number-type}{Number type}
+\begin{minted}{js}
 > const num1 = 2;
 > const num2 = 7.5;
 > const num3 = 2 / 5;
@@ -23,12 +24,13 @@ number형은 수(數)를 저장하는 자료형으로, 정수, 유리수 등을 
 15
 > num3;
 0.4
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 number 자료형에는 일반적인 실수 이외에 \cd{Infinity}와 \cd{NaN}(not a number)이 있다. 두 값은 0으로 나누는 연산이 수행되면 발생한다.
 
-\begin{codeenv}{code:infinity-nan}{Infinity and NaN}\begin{verbatim}
+\begin{code}{code:infinity-nan}{Infinity and NaN}
+\begin{minted}{js}
 > 3 / 0;
 Infinity
 > typeof(3 / 0);
@@ -39,25 +41,27 @@ Infinity
 NaN
 > typeof(0 / 0);
 'number'
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
 ES7부터 지수 연산자를 지원하며, \coderef{code:exponentation-operator}\와 같이 사용한다.
 
-\begin{codeenv}{code:exponentation-operator}{Exponentation operator}\begin{verbatim}
+\begin{code}{code:exponentation-operator}{Exponentation operator}
+\begin{minted}{js}
 > 3 ** 5
 243
 > 4 ** (-0.5)
 0.5
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{String}
 
 string형은 문자열을 저장하는 자료형으로, string형 문자열 간에도 상호 계산이 가능하다.
 
-\begin{codeenv}{code:string-type}{String type}\begin{verbatim}
+\begin{code}{code:string-type}{String type}
+\begin{minted}{js}
 > const hello = 'Hello';
 > const world = 'World';
 > const helloWorld = hello + ' ' + world;
@@ -69,12 +73,13 @@ string형은 문자열을 저장하는 자료형으로, string형 문자열 간�
 'o'
 > typeof helloWorld;
 'string'
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 문자열을 표현할 때 큰따옴표(\cd{"})나 작은따옴표(\cd{'})를 사용하여 문자열을 감싸며, 서로 다른 문자로 감싸는 것은 불가능하다. 또한, 문자열 내에 감싸는 문자 등이 포함되어 있는 경우 역슬래시(\verb|\|)를 이용하여 escape 시켜야 한다.
 
-\begin{codeenv}{code:string-type-assign}{Assigning value on string type variable}\begin{verbatim}
+\begin{code}{code:string-type-assign}{Assigning value on string type variable}
+\begin{minted}{js}
 > "String";
 'String'
 > 'String';
@@ -85,15 +90,16 @@ Uncaught SyntaxError: Invalid or unexpected token
 'McDonald\'s'
 > console.log("McDonald's");
 McDonald's
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
 \subsection*{Boolean}
 
 boolean형은 논리적인 요소를 나타내는 자료형으로, \cd{true}와 \cd{false} 두 가지의 값이 가능하다.
 
-\begin{codeenv}{code:boolean-type}{Boolean type}\begin{verbatim}
+\begin{code}{code:boolean-type}{Boolean type}
+\begin{minted}{js}
 > 1 == 1;
 true
 > 1 > 3;
@@ -105,14 +111,15 @@ true
 > const isNumberEven = (5 % 2 == 0);
 > isNumberEven;
 false
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{Object}
 
 object형, 즉 객체형이란 key와 value를 가질 수 있는 자료형이다. 예를 들어, 어떠한 학생에 대한 정보를 다룰 때, 학생의 학번, 이름, 학과, 재학 여부 등을 서로 다른 변수에 저장하지 않고, \cd{student}라는 객체형 식별자에 저장하여 일괄적으로 다룰 수 있다. Key는 같은 계층에서 유일한 문자열이고, value에는 숫자, 문자열 등 자료형에 상관없이 모든 종류의 값이 할당될 수 있다. 즉, 객체 내부에 또 다른 객체가 포함될 수 있어, 계층이 있는 데이터(hierarchial data)를 형성하는 것이 가능하다.
 
-\begin{codeenv}{code:object-type}{Object type}\begin{verbatim}
+\begin{code}{code:object-type}{Object type}
+\begin{minted}{js}
 > const person = {
     age: 21,
     name: 'Frank',
@@ -131,38 +138,41 @@ false
 60
 > person;
 { age: 21, name: 'Frank', height: 171, isMale: true, weight: 60 }
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{Undefined and Null}
 
 undefined형과 null형은 각각 값이 할당되지 않은 식별자와 값을 모르는 식별자가 갖는 자료형이며, 두 자료형의 값은 각각 항상 \cd{undefined}와 \cd{null}이다.
 
-\begin{codeenv}{code:undefined-type}{Undefined type}\begin{verbatim}
+\begin{code}{code:undefined-type}{Undefined type}
+\begin{minted}{js}
 > let undefVar;
 > undefVar;
 undefined
 > typeof undefVar;
 'undefined'
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 JS에는 null 자료형 식별자를 \cd{typeof} 함수를 이용하여 확인할 때 잘못된 자료형을 반환받는 버그를 가지고 있다. 이는 매우 오래된 버그이므로 고치는 것이 불가능하다고 하며, 변수가 \cd{null}임을 확인하기 위해서는 값을 직접 비교하여야 한다.
 
-\begin{codeenv}{code:null-type}{Null type}\begin{verbatim}
+\begin{code}{code:null-type}{Null type}
+\begin{minted}{js}
 > const nullVar = null;
 > typeof null;
 'object'
 > nullVar == null;
 true
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{Array}
 
 배열은 index를 가지는, 복수의 자료를 저장할 수 있는 자료구조이다. JS에서는 각 원소의 자료형에 제한이 없어 서로 다른 자료형의 원소를 하나의 배열에 저장할 수 있으며, 배열의 크기가 정해져 있지 않아 각종 메서드(method)를 이용하여 원소를 자유롭게 넣고 뺄 수 있다.
 
-\begin{codeenv}{code:js-array}{Array}\begin{verbatim}
+\begin{code}{code:js-array}{Array}
+\begin{minted}{js}
 > const arr = [0, 1, 1.5, true, 'hungry'];
 > arr.length;
 5
@@ -174,5 +184,5 @@ true
 6
 > arr;
 [ 0, 1, 1.5, true, 'hungry', 'new element' ]
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}

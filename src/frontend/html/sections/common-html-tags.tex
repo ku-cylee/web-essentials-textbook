@@ -5,22 +5,24 @@
 \subsection*{Heading (\cd{h1} - \cd{h6}) Tags}
 \cd{h1} - \cd{h6} 태그는 heading의 약자로, 제목을 나타낼 때 사용되는 태그이다. h 뒤의 숫자가 작을수록 화면에 표시되는 글자의 크기가 크다.
 
-\begin{codeenv}{code:heading-tags}{\cd{h1} - \cd{h6} tags}\begin{verbatim}
+\begin{code}{code:heading-tags}{\cd{h1} - \cd{h6} tags}
+\begin{minted}{html}
 <h1>This is h1 tag</h1>
 <h2>This is h2 tag</h2>
 <h3>This is h3 tag</h3>
 <h4>This is h4 tag</h4>
 <h5>This is h5 tag</h5>
 <h6>This is h6 tag</h6>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\cd{p}, \cd{br} Tags}
 \cd{p} 태그는 paragraph의 약자로, 문단을 구분해주는 태그이다. 이 태그는 문단과 문단 사이에 공백을 넣어주는 역할을 하며, 문단과 문단의 사이에는 별도의 공간이 생긴다.
 
 HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) 문자들은 종류와 관계없이 하나의 공백 취급을 받고, 이러한 공백 문자들은 여러 개 연속적으로 나열되어도 하나의 공백으로 취급된다. 따라서, 코드 내에서 줄 바꿈을 하여 작성해도 실제로는 줄 바꿈이 되지 않으며, 줄 바꿈을 하기 위해서는 \cd{br} 태그를 줄 바꿈하고자 하는 위치에 넣어야 한다.\footnote{스페이스 문자를 여러 개 넣기 위해서는 \pageref{etc:nbsp}쪽의 \cd{\&nbsp;} 문단을 참고하여라.}
 
-\begin{codeenv}{code:par-tag}{\cd{p}, \cd{br} tags}\begin{verbatim}
+\begin{code}{code:par-tag}{\cd{p}, \cd{br} tags}
+\begin{minted}{html}
 <p>
     HTML stands for HyperText Markup Language.<br>
     It is a language used to express the structure of webpage.
@@ -29,8 +31,8 @@ HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) �
     Languages used to implement client-side are HTML, CSS and JavaScript.<br>
     HTML and CSS are not programming languages, but JavaScript is.<br>
 </p>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\cd{a} Tag}
 \cd{a} 태그는 HTML 요소에 다른 웹 페이지로 이동할 수 있는 하이퍼링크를 걸 수 있는 태그이다. 이 태그는 속성값에 유의하여 작성하여야 하며, 다음 세 속성은 \cd{a} 태그에서 가장 중요한 속성들이다.
@@ -48,30 +50,33 @@ HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) �
 
 \coderef{code:atag}\를 직접 실행해보고, 위의 속성값을 참고하여 \cd{a} 태그를 활용해보자.
 
-\begin{codeenv}{code:atag}{\cd{a} tag}\begin{verbatim}
+\begin{code}{code:atag}{\cd{a} tag}
+\begin{minted}{html}
 <a href="https://www.google.com/" title="Google Homepage" target="_self">Google</a>
 <br>
 <a href="https://www.naver.com/" title="Naver" target="_blank">Naver</a>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\cd{button} Tag}
 \cd{button} 태그는 클릭할 수 있는 버튼을 생성하는 태그이다. 이 태그를 눌렀다가 놓았을 때 특정한 동작이 수행\footnote{\chapref{ch:js-frontend}에서 다룸}될 수 있으며, \cd{input} 태그를 이용해서도 유사한 기능을 구현할 수는 있으나 요소를 디자인할 때 \cd{button} 태그가 더 편하므로 더 많이 사용된다.
 
 \cd{button} 태그에 중요한 속성으로는 \cd{disabled}, \cd{type} 등이 있다. \cd{disabled} 속성을 설정하면 버튼은 비활성화되어 클릭할 수 없는 상태가 되며, \cd{type}은 버튼을 눌렀을 때 수행되는 동작의 성격에 차이가 생긴다.
 
-\begin{codeenv}{code:button-tag}{\cd{button} tag}\begin{verbatim}
+\begin{code}{code:button-tag}{\cd{button} tag}
+\begin{minted}{html}
 <button type="submit">Learn front-end</button>
 <button disabled>Learn back-end</button>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{List Tags}
 여러 항목을 나열하여 표현할 수 있는 리스트와 관련된 태그는 세 가지가 있다. 순서가 없는 리스트(unordered list)를 나타내는 \cd{ul} 태그, 순서가 있는 리스트(ordered list)를 나타내는 \cd{ol} 태그가 있으며, 두 종류의 리스트 모두 리스트의 각 원소를 \cd{li} 태그를 이용하여 나열한다. 리스트를 표현하기 위해서는 \coderef{code:list-tags}\와 같이 먼저 \cd{ul} 태그나 \cd{ol} 태그를 이용하여 리스트를 생성한 후, 그 안에 \cd{li} 태그를 이용하여 나열하고자 하는 원소들을 나열한다.
 
 \cd{ul} 태그를 사용하면 각 원소 앞에 bullet이 생기고 \cd{ol} 태그를 사용하면 순서대로 숫자가 표시되는데, 이러한 표식은 CSS를 제거하거나 변경할 수 있다. \coderef{code:list-tags}\를 직접 실행해보고, 다양한 형태의 리스트를 직접 만들어보자.
 
-\begin{codeenv}{code:list-tags}{List tags}\begin{verbatim}
+\begin{code}{code:list-tags}{List tags}
+\begin{minted}{html}
 <h3>Unordered List</h3>
 <ul>
     <li>Visual Studio Code</li>
@@ -87,8 +92,8 @@ HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) �
     <li>Sublime Text</li>
     <li>Vim</li>
 </ol>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\cd{img} Tag}
 \cd{img} 태그는 HTML 문서에 이미지를 삽입할 수 있는 단일 태그이다. 다음은 \cd{img} 태그에 사용되는 몇 가지 속성이다.
@@ -102,15 +107,16 @@ HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) �
 
 \coderef{code:img-tag-url}\은 인터넷상에 존재하는 네이버와 다음의 로고 이미지를 HTML 문서에 넣은 것이다. 네이버 로고는 원래 너비가 206px인 이미지이나, \cd{width} 속성의 값이 \cd{640}이므로 640px로 변경되었다. 다음 로고 이미지 주소는 실제 존재하지 않으므로 이미지를 가져오는 데에 실패하여 \cd{alt} 속성의 값인 ``Daum Logo''가 표시된다.
 
-\begin{codeenv}{code:img-tag-url}
-    {\cd{img} tag\footnote{이 코드에서는 HTML의 속성-속성값 쌍을 분리하기 위해 1칸의 공백 대신 개행 문자와 5칸의 공백을 사용하였다. HTML에서는 연속된 whitespace 문자들을 하나의 공백으로 취급하기 때문에 이렇게 표시할 수 있으며, 속성이 많거나, 속성값이 길거나, 내용이 길거나 등의 이유로 HTML 요소가 지나치게 길어지면 이와 같이 개행하여 작성하는 것이 좋다.} for online image}
-    \begin{verbatim}
+\begin{code}{code:img-tag-url}
+    {\cd{img} tag\protect\footnotemark for online image}
+\begin{minted}{html}
 <img src="https://s.pstatic.net/static/www/img/uit/2019/sp_search.svg"
      alt="Naver Logo"
      width=640>
 <img src="https://t1.daumcdn.net/daumtop_chanel/op/nonexist.png" alt="Daum Logo">
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
+\footnotetext{이 코드에서는 HTML의 속성-속성값 쌍을 분리하기 위해 1칸의 공백 대신 개행 문자와 5칸의 공백을 사용하였다. HTML에서는 연속된 whitespace 문자들을 하나의 공백으로 취급하기 때문에 이렇게 표시할 수 있으며, 속성이 많거나, 속성값이 길거나, 내용이 길거나 등의 이유로 HTML 요소가 지나치게 길어지면 이와 같이 개행하여 작성하는 것이 좋다.}
 
 \coderef{code:img-tag-local}\은 인터넷상의 이미지가 아닌 로컬 컴퓨터에 위치한 이미지를 HTML 문서에 넣은 것이다. 다음 링크의 이미지를 HTML 파일이 위치한 디렉토리에 kweb-logo.png로 이름을 바꾸어 저장하여라. 그러면 이 이미지는 HTML 파일과 같은 디렉토리에 위치하므로 이미지의 주소를 \cd{./kweb-logo.png}와 같이 작성할 수 있다.
 
@@ -118,16 +124,17 @@ HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) �
     \item https://i.imgur.com/hSSFVSw.png
 \end{itemize}
 
-\begin{codeenv}{code:img-tag-local}{\cd{img} tag for local image}
-\begin{verbatim}
+\begin{code}{code:img-tag-local}{\cd{img} tag for local image}
+\begin{minted}{html}
 <img src="./kweb-logo.png" alt="KWEB Logo">
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{Font Tags}
 글자의 폰트를 변경할 수 있는 태그들이다. 간단한 HTML 문서를 작성할 때는 쓰일 수 있으나, CSS를 활용하여 작성하는 것이 권장되기 때문에 자주 쓰이지는 않는다.
 
-\begin{codeenv}{code:font-tags}{Font tags}\begin{verbatim}
+\begin{code}{code:font-tags}{Font tags}
+\begin{minted}{html}
 <b>Bold Text</b><br>
 <strong>Important Text</strong><br>
 <i>Italic Text</i><br>
@@ -138,8 +145,8 @@ HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) �
 <ins>Inserted Text</ins><br>
 <sub>Subscript</sub> Text<br>
 <sup>Superscript</sup> Text<br>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{Input Tags}
 입력 태그들은 사용자로부터 정보를 입력받을 수 있는 태그들로, \cd{input}, \cd{textarea}, \cd{select} 등이 있다. \cd{input} 태그는 \cd{type} 속성의 값에 따라 다양한 형태의 입력을 받을 수 있다. 다음은 \cd{input} 태그의 \cd{type} 속성의 값에 따라 입력받을 수 있는 정보의 형태 중 일부를 나타낸 것이다.
@@ -153,7 +160,8 @@ HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) �
 
 \cd{textarea} 태그는 \cd{input} 태그와는 달리 여러 줄의 텍스트를 입력받을 수 있으며, 입력받는 부분의 크기나 설명 등은 속성을 이용하여 설정할 수 있다. \cd{select}, \cd{option} 태그는 여러 선택지 중 하나를 선택할 수 있는 drop-down 리스트를 만드는 태그이다.
 
-\begin{codeenv}{code:input-tags}{Input tags}\begin{verbatim}
+\begin{code}{code:input-tags}{Input tags}
+\begin{minted}{html}
 <h3>Input username: </h3>
 <input type="text" name="username">
 
@@ -178,8 +186,8 @@ HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) �
           placeholder="Introduce yourself"
           name="introduction">
 </textarea>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:input-tags}\를 살펴보면, 모든 입력 태그에는 \cd{name} 값이 지정되어 있고, 선택지가 있는 입력 태그에는 \cd{value} 값이 지정되어 있다. \cd{name} 속성의 값과 \cd{value} 속성의 값은 key-value pair를 이루어, \cd{name}의 값과 \cd{value}의 값은 각각 입력받은 항목의 이름과 값을 뜻한다. 다만 텍스트를 입력받는 태그들의 경우 입력란에 입력한 값이 \cd{value} 값이므로 \cd{value} 값이 필요하지 않는데, 이 값을 직접 지정해줄 경우 기본값이 된다. \cd{name}과 \cd{value}의 값은 입력받은 데이터를 key-value pair의 형태로 전송할 때 사용되기 때문에 매우 중요한 속성이다.
 
@@ -187,42 +195,47 @@ HTML에서는 스페이스( ), 줄 바꿈(\verb|\n|) 등의 공백(whitespace) �
 
 HTML에서는 특정 문자들이 구조를 표현할 목적으로 사용되기 때문에, 이러한 문자들을 실제로 웹 페이지 상에 표시하고자 할 때 문제가 발생할 수 있다. \coderef{code:ineq-without-entity}\와 같이 작성된 HTML 문서는 어떤 문제가 발생할지 예상해보자.
 
-\begin{codeenv}{code:ineq-without-entity}{Improper way of displaying \cd{<} and \cd{>}}\begin{verbatim}
+\begin{code}{code:ineq-without-entity}{Improper way of displaying \cd{<} and \cd{>}}
+\begin{minted}{html}
 <h3>This is how inequality <signs> look like.</h3>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:ineq-without-entity}에서는 ``This is how inequality <signs> look like.''이라는 텍스트를 표시하려고 했던 의도와는 달리 \cd{<signs>}라는 텍스트가 태그로 취급되어 ``This is how inequality look like.''이라는 텍스트가 표시된다. 이는 \cd{<}, \cd{>} 두 문자열이 태그를 나타내기 위한 문자이기 때문에 \cd{<signs>}가 HTML 요소로 취급되어 발생하는 현상이다. 그렇다면 이러한 문자들은 표시하기 위해서는 어떻게 작성해야 하는가? 또한, ※과 $\rightarrow$와 같은 키보드 상에는 존재하지 않는 문자는 어떻게 작성하는가?
 
 이러한 특수문자는 HTML 개체(entity)를 사용하여 나타낸다. HTML 개체는 개체의 이름을 사용하여 \cd{\&<entity-name>;}의 형태로 나타내거나, 개체의 번호를 사용하여 \cd{\&\#<entity-number>;}의 형태로 나타낸다. 예를 들어, \cd{<}, \cd{>}의 개체 이름은 각각 lt, gt이므로 \coderef{code:ineq-without-entity}\는 \coderef{code:ineq-with-entity}\와 같이 고쳐질 수 있다.
 
-\begin{codeenv}{code:ineq-with-entity}{Proper way of displaying \cd{<} and \cd{>}}\begin{verbatim}
+\begin{code}{code:ineq-with-entity}{Proper way of displaying \cd{<} and \cd{>}}
+\begin{minted}{html}
 <h3>This is how inequality &lt;signs&gt; look like.</h3>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \label{etc:nbsp}
-이외에도 \cd{\&quot;}(``), \cd{\&amp;}(\&) 등의 개체도 존재한다. 특히 \cd{\&nbsp;}는 non-breaking space의 약자로, 공백을 뜻한다. 앞에서 \cd{br} 태그의 필요성을 설명하면서 공백 문자는 여러 번 연속되어 나열되어도 하나의 공백으로 취급된다고 하였다. 그러므로 여러 칸을 띄워 표시할 때 단순히 space를 여러 번 입력하여 나타내면 안되고, \cd{\&nbsp;}라는 HTML 개체를 이용하여 연속된 공백을 나타내야 한다. \coderef{code:nbsp-usage}\를 확인해보자.
+이외에도 \cd{\&quot;}("), \cd{\&amp;}(\&) 등의 개체도 존재한다. 특히 \cd{\&nbsp;}는 non-breaking space의 약자로, 공백을 뜻한다. 앞에서 \cd{br} 태그의 필요성을 설명하면서 공백 문자는 여러 번 연속되어 나열되어도 하나의 공백으로 취급된다고 하였다. 그러므로 여러 칸을 띄워 표시할 때 단순히 space를 여러 번 입력하여 나타내면 안되고, \cd{\&nbsp;}라는 HTML 개체를 이용하여 연속된 공백을 나타내야 한다. \coderef{code:nbsp-usage}\를 확인해보자.
 
-\begin{codeenv}{code:nbsp-usage}{Usage of \cd{\&nbsp;}}\begin{verbatim}
+\begin{code}{code:nbsp-usage}{Usage of \cd{\&nbsp;}}
+\begin{minted}{html}
 <h3>This is how you use     nbsp.</h3>
 <h3>This is how you use &nbsp;&nbsp;&nbsp;&nbsp;nbsp.</h3>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 이 외에도 별도의 개체 이름이 없는 특수문자의 경우 유니코드 번호\footnote{유니코드 번호는 https://www.fileformat.info/info/unicode/char/search.htm 페이지에서 검색하여 찾을 수 있다.}를 이용하여 삽입할 수 있다. 예를 들어, reference mark, 혹은 흔히 당구장 문자(※)로 불리는 문자의 유니코드 번호는 8251이므로, \coderef{code:html-entity-refmark}\와 같이 작성될 수 있다.
 
-\begin{codeenv}{code:html-entity-refmark}{Using unicode number to display reference mark}\begin{verbatim}
+\begin{code}{code:html-entity-refmark}{Using unicode number to display reference mark}
+\begin{minted}{html}
 <h3>&#8251; This is how inequality &lt;signs&gt; look like.</h3>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\cd{div} and \cd{span} Tags}
 HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이지를 디자인하고 추가 기능을 부여하기 위해서는 HTML을 구조화할 필요가 있다. 지금까지 살펴본 태그들은 모두 특정한 기능을 가진 태그들인데, 코드를 구조화할 때 사용되는 태그는 특정한 기능이 있어서는 안 된다. 이러한 이유로 존재하는, 아무 기능이 없고, HTML 요소들을 묶어서 레이아웃(layout)을 구성하기 위해 존재하는 태그를 non-semantic 태그라고 하며, \cd{div}와 \cd{span} 태그가 있다.
 
 \cd{div} 태그는 인접한 요소와 같은 줄에 있으려고 하지 않고, \cd{span} 태그는 인접한 요소와 같은 줄에 있으려고 한다는 차이가 있다. \coderef{code:div-and-span-tags}\를 통해 이러한 특징을 확인해보자.
 
-\begin{codeenv}{code:div-and-span-tags}{\cd{div} and \cd{span} tags}\begin{verbatim}
+\begin{code}{code:div-and-span-tags}{\cd{div} and \cd{span} tags}
+\begin{minted}{html}
 <div>
     <h3>&lt;div&gt; tag</h3>
     <div>
@@ -242,8 +255,8 @@ HTML 코드의 가독성을 좋게 하고, CSS와 JS를 이용하여 웹 페이�
         <textarea></textarea>
     </span>
 </div>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:div-and-span-tags}\를 조금만 관찰하면, 비슷한 기능이나 역할을 하는 요소들이 묶여있어 전체적인 구조를 파악하기 용이하다. 이렇게 \cd{div}와 \cd{span} 태그를 사용하는 것만으로도 그렇지 않았을 때보다 코드가 훨씬 구조화되고, 가독성이 대폭 좋아지는 것을 확인할 수 있다.
 

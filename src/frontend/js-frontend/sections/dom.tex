@@ -6,7 +6,8 @@
 
 HTML은 원소들의 계층(hierarchial) 구조로 되어 있어 객체로 나타내기 적합하므로 DOM은 HTML 문서를 객체 형태로 표현한다.
 
-\begin{codeenv}{code:html-tree-struct-html}{HTML tree structure - HTML}\begin{verbatim}
+\begin{code}{code:html-tree-struct-html}{HTML tree structure - HTML}
+\begin{minted}{html}
 <!doctype html>
 <html>
 <head>
@@ -23,12 +24,13 @@ HTML은 원소들의 계층(hierarchial) 구조로 되어 있어 객체로 나�
     </div>
 </body>
 </html>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 간단한 형태의 HTML 문서인 \coderef{code:html-tree-struct-html}\을 객체의 형태로 나타낼 수 있겠는가?
 
-\begin{codeenv}{code:html-tree-struct-object}{HTML tree structure - Object}\begin{verbatim}
+\begin{code}{code:html-tree-struct-object}{HTML tree structure - Object}
+\begin{minted}{js}
 const htmlDocument = [
   {
     tag: 'html',
@@ -73,8 +75,8 @@ const htmlDocument = [
     ],
   },
 ];
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:html-tree-struct-object}\는 \coderef{code:html-tree-struct-html}\을 간단한 객체 형태로 나타낸 예시이다. (절대 DOM의 구조는 아니다.)
 
@@ -89,7 +91,8 @@ const htmlDocument = [
 
 DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할 수 있다. \coderef{code:dom-example-html}\을 웹 브라우저에서 열고, 개발자 도구의 REPL Shell을 이용하여 DOM에서 제공하는 메서드를 사용해보며 HTML 문서가 어떻게 수정되는지 확인해보자.
 
-\begin{codeenv}{code:dom-example-html}{DOM example HTML}\begin{verbatim}
+\begin{code}{code:dom-example-html}{DOM example HTML}
+\begin{minted}{html}
 <div id="container">
     <h1>Articles List</h1>
     <div class="article-title">
@@ -108,8 +111,8 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
         <a href="/article/1">Ch 1. Introduction to Front-end</a>
     </div>
 </div>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 먼저, 어떤 요소의 자손 요소 중 id, class, 태그, CSS 선택자 등을 기준으로 요소를 조회할 수 있다.
 
@@ -125,7 +128,8 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 
 \coderef{code:dom-query-descendents}\를 실행해보며 결과를 확인해보자. 각 표현식의 결과값은 생략한다.
 
-\begin{codeenv}{code:dom-query-descendents}{DOM query descendents examples}\begin{verbatim}
+\begin{code}{code:dom-query-descendents}{DOM query descendents examples}
+\begin{minted}{js}
 > document.getElementById('container');
 > document.getElementsByClassName('article-title');
 > const aTagsList1 = document.getElementsByTagName('a');
@@ -136,8 +140,8 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 > aTagsList2.forEach(elmt => console.log(elmt));
 > const title = document.getElementsByClassName('article-title')[2];
 > title.getElementsByTagName('a');
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 또한, 어떤 요소를 기준으로 상대적인 위치에 있는 요소를 조회할 수 있다.
 
@@ -152,7 +156,8 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 
 \coderef{code:dom-query-adjacents}\를 실행해보며 결과를 확인해보자. 각 표현식의 결과값은 생략한다.
 
-\begin{codeenv}{code:dom-query-adjacents}{DOM query adjacents examples}\begin{verbatim}
+\begin{code}{code:dom-query-adjacents}{DOM query adjacents examples}
+\begin{minted}{js}
 > const container = document.getElementById('container');
 > const title = container.children[1];
 > title.parentElement;
@@ -161,8 +166,8 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 > container.lastElementChild;
 > title.previousElementSibling;
 > title.nextElementSibling;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
 \subsection*{Getting and Setting HTML Elements and Properties}
@@ -187,7 +192,8 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
     \end{itemize}
 \end{itemize}
 
-\begin{codeenv}{code:html-elmt-attrs}{Accessing attributes of HTML elements}\begin{verbatim}
+\begin{code}{code:html-elmt-attrs}{Accessing attributes of HTML elements}
+\begin{minted}{js}
 > const title = document.getElementsByClassName('article-title')[1];
 > const link = title.getElementsByTagName('a')[0];
 > link.innerText = 'JS Grammar';
@@ -202,8 +208,8 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 > link.remove('anchor');
 > link.toggle('class2');
 > link.toggle('class2');
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 또한, 요소에 자식 요소를 추가하거나 제거할 수 있다.
 
@@ -213,7 +219,8 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
     \item \cd{removeChild(element) => element}: 주어진 요소를 요소의 자식 요소에서 제거하고, 제거된 요소를 반환하는 메서드
 \end{itemize}
 
-\begin{codeenv}{code:child-elmts-modify}{Modifying child elements}\begin{verbatim}
+\begin{code}{code:child-elmts-modify}{Modifying child elements}
+\begin{minted}{js}
 > const container = document.getElementById('container');
 > const newButton = document.createElement('button');
 > newButton.type = 'submit';
@@ -221,5 +228,5 @@ DOM에서 제공하는 메서드를 이용하여 HTML 요소를 조회(query)할
 > container.appendChild(newButton);
 > const title = document.getElementsByClassName('article-title')[1];
 > container.removeChild(title);
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}

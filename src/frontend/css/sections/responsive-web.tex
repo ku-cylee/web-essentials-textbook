@@ -12,10 +12,11 @@
 \subsection*{Viewport}
 반응형 웹 페이지는 웹 페이지가 렌더링되는 화면, 즉 뷰포트에 따라 디자인이 바뀌므로 먼저 뷰포트를 설정해주어야 한다. 뷰포트의 크기는 \coderef{code:viewport-setting}\과 같이 HTML 문서의 \cd{meta} 태그에서 설정한다.
 
-\begin{codeenv}{code:viewport-setting}{Viewport setting}\begin{verbatim}
+\begin{code}{code:viewport-setting}{Viewport setting}
+\begin{minted}{html}
 <meta name="viewport" content="width=device-width, initial-scale=1" >
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:viewport-setting}의 코드는 페이지의 너비를 디바이스 화면의 너비로 설정(\cd{width=device-width})하고, 원래 페이지의 크기를 그대로 사용(\cd{initial-scale=1})하는 코드이다. 이 코드가 가장 기본적인 설정이며, 추가 설정이 가능하지만 이 교재에서는 기본 설정만 사용한다. 이러한 설정은 \sectref{sect:html-basic-struct}의 \coderef{code:html-example}에서도 확인할 수 있다.
 \clearpage
@@ -25,12 +26,13 @@
 \subsection*{Media Query}
 이제 CSS를 이용하여 웹 페이지를 반응형으로 디자인해보자. 반응형 웹페이지를 디자인하기 위해서 \cd{@media query}라는 구문을 사용한다.
 
-\begin{codeenv}{code:media-query-stmt}{Media query statement}\begin{verbatim}
+\begin{code}{code:media-query-stmt}{Media query statement}
+\begin{minted}{css}
 @media only screen and (min-width: 800px) {
     /* CSS code goes here */
 }
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:media-query-stmt}\는 \cd{@media query} 구문의 예시이다. 중괄호 내부에는 일반적인 CSS 코드를 작성하고, \cd{@media query} 구문은 중괄호 내부의 디자인을 적용할 조건을 제시한다. 코드에서 \cd{min-width: 800px}은 화면의 ``너비가 800px 이상''이라는 조건이며, 이 외에도 다양한 조건을 제시할 수 있으나 \coderef{code:media-query-stmt}\가 가장 기본적인 형태이다.
 

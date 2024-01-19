@@ -2,8 +2,8 @@
 
 \subsection*{\excref{exc:random-color-box}}
 
-\begin{codeenv}{code:random-color-box-answer}{\excref{exc:random-color-box} answer}
-\begin{verbatim}
+\begin{code}{code:random-color-box-answer}{\excref{exc:random-color-box} answer}
+\begin{minted}{js}
 const setRandomBgColor = () => {
     const red = Math.floor(Math.random() * 256);
     const blue = Math.floor(Math.random() * 256);
@@ -11,12 +11,13 @@ const setRandomBgColor = () => {
     const newColor = 'rgb(' + red + ',' + blue + ',' + green + ')';
     document.getElementById('color-box').style.backgroundColor = newColor;
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:times-table}}
 
-\begin{codeenv}{code:times-table-answer}{\excref{exc:times-table} answer}\begin{verbatim}
+\begin{code}{code:times-table-answer}{\excref{exc:times-table} answer}
+\begin{minted}{js}
 const setErrorText = element => element.innerText = 'Input Error!';
 
 const displayTimes = () => {
@@ -36,24 +37,24 @@ const displayTimes = () => {
     }
     timesResult.innerText = result.join('\n');
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:box-color-btn}}
 
-\begin{codeenv}{code:box-color-btn-answer}{\excref{exc:box-color-btn} answer}
-\begin{verbatim}
+\begin{code}{code:box-color-btn-answer}{\excref{exc:box-color-btn} answer}
+\begin{minted}{js}
 const changeBoxColor = () => {
     const box = document.getElementsByClassName('box')[1];
     box.style.backgroundColor = 'blue';
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:random-level-up}}
 
-\begin{codeenv}{code:random-level-up-answer}{\excref{exc:random-level-up} answer}
-\begin{verbatim}
+\begin{code}{code:random-level-up-answer}{\excref{exc:random-level-up} answer}
+\begin{minted}{js}
 const probs = [ 100, 60, 36, 22, 13, 8, 5, 3, 2, 1 ];
 
 let attempts = 0;
@@ -77,13 +78,13 @@ const tryLevelUp = () => {
         if (level >= 10) clearInterval(loopId);
     }, 50);
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:online-shopping-cart}}
 
-\begin{codeenv}{code:online-shopping-cart-answer}{\excref{exc:online-shopping-cart} answer}
-\begin{verbatim}
+\begin{code}{code:online-shopping-cart-answer}{\excref{exc:online-shopping-cart} answer}
+\begin{minted}{js}
 const itemPrice = {
     apple: 700,
     orange: 800,
@@ -98,14 +99,14 @@ for (const buttonEl of document.getElementsByClassName('add-to-cart')) {
         document.getElementById('cost').innerText = totalPrice;
     });
 }
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
 \subsection*{\excref{exc:maze-escaping-game}}
 
-\begin{codeenv}{code:maze-escaping-game-answer}{\excref{exc:maze-escaping-game} answer}
-\begin{verbatim}
+\begin{code}{code:maze-escaping-game-answer}{\excref{exc:maze-escaping-game} answer}
+\begin{minted}{js}
 const ROW_MIN = 0;
 const ROW_MAX = 6;
 const COL_MIN = 0;
@@ -147,5 +148,5 @@ document.addEventListener('keyup', event => {
     newElmt.classList.add('current');
     if (newElmt.classList.contains('target')) alert('You escaped!');
 });
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}

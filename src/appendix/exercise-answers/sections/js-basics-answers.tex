@@ -2,19 +2,21 @@
 
 \subsection*{\excref{exc:validity-of-number}}
 
-\begin{codeenv}{code:validity-of-number-answer}{\excref{exc:validity-of-number} answer}\begin{verbatim}
+\begin{code}{code:validity-of-number-answer}{\excref{exc:validity-of-number} answer}
+\begin{minted}{js}
 const isValidNumber = num => {
     const parsedNumber = parseInt(num);
     if (!isFinite(parsedNumber) || isNaN(parsedNumber)) return false;
     if (parsedNumber != num) return false;
     return parsedNumber >= 1 && parsedNumber <= 9;
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:divisors}}
 
-\begin{codeenv}{code:divisors-answer}{\excref{exc:divisors} answer}\begin{verbatim}
+\begin{code}{code:divisors-answer}{\excref{exc:divisors} answer}
+\begin{minted}{js}
 const getDivisors = num => {
     const divisors = [];
     for (let i = 1; i <= Math.sqrt(num); i++) {
@@ -23,12 +25,13 @@ const getDivisors = num => {
     }
     return divisors.sort((first, second) => first - second);
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{\excref{exc:ellipse-object}}
 
-\begin{codeenv}{code:ellipse-object-answer}{\excref{exc:ellipse-object} answer}\begin{verbatim}
+\begin{code}{code:ellipse-object-answer}{\excref{exc:ellipse-object} answer}
+\begin{minted}{js}
 const ellipse = {
     width: 10,
     height: 5,
@@ -42,5 +45,5 @@ const ellipse = {
         return Math.sqrt(1 - (this.height / this.width) ** 2);
     },
 };
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}

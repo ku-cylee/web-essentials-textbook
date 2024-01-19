@@ -12,7 +12,8 @@ JS는 다른 언어들과 마찬가지로 변수나 상수 등의 식별자(iden
 
 식별자는 \cd{var}, \cd{let}, \cd{const} 등의 키워드를 이용하여 선언한다. 먼저, \cd{var}는 지금까지 널리 사용되어 온 키워드로, \cd{var}로 선언한 변수는 재선언할 수 있고, 값을 재할당할 수도 있다.
 
-\begin{codeenv}{code:var-keyword}{Declaring variable using \cd{var}}\begin{verbatim}
+\begin{code}{code:var-keyword}{Declaring variable using \cd{var}}
+\begin{minted}{js}
 > var num1 = 3;
 > num1;
 3
@@ -21,12 +22,13 @@ JS는 다른 언어들과 마찬가지로 변수나 상수 등의 식별자(iden
 > num1 = 5;
 5
 > var num1 = 20;
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 반면 \cd{let}으로 선언한 변수는 값을 재할당할 수는 있으나, 재선언은 불가능하다.\footnote{Chrome의 개발자 도구를 이용하였을 때 재선언이 가능한 버그가 보고되었다. (2021년 기준)}
 
-\begin{codeenv}{code:let-keyword}{Declaring variable using \cd{let}}\begin{verbatim}
+\begin{code}{code:let-keyword}{Declaring variable using \cd{let}}
+\begin{minted}{js}
 > let num2 = 3;
 > num2 + 5;
 8
@@ -34,12 +36,13 @@ JS는 다른 언어들과 마찬가지로 변수나 상수 등의 식별자(iden
 5
 > let num2 = 20;
 SyntaxError: redeclaration of let num2
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \cd{const}는 constant, 즉 상수(常數)의 약자로, \cd{const}로 선언한 상수는 재선언과 재할당이 모두 불가능하다.
 
-\begin{codeenv}{code:const-keyword}{Declaring constant using \cd{const}}\begin{verbatim}
+\begin{code}{code:const-keyword}{Declaring constant using \cd{const}}
+\begin{minted}{js}
 > const constNum = 3;
 undefined
 > constNum + 5;
@@ -49,20 +52,21 @@ TypeError: invalid assignment to const 'constNum'
 > const constNum = 20;
 Thrown:
 SyntaxError: redeclaration of const constNum
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \cd{var}는 JS 초창기부터 사용되어 왔던 식별자 선언 키워드인 반면, \cd{let}과 \cd{const}는 ES6 출시와 함께 추가된 식별자 선언 키워드이다. \cd{var}과 \cd{let}/\cd{const}는 재선언 가능성에서도 차이점이 있지만, 식별자에 접근할 수 있는 범위(scope)에도 차이가 있다.
 
-\begin{codeenv}{code:var-let-scope}{Scope of \cd{var} and \cd{let}}\begin{verbatim}
+\begin{code}{code:var-let-scope}{Scope of \cd{var} and \cd{let}}
+\begin{minted}{js}
 > { var num1 = 1; }
 > num1;
 1
 > { let num2 = 2; }
 > num2;
 Uncaught ReferenceError: num2 is not defined
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:var-let-scope}\를 실행하면, \cd{var}로 선언된 \cd{num1}의 값은 정상적으로 출력되나, \cd{let}으로 선언된 \cd{num2}는 정의되지 않았다는 에러가 발생한다. 이렇듯 \cd{var}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 있고 함수 밖에서는 접근될 수 없는 function-scope이며, \cd{let}과 \cd{const}로 선언된 식별자는 선언된 블록 바깥에서 접근될 수 없는 block-scope이다.
 

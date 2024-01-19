@@ -9,7 +9,8 @@
 \subsection*{Class Attribute}
 먼저, class 속성은 HTML 요소들을 \textbf{특정한 기준에 따라 분류(classify)}할 때 사용되는 속성이며, class 속성의 값을 class name이라고 한다. 특정한 기준으로 분류하였을 때 하나의 묶음으로 묶이는 요소들에는 각각 같은 이름의 class를 사용한다. 하나의 HTML 요소는 여러 class를 가질 수 있고, 각 class name은 공백을 이용하여 구분한다. \coderef{code:class-attr-ex}\은 class 속성을 활용한 예제이다.
 
-\begin{codeenv}{code:class-attr-ex}{Example of class attribute}\begin{verbatim}
+\begin{code}{code:class-attr-ex}{Example of class attribute}
+\begin{minted}{html}
 <div class="page-thumbnail new">
     <img src="/resources/week2_handout.jpg">
     <span class="page-title">
@@ -28,21 +29,22 @@
         <a href="/study/frontend/1">Week 1 Assignment</a>
     </span>
 </div>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 \clearpage
 
 \subsection*{Id Attribute}
 ID 속성은 \textbf{특정한 HTML 요소 하나를 식별(identification)}하기 위해 사용되는 속성이다. 하나의 요소는 여러 ID를 가질 수 없고, 특정 ID의 값을 갖는 HTML 요소가 여러 개가 될 수 없다.\footnote{이 규칙을 위반하더라도 HTML 문서는 정상적으로 렌더링된다.} 다만, 각 HTML 요소는 class와 ID를 동시에 가질 수 있다. \coderef{code:id-attr-ex}\은 ID 속성을 활용한 예제이다.
 
-\begin{codeenv}{code:id-attr-ex}{Example of ID attribute}\begin{verbatim}
+\begin{code}{code:id-attr-ex}{Example of ID attribute}
+\begin{minted}{html}
 <div id="article-form">
     <input id="article-title" name="title">
     <textarea id="article-content" name="content"></textarea>
     <button>Submit</button>
 </div>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \subsection*{Naming Convention}
 Class name이나 id를 작성할 때 반드시 준수해야 하는 작명 규칙(naming convention)은 없다. 그러나 협업이나 유지보수 등 생산성의 향상을 위해 널리 통용되고 권장되는 규칙을 소개한다.\footnote{아래 소개되는 작명 규칙보다 더 자세한 규칙은 다음 링크를 참조하길 바란다: https://bogmong.tistory.com/14}

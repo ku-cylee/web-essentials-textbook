@@ -38,7 +38,8 @@ HTML의 각 요소는 \textbf{사각형 형태}의 레이아웃을 가지며, �
 
 먼저, content에 관여하는 속성으로는 \cd{width}와 \cd{height}가 있다. 두 속성은 각각 content 영역의 너비와 높이를 지정하는 속성이며, px, em 등의 단위나 \%를 이용하여 명시할 수 있다. \%로 지정하는 경우는 상위 요소의 너비나 높이를 기준으로 한다.
 
-\begin{codeenv}{code:box-content-area}{Content area}\begin{verbatim}
+\begin{code}{code:box-content-area}{Content area}
+\begin{minted}{html}
 <style>
     #small-box {
         width: 400px;
@@ -55,8 +56,8 @@ HTML의 각 요소는 \textbf{사각형 형태}의 레이아웃을 가지며, �
 
 <div id="small-box"></div>
 <div id="large-box"></div>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 Border에 관여하는 속성으로는 \cd{border-width}, \cd{border-style}, \cd{border-color} 등이 있다. \cd{border-height}는 테두리의 굵기, \cd{border-style}은 테두리의 모양, \cd{border-color}는 테두리의 색상을 나타내는 속성으로, 테두리의 모양은 \cd{solid}, \cd{dashed}, \cd{dotted} 등의 값을 지정하여 테두리의 모양을 결정할 수 있다. 이 세 가지 속성은 각각 따로 작성하여도 되고, \cd{border} 속성에 굵기, 모양, 색상 순으로 나열하여 작성할 수도 있다. \coderef{code:box-border-area}에서 \cd{\#box} 요소의 \cd{border} 속성이 이러한 방법으로 작성되었다.
 
@@ -64,7 +65,8 @@ Border에 관여하는 속성으로는 \cd{border-width}, \cd{border-style}, \cd
 
 \cd{border-radius}는 테두리의 모서리를 둥글게 만들 수 있는 속성으로, 속성값이 하나인 경우 주어진 값을 반지름으로 하는 원형으로, 두 개인 경우 두 값을 짧은 반지름과 긴 반지름으로 하는 타원형으로 만든다. \cd{border}와 마찬가지로 네 모서리에 모두 적용되며, 한쪽 모서리에만 적용하고 싶은 경우 역시 방향과 관련된 키워드를 사용하여 기술한다. 예를 들어, 좌상단 모서리의 스타일은 \cd{border-top-left-radius} 속성에 작성한다.
 
-\begin{codeenv}{code:box-border-area}{Border area}\begin{verbatim}
+\begin{code}{code:box-border-area}{Border area}
+\begin{minted}{html}
 <style>
     #box {
         width: 300px; height: 300px;
@@ -74,8 +76,8 @@ Border에 관여하는 속성으로는 \cd{border-width}, \cd{border-style}, \cd
 </style>
 
 <div id="box"></div>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부터 어느 정도 떨어져 있는지, margin 속성은 요소 가장자리의 각 면이 border 영역의 각 면으로부터 어느 정도 떨어져 있는지 명시하여 작성해준다. 앞의 border 영역과 마찬가지로 방향 키워드를 사용하여 한쪽 면에만 특정 padding/margin 값을 적용할 수 있다. (예: \cd{padding-left}, \cd{margin-bottom})
 
@@ -97,7 +99,8 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 
 \coderef{code:box-model-padding-margin}\을 참고하여 \cd{padding}과 \cd{margin}을 정하는 방법을 이해하고, 개발자 도구를 이용하여 box model의 각 부분이 웹 브라우저상에 어떻게 표시되는지 확인해보자.
 
-\begin{codeenv}{code:box-model-padding-margin}{Examining box model}\begin{verbatim}
+\begin{code}{code:box-model-padding-margin}{Examining box model}
+\begin{minted}{html}
 <style>
     .box {
         width: 100px;
@@ -115,8 +118,8 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 <div class="box"></div>
 <div class="box"></div>
 <div class="box"></div>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:box-model-padding-margin}에서 \cd{display: inline-block;}을 지우고 웹 페이지를 열어보면 각 \cd{.box} 요소가 세로로 나열된다. 이때 \figref{fig:margin-collapsing}\과 같이 두 요소의 margin이 겹친 것을 확인할 수 있으며, 이렇게 HTML 요소 간에 margin이 겹치는 현상을 마진 상쇄 또는 마진 겹침(margin collapsing)이라고 한다. Margin 겹침 현상은 인접한 형제 요소 간의 상하 margin이 겹칠 때, 빈 요소의 상하 margin이 겹칠 때, 부모 요소의 top(bottom) margin과 첫 번째(마지막) 자식 요소의 top(bottom) margin이 겹칠 때 발생한다. \coderef{code:box-model-padding-margin}의 경우는 형제 요소 간의 상하 margin이 겹친 경우로, 이러한 현상에 유의하여 디자인하여야 한다.
 
@@ -131,11 +134,12 @@ Padding 속성은 border 영역의 각 면이 content 영역의 각 면으로부
 
 지금까지 모든 HTML 요소는 box model에 따라 영역이 결정되고, 영역에 따라 다른 요소들과 맞물려 배치됨을 학습하였다. 앞의 \coderef{code:box-model-padding-margin}에서는 HTML 요소가 이전 형제 요소의 오른쪽에 충분히 빈 공간이 있다면 오른쪽에, 그렇지 않으면 아래쪽에 배치되었다. 그런데 지금까지 HTML을 다루면서, 이전 형제 요소에 따로 margin이나 padding을 지정해주지 않아도 이전 형제 요소와 같은 줄에 배치되지 않는 현상을 보았다.
 
-\begin{codeenv}{code:inline-and-block-example}{Example of inline-level, block-level elements}\begin{verbatim}
+\begin{code}{code:inline-and-block-example}{Example of inline-level, block-level elements}
+\begin{minted}{html}
 <h1>HTML Element Layout</h1>
 <h2>This paragraph is about <span style="color: red">HTML element layout</span>.</h2>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 \coderef{code:inline-and-block-example}에서 \cd{h1} 태그와 \cd{h2} 태그에 padding이나 margin이 전혀 부여되지 않았음에도 불구하고 서로 다른 줄에 배치되었다. 반대로, \cd{h2} 태그 내부의 텍스트와 \cd{span} 태그 내부의 텍스트는 서로 같은 줄에 배치되어 있다. 앞의 \sectref{sect:common-html-tags}에서 non-semantic 태그는 다른 요소와 같은 줄에 있으려고 하는지에 따라 \cd{div} 태그와 \cd{span} 태그로 나뉜다고 했던 것을 기억하는가? 이처럼 같은 줄에 다른 요소가 배치되는 것을 허용하는지에 따라 inline-level 요소와 block-level 요소로 구분할 수 있고, 이 성질은 \cd{display} 속성을 이용하여 명시할 수 있다.
 
@@ -159,7 +163,8 @@ Block-level 요소는 다른 요소와 같은 줄을 공유하지 않으며, 화
 
 \coderef{code:position-property}에서 \cd{\#pos-element}에 \cd{position}과 관련된 속성과 그 값을 지정하고 바꿔가며 \cd{position}에 대해 정확히 이해해보자.
 
-\begin{codeenv}{code:position-property}{Example of \cd{position} property}\begin{verbatim}
+\begin{code}{code:position-property}{Example of \cd{position} property}
+\begin{minted}{html}
 <style>
     .box {
         width: 100px;
@@ -185,7 +190,7 @@ Block-level 요소는 다른 요소와 같은 줄을 공유하지 않으며, 화
 <div class="box red-box" id="pos-element">2</div>
 <div class="box">3</div>
 <div class="box">4</div>
-\end{verbatim}
-\end{codeenv}
+\end{minted}
+\end{code}
 
 여담으로, \cd{position} 속성을 다루다 보면 요소 간에 겹침이 발생하여 특정 요소를 다른 요소 위에 오도록 할 필요가 있다. 이때 \cd{z-index} 속성을 이용하면 요소 간의 쌓임 순서를 조절할 수 있다. \cd{z-index}의 값은 정수(integer)이며, \cd{0}이 기본값이고, 값이 높은 요소가 위에 쌓인다.
