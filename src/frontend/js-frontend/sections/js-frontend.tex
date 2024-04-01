@@ -16,7 +16,7 @@ Front-end에서 JS는 HTML 문서를 제어하고 수정하기 위해 존재하�
 \end{minted}
 \end{code}
 
-두 번째 방법은 별도의 JS 파일을 만들어, JS 파일에는 JS 스크립트만 작성하고, HTML 파일에는 웹페이지의 구조만 작성하는 방법이다. HTML 파일에는 \coderef{code:js-external-html}\과 같이 \cd{script} 태그의 \cd{src} 속성에 JS 파일의 주소를 작성한다.
+두 번째 방법은 별도의 JS 파일을 만들어, JS 파일에는 JS 스크립트만 작성하고, HTML 파일에는 웹페이지의 구조만 작성하는 방법이다. HTML 파일에는 \coderef{code:js-external-html}\과 같이 \cd{script} 태그의 \cd{src} 속성에 JS 파일의 주소를 작성하고, script.js 파일을 \coderef{code:js-external-js}\와 같이 작성한다.
 
 \begin{code}{code:js-external-html}{External application of JS - HTML}
 \begin{minted}{html}
@@ -25,8 +25,6 @@ Front-end에서 JS는 HTML 문서를 제어하고 수정하기 위해 존재하�
 <h1>HTML and JS</h1>
 \end{minted}
 \end{code}
-
-script.js 파일을 \coderef{code:js-external-js}\와 같이 작성한다.
 
 \begin{code}{code:js-external-js}{External application of JS - JS}
 \begin{minted}{js}
