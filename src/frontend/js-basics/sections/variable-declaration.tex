@@ -2,7 +2,7 @@
 
 \subsection*{ECMAScript}
 
-ECMAScript는 스크립트 언어에 관한 규약으로, 줄여서 ES라고 하며, JS는 ES의 표준을 따른다. ES1이 1997년 출시된 이후 2015년 ES6가 출시되며 언어의 표준에 큰 변화가 발생하였고, 이후 지속적인 업데이트를 통해 2019년 ES9가 출시되어 현재\footnote{2021년}에 이르고 있다. 본 교재에서는 ES9을 표준으로 한 JS를 다룬다.
+ECMAScript는 스크립트 언어에 관한 규약으로, 줄여서 ES라고 하며, JS는 ES의 표준을 따른다. ES1이 1997년 출시된 이후 2015년 ES6\footnote{이후 ECMAScript 2015로 명칭 변경}가 출시되며 언어의 표준에 큰 변화가 발생하였고, 이후 지속적인 업데이트를 통해 2023년에는 ECMAScript 2023이 출시되어 현재에 이르고 있다. 본 교재에서는 ECMAScript 2023을 표준으로 한 JS를 다룬다.
 
 \subsection*{Declaration of Identifiers}
 
@@ -25,7 +25,7 @@ JS는 다른 언어들과 마찬가지로 변수나 상수 등의 식별자(iden
 \end{minted}
 \end{code}
 
-반면 \cd{let}으로 선언한 변수는 값을 재할당할 수는 있으나, 재선언은 불가능하다.\footnote{Chrome의 개발자 도구를 이용하였을 때 재선언이 가능한 버그가 보고되었다. (2021년 기준)}
+반면 \cd{let}으로 선언한 변수는 값을 재할당할 수는 있으나, 재선언은 불가능하다.\footnote{단, Chrome의 개발자 도구 콘솔은 개발자의 편의를 위해 재선언을 허용한다.}
 
 \begin{code}{code:let-keyword}{Declaring variable using \cd{let}}
 \begin{minted}{js}
@@ -44,7 +44,6 @@ SyntaxError: redeclaration of let num2
 \begin{code}{code:const-keyword}{Declaring constant using \cd{const}}
 \begin{minted}{js}
 > const constNum = 3;
-undefined
 > constNum + 5;
 8
 > constNum = 5;
@@ -83,4 +82,4 @@ Uncaught ReferenceError: num2 is not defined
     \thickhline
 \end{tblenv}
 
-ES6 이전에는 \cd{var}를 이용하여 변수를 선언하였으나, ES6 이후에는 \cd{let}과 \cd{const}가 재선언이 불가능하고, block-scope이기 때문에 \textbf{\cd{var}의 사용은 지양}되고 \textbf{\cd{let}과 \cd{const}를 이용}하여 변수와 상수를 선언하는 것이 권장된다. \cd{var}는 function-scope이기 때문에 코드의 네임스페이스를 오염\footnote{https://stackoverflow.com/questions/22903542/what-is-namespace-pollution}시키며, run-time에서 의도치 않은 논리적 오류를 발생시킬 수 있다. 반면 \cd{let}과 \cd{const}로 선언된 식별자는 block-scope이므로 네임스페이스 오염을 최소화할 수 있고, \cd{const}로 선언된 상수는 재할당이 불가능하므로 run-time에서 상수값이 변경되어 발생하는 논리적 오류를 방지할 수 있다.
+ES6 이전에는 \cd{var}를 이용하여 변수를 선언하였으나, ES6 이후에는 \textbf{\cd{var}의 사용은 지양}되고 재선언이 불가능하며 block-scope인 \textbf{\cd{let}과 \cd{const}를 이용}하여 변수와 상수를 선언하는 것이 권장된다. \cd{var}는 function-scope이기 때문에 코드의 네임스페이스를 오염\footnote{https://stackoverflow.com/questions/22903542/what-is-namespace-pollution}시키며, run-time에서 의도치 않은 논리적 오류를 발생시킬 수 있다. 반면 \cd{let}과 \cd{const}로 선언된 식별자는 block-scope이므로 네임스페이스 오염을 최소화할 수 있고, \cd{const}로 선언된 상수는 재할당이 불가능하므로 run-time에서 상수값이 변경되어 발생하는 논리적 오류를 방지할 수 있다.
