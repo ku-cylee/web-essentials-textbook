@@ -12,14 +12,14 @@
 
 \subsection*{Project Configuration and nginx Installation}
 
-Shell을 열고 git(\shellref{shell:git-install-ubuntu}, \pageref{shell:git-install-ubuntu}쪽), Node.js(\shellref{shell:nodejs-linux-install}, \pageref{shell:nodejs-linux-install}쪽), MariaDB(\shellref{shell:mariadb-installation-ubuntu}, \pageref{shell:mariadb-installation-ubuntu}쪽)를 설치한다. 먼저 MariaDB를 실행하여 웹 애플리케이션에 사용할 DB 사용자 계정과 데이터베이스를 생성하고, DB 사용자에게 데이터베이스의 모든 권한을 부여한다. (\sectref{sect:maria-db} 참고)
+Shell을 열고 git(\shellref{shell:git-install-ubuntu}, \pageref{shell:git-install-ubuntu}쪽), Node.js(\shellref{shell:nodejs-linux-install}, \pageref{shell:nodejs-linux-install}쪽), MariaDB(\pageref{ssect:mariadb-install-linux}쪽)를 설치한다. 먼저 MariaDB를 실행하여 웹 애플리케이션에 사용할 DB 사용자 계정과 데이터베이스를 생성하고, DB 사용자에게 데이터베이스의 모든 권한을 부여한다. (\sectref{sect:maria-db} 참고)
 
 \begin{shell}{shell:project-config}{Project configuration}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ git clone <git-repo-url>
 $ cd <repo-directory-name>
 $ npm install --only=prod
-$ mysql -u<db-user> -p<db-pass> -D<db-name> < schema/0000.sql
+$ mariadb -u<db-user> -p<db-pass> -D<db-name> < schema/0000.sql
 $ vim .env
 \end{minted}
 \end{shell}

@@ -10,9 +10,9 @@ Node.js는 JS가 갖는 대중성과 유연함으로 인해 유지 및 보수가
 
 \subsection*{Installing Node.js}
 
-Node.js 플랫폼은 홈페이지(https://nodejs.org/)에서 제공된다. 홈페이지에서는 LTS 버전과 Current 버전을 비롯해 현재까지 release된 모든 버전의 Node.js 플랫폼을 다운로드받을 수 있다. LTS 버전은 Long Time Support 버전, 즉 개발이 완료되어 안정적이며 신뢰도가 높아 장기간 지원되는 버전으로 실제 서비스를 위한 애플리케이션을 구현하기에 적합한 버전이다. 반면 Current 버전은 가장 최근에 release된 버전으로, 개발이 완료되지 않은 버전이기 때문에 신뢰도가 보장되지 않고 버그가 발생할 수 있어 Node.js의 최신 기능을 사용해볼 수는 있으나 실제 서비스를 목적으로 한 프로젝트에서는 적합하지 않다. 본 교재에서는 LTS 버전을 기준으로 작성되었으며, 2023년 9월 기준 LTS 버전은 18.18.0 버전이다.
+Node.js 플랫폼은 홈페이지(https://nodejs.org/)에서 제공된다. 홈페이지에서는 LTS 버전과 Current 버전을 비롯해 현재까지 release된 모든 버전의 Node.js 플랫폼을 다운로드받을 수 있다. LTS 버전은 Long Time Support 버전, 즉 개발이 완료되어 안정적이며 신뢰도가 높아 장기간 지원되는 버전으로 실제 서비스를 위한 애플리케이션을 구현하기에 적합한 버전이다. 반면 Current 버전은 가장 최근에 release된 버전으로, 개발이 완료되지 않은 버전이기 때문에 신뢰도가 보장되지 않고 버그가 발생할 수 있어 Node.js의 최신 기능을 사용해볼 수는 있으나 실제 서비스를 목적으로 한 프로젝트에서는 적합하지 않다. 본 교재에서는 LTS 버전을 기준으로 작성되었으며, 2024년 9월 기준 LTS 버전은 20.18.0 버전이다.
 
-Windows와 macOS에서는 홈페이지에서 LTS 버전 설치 파일을 다운로드한 후, 설치 파일을 실행해 추가 옵션 없이 설치한다. Linux 계열 운영체제는 Terminal\footnote{Shell에서 \cd{\$} 문자는 입력란을 뜻하므로 \cd{\$ } 부분은 입력하지 않는다.}을 열고 \shellref{shell:nodejs-linux-install}\을 따라 설치 파일을 다운로드한 후 설치한다. 이때 \cd{<major-version>} 부분에 다운로드 하고자 하는 버전의 major 번호\footnote{18.18.0 버전의 경우 18}를 대입한다.
+Windows와 macOS에서는 홈페이지에서 LTS 버전 설치 파일을 다운로드한 후, 설치 파일을 실행해 추가 옵션 없이 설치한다. Linux 계열 운영체제는 Terminal\footnote{Shell에서 \cd{\$} 문자는 입력란을 뜻하므로 \cd{\$ } 부분은 입력하지 않는다.}을 열고 \shellref{shell:nodejs-linux-install}\을 따라 설치 파일을 다운로드한 후 설치한다. 이때 \cd{<major-version>} 부분에 다운로드 하고자 하는 버전의 major 번호\footnote{20.18.0 버전의 경우 20}를 대입한다.
 
 % TBD
 
@@ -29,9 +29,9 @@ $ sudo apt install -y nodejs
 \begin{shell}{shell:nodejs-version}{Confirming Node.js version for v18.18.0}
 \begin{minted}[linenos=false, xleftmargin=2pt]{text}
 $ node -v
-v18.18.0
+v20.18.0
 $ npm -v
-9.8.1
+10.8.2
 \end{minted}
 \end{shell}
 
