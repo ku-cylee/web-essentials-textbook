@@ -45,7 +45,6 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
     캡스톤디자인 & COSE489 & 전공선택 & 3 & 6\tabularnewline
     \thickhline
 \end{tblenv}
-\clearpage
 
 먼저 \tblref{tab:courses-table-basic}의 각 column에 자료형을 부여해보자. \cd{name} column은 문자열로 표현되고 매우 긴 텍스트가 아니므로 VARCHAR형을 사용할 수 있으며, 과목명의 최대 길이가 20자라고 한다면 VARCHAR(20)형으로 정할 수 있다. 유사하게 \cd{code}와 \cd{classification} column은 VARCHAR(8)로 정하면 적당한 길이가 될 것이다. \cd{credit}과 \cd{period}는 각각 정수이므로 INT형이 적당하다. 이렇게 부여한 자료형을 반영하여 \tblref{tab:courses-table-types}\와 같이 나타낼 수 있다.
 
@@ -81,7 +80,6 @@ DB의 모든 column은 자료형(data type)을 가지며, 개발자는 각 colum
 두 번째 문제점은 새로운 학과의 강의를 추가하려면 그 DB를 사용하는 애플리케이션이 매번 테이블을 직접 생성해야 한다는 것이다. 애플리케이션은 DB의 데이터에 대한 CRUD 연산만 수행하여야 하고, 그 외에 테이블의 추가 및 삭제, column의 추가 및 삭제 등 설계 자체를 바꾸는 작업을 수행해서는 안 된다.
 
 이렇듯 분류에 따라 테이블을 추가하는 방법은 지양되어야 하며, 모든 강의 데이터를 모두 한 테이블에 저장하고 분류를 위한 column을 생성하여 분류하는 것이 가장 이상적인 방법이다. \tblref{tab:courses-table-categories}\는 \tblref{tab:courses-table-types}에 \cd{department} column을 추가하여 각 강의의 학과를 명시하여 분류한 테이블이다. 이렇게 테이블을 설계하면 앞에서 제시된 문제점들이 발생하지 않고 분류에 따라 데이터를 조회하기도 간편하다.
-\clearpage
 
 \begin{tblenv}
     {tab:courses-table-categories}

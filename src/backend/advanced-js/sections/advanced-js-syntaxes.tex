@@ -33,7 +33,6 @@ printPower(3, 4);
 \end{code}
 
 여담으로, \cd{\$\{\}} 부분을 표현식이 아닌 일반 문자열로 사용하고 싶은 경우 역슬래시(\cd\textbackslash)를 이용하여 escape 해주면 된다.
-\clearpage
 
 \subsection*{Destructuring Assignment}
 
@@ -75,7 +74,6 @@ const { y: y1 } = obj;
 \end{itemize}
 
 객체의 비구조화는 객체의 원래 속성의 이름을 변수로써 사용할 때 권장되는 문법이다. 예를 들어 \coderef{code:object-destructuring}에서 \cd{obj} 객체의 \cd{x} 속성을 \cd{x}라는 상수에 할당할 때, \cd{const x = obj.x} 같은 표현보다는 \cd{const \{ x \} = obj} 같은 표현이 권장된다.
-\clearpage
 
 \subsection*{Truthy and Falsy}
 
@@ -120,7 +118,6 @@ const port = config.port || 3000;
 \end{code}
 
 Short-circuit evaluation은 \coderef{code:short-circuit-eval}\과 같이 변수의 기본값을 설정할 때 유용하게 사용된다. \cd{config.port}의 값이 truthy하면 \cd{port}의 값은 \cd{config.port}의 값이 되고, falsy하면 \cd{3000}이라는 기본값을 갖는다.
-\clearpage
 
 \subsection*{Error Handling}
 

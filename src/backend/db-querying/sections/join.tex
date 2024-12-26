@@ -128,7 +128,6 @@ Outer join은 특정 테이블의 모든 row를 강제로 join에 참여시키�
     4 & A4 & 4 & B4\tabularnewline
     \thickhline
 \end{tblenv}
-\clearpage
 
 Right outer join은 left outer join과 정반대로 오른쪽 테이블의 모든 row를 join에 강제로 참여시키는 방식으로, \tblref{tab:right-outer-join-example}\은 \cd{A} 테이블에 \cd{B} 테이블을 \cd{A.id = B.id} 조건 하에 right outer join한 결과이다. Outer join의 join 방식에서 알 수 있듯, \cd{A} 테이블에 \cd{B} 테이블을 left outer join한 결과는 \cd{B} 테이블에 \cd{A} 테이블을 right outer join한 결과와 동일하다. (반대도 성립)
 
@@ -281,7 +280,6 @@ INNER JOIN `departments` on `courses`.`department` = `departments`.`id`;
 \end{tblenv}
 
 \tblref{tab:university-table-joined-columns-selected}\는 \tblref{tab:university-table-joined}에서 특정 column들만 선택하여 조회한 결과로, \coderef{code:join-without-ambiguity}의 실행 결과와 동일하다. 이렇게 참조하는 column(\cd{courses.department})과 참조되는 column(\cd{departments.id})이 같은 조건 하에 join하여 관계가 있는 테이블들의 데이터를 편리하게 조회할 수 있다.
-\clearpage
 
 \begin{code}{code:multiple-joins}{Multiple join operations}
 \begin{minted}{sql}

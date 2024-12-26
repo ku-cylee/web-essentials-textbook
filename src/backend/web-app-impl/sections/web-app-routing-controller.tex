@@ -205,7 +205,6 @@ module.exports = app;
 % \end{minted}
 
 src/app.js를 \coderef{code:bind-controller}\와 같이 수정하여 /로 시작하는 경로에 대해 src/controller 모듈이 실행될 수 있도록 한다. 이제 \shellref{shell:npm-run-script}\와 같이 서버를 실행하고, 지금까지 작성한 기능들을 직접 테스트 해보자.
-\clearpage
 
 \subsection*{Article Routes' Controller}
 
@@ -269,7 +268,6 @@ src/controller/article/ctrl.js를 생성하고, 다음 controller를 구현한 �
         \item DB에 해당 게시물의 변경 사항을 반영한 뒤, 해당 게시물의 상세 페이지로 redirect
     \end{itemize}
 \end{itemize}
-\clearpage
 
 \subsubsection*{\cd{deleteArticle}}
 \begin{itemize}
@@ -322,7 +320,6 @@ router.get('/delete/:articleId(\\d+)', authRequired, ctrl.deleteArticle);
 module.exports = router;
 \end{minted}
 \end{code}
-\clearpage
 
 이제 게시물 controller 함수를 라우팅하자. src/controller/article/index.js를 생성하고, \coderef{code:article-routing}\과 같이 작성한다. 여기에서 로그인이 필요한 5개 라우트에 대해 컨트롤러 미들웨어 직전에 \cd{authRequired} 미들웨어가 실행되게 함으로써 로그인하지 않은 사용자로부터 온 요청은 미리 걸러내도록 한다.
 

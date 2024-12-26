@@ -35,7 +35,6 @@ module.exports = { runQuery };
 \coderef{code:runquery-function}\은 mysql2 모듈의 \cd{createPool} 메서드에 연결하고자 하는 DB의 host, port, 사용자 이름과 비밀번호, DB 이름 등을 인자로 넘겨주어 connection pool을 생성하고, SQL문을 인자로 받아 실행시켜 그 결과를 반환하는 \cd{runQuery} 함수를 구현한 코드이다.
 
 Connection pool은 미리 DB와의 연결들을 생성하여 pool에 저장해둔 후, 필요할 때마다 연결을 가져가서 사용하고  pool에 반납(release)하도록 설계된 연결 방식이다. 이 방식은 DB에서 SQL문을 실행할 때마다 DB 연결에 필요한 여러 정보를 이용해 연결하고 SQL문을 실행한 뒤 연결을 닫는 과정에 비해 높은 성능을 보인다.
-\clearpage
 
 \begin{code}{code:runquery-function-usage}{Usage of \cd{runQuery} function}
 \begin{minted}{js}
