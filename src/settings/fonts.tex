@@ -1,11 +1,29 @@
 \usepackage{fontspec}
 
-\setmonofont{CascadiaMono}[
-    Path=../fonts/,
+\setmainfont{noto-serif-kr}[
+    Path=../fonts/noto-serif-kr/,
     Scale=.9,
     Extension=.ttf,
-    UprightFont=*-Light,
-    ItalicFont=*-LightItalic,
-    BoldFont=*-Regular,
-    BoldItalicFont=*-Italic,
+    UprightFont=300,
+    BoldFont=600,
+    AutoFakeSlant=.1,
+]
+
+\setsansfont{noto-sans-kr}[
+    Path=../fonts/noto-sans-kr/,
+    Scale=.95,
+    Extension=.ttf,
+    UprightFont=300,
+    BoldFont=500,
+    AutoFakeSlant=.1,
+]
+
+\setmonofont{cascadia-mono}[
+    Path=../fonts/cascadia-mono/,
+    Scale=.9,
+    Extension=.ttf,
+    UprightFont=300,
+    ItalicFont=300-it,
+    BoldFont=500,
+    BoldItalicFont=500-it,
 ]
