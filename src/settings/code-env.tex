@@ -1,56 +1,10 @@
-\usepackage{amsthm}
-\usepackage{mdframed}
 \usepackage{fancyvrb}
-
-\newcommand\cd\texttt
-
-\definecolor{codebgcolor}{HTML}{E7E7E7}
-
-\mdfdefinestyle{codeframe}{
-    hidealllines=true,
-    backgroundcolor=codebgcolor,
-    innertopmargin=-3pt,
-    innerbottommargin=8pt,
-}
-
-\makeatletter
-\def\thmhead@plain#1#2#3{%
-    \thmname{#1}\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
-    \thmnote{ {\the\thm@notefont#3}}}
-\let\thmhead\thmhead@plain
-\makeatother
-
-\newtheoremstyle{codestyle}% name of the style to be used
-    {20pt}% measure of space to leave above the theorem. E.g.: 3pt
-    {}% measure of space to leave below the theorem. E.g.: 3pt
-    {}% name of font to use in the body of the theorem
-    {}% measure of space to indent
-    {\bfseries}% name of head font
-    {}% punctuation between head and body
-    {0pt}% space after theorem head
-    {}% Manually specify head
-\theoremstyle{codestyle}
-
-\newtheorem{codethm}{Code}[chapter]
-\newenvironment{codeenv}[2]
-    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{codethm}[#2]\label{#1}\linespread{1.1}{\ }}
-    {\end{codethm}\end{mdframed}\vspace{6pt}}
-
-\newtheorem{shellthm}{Shell}[chapter]
-\newenvironment{shellenv}[2]
-    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{shellthm}[#2]\label{#1}\linespread{1.1}{\ }}
-    {\end{shellthm}\end{mdframed}\vspace{6pt}}
-
-\newtheorem{sqlthm}{SQL}[chapter]
-\newenvironment{sqlenv}[2]
-    {\vspace{10pt}\begin{mdframed}[style=codeframe]\begin{sqlthm}[#2]\label{#1}\linespread{1.1}{\ }}
-    {\end{sqlthm}\end{mdframed}\vspace{6pt}}
-
 \usepackage{listings}
 \usepackage[newfloat,outputdir=../bin]{minted}
 
-\definecolor{codebg}{HTML}{f2f2f2}
-\definecolor{codelinenumber}{HTML}{707070}
+\newcommand\cd\texttt
+
+\definecolor{codebg}{HTML}{F2F2F2}
 
 \setminted{
     linenos,
