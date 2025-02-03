@@ -11,10 +11,10 @@
     bgcolor=codebg,
     baselinestretch=1,
     frame=single,
-    framesep=10pt,
+    framesep=8pt,
     framerule=0pt,
-    numbersep=-5pt,
-    xleftmargin=16pt,
+    numbersep=-3pt,
+    xleftmargin=14pt,
     xrightmargin=2pt,
 }
 
@@ -24,24 +24,24 @@
 
 \DeclareFloatingEnvironment[name=Code, within=chapter]{codefloat}
 \newenvironment{code}[2]{
-    \vspace{8pt}
+    \vspace{6pt}
     \captionsetup{type=codefloat, font=normalsize}
     \caption{#2}\label{#1}
-    \vspace{-10pt}
+    \vspace{-6pt}
 }{}
 
 \DeclareFloatingEnvironment[name=Shell, within=chapter]{shellfloat}
 \newenvironment{shell}[2]{
-    \vspace{8pt}
+    \vspace{6pt}
     \captionsetup{type=shellfloat, font=normalsize}
     \caption{#2}\label{#1}
-    \vspace{-10pt}
+    \vspace{-6pt}
 }{}
 
 \DeclareFloatingEnvironment[name=SQL, within=chapter]{sqlfloat}
 \newenvironment{sql}[2]{
-    \vspace{8pt}
+    \vspace{6pt}
     \captionsetup{type=sqlfloat, font=normalsize}
     \caption{#2}\label{#1}
-    \vspace{-10pt}
+    \vspace{-6pt}
 }{}
