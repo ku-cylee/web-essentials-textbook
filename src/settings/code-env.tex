@@ -1,6 +1,10 @@
 \usepackage{fancyvrb}
 \usepackage{listings}
-\usepackage[newfloat,outputdir=../bin]{minted}
+\usepackage[newfloat]{minted}
+\usepackage{tcolorbox}
+
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
 
 \newcommand\cd\texttt
 
@@ -8,40 +12,74 @@
 
 \setminted{
     linenos,
-    bgcolor=codebg,
-    baselinestretch=1,
-    frame=single,
-    framesep=8pt,
-    framerule=0pt,
-    numbersep=-3pt,
-    xleftmargin=14pt,
-    xrightmargin=2pt,
+    fontsize=\small,
+    baselinestretch=1.2,
+    numbersep=8pt,
+    xleftmargin=12pt,
+    xrightmargin=12pt,
+    breaklines,
 }
 
-\usemintedstyle{sas}
+\usemintedstyle{vs}
 
-\renewcommand{\theFancyVerbLine}{\textcolor[HTML]{707070}{\small\arabic{FancyVerbLine}}}
+\renewcommand{\theFancyVerbLine}{\textcolor[HTML]{707070}{\footnotesize\arabic{FancyVerbLine}}}
+
+% TODO: TCB Left, right sep to be adjusted
+% TODO: Broken box still has border
+% TODO: Add additional function for execution results
+
+\newenvironment{linenumbox}{}{}
+\tcolorboxenvironment{linenumbox}{
+    enhanced jigsaw,
+    boxrule=0pt,
+    frame empty,
+    before skip=8pt,
+    after skip=12pt,
+    colback=gray!10!white,
+    boxsep=4pt,
+    arc=8pt,
+    breakable,
+}
+
+\newenvironment{nolinenumbox}{}{}
+\tcolorboxenvironment{nolinenumbox}{
+    enhanced jigsaw,
+    boxrule=0pt,
+    frame empty,
+    before skip=8pt,
+    after skip=12pt,
+    colback=gray!10!white,
+    boxsep=4pt,
+    arc=8pt,
+    breakable,
+}
 
 \DeclareFloatingEnvironment[name=Code, within=chapter]{codefloat}
 \newenvironment{code}[2]{
     \vspace{6pt}
     \captionsetup{type=codefloat, font=normalsize}
     \caption{#2}\label{#1}
-    \vspace{-6pt}
-}{}
+    \begin{linenumbox}
+}{
+    \end{linenumbox}
+}
 
 \DeclareFloatingEnvironment[name=Shell, within=chapter]{shellfloat}
 \newenvironment{shell}[2]{
     \vspace{6pt}
     \captionsetup{type=shellfloat, font=normalsize}
     \caption{#2}\label{#1}
-    \vspace{-6pt}
-}{}
+    \begin{nolinenumbox}
+}{
+    \end{nolinenumbox}
+}
 
 \DeclareFloatingEnvironment[name=SQL, within=chapter]{sqlfloat}
 \newenvironment{sql}[2]{
     \vspace{6pt}
     \captionsetup{type=sqlfloat, font=normalsize}
     \caption{#2}\label{#1}
-    \vspace{-6pt}
-}{}
+    \begin{nolinenumbox}
+}{
+    \end{nolinenumbox}
+}
