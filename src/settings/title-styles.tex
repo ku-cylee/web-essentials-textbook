@@ -2,6 +2,12 @@
 \usepackage{titlesec}
 
 \titlespacing
+    {\chapter} % command
+    {0pt} % left
+    {1.5\parskip} % before
+    {-0.5\parskip} % after
+
+\titlespacing
     {\subsection} % command
     {0pt} % left
     {1.5\parskip} % before
@@ -12,3 +18,25 @@
     {0pt} % left
     {-0.5\parskip} % before
     {-1.0\parskip} % after
+
+\titleformat
+    {\chapter}
+    [display]
+    {\bfseries\Huge\sffamily}
+    {\Large{Chapter \thechapter}}
+    {-.5em}
+    {}
+
+\titleformat
+    {\section}
+    {\sffamily\LARGE\bfseries}
+    {\thesection}
+    {1em}
+    {}
+
+\titleformat
+    {\subsection}
+    {\sffamily\large\bfseries}
+    {\thesubsection}
+    {1em}
+    {}
