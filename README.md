@@ -16,3 +16,21 @@ Pygments is required for syntax highlighting of code. With Python3 installed, Py
 ```sh
 pip3 install pygments
 ```
+
+### Fonts
+
+The project uses following fonts:
+
+* Noto Serif KR
+* Helvetica Neue
+* Geist Mono
+* Computer Modern Math
+
+Among these fonts, **Helvetica Neue** is **not included** in the repository because its font files cannot be legally redistributed without proper licensing. To build the project correctly, you must download and place the required Helvetica Neue font files in the appropriate directory:
+
+* Helvetica Neue Roman : `fonts/helvetica-neue/400.otf`
+* Helvetica Neue Italic : `fonts/helvetica-neue/400-it.otf`
+* Helvetica Neue Medium : `fonts/helvetica-neue/500.otf`
+* Helvetica Neue Medium Italic : `fonts/helvetica-neue/500-it.otf`
+
+Note that the font files for Noto Serif KR and Geist Mono are included in the project, as they are licensed under the SIL Open Font License (OFL), which permits redistribution. For licensing details, please refer to [LICENSE.md](./LICENSE.md).
